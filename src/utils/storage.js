@@ -2,7 +2,7 @@ import config from "../config";
 
 export default {
     setItem(key, value) {
-        this.getStorage();
+        let storage = this.getStorage();
         storage[key] = value
         window.localStorage.setItem(config.namespace, JSON.stringify(storage));
     },
