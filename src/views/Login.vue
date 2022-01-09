@@ -27,6 +27,7 @@ export default {
   },
   methods: {
     login() {
+      console.log(this.user);
       this.$refs.userForm.validate((valid) => {
         if (valid) {
           this.$api.login(this.user).then((res) => {
