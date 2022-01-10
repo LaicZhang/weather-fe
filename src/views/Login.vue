@@ -51,19 +51,15 @@ export default {
     <div class="modal">
       <el-form ref="userForm" :model="user" status-icon :rules="rules">
         <div class="title">登录</div>
-        <el-form-item prop="userName">
+        <el-form-item label="账号" prop="userName">
           <el-input
             type="text"
-            label="用户名"
-            prefix-icon="el-icon-user"
             v-model="user.userName"
           />
         </el-form-item>
-        <el-form-item prop="userPwd">
+        <el-form-item label="密码" prop="userPwd">
           <el-input
             type="password"
-            label="密码"
-            prefix-icon="el-icon-view"
             v-model="user.userPwd"
           />
         </el-form-item>
