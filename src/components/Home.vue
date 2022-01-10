@@ -1,21 +1,107 @@
 <script>
+import TreeMenuVue from "./TreeMenu.vue";
+import BreadCrumb from "./BreadCrumb.vue";
 export default{
   name: 'home',
+  data(){
+    return{
+      isCollapse: false,
+      userInfo: this.$store.state.userInfo,
+      noticeCount: 0,
+      userMenu: [],
+      activeMenu: location.hash.slice(1),
+    }
+  },
+  methods:{
+    toggle() {
+      this.isCollapse = !this.isCollapse;
+    },
+    handleLogout(key) {
+      if (key == "email") return;
+      this.$store.commit("saveUserInfo", "");
+      this.userInfo = null;
+      this.$router.push("/login");
+    },
+    async getNoticeCount() {
+      try {
+        const count = await this.$api.noticeCount();
+        this.noticeCount = count;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+    async getMenuList() {
+      try {
+        const list = await this.$api.getMenuList();
+        this.userMenu = list;
+      } catch (error) {
+        console.error(error);
+      }
+    },
+  },
+  mounted(){
+    this.getNoticeCount();
+    this.getMenuList();
+  }
 }
 </script>
 
 <template>
   <div class="basic-layout">
-    <div class="nav-side"></div>
-    <div class="content-right">
+    <div :class="['nav-side', isCollapse ? 'fold' : 'unfold']">
+      <!-- 系统LOGO -->
+      <div class="logo">
+        <img src="./../assets/logo.png" />
+        <span>Manager</span>
+      </div>
+      <!-- 导航菜单 -->
+      <el-menu
+        :default-active="activeMenu"
+        background-color="#001529"
+        text-color="#fff"
+        router
+        :collapse="isCollapse"
+        class="nav-menu"
+      >
+        <tree-menu :userMenu="userMenu" />
+      </el-menu>
+    </div>
+    <div :class="['content-right', isCollapse ? 'fold' : 'unfold']">
       <div class="nav-top">
-        <div class="bread">面包屑</div>
-        <div class="user-info">用户</div>
+        <div class="nav-left">
+          <div class="menu-fold" @click="toggle">
+            <i class="el-icon-s-fold"></i>
+          </div>
+          <div class="bread">
+            <BreadCrumb />
+          </div>
+        </div>
+        <div class="user-info">
+          <el-badge
+            :is-dot="noticeCount > 0 ? true : false"
+            class="notice"
+            type="danger"
+          >
+            <i class="el-icon-bell"></i>
+          </el-badge>
+          <el-dropdown @command="handleLogout">
+            <span class="user-link">
+              {{ userInfo.userName }}
+              <i class="el-icon--right"></i>
+            </span>
+            <template #dropdown>
+              <el-dropdown-menu>
+                <el-dropdown-item command="email"
+                  >邮箱：{{ userInfo.userEmail }}</el-dropdown-item
+                >
+                <el-dropdown-item command="logout">退出</el-dropdown-item>
+              </el-dropdown-menu>
+            </template>
+          </el-dropdown>
+        </div>
       </div>
       <div class="wrapper">
-        <div class="main-page">
-          <router-view></router-view>
-        </div>
+        <router-view></router-view>
       </div>
     </div>
   </div>
