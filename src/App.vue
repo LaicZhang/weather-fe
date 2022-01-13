@@ -1,6 +1,7 @@
 <script>
 export default {
-  name: 'app'
+  name: 'app',
+  components: {},
 }
 </script>
 
@@ -9,6 +10,7 @@ export default {
 </template>
 
 <style lang="scss">
-@import './assets/style/reset.css';
-@import './assets/style/index.scss';
+@import "@/assets/scss/reset.scss";
+@import "@/assets/scss/base.scss";
+@import "@/assets/scss/comm.scss";
 </style>
