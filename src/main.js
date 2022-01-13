@@ -15,12 +15,13 @@ const app = createApp(App)
 app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
 // app.config.globalProperties.$api = api
-app.config.globalProperties.$store = store
+// app.config.globalProperties.$store = store
 
 app.directive('has',hasAction)
 
 app.use(ElementPlus, { size: "small", locale: zhCn, });
 app.use(router)
+app.use(store)
 
 console.log('env', import.meta.env)
 

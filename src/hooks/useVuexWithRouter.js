@@ -7,4 +7,4 @@ export default function (){
   router: useRouter(),
   store: useStore(),
  }
-};
+}
