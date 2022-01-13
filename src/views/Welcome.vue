@@ -44,7 +44,7 @@ export default defineComponent({
       font-size: 38px;
     }
     .title-two {
-      font-size: 50px;
+      font-size: 30px;
       color: $color-active;
       padding: 20px 0;
     }
