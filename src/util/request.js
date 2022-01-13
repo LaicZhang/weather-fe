@@ -19,7 +19,7 @@ service.interceptors.request.use((req) => {
   const headers = req.headers;
   const userInfo = storage.getItem("userInfo");
   if (!headers.Authorization) {
-    headers.Authorization = "Bearer " + userInfo.token;
+    headers.Authorization = "weather " + userInfo.token;
   }
   return req;
 });
@@ -39,26 +39,26 @@ service.interceptors.response.use((res) => {
     return Promise.reject(message);
   }
 });
-// 核心
-function request(options) {
-  // get   => params
-  // other => data
-  options.method = options.method || "get";
-  if (options.method.trim().toLowerCase() === "get") {
-    options.params = options.data;
+/**
+ * 请求核心函数
+ * @param {*} options 请求配置
+ */
+ function request(options) {
+  options.method = options.method || 'get'
+  if (options.method.toLowerCase() === 'get') {
+      options.params = options.data;
   }
-  //
   let isMock = config.mock;
-  if (typeof options.mock != "undefined") {
-    isMock = options.mock;
+  if (typeof options.mock != 'undefined') {
+      isMock = options.mock;
   }
-  // 再次判断当前环境变量
-  if (config.env === "production") {
-    service.defaults.baseURL = config.baseURL;
+  if (config.env === 'production') {
+      service.defaults.baseURL = config.baseApi
   } else {
-    service.defaults.baseURL = isMock ? config.mockURL : config.baseURL;
+      service.defaults.baseURL = isMock ? config.mockApi : config.baseApi
   }
-  return service(options);
+
+  return service(options)
 }
 // 支持 request.get ...
 ["get", "post", "put", "delete", "patch"].forEach((method) => {
