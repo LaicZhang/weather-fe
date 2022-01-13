@@ -1,72 +1,74 @@
 import axios from "axios";
 import config from "../config";
 import router from "../router";
+import storage from "../util/storage";
 import { ElMessage } from "element-plus";
 
-const TOKEN_INVALID = "token认证失败，请重新登录";
-const NETWORK_ERROR = "网络错误，请稍后再试";
+const TOKEN_INVALID = "Token认证失败，请重新登录";
+const NETWORK_ERROR = "网络请求异常，请稍后重试";
 
-// 创建axios实例，并配置默认请求头
+const baseURL = config.baseURL;
+
 const service = axios.create({
-    baseURL: config.baseApi,
-    timeout: 5000,
-})
+  baseURL,
+  timeout: 3000,
+});
 
 // 请求拦截
-service.interceptors.request.use(
-    (req) => {
-        // TO-DO
-        const headers = req.headers;
-        if(!headers.Authorization) {
-            headers.Authorization='';
-        }
-        return req;
-    }
-)
-
-// 响应拦截
-service.interceptors.response.use(
-    (res) => {
-        // TO-DO
-        const { code, data, msg} = res.data;
-        if(code == '200'){
-            return data;
-        }else if(code == '50001'){
-            ElMessage.error(TOKEN_INVALID);
-            setTimeout(() => {
-            router.push('/login');
-            }, 5000);
-            return Promise.reject(TOKEN_INVALID);
-        }else{
-            ElMessage.error(msg || NETWORK_ERROR);
-            return Promise.reject(msg);
-        }
-    }
-)
-
-function request(options){
-    options.method = options.method || 'post';
-    if(options.method.toLowerCase() === 'get' || options.method.toLowerCase() === 'post'){
-        options.params = options.data;
-    }
-    if(typeof options.mock !== 'undefined'){
-        config.mock = options.mock;
-    }
-    if(config.env === "production"){
-        service.defaults.baseURL = config.baseApi;
-    }else{
-        service.defaults.baseURL = config.mock? config.mockApi: config.baseApi;
-    }
-    return service(options)
+service.interceptors.request.use((req) => {
+  const headers = req.headers;
+  const userInfo = storage.getItem("userInfo");
+  if (!headers.Authorization) {
+    headers.Authorization = "Bearer " + userInfo.token;
+  }
+  return req;
+});
+service.interceptors.response.use((res) => {
+  const { code, data, msg } = res.data;
+  if (code === 200) {
+    return data;
+  } else if (code === 500001) {
+    ElMessage.error({ message: TOKEN_INVALID });
+    setTimeout(() => {
+      router.push({ name: "login" });
+    }, 1500);
+    return Promise.reject(TOKEN_INVALID);
+  } else {
+    const message = msg || NETWORK_ERROR;
+    ElMessage.error({ message });
+    return Promise.reject(message);
+  }
+});
+// 核心
+function request(options) {
+  // get   => params
+  // other => data
+  options.method = options.method || "get";
+  if (options.method.trim().toLowerCase() === "get") {
+    options.params = options.data;
+  }
+  //
+  let isMock = config.mock;
+  if (typeof options.mock != "undefined") {
+    isMock = options.mock;
+  }
+  // 再次判断当前环境变量
+  if (config.env === "production") {
+    service.defaults.baseURL = config.baseURL;
+  } else {
+    service.defaults.baseURL = isMock ? config.mockURL : config.baseURL;
+  }
+  return service(options);
 }
-
-['get', 'post', 'put', 'delete'].forEach(method => {
-    request[method] = (url, data, options) => request({
-        url,
-        method,
-        data,
-        ...options
-    })
-})
-
+// 支持 request.get ...
+["get", "post", "put", "delete", "patch"].forEach((method) => {
+  request[method] = (url, data, options) => {
+    return request({
+      url,
+      data,
+      method,
+      ...options,
+    });
+  };
+});
 export default request;

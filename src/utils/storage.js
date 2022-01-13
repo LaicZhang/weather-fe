@@ -1,23 +1,28 @@
 import config from "../config";
+const namespace = config.namespace;
 
 export default {
-    setItem(key, value) {
-        let storage = this.getStorage();
-        storage[key] = value
-        window.localStorage.setItem(config.namespace, JSON.stringify(storage));
-    },
-    getStorage(){
-        return JSON.parse(window.localStorage.getItem(config.namespace)|| '{}');
-    },
-    getItem(key){
-        return this.getStorage()[key]
-    },
-    clearItem(key){
-        let storage = this.getStorage();
-        delete storage[key]
-        window.localStorage.setItem(config.namespace, JSON.stringify(storage));
-    },
-    clearAll(){
-        window.localStorage.clear();
-    }
+  setItem(key, val) {
+    const storage = getStorage();
+    storage[key] = val;
+    setStorage(storage);
+  },
+  getItem(key) {
+    const storage = getStorage();
+    return storage[key] || {};
+  },
+  clearItem(key) {
+    const storage = getStorage();
+    Reflect.deleteProperty(storage, key);
+    setStorage(storage);
+  },
+  clearAll() {
+    window.localStorage.clear();
+  },
+};
+function getStorage() {
+  return JSON.parse(window.localStorage.getItem(namespace)) || {};
+}
+function setStorage(obj) {
+  window.localStorage.setItem(namespace, JSON.stringify(obj));
 }
