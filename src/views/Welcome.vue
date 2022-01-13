@@ -7,7 +7,7 @@
         by vue3+ElementPlus+Node+mongo
       </div>
     </div>
-    <img class="welcome-img" :src="welcomePic" />
+    <img class="welcome-img" src="../assets/images/welcome.png" />
   </div>
 </template>
 
@@ -23,7 +23,7 @@ export default defineComponent({
     const toPageLogin = () => {
       router.push({ name: "login" });
     };
-    return { toPageLogin, welcomePic };
+    return { toPageLogin };
   },
 });
 </script>
