@@ -1,11 +1,19 @@
-/**
- * Mutations业务层数据提交
- */
-import storage from './../utils/storage'
+import storage from "@/util/storage";
 
 export default {
-    saveUserInfo(state,userInfo){
-        state.userInfo = userInfo;
-        storage.setItem('userInfo',userInfo)
-    }
-}
+  setUserInfo(state, userInfo) {
+    state.userInfo = userInfo;
+    storage.setItem("userInfo", userInfo);
+  },
+  setMenuList(state,list){
+    state.menuList = list
+    storage.setItem("menuList", list);
+  },
+  setActionList(state,list){
+    state.actionList = list
+    storage.setItem("actionList", list);
+  },
+  setLeaveCount(state,count){
+    state.leaveCount = count
+  }
+};
