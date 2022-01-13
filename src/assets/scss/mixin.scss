@@ -1,0 +1,44 @@
+@mixin bg-image($url) {
+  background-image: url($url + '.png');
+  @media (-webkit-min-device-pixel-ratio: 2),
+  (-webkit-min-device-pixel-ratio: 2) {
+    background-image: url($url + '@2x.png');
+  }
+  @media (-webkit-min-device-pixel-ratio: 3),
+    (-webkit-min-device-pixel-ratio: 3) {
+    background-image: url($url + '@3x.png');
+  }
+}
+@mixin center-translate($direction: both) {
+  position: absolute;
+  @if $direction == both {
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+  } @else if $direction == h {
+    left: 50%;
+    transform: translate3d(-50%, 0, 0);
+  } @else if $direction == v {
+    top: 50%;
+    transform: translate3d(0, -50%, 0);
+  }
+}
+@mixin box-center($justify: center, $align: center) {
+  display: flex;
+
+  @if ($align !=false) {
+    align-items: $align;
+  }
+  @if ($justify !=false) {
+    justify-content: $justify;
+  }
+}
+@mixin clamp($lines: 1) {
+  overflow: hidden;
+  display: -webkit-box;
+  display: box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+}
