@@ -1,53 +1,58 @@
 <template>
-  <div class="welcome">
-    <div class="content">
-      <div class="sub-title">欢迎体验</div>
-      <div class="title">天气大数据可视化后台管理系统</div>
-      <div class="desc">
-        by Vue3.0+ElementPlus+Node+Mongo
+  <div class="welcome-page">
+    <div class="word">
+      <div class="title-one">欢迎体验</div>
+      <div class="title-two">天气大数据可视化后台管理系统</div>
+      <div class="title-three">
+        by vue3+ElementPlus+Node+mongo
       </div>
     </div>
-    <div class="img"></div>
+    <img class="welcome-img" :src="welcomePic" />
   </div>
 </template>
 
 <script>
-export default {
-  name: "welcome",
-};
+import { defineComponent } from "vue";
+import { useRouter } from "vue-router";
+import welcomePic from '@/assets/imgs/welcome.png'
+export default defineComponent({
+  name: "Welcome",
+  components: {},
+  setup() {
+    const router = useRouter();
+    const toPageLogin = () => {
+      router.push({ name: "login" });
+    };
+    return { toPageLogin, welcomePic };
+  },
+});
 </script>
-
-<style lang="scss">
-.welcome {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  background-color: #fff;
-  .content {
-    position: relative;
-    bottom: 40px;
-    .sub-title {
-      font-size: 30px;
-      line-height: 42px;
-      color: #333;
-    }
-    .title {
-      font-size: 40px;
-      line-height: 62px;
-      color: #409eff;
-    }
-    .desc {
-      text-align: right;
-      font-size: 14px;
-      color: #999;
-    }
+<style lang="scss" scoped>
+.welcome-page {
+  background: white;
+  position: relative;
+  height: 100vh;
+  .welcome-img{
+    @extend .center-v;
+    right: 20%;
   }
-  .img {
-    margin-left: 105px;
-    background-image: url("./../assets/images/welcome.png");
-    width: 371px;
-    height: 438px;
+  .word {
+    @extend .center-v;
+    left: 10%;
+    transform: translateY(-120px);
+    .title-one {
+      font-size: 38px;
+    }
+    .title-two {
+      font-size: 50px;
+      color: $color-active;
+      padding: 20px 0;
+    }
+    .title-three {
+      font-size: 16px;
+      color: $color-sub;
+    }
   }
 }
 </style>
+
