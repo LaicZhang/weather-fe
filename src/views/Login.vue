@@ -8,13 +8,12 @@
       :rules="userRules"
       status-icon
     >
-      <div class="login-title">后台系统</div>
+      <div class="login-title">登陆</div>
       <el-form-item prop="userName">
         <el-input
           v-model="userForm.userName"
           type="text"
           placeholder="请输入账号"
-          prefix-icon="el-icon-user"
         ></el-input>
       </el-form-item>
       <el-form-item prop="userPwd">
@@ -22,7 +21,6 @@
           v-model="userForm.userPwd"
           type="text"
           placeholder="请输入密码"
-          prefix-icon="el-icon-lock"
         ></el-input>
       </el-form-item>
       <el-form-item>
@@ -43,7 +41,9 @@ export default defineComponent({
   components: {},
   setup() {
     const { router, store } = useVuexWithRouter();
+    console.log('store=>',store);
     const toPageHome = () => {
+      console.log("toPageHome");
       router.push("/");
     };
     const userFormRef = ref(null);
