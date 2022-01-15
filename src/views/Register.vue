@@ -1,113 +1,133 @@
+
+<template>
+  <div class="register-page">
+    <el-form
+      class="register-form"
+      ref="userFormRef"
+      :model="userForm"
+      :rules="userRules"
+      status-icon
+    >
+      <div class="register-title">注册</div>
+      <el-form-item prop="userName">
+        <el-input
+          v-model="userForm.userName"
+          type="text"
+          placeholder="请输入账号"
+          prefix-icon="el-icon-user"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="userEmail">
+        <el-input
+          v-model="userForm.userName"
+          type="text"
+          placeholder="请输入账号"
+          prefix-icon="el-icon-user"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userPwd"
+          type="text"
+          placeholder="请输入密码"
+          prefix-icon="el-icon-lock"
+        ></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-button @click="userFromCommit" type="primary" class="register-submit"
+          >注册</el-button
+        >
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
+
 <script>
-export default {
-  name: "register",
-  data() {
-    return {
-      user: {
-        userName: "",
-        userPwd: "",
-        userEmail: "",
-      },
-      rules: {
-        userName: [
-          {
-            required: true,
-            message: "请输入用户名",
-            trigger: "blur",
-          },
-        ],
-        userEmail: [
-          {
-            required: true,
-            message: "请输入邮箱",
-            trigger: "blur",
-          },
-        ],
-        userPwd: [
-          {
-            required: true,
-            message: "请输入密码",
-            trigger: "blur",
-          },
-        ],
-      },
+import { defineComponent, onMounted, reactive, ref } from "vue";
+import useVuexWithRouter from "@/hooks/useVuexWithRouter";
+import { registerApi, menuPermissionApi } from "@/api";
+export default defineComponent({
+  name: "Register",
+  components: {},
+  setup() {
+    const { router, store } = useVuexWithRouter();
+    const toPageHome = () => {
+      router.push("/");
     };
-  },
-  methods: {
-    login() {
-      console.log(this.user);
-      this.$refs.userForm.validate((valid) => {
+    const userFormRef = ref(null);
+    const userForm = reactive({
+      userName: "",
+      userPwd: "",
+    });
+    const userRules = {
+      userName: [
+        {
+          required: true,
+          message: "必须填写用户名",
+          trigger: "blur",
+        },
+      ],
+      userEmail: [
+        {
+          required: true,
+          message: "必须填写邮箱",
+          trigger: "blur",
+        },
+      ],
+      userPwd: [
+        {
+          required: true,
+          message: "必须填写密码",
+          trigger: "blur",
+        },
+      ],
+    };
+    const userFromCommit = () => {
+      userFormRef.value.validate(async (valid) => {
         if (valid) {
-          this.$api.login(this.user).then((res) => {
-            this.$store.commit("saveUserInfo", res);
-            this.$router.push("/welcome");
-          });
+          const registerInfo = await registerApi(userForm);
+          store.commit("setUserInfo", registerInfo);
+          await getMenuPermission();
+          toPageHome();
         } else {
           return false;
         }
       });
-    },
-    goHome() {
-      this.$router.push("/welcome");
-    },
+    };
+    const getMenuPermission = async () => {
+      const { menuList, actionList } = await menuPermissionApi();
+      store.commit("setActionList", actionList);
+      store.commit("setMenuList", menuList);
+    };
+    return {
+      toPageHome,
+      userFormRef,
+      userForm,
+      userRules,
+      userFromCommit,
+    };
   },
-};
+});
 </script>
 
-<template>
-  <div class="login-wrapper">
-    <div class="modal">
-      <el-form ref="userForm" :model="user" status-icon :rules="rules">
-        <div class="title">登录</div>
-        <el-form-item label="账号" prop="userName">
-          <el-input
-            type="text"
-            v-model="user.userName"
-          />
-        </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
-          <el-input
-            type="password"
-            v-model="user.userEmail"
-          />
-        </el-form-item>
-        <el-form-item label="密码" prop="userPwd">
-          <el-input
-            type="password"
-            v-model="user.userPwd"
-          />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="btn-login" @click="login"
-            >登录</el-button
-          >
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
-</template>
-
-<style lang="scss" scoped>
-.login-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #f9fcff;
+<style lang="scss"  scoped >
+.register-page {
   width: 100vw;
   height: 100vh;
-  .modal {
-    width: 500px;
-    padding: 50px;
-    background-color: #fff;
-    border-radius: 4px;
-    box-shadow: 0px 0px 10px 3px #c7c9cb4d;
-    .title {
-      font-size: 50px;
-      line-height: 1.5;
+  .register-form {
+    padding: 30px;
+    width: 400px;
+    height: 300px;
+    box-shadow: $shadow-light;
+    border-radius: 10px;
+    @extend .center-all;
+    text-align: center;
+    .register-title {
+      height: 60px;
+      font-size: $font-size-large;
       text-align: center;
-      margin-bottom: 30px;
     }
-    .btn-login {
+    .register-submit {
       width: 100%;
     }
   }
