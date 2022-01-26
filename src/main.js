@@ -9,6 +9,7 @@ import store from "./store";
 import request from "./util/request";
 import storage from "./util/storage";
 import hasAction from './directive/has-action'
+// import * as echarts from 'echarts'
 
 
 const app = createApp(App)
@@ -22,6 +23,7 @@ app.directive('has',hasAction)
 app.use(ElementPlus, { size: "small", locale: zhCn, });
 app.use(router)
 app.use(store)
+// app.use(echarts)
 
 console.log('env', import.meta.env)
 
