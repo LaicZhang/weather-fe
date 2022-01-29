@@ -19,7 +19,7 @@
       <el-form-item prop="userPwd">
         <el-input
           v-model="userForm.userPwd"
-          type="text"
+          type="password"
           placeholder="请输入密码"
         ></el-input>
       </el-form-item>
