@@ -1,6 +1,11 @@
 <script>
+import * as echarts from 'echarts'
+import { provide } from 'vue'
 export default {
   name: 'app',
+  setup(){
+    provide('echarts',echarts)               //provide
+  },
   components: {},
 }
 </script>
