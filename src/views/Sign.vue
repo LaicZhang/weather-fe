@@ -3,13 +3,13 @@
         <div class="form-container sign-up-container">
             <form action="#">
                 <h1>注 册</h1>
-                <!-- <div class="social-container">
+                <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-qq"></i></a>
                     <a href="#" class="social"><i class="fab fa-weixin"></i></a>
                     <a href="#" class="social"><i class="fab fa-weibo"></i></a>
 					<a href="#" class="social"><i class="fab fa-github"></i></a>
-                </div> -->
-                <!-- <span>选择以上方式注册您的账号</span> -->
+                </div>
+                <span>选择以上方式注册您的账号</span>
 				<input type="text" placeholder="手机号" />
                 <input type="text" placeholder="用户名" />
                 <input type="email" placeholder="邮箱" />
@@ -20,13 +20,13 @@
         <div class="form-container sign-in-container">
             <form action="#">
                 <h1>登 录</h1>
-                <!-- <div class="social-container">
+                <div class="social-container">
                     <a href="#" class="social"><i class="fab fa-qq"></i></a>
                     <a href="#" class="social"><i class="fab fa-weixin"></i></a>
                     <a href="#" class="social"><i class="fab fa-weibo"></i></a>
 					<a href="#" class="social"><i class="fab fa-github"></i></a>
                 </div>
-                <span>选择以上方式登录或使用您的账号</span> -->
+                <span>选择以上方式登录或使用您的账号</span>
                 <input type="email" placeholder="邮箱" />
                 <input type="password" placeholder="密码" />
                 <a href="#">忘记密码？</a>
@@ -52,6 +52,14 @@
 
 <script>
 export default {
+    name: "Sign",
+    components: {},
+    methods: {
+        toPageHome() {
+            console.log("toPageHome");
+            router.push("/");
+        },
+    },
     mounted(){
         const signUpButton = document.getElementById('signUp');
         const signInButton = document.getElementById('signIn');
