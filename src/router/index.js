@@ -8,6 +8,8 @@ import Dept from "@/views/Dept";
 import Leave from "@/views/Leave";
 import Approve from "@/views/Approve";
 import Login from "@/views/Login";
+import Register from "@/views/Register";
+import Sign from "@/views/Sign";
 import { menuPermissionApi } from "../api";
 import storage from "../util/storage";
 /**
@@ -72,6 +74,18 @@ const routes = [
     component: Login,
   },
   {
+    name: "register",
+    path: "/register",
+    meta: { title: "注册页" },
+    component: Register,
+  },
+  {
+    name: "sign",
+    path: "/sign",
+    meta: { title: "登陆注册页" },
+    component: Sign,
+  },
+  {
     name: "404",
     path: "/:pathMatch(.*)",
     meta: { title: "未找到该页面" },
@@ -86,13 +100,13 @@ const router = createRouter({
 // 加载动态路由
 // await loadAsyncRoutes();
 router.beforeEach(async (to, from, next) => {
-  const valid = tokenValidate()
-  if (to.path === "/login" || valid) {
-    next();
-    await loadAsyncRoutes();
-  } else {
-    next({ name: "login" });
-  }
+  // const valid = tokenValidate()
+  // if (to.path === "/login" || valid) {
+  //   next();
+  //   // await loadAsyncRoutes();
+  // } else {
+  //   next({ name: "login" });
+  // }
   document.title = to.meta.title;
   next();
 });
@@ -105,6 +119,7 @@ export async function loadAsyncRoutes() {
     result.forEach((route) => {
       const path = `./../views/${route.component}.vue`;
       const modules = import.meta.globalEager(`./../views/*.vue`);
+      console.log('modules=>', modules);
       router.addRoute("home", { 
         ...route, 
         component: modules[path].default
