@@ -1,6 +1,6 @@
 <template>
   <div class="page-404">
-    <img src="@/assets/imgs/404.jpeg">
+    <img alt="404.jpeg" src="@/assets/images/404.jpeg">
     <el-button class="btn-404" size="medium" @click="$router.push('/')">返回首页</el-button>
   </div>
 </template>
