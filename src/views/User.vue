@@ -175,6 +175,7 @@ import {
   deptListApi,
   addUserApi,
   editUserApi,
+  userAllListApi
 } from "../api";
 import util from "../util/utils";
 export default defineComponent({
@@ -260,6 +261,13 @@ export default defineComponent({
       pager.pageNum = page.pageNum;
       pager.total = page.total;
       userList.value = list;
+    };
+    const getAllUsersList = async () => {
+      const { list,page } = await userAllListApi({});
+      pager.pageNum = page.pageNum;
+      pager.total = page.total;
+      userList.value = list;
+      console.log(userList.value)
     };
     const deleteUser = async () => {
       if (userSelects.value.length > 0) {
@@ -353,16 +361,17 @@ export default defineComponent({
             }
             resetFields("addFromRef");
           } catch (error) {}
-          getUserList();
+          // getUserList();
+          getAllUsersList();
           addDialog.value = false;
         }
       });
     };
     // 生命周期
     onMounted(() => {
-      getUserList();
       getRoleList();
       getDeptList();
+      getAllUsersList();
     });
     //
     return {
