@@ -8,12 +8,13 @@
         <el-form-item label="用户名" prop="userName">
           <el-input v-model="userFrom.userName" />
         </el-form-item>
-        <el-form-item label="用户状态" prop="state">
+        <el-form-item label="邮箱" prop="userEmail">
+          <el-input v-model="userFrom.userEmail" />
+        </el-form-item>
+        <el-form-item label="状态" prop="state">
           <el-select :model-value="1" v-model="userFrom.state">
-            <el-option label="所有" :value="0" />
-            <el-option label="在职" :value="1" />
-            <el-option label="离职" :value="2" />
-            <el-option label="试用期" :value="3" />
+            <el-option label="已注销" :value="0" />
+            <el-option label="正常" :value="1" />
           </el-select>
         </el-form-item>
         <el-form-item>
@@ -41,6 +42,7 @@
           :label="column.label"
           :width="column.width"
           :formatter="column.formatter"
+          show-overflow-tooltip
         />
         <el-table-column label="Operations">
           <template #default="scope">
@@ -99,7 +101,7 @@
             :disabled="isEdit"
             v-model="addUserFrom.userEmail"
           >
-            <template #append>@yq.com</template>
+            <template #append>@qq.com</template>
           </el-input>
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
@@ -108,44 +110,11 @@
             v-model="addUserFrom.mobile"
           ></el-input>
         </el-form-item>
-        <el-form-item label="岗位" prop="job">
-          <el-input
-            placeholder="请输入用户岗位"
-            v-model="addUserFrom.job"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="状态" prop="state">
+        <el-form-item label="性别" prop="sex">
           <el-select v-model="addUserFrom.state">
-            <el-option label="在职" :value="1"></el-option>
-            <el-option label="离职" :value="2"></el-option>
-            <el-option label="试用期" :value="3"></el-option>
+            <el-option label="女" :value="0"></el-option>
+            <el-option label="男" :value="1"></el-option>
           </el-select>
-        </el-form-item>
-        <el-form-item label="系统角色" prop="roleList">
-          <el-select
-            v-model="addUserFrom.roleList"
-            multiple
-            class="w-100"
-            placeholder="请选择部门角色"
-          >
-            <el-option
-              v-for="role in roleList"
-              :label="role.roleName"
-              :value="role._id"
-              :key="role._id"
-            ></el-option>
-          </el-select>
-        </el-form-item>
-        <el-form-item label="所属部门" prop="deptId">
-          <el-cascader
-            v-model="addUserFrom.deptId"
-            placeholder="请选择所属部门"
-            :options="deptList"
-            :props="{ checkStrictly: true, label: 'deptName', value: '_id' }"
-            clearable
-            show-all-levels
-            class="w-100"
-          />
         </el-form-item>
       </el-form>
       <template #footer>
@@ -158,7 +127,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {
   defineComponent,
   onMounted,
@@ -198,24 +167,24 @@ export default defineComponent({
       { prop: "userId", label: "用户ID" },
       { prop: "userName", label: "用户名" },
       { prop: "userEmail", label: "邮箱" },
+      { prop: "mobile", label: "手机号" },
       {
         prop: "role",
         label: "角色",
         formatter(row, column, cellValue) {
-          return { 0: "系统管理员", 1: "普通用户" }[cellValue];
+          return { 0: "管理员", 1: "普通用户" }[cellValue];
         },
       },
       {
         prop: "state",
         label: "状态",
         formatter(row, column, cellValue) {
-          return { 0: "所有", 1: "在职", 2: "离职", 3: "试用" }[cellValue];
+          return { 0: "已注销", 1: "正常"}[cellValue];
         },
       },
       {
         prop: "createTime",
         label: "注册时间",
-        width: 220,
         formatter(row, column, cellValue) {
           return util.formateDate(new Date(cellValue));
         },
@@ -223,7 +192,6 @@ export default defineComponent({
       {
         prop: "lastLoginTime",
         label: "最后登录",
-        width: 220,
         formatter(row, column, cellValue) {
           return util.formateDate(new Date(cellValue));
         },
@@ -234,7 +202,7 @@ export default defineComponent({
     const userSelects = ref([]);
     const addDialog = ref(false);
     const deleteDialog = ref(false);
-    const addUserFrom = reactive({ state: 3 });
+    const addUserFrom = reactive({});
     const roleList = ref([]);
     const deptList = ref([]);
     const addUserFromRules = {
@@ -284,7 +252,13 @@ export default defineComponent({
     };
     const addUser = async () => {
       const userFormRaw = toRaw(addUserFrom);
-      userFormRaw.userEmail += "@yq.com";
+      let str=userFormRaw.userEmail;
+      let len = str.length;
+      if(str.substr(len-7,len)=="@qq.com"){
+        userFormRaw.userEmail = str;
+      }else{
+        userFormRaw.userEmail = str+"@qq.com";
+      }
       return addUserApi(userFormRaw);
     };
     const editUser = async () => {
