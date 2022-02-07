@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-const path = require('path')
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -27,7 +26,6 @@ export default defineConfig({
         target:"http://localhost:3000",
         changeOrigin: true,
         secure: true,
-        // rewrite: (path) => path.replace(/^\/api/, '')
       }
     }
   },
