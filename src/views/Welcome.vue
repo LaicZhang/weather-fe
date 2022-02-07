@@ -7,14 +7,14 @@
         by vue3+ElementPlus+Node+mongo
       </div>
     </div>
-    <img class="welcome-img" src="../assets/images/welcome.png" />
+    <img class="welcome-img" alt="welcome" src="../assets/images/welcome.png" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import welcomePic from '@/assets/images/welcome.png'
+import welcomePic from '@/assets/images/welcome.png';
 export default defineComponent({
   name: "Welcome",
   components: {},
