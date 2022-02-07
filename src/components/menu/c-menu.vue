@@ -9,9 +9,12 @@
     router
     ref="menuRef"
   >
-    <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']">
+    <div class="menu-logo"
+       :class="[calcLogoClass ? 'fold' : '']"
+        @click="toIndexPage"
+     >
       <div class="menu-logo-img"></div>
-      <div class="menu-logo-title">manager</div>
+      <div class="menu-logo-title">Manager</div>
     </div>
     <c-tree-menu :menus="menus"></c-tree-menu>
   </el-menu>
@@ -55,6 +58,9 @@ export default defineComponent({
       this.isCollapse = !this.isCollapse;
       return this.isCollapse;
     },
+    toIndexPage() {
+      this.$router.push("/");
+    },
   },
 });
 </script>
@@ -69,6 +75,7 @@ export default defineComponent({
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
     &.fold {
       .menu-logo-title {
         display: none;

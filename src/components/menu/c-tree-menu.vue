@@ -2,6 +2,7 @@
   <template v-for="(menu, index) in menus">
     <el-sub-menu
       :index="menu.path"
+      :key="index"
       v-if="
         menu.children &&
         menu.children.length > 0 &&
@@ -14,7 +15,10 @@
       </template>
       <c-tree-menu :menus="menu.children"></c-tree-menu>
     </el-sub-menu>
-    <el-menu-item v-else-if="menu.menuType !== '2'" :index="menu.path" >{{
+    <el-menu-item 
+      :key="-index" 
+      v-else-if="menu.menuType !== '2'" 
+      :index="menu.path" >{{
       menu.menuName
     }}</el-menu-item>
   </template>
