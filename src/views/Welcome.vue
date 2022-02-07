@@ -14,7 +14,7 @@
 <script>
 import { defineComponent } from "vue";
 import { useRouter } from "vue-router";
-import welcomePic from '@/assets/imgs/welcome.png'
+import welcomePic from '@/assets/images/welcome.png'
 export default defineComponent({
   name: "Welcome",
   components: {},
