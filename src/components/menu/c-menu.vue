@@ -17,7 +17,7 @@
   </el-menu>
 </template>
 
-<script lang="ts">
+<script  >
 import { defineComponent, onMounted } from "vue";
 import CTreeMenu from "./c-tree-menu.vue";
 

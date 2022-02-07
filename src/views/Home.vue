@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script  >
 import { defineComponent } from "vue";
 import CMenu from "../components/menu/c-menu.vue";
 import { leaveCountApi, menuPermissionApi } from "../api";

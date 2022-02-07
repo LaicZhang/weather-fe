@@ -150,7 +150,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script  >
 import { defineComponent, nextTick } from "vue";
 import { menuListApi, menuOperateApi } from "../api";
 export default defineComponent({
