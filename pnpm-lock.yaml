@@ -5,23 +5,32 @@ specifiers:
   '@vue/compiler-sfc': ^3.0.5
   autoprefixer: ^10.4.2
   axios: ^0.25.0
+  echarts: ^5.3.0
   element-plus: ^2.0.1
+  pinia: ^2.0.11
   postcss: ^8.4.6
   postcss-html: ^1.3.0
   postcss-import: 14.0.0
   postcss-scss: ^4.0.3
   sass: ^1.47.0
+  typescript: ^4.5.5
   vite: ^2.7.2
   vue: ^3.2.25
+  vue-i18n: '8'
   vue-router: ^4.0.4
+  vue3-lazyload: ^0.2.5-beta
   vuex: ^4.0.0
 
 dependencies:
   axios: 0.25.0
+  echarts: 5.3.0
   element-plus: 2.0.2_vue@3.2.31
+  pinia: 2.0.11_typescript@4.5.5+vue@3.2.31
   vite: 2.8.3_sass@1.49.7
   vue: 3.2.31
+  vue-i18n: 8.27.0
   vue-router: 4.0.12_vue@3.2.31
+  vue3-lazyload: 0.2.5-beta_4f726de02e89ff745196f225ebb1bbcf
   vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
@@ -33,6 +42,7 @@ devDependencies:
   postcss-import: 14.0.0_postcss@8.4.6
   postcss-scss: 4.0.3_postcss@8.4.6
   sass: 1.49.7
+  typescript: 4.5.5
 
 packages:
 
@@ -294,6 +304,13 @@ packages:
       domelementtype: 2.2.0
       domhandler: 4.3.0
     dev: true
+
+  /echarts/5.3.0:
+    resolution: {integrity: sha512-zENufmwFE6WjM+24tW3xQq4ICqQtI0CGj4bDVDNd3BK3LtaA/5wBp+64ykIyKy3QElz0cieKqSYP4FX9Lv9MwQ==}
+    dependencies:
+      tslib: 2.3.0
+      zrender: 5.3.0
+    dev: false
 
   /electron-to-chromium/1.4.71:
     resolution: {integrity: sha512-Hk61vXXKRb2cd3znPE9F+2pLWdIOmP7GjiTj45y6L3W/lO+hSnUSUhq+6lEaERWBdZOHbk2s3YV5c9xVl3boVw==}
@@ -689,6 +706,24 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
+  /pinia/2.0.11_typescript@4.5.5+vue@3.2.31:
+    resolution: {integrity: sha512-JzcmnMqu28PNWOjDgEDK6fTrIzX8eQZKPPKvu/fpHdpXARUj1xeVdFi3YFIMOWswqaBd589cpmAMdSSTryI9iw==}
+    peerDependencies:
+      '@vue/composition-api': ^1.4.0
+      typescript: '>=4.4.4'
+      vue: ^2.6.14 || ^3.2.0
+    peerDependenciesMeta:
+      '@vue/composition-api':
+        optional: true
+      typescript:
+        optional: true
+    dependencies:
+      '@vue/devtools-api': 6.0.12
+      typescript: 4.5.5
+      vue: 3.2.31
+      vue-demi: 0.12.1_vue@3.2.31
+    dev: false
+
   /postcss-html/1.3.0:
     resolution: {integrity: sha512-ewbwd7OGW4dLsErtvZH9HpVMEcXnlhYSzKsr7MepGlOT8imHTIZ/+pdfEruLS+hTYapLTQAWDnoQcJpsYU4uRw==}
     engines: {node: ^12 || >=14}
@@ -801,6 +836,16 @@ packages:
       is-number: 7.0.0
     dev: true
 
+  /tslib/2.3.0:
+    resolution: {integrity: sha512-N82ooyxVNm6h1riLCoyS9e3fuJ3AMG2zIZs2Gd1ATcSFjSA23Q0fzjjZeh0jbJvWVDZ0cJT8yaNNaaXHzueNjg==}
+    dev: false
+
+  /typescript/4.5.5:
+    resolution: {integrity: sha512-TCTIul70LyWe6IJWT8QSYeA54WQe8EjQFU4wY52Fasj5UKx88LNYKCgBEHcOMOrFF1rKGbD8v/xcNWVUq9SymA==}
+    engines: {node: '>=4.2.0'}
+    hasBin: true
+    dev: true
+
   /vite/2.8.3_sass@1.49.7:
     resolution: {integrity: sha512-967klrEiG7HEsN7fQYYVETs5495Iu6GpI7YyxoO5yVTJCRxjV8HhWgNWKgrbazjoOB9DQuztL53/nUoNqHNsWg==}
     engines: {node: '>=12.2.0'}
@@ -841,6 +886,10 @@ packages:
       vue: 3.2.31
     dev: false
 
+  /vue-i18n/8.27.0:
+    resolution: {integrity: sha512-SX35iJHL5PJ4Gfh0Mo/q0shyHiI2V6Zkh51c+k8E9O1RKv5BQyYrCxRzpvPrsIOJEnLaeiovet3dsUB0e/kDzw==}
+    dev: false
+
   /vue-router/4.0.12_vue@3.2.31:
     resolution: {integrity: sha512-CPXvfqe+mZLB1kBWssssTiWg4EQERyqJZes7USiqfW9B5N2x+nHlnsM1D3b5CaJ6qgCvMmYJnz+G0iWjNCvXrg==}
     peerDependencies:
@@ -860,6 +909,16 @@ packages:
       '@vue/shared': 3.2.31
     dev: false
 
+  /vue3-lazyload/0.2.5-beta_4f726de02e89ff745196f225ebb1bbcf:
+    resolution: {integrity: sha512-GVhJfL9Hcu+AvWsYmUwODivvt+gzpT0ztgAzZaUduoiTaGCv/qzhr0VwAQXfjGF3XFYFyOJsHlAi3/WE0P8XTQ==}
+    peerDependencies:
+      '@vue/compiler-sfc': '>=3.0.0'
+      vue: '>=3.0.0'
+    dependencies:
+      '@vue/compiler-sfc': 3.2.31
+      vue: 3.2.31
+    dev: false
+
   /vuex/4.0.2_vue@3.2.31:
     resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
     peerDependencies:
@@ -867,4 +926,10 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.0.12
       vue: 3.2.31
+    dev: false
+
+  /zrender/5.3.0:
+    resolution: {integrity: sha512-Ln2QB5uqI1ftNYMtCRxd+XDq6MOttLgam2tmhKAVA+j0ko47UT+VNlDvKTkqe4K2sJhBvB0EhYNLebqlCTjatQ==}
+    dependencies:
+      tslib: 2.3.0
     dev: false
