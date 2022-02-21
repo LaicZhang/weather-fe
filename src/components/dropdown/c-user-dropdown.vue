@@ -1,8 +1,16 @@
 <template>
   <el-dropdown @command="onLoginOut">
     <span class="el-dropdown-link user-dropdown-title">
-      {{ userInfo.userName }}
-      <i class="el-icon-arrow-down"></i>
+      <img
+        alt="user picture"
+        class="user-img"
+        v-lazy="{
+          src: userImage,
+          error: '../../src/assets/images/default.jpg',
+          loading: '../../src/assets/images/default.jpg',
+        }"
+      />
+      <em class="el-icon-arrow-down"></em>
     </span>
     <template #dropdown>
       <el-dropdown-menu>
@@ -15,6 +23,11 @@
 <script>
   export default {
     name: 'CUserDropdown',
+    data() {
+      return {
+        userImage: '../../src/assets/images/default.jpg',
+      }
+    },
     props: {
       userInfo: {
         type: Object,
@@ -39,5 +52,11 @@
   .user-dropdown-title {
     color: $color-active;
     margin-left: 20px;
+  }
+  .user-img {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    margin-right: 30px;
   }
 </style>
