@@ -257,8 +257,7 @@
       const resetFields = (refName) => {
         proxy.$refs[refName].resetFields();
       };
-      // 事件方法
-      // 多选时存入选中列表中
+      // 事件方法: 多选时存入选中列表中
       const onChangeUserSelects = (list) => {
         userSelects.value = list.map((user) => user.userId);
       };
@@ -271,6 +270,7 @@
       };
       const onResetUserFrom = () => {
         proxy.$refs.formRef.resetFields();
+        getAllUsersList();
       };
       const onEditUser = async (user) => {
         addDialog.value = true;
@@ -285,7 +285,7 @@
       };
       const onAddDeleteList = (user) => {
         userSelects.value = [user.userId];
-        console.log('userSelects.value=>',userSelects.value);
+        console.log('userSelects.value=>', userSelects.value);
         deleteDialog.value = true;
       };
       const onDeleteUserSelects = async () => {
