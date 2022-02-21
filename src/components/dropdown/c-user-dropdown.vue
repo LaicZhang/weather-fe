@@ -6,8 +6,8 @@
         class="user-img"
         v-lazy="{
           src: userImage,
-          error: '../../src/assets/images/default.jpg',
-          loading: '../../src/assets/images/default.jpg',
+          error: userImage,
+          loading: userImage,
         }"
       />
       <em class="el-icon-arrow-down"></em>
