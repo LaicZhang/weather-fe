@@ -10,6 +10,7 @@ import Approve from "@/views/Approve";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
 import Sign from "@/views/Sign";
+import Dashboard from "@/views/Dashboard";
 import { menuPermissionApi } from "../api";
 import storage from "../util/storage";
 /**
@@ -86,6 +87,12 @@ const routes = [
     component: Sign,
   },
   {
+    name: "dashboard",
+    path: "/dashboard",
+    meta: { title: "数据展示页" },
+    component: Dashboard,
+  },
+  {
     name: "404",
     path: "/:pathMatch(.*)",
     meta: { title: "未找到该页面" },
@@ -111,24 +118,24 @@ router.beforeEach(async (to, from, next) => {
   next();
 });
 
-export async function loadAsyncRoutes() {
-  const valid = tokenValidate()
-  if (valid) {
-    const { menuList } = await menuPermissionApi();
-    const result = generatorRoutes(menuList);
-    result.forEach((route) => {
-      const path = `./../views/${route.component}.vue`;
-      const modules = import.meta.globalEager(`./../views/*.vue`);
-      console.log('modules=>', modules);
-      router.addRoute("home", { 
-        ...route, 
-        component: modules[path].default
-      });
-    });
-  }else{
-    router.push({name:'login'})
-  }
-}
+// export async function loadAsyncRoutes() {
+//   const valid = tokenValidate()
+//   if (valid) {
+//     const { menuList } = await menuPermissionApi();
+//     const result = generatorRoutes(menuList);
+//     result.forEach((route) => {
+//       const path = `./../views/${route.component}.vue`;
+//       const modules = import.meta.globalEager(`./../views/*.vue`);
+//       console.log('modules=>', modules);
+//       router.addRoute("home", { 
+//         ...route, 
+//         component: modules[path].default
+//       });
+//     });
+//   }else{
+//     router.push({name:'login'})
+//   }
+// }
 
 function generatorRoutes(menuList) {
   const result = [];
