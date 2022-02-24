@@ -8,9 +8,10 @@
         menu.children.length > 0 &&
         menu.children[0].menuType == '1'
       "
+      default-openeds="[0]"
     >
       <template #title>
-        <i :class="menu.icon"></i>
+        <em :class="menu.icon"></em>
         <span>{{ menu.menuName }}</span>
       </template>
       <c-tree-menu :menus="menu.children"></c-tree-menu>
