@@ -15,5 +15,12 @@ export default {
   },
   setLeaveCount(state,count){
     state.leaveCount = count
+  },
+  changeTheme (state) {
+    if (state.theme === 'chalk') {
+      state.theme = 'vintage'
+    } else {
+      state.theme = 'chalk'
+    }
   }
 };

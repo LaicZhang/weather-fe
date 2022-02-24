@@ -6,7 +6,8 @@ const state = {
   userInfo: storage.getItem("userInfo") || {},
   menuList: storage.getItem("menuList") || [],
   actionList: storage.getItem("actionList") || [],
-  leaveCount: 0
+  leaveCount: 0,
+  theme: 'chalk'
 };
 const getters = {};
 export default createStore({
