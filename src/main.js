@@ -5,25 +5,26 @@ import "element-plus/dist/index.css";
 import App from "./App.vue";
 import router from "./router";
 import store from "./store";
-// import api from "./api";
 import request from "./util/request";
 import storage from "./util/storage";
 import hasAction from './directive/has-action'
-// import * as echarts from 'echarts'
+import * as echarts from 'echarts'
+import VueLazyLoad from 'vue3-lazyload'
 
 
 const app = createApp(App)
 app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
-// app.config.globalProperties.$api = api
-// app.config.globalProperties.$store = store
+app.config.globalProperties.$echarts = echarts
+app.config.globalProperties.$store = store
 
 app.directive('has',hasAction)
 
 app.use(ElementPlus, { size: "small", locale: zhCn, });
 app.use(router)
 app.use(store)
-// app.use(echarts)
+app.use(VueLazyLoad, {})
+app.use(echarts)
 
 console.log('env', import.meta.env)
 
