@@ -45,15 +45,10 @@
       ></path>
     </svg>
     <span style="font-size:12px">返回首页</span>
-    <!-- <el-button @click="toPageHome" class="to-dashboard-btn">
-      <em class="el-icon-arrow-left"/>
-      返回首页
-    </el-button> -->
   </div>
 </template>
 
 <script>
-  import { Folder } from '@element-plus/icons-vue';
   import { defineComponent } from 'vue';
   import CMenu from '../components/menu/c-menu.vue';
   import { menuPermissionApi } from '../api';
