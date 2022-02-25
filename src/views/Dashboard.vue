@@ -1,6 +1,5 @@
 <template>
   <div class="dashboard-page">
-      
   </div>
   <div class="to-dashboard" @click="toPageHome">
     <svg
@@ -22,7 +21,7 @@
 
 <script>
 export default {
-    name: 'Dashboard',
+    name: "Dashboard",
     methods: {
         toPageHome() {
             router.push("/");
