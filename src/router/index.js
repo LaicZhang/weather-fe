@@ -2,15 +2,14 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home";
 import Welcome from "@/views/Welcome";
 import User from "@/views/User";
-import Menu from "@/views/Menu";
-import Role from "@/views/Role";
-import Dept from "@/views/Dept";
-import Leave from "@/views/Leave";
-import Approve from "@/views/Approve";
+import Notice from "@/views/Notice";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
 import Sign from "@/views/Sign";
 import Dashboard from "@/views/Dashboard";
+import showData from "@/views/showData";
+import SetDataConfig from "@/views/SetDataConfig";
+import Pusher from "@/views/Pusher";
 import { menuPermissionApi } from "../api";
 import storage from "../util/storage";
 /**
@@ -37,34 +36,28 @@ const routes = [
         component: User,
       },
       {
-        name: "menu",
-        path: "/system/menu",
-        meta: { title: "菜单管理" },
-        component: Menu,
+        name: "notice",
+        path: "/system/notice",
+        meta: { title: "公告管理" },
+        component: Notice,
       },
       {
-        name: "role",
-        path: "/system/role",
-        meta: { title: "角色管理" },
-        component: Role,
+        name: "pusher",
+        path: "/system/pusher",
+        meta: { title: "推送管理" },
+        component: Pusher,
       },
       {
-        name: "dept",
-        path: "/system/dept",
-        meta: { title: "部门管理" },
-        component: Dept,
+        name: "showData",
+        path: "/data/showData",
+        meta: { title: "数据展示设置" },
+        component: showData,
       },
       {
-        name: "leave",
-        path: "/audit/leave",
-        meta: {title: "休假申请"},
-        component: Leave
-      },
-      {
-        name: "check",
-        path: "/audit/check",
-        meta: {title: "待审批"},
-        component: Approve
+        name: "SetDataConfig",
+        path: "/data/SetDataConfig",
+        meta: { title: "数据获取管理" },
+        component: SetDataConfig,
       }
     ],
   },
