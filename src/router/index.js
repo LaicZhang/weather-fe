@@ -5,6 +5,7 @@ import User from "@/views/User";
 import Notice from "@/views/Notice";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
+import Forget from "@/views/Forget";
 import Sign from "@/views/Sign";
 import Dashboard from "@/views/Dashboard";
 import showData from "@/views/showData";
@@ -72,6 +73,12 @@ const routes = [
     path: "/register",
     meta: { title: "注册页" },
     component: Register,
+  },
+  {
+    name: "forget",
+    path: "/forget",
+    meta: { title: "忘记密码" },
+    component: Forget,
   },
   {
     name: "sign",

@@ -13,23 +13,31 @@
         <el-input
           v-model="userForm.userName"
           type="text"
-          placeholder="请输入账号"
+          placeholder="请输入用户名"
           prefix-icon="el-icon-user"
         ></el-input>
       </el-form-item>
       <el-form-item prop="userEmail">
         <el-input
-          v-model="userForm.userName"
+          v-model="userForm.userEmail"
           type="text"
-          placeholder="请输入账号"
-          prefix-icon="el-icon-user"
+          placeholder="请输入邮箱"
+          prefix-icon="el-icon-email"
         ></el-input>
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
           v-model="userForm.userPwd"
-          type="text"
+          type="password"
           placeholder="请输入密码"
+          prefix-icon="el-icon-lock"
+        ></el-input>
+      </el-form-item>
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userPwd"
+          type="password"
+          placeholder="请确认密码"
           prefix-icon="el-icon-lock"
         ></el-input>
       </el-form-item>
