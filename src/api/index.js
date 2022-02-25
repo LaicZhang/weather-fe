@@ -3,11 +3,15 @@ import request from "@/util/request";
 export const loginApi = (data) => {
   return request.post("/users/login", data, { mock: false });
 };
-
+export const registerApi = () => {
+  return request.post("/users/register", {}, { mock: false });
+};
 export const menuListApi = (data = {}) => {
   return request.get("/menu/list", data, { mock: false });
 };
-
+export const getDictApi = (data = {}) => {
+  return request.get("/dict", data, { mock: false });
+};
 // 获取当前角色的权限
 export const menuPermissionApi = (data = {}) => {
   return request.get("/users/getPermissionList", data, { mock: false });
