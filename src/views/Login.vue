@@ -12,16 +12,18 @@
         <el-button type="text" @click="toForget">忘记密码？</el-button>
         <span>或</span>
         <el-button type="text" @click="toRegister">注册</el-button>
+        <span>或</span>
+        <el-button type="text" @click="toHomeAsVisitor">游客登陆</el-button>
       </el-form-item>
       <el-form-item>
         <el-button @click="userFromCommit" type="primary" class="login-submit">登录</el-button>
       </el-form-item>
     </el-form>
   </div>
-</template>
+</template> 
 
 <script>
-  import { defineComponent, reactive, ref } from 'vue';
+  import { defineComponent, onMounted, onUpdated, reactive, ref } from 'vue';
   import useVuexWithRouter from '@/hooks/useVuexWithRouter';
   import { loginApi, menuPermissionApi } from '@/api';
   export default defineComponent({
@@ -78,6 +80,15 @@
       const toForget = () => {
         router.push('/forget');
       };
+      const toHomeAsVisitor = () =>{
+        userForm.userName = 'visitor';
+        userForm.userPwd = '123456';
+        console.log('userForm=>', userForm);
+        userFromCommit();
+      };
+      onMounted(()=>{
+        console.log('onMounted');
+      });
       return {
         toPageHome,
         userFormRef,
@@ -85,7 +96,9 @@
         userRules,
         userFromCommit,
         toRegister,
-        toForget
+        toForget,
+        toHomeAsVisitor,
+        onMounted
       };
     },
   });
