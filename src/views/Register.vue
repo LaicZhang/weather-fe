@@ -35,7 +35,7 @@
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
-          v-model="userForm.userPwd"
+          v-model="userForm.userConfirmPwd"
           type="password"
           placeholder="请确认密码"
           prefix-icon="el-icon-lock"
@@ -71,21 +71,28 @@ export default defineComponent({
       userName: [
         {
           required: true,
-          message: "必须填写用户名",
+          message: "请填写用户名",
           trigger: "blur",
         },
       ],
       userEmail: [
         {
           required: true,
-          message: "必须填写邮箱",
+          message: "请填写邮箱",
           trigger: "blur",
         },
       ],
       userPwd: [
         {
           required: true,
-          message: "必须填写密码",
+          message: "请填写密码",
+          trigger: "blur",
+        },
+      ],
+      userConfirmPwd: [
+        {
+          required: true,
+          message: "请确认密码",
           trigger: "blur",
         },
       ],
@@ -93,6 +100,10 @@ export default defineComponent({
     const userFromCommit = () => {
       userFormRef.value.validate(async (valid) => {
         if (valid) {
+          if(userForm.userPwd !== userForm.userConfirmPwd){
+            this.$message.error('两次密码不一致');
+            return false;
+          }
           const registerInfo = await registerApi(userForm);
           store.commit("setUserInfo", registerInfo);
           await getMenuPermission();
