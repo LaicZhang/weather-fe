@@ -100,6 +100,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
+          <el-button @click="resetPassword">重置密码</el-button>
           <el-button @click="onCancel">取消</el-button>
           <el-button type="primary" @click="onSummit">确定</el-button>
         </span>
@@ -126,8 +127,10 @@
     addUserApi,
     editUserApi,
     userAllListApi,
+    changePasswordApi
   } from '../api';
   import util from '../util/utils';
+  import { ElMessageBox, ElMessage } from 'element-plus'
   export default defineComponent({
     name: 'User',
     components: {},
@@ -160,7 +163,7 @@
           prop: 'role',
           label: '角色',
           formatter(row, column, cellValue) {
-            return { 0: '管理员', 1: '普通用户',2: '游客' }[cellValue];
+            return { 0: '管理员', 1: '普通用户', 2: '游客' }[cellValue];
           },
         },
         {
@@ -307,6 +310,28 @@
         // addUserFrom.state = 3;
         addDialog.value = false;
       };
+      const resetPassword = () => {
+        console.log('addUserFrom=>', addUserFrom);
+        ElMessageBox.confirm('确认重置密码?', 'Warning', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning',
+        })
+          .then(() => {
+            addUserFrom.changeAction = 'reset';
+            changePasswordApi(addUserFrom);
+            ElMessage({
+              type: 'success',
+              message: '重置成功',
+            });
+          })
+          .catch(() => {
+            ElMessage({
+              type: 'info',
+              message: '取消重置',
+            });
+          });
+      };
       const onSummit = () => {
         proxy.$refs.addFromRef.validate(async (valid) => {
           if (valid) {
@@ -357,6 +382,7 @@
         onAddUserBtn,
         onAddDeleteList,
         onDeleteUserSelects,
+        resetPassword,
         onSummit,
         onCancel,
       };
