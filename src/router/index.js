@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home";
 import Welcome from "@/views/Welcome";
 import User from "@/views/User";
+import MineInfo from "@/views/MineInfo";
 import Notice from "@/views/Notice";
 import Login from "@/views/Login";
 import Register from "@/views/Register";
@@ -29,6 +30,12 @@ const routes = [
         path: "welcome",
         meta: { title: "欢迎页" },
         component: Welcome,
+      },
+      {
+        name: "info",
+        path: "/system/userInfo",
+        meta: { title: "个人信息" },
+        component: MineInfo,
       },
       {
         name: "user",
