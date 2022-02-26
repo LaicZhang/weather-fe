@@ -160,7 +160,7 @@
           prop: 'role',
           label: '角色',
           formatter(row, column, cellValue) {
-            return { 0: '管理员', 1: '普通用户' }[cellValue];
+            return { 0: '管理员', 1: '普通用户',2: '游客' }[cellValue];
           },
         },
         {
