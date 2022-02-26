@@ -42,6 +42,7 @@
         ></el-input>
       </el-form-item>
       <el-form-item>
+        <el-button type="text" @click="toLogin">已有账号？点击登陆</el-button>
         <el-button @click="userFromCommit" type="primary" class="register-submit"
           >注册</el-button
         >
@@ -118,8 +119,12 @@ export default defineComponent({
       store.commit("setActionList", actionList);
       store.commit("setMenuList", menuList);
     };
+    const toLogin = () => {
+      router.push("/login");
+    };
     return {
       toPageHome,
+      toLogin,
       userFormRef,
       userForm,
       userRules,
