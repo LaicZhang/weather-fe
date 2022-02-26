@@ -123,7 +123,6 @@
     userListApi,
     deleteUserApi,
     rolesAllListApi,
-    deptListApi,
     addUserApi,
     editUserApi,
     userAllListApi,
@@ -237,9 +236,6 @@
       };
       const getRoleList = async () => {
         roleList.value = await rolesAllListApi();
-      };
-      const getDeptList = async () => {
-        deptList.value = await deptListApi();
       };
       const addUser = async () => {
         const userFormRaw = toRaw(addUserFrom);
@@ -358,7 +354,6 @@
       // 生命周期
       onMounted(() => {
         getRoleList();
-        getDeptList();
         getAllUsersList();
       });
       //
