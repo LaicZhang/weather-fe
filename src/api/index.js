@@ -23,20 +23,33 @@ export const menuPermissionApi = (data = {}) => {
 export const menuOperateApi = (data = {}) => {
   return request.post("/menu/operate", data, { mock: false });
 };
-
-export const leaveCountApi = (data = {}) => {
-  return request.get("/leave/count", data,  { mock: false });
+// 通知管理
+export const addNoticeApi = (data = {}) => {
+  return request.post("/notices/add", data, { mock: false });
 };
-export const leaveListApi = (data={})=>{
-  return request.get("/leave/list", data,  { mock: false });
-}
-export const leaveOperateApi = (data={})=>{
-  return request.post("/leave/operate", data,  { mock: false });
-}
+export const deleteNoticeApi = (data = {}) => {
+  return request.post("/notices/delete", data, { mock: false });
+};
+export const updateNoticeApi = (data = {}) => {
+  return request.post("/notices/update", data, { mock: false });
+};
+export const editNoticeApi = (data = {}) => {
+  return request.post("/notices/edit", data, { mock: false });
+};
+export const noticeAllListApi = (data = {}) => {
+  return request.get("/notices/all", data, { mock: false });
+};
+export const noticeListApi = (data = {}) => {
+  return request.get("/notices/list", data, { mock: false });
+};
+
 // 审核
 export const approveOperateApi = (data={})=>{
   return request.post("/leave/approve", data,  { mock: false });
 }
+export const leaveCountApi = (data = {}) => {
+  return request.get("/leave/count", data, { mock: false });
+};
 export const userListApi = (data = {}) => {
   return request.get("/users/list", data, { mock: false });
 };
