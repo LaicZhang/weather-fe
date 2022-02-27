@@ -8,6 +8,7 @@ import store from "./store";
 import request from "./util/request";
 import storage from "./util/storage";
 import hasAction from './directive/has-action'
+import Directives from './directive/index';
 import * as echarts from 'echarts'
 import VueLazyLoad from 'vue3-lazyload'
 
@@ -25,6 +26,7 @@ app.use(router)
 app.use(store)
 app.use(VueLazyLoad, {})
 app.use(echarts)
+app.use(Directives)
 
 console.log('env', import.meta.env)
 
