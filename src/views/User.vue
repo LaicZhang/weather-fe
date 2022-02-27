@@ -8,9 +8,9 @@
         <el-form-item label="用户名" prop="userName">
           <el-input v-model="userFrom.userName" />
         </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
+        <!-- <el-form-item label="邮箱" prop="userEmail">
           <el-input v-model="userFrom.userEmail" />
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="状态" prop="state">
           <el-select :model-value="1" v-model="userFrom.state">
             <el-option label="已注销" :value="0" />
@@ -388,6 +388,7 @@
   .user-page {
     padding: 30px;
     box-sizing: border-box;
+    height: 100vh;
     .user-from-wrap {
       background: white;
       margin-bottom: 18px;

@@ -8,12 +8,6 @@
         <el-form-item label="通知标题" prop="noticeName">
           <el-input v-model="noticeFrom.noticeName" />
         </el-form-item>
-        <el-form-item label="状态" prop="state">
-          <el-select :model-value="1" v-model="noticeFrom.state">
-            <el-option label="已阅读" :value="0" />
-            <el-option label="未阅读" :value="1" />
-          </el-select>
-        </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearchNoticeFrom">查询</el-button>
           <el-button type="danger" @click="onResetNoticeFrom">重置</el-button>
@@ -96,7 +90,7 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取消</el-button>
-          <el-button type="primary" @click="onSummit">确定</el-button>
+          <el-button type="primary" @click="onSummit">发布</el-button>
         </span>
       </template>
     </el-dialog>
@@ -130,8 +124,7 @@
       // 属性
       const noticeFrom = reactive({
         _id: '',
-        noticeTitle: '',
-        state: 1,
+        noticeTitle: ''
       });
       const pager = reactive({
         pageNum: 1,
@@ -335,6 +328,7 @@
   .notice-page {
     padding: 30px;
     box-sizing: border-box;
+    height: 100vh;
     .notice-from-wrap {
       background: white;
       margin-bottom: 18px;
