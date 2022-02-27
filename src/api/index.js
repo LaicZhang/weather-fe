@@ -1,23 +1,25 @@
 import request from "@/util/request";
 
+// auth
 export const loginApi = (data) => {
-  return request.post("/users/login", data, { mock: false });
+  return request.post("/auth/login", data, { mock: false });
 };
 export const registerApi = (data = {}) => {
-  return request.post("/users/register", data, { mock: false });
+  return request.post("/auth/register", data, { mock: false });
 };
 export const changePasswordApi = (data = {}) => {
-  return request.post("/users/changePassword", data, { mock: false });
+  return request.post("/auth/changePassword", data, { mock: false });
 };
+// 获取当前角色的权限
+export const menuPermissionApi = (data = {}) => {
+  return request.get("/auth/getPermissionList", data, { mock: false });
+};
+
 export const menuListApi = (data = {}) => {
   return request.get("/menu/list", data, { mock: false });
 };
 export const getDictApi = (item='',data = {}) => {
   return request.get("/dict?item="+item, data, { mock: false });
-};
-// 获取当前角色的权限
-export const menuPermissionApi = (data = {}) => {
-  return request.get("/users/getPermissionList", data, { mock: false });
 };
 
 export const menuOperateApi = (data = {}) => {
@@ -43,7 +45,23 @@ export const noticeListApi = (data = {}) => {
   return request.get("/notices/list", data, { mock: false });
 };
 
-// 审核
+// 推送管理
+export const addPusherApi = (data = {}) => {
+  return request.post("/pushers/add", data, { mock: false });
+};
+export const deletePusherApi = (data = {}) => {
+  return request.post("/pushers/delete", data, { mock: false });
+};
+export const editPusherApi = (data = {}) => {
+  return request.post("/pushers/edit", data, { mock: false });
+};
+export const pusherAllListApi = (data = {}) => {
+  return request.get("/pushers/all", data, { mock: false });
+};
+export const pusherListApi = (data = {}) => {
+  return request.get("/pushers/list", data, { mock: false });
+};
+
 export const approveOperateApi = (data={})=>{
   return request.post("/leave/approve", data,  { mock: false });
 }
