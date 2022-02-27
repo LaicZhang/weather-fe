@@ -1,44 +1,41 @@
 <template>
-  <div class="user-page">
-    <div class="user-from-wrap radius-hide" v-has="'user-query'">
-      <el-form inline :model="userFrom" ref="formRef">
-        <el-form-item label="用户ID" prop="userId">
-          <el-input v-model="userFrom.userId" />
+  <div class="notice-page">
+    <div class="notice-from-wrap radius-hide" v-has="'notice-query'">
+      <el-form inline :model="noticeFrom" ref="formRef">
+        <el-form-item label="通知ID" prop="_id">
+          <el-input v-model="noticeFrom._id" />
         </el-form-item>
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="userFrom.userName" />
-        </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
-          <el-input v-model="userFrom.userEmail" />
+        <el-form-item label="通知标题" prop="noticeName">
+          <el-input v-model="noticeFrom.noticeName" />
         </el-form-item>
         <el-form-item label="状态" prop="state">
-          <el-select :model-value="1" v-model="userFrom.state">
-            <el-option label="已注销" :value="0" />
-            <el-option label="正常" :value="1" />
+          <el-select :model-value="1" v-model="noticeFrom.state">
+            <el-option label="已阅读" :value="0" />
+            <el-option label="未阅读" :value="1" />
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSearchUserFrom">查询</el-button>
-          <el-button type="danger" @click="onResetUserFrom">重置</el-button>
+          <el-button type="primary" @click="onSearchNoticeFrom">查询</el-button>
+          <el-button type="danger" @click="onResetNoticeFrom">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div>
-      <el-button type="primary" v-has="'user-create'" @click="onAddUserBtn">新增</el-button>
-      <el-button type="danger" v-has="'user-delete'" @click="onDeleteUserSelects"
+      <el-button type="primary" v-has="'notice-create'" @click="onAddNoticeBtn">新增</el-button>
+      <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
         >批量删除</el-button
       >
       <el-table
-        @selection-change="onChangeUserSelects"
+        @selection-change="onChangeNoticeSelects"
         class="base-table"
-        :data="userList"
+        :data="noticeList"
         size="medium"
         stripe
         style="width: 100%"
       >
         <el-table-column type="selection" width="55" />
         <el-table-column
-          v-for="column in userColumns"
+          v-for="column in noticeColumns"
           :key="column.prop"
           :prop="column.prop"
           :label="column.label"
@@ -48,7 +45,7 @@
         />
         <el-table-column label="Operations">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="onEditUser(scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" @click="onEditNotice(scope.row)">编辑</el-button>
             <el-button size="mini" type="text" @click="onAddDeleteList(scope.row)">删除</el-button>
           </template>
         </el-table-column>
@@ -69,33 +66,31 @@
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="deleteDialog = false">取消</el-button>
-          <el-button type="primary" @click="onDeleteUserSelects">确定</el-button>
+          <el-button type="primary" @click="onDeleteNoticeSelects">确定</el-button>
         </span>
       </template>
     </el-dialog>
     <!-- 新增弹窗 -->
     <el-dialog v-model="addDialog" title="操作" width="30%">
-      <el-form ref="addFromRef" :model="addUserFrom" label-width="90px" :rules="addUserFromRules">
-        <el-form-item label="用户名" prop="userName">
+      <el-form
+        ref="addFromRef"
+        :model="addNoticeFrom"
+        label-width="90px"
+        :rules="addNoticeFromRules"
+      >
+        <el-form-item label="通知标题" prop="noticeTitle">
           <el-input
-            placeholder="请输入用户名"
-            v-model="addUserFrom.userName"
-            :disabled="isEdit"
+            placeholder="请输入通知标题"
+            v-model="addNoticeFrom.noticeTitle"
           ></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
-          <el-input placeholder="请输入用户邮箱" :disabled="isEdit" v-model="addUserFrom.userEmail">
-            <template #append>@qq.com</template>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
-          <el-input placeholder="请输入手机号" v-model="addUserFrom.mobile"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-select v-model="addUserFrom.sex">
-            <el-option label="女" :value="0"></el-option>
-            <el-option label="男" :value="1"></el-option>
-          </el-select>
+        <el-form-item label="通知内容" prop="noticeContent">
+          <el-input
+            placeholder="请输入通知内容"
+            v-model="addNoticeFrom.noticeContent"
+            :rows="4"
+            type="textarea"
+          ></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -119,24 +114,23 @@
     nextTick,
   } from 'vue';
   import {
-    userListApi,
-    deleteUserApi,
+    noticeListApi,
+    deleteNoticeApi,
     rolesAllListApi,
-    deptListApi,
-    addUserApi,
-    editUserApi,
-    userAllListApi,
+    addNoticeApi,
+    editNoticeApi,
+    noticeAllListApi,
   } from '../api';
   import util from '../util/utils';
   export default defineComponent({
-    name: 'User',
+    name: 'Notice',
     components: {},
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
-      const userFrom = reactive({
-        userId: '',
-        userName: '',
+      const noticeFrom = reactive({
+        _id: '',
+        noticeTitle: '',
         state: 1,
       });
       const pager = reactive({
@@ -144,167 +138,139 @@
         pageSize: 10,
         total: 0,
       });
-      const userColumns = [
-        { prop: 'userId', label: '用户ID' },
-        { prop: 'userName', label: '用户名' },
+      const noticeColumns = [
+        { prop: '_id', label: '通知ID' },
+        { prop: 'noticeTitle', label: '通知标题' },
         {
-          prop: 'sex',
-          label: '性别',
-          formatter(row, column, cellValue) {
-            return { 0: '女', 1: '男' }[cellValue];
-          },
-        },
-        { prop: 'userEmail', label: '邮箱' },
-        { prop: 'mobile', label: '手机号' },
-        {
-          prop: 'role',
-          label: '角色',
-          formatter(row, column, cellValue) {
-            return { 0: '管理员', 1: '普通用户' }[cellValue];
-          },
+          prop: 'noticeContent',
+          label: '通知内容',
         },
         {
-          prop: 'state',
-          label: '状态',
-          formatter(row, column, cellValue) {
-            return { 0: '已注销', 1: '正常' }[cellValue];
-          },
+          prop: 'haveReadCount',
+          label: '已阅读人数',
         },
         {
           prop: 'createTime',
-          label: '注册时间',
+          label: '创建时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
         },
         {
-          prop: 'lastLoginTime',
-          label: '最后登录',
+          prop: 'updateTime',
+          label: '更新时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
         },
       ];
       const isEdit = ref(false);
-      const userList = ref([]);
-      const userSelects = ref([]);
+      const noticeList = ref([]);
+      const noticeSelects = ref([]);
       const addDialog = ref(false);
       const deleteDialog = ref(false);
-      const addUserFrom = reactive({});
+      const addNoticeFrom = reactive({});
       const roleList = ref([]);
       const deptList = ref([]);
-      const addUserFromRules = {
-        userName: {
+      const addNoticeFromRules = {
+        noticeTitle: {
           required: true,
-          message: '必须填写用户名',
+          message: '必须填写通知标题',
           trigger: 'blur',
         },
-        userEmail: {
+        noticeContent: {
           required: true,
-          message: '必须填写邮箱',
-          trigger: 'blur',
-        },
-        mobile: {
-          pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
-          message: '手机号格式错误',
+          message: '必须填写通知内容',
           trigger: 'blur',
         },
       };
       // api
-      const getUserList = async () => {
-        const params = { ...userFrom, ...pager };
-        const { list, page } = await userListApi(params);
+      const getNoticeList = async () => {
+        const params = { ...noticeFrom, ...pager };
+        const { list, page } = await noticeListApi(params);
         pager.pageNum = page.pageNum;
         pager.total = page.total;
-        userList.value = list;
+        noticeList.value = list;
       };
-      const getAllUsersList = async () => {
-        const { list, page } = await userAllListApi({});
+      const getAllNoticesList = async () => {
+        const { list, page } = await noticeAllListApi({});
         pager.pageNum = page.pageNum;
         pager.total = page.total;
-        userList.value = list;
-        console.log(userList.value);
+        noticeList.value = list;
+        console.log(noticeList.value);
       };
-      const deleteUser = async () => {
-        if (userSelects.value.length > 0) {
-          return deleteUserApi({ userIds: userSelects.value });
+      const deleteNotice = async () => {
+        if (noticeSelects.value.length > 0) {
+          return deleteNoticeApi({ _ids: noticeSelects.value });
         } else {
           proxy.$message.error('请选择删除项');
         }
+        noticeAllListApi();
       };
       const getRoleList = async () => {
         roleList.value = await rolesAllListApi();
       };
-      const getDeptList = async () => {
-        deptList.value = await deptListApi();
+      const addNotice = async () => {
+        const noticeFormRaw = toRaw(addNoticeFrom);
+        console.log('noticeFormRaw', noticeFormRaw);
+        return addNoticeApi(noticeFormRaw);
       };
-      const addUser = async () => {
-        const userFormRaw = toRaw(addUserFrom);
-        let str = userFormRaw.userEmail;
-        let len = str.length;
-        if (str.substr(len - 7, len) == '@qq.com') {
-          userFormRaw.userEmail = str;
-        } else {
-          userFormRaw.userEmail = str + '@qq.com';
-        }
-        return addUserApi(userFormRaw);
-      };
-      const editUser = async () => {
-        const userFormRaw = toRaw(addUserFrom);
-        return editUserApi(userFormRaw);
+      const editNotice = async () => {
+        const noticeFormRaw = toRaw(addNoticeFrom);
+        return editNoticeApi(noticeFormRaw);
       };
       // 通用方法
       const resetFields = (refName) => {
         proxy.$refs[refName].resetFields();
       };
       // 事件方法: 多选时存入选中列表中
-      const onChangeUserSelects = (list) => {
-        userSelects.value = list.map((user) => user.userId);
+      const onChangeNoticeSelects = (list) => {
+        noticeSelects.value = list.map((notice) => notice._id);
       };
       const onChangeCurrentPage = (currentPage) => {
         pager.pageNum = currentPage;
-        getUserList();
+        getNoticeList();
       };
-      const onSearchUserFrom = () => {
-        getUserList();
+      const onSearchNoticeFrom = () => {
+        getNoticeList();
       };
-      const onResetUserFrom = () => {
+      const onResetNoticeFrom = () => {
         proxy.$refs.formRef.resetFields();
-        getAllUsersList();
+        getAllNoticesList();
       };
-      const onEditUser = async (user) => {
+      const onEditNotice = async (notice) => {
         addDialog.value = true;
         isEdit.value = true;
         await nextTick(() => {
-          Object.assign(addUserFrom, user);
+          Object.assign(addNoticeFrom, notice);
         });
       };
-      const onAddUserBtn = () => {
+      const onAddNoticeBtn = () => {
         isEdit.value = false;
         addDialog.value = true;
       };
-      const onAddDeleteList = (user) => {
-        userSelects.value = [user.userId];
-        console.log('userSelects.value=>', userSelects.value);
+      const onAddDeleteList = (notice) => {
+        noticeSelects.value = [notice._id];
+        console.log('noticeSelects.value=>', noticeSelects.value);
         deleteDialog.value = true;
       };
-      const onDeleteUserSelects = async () => {
+      const onDeleteNoticeSelects = async () => {
         try {
-          const { nModified } = await deleteUser();
+          const { nModified } = await deleteNotice();
           if (nModified > 0) {
-            userSelects.value = [];
+            noticeSelects.value = [];
             proxy.$message.success('删除成功');
-            getUserList();
           } else {
             proxy.$message.error('删除失败');
           }
         } catch (error) {}
         deleteDialog.value = false;
+            getAllNoticesList();
       };
       const onCancel = () => {
         isEdit.value = false;
         resetFields('addFromRef');
-        // addUserFrom.state = 3;
+        // addNoticeFrom.state = 3;
         addDialog.value = false;
       };
       const onSummit = () => {
@@ -312,20 +278,23 @@
           if (valid) {
             try {
               let res;
+              console.log('isEdit.value=>', isEdit.value);
               if (isEdit.value) {
-                res = await editUser();
+                res = await editNotice();
               } else {
-                res = await addUser();
+                res = await addNotice();
               }
               if (res) {
-                proxy.$message.success('用户添加成功');
+                proxy.$message.success('通知操作成功');
               } else {
-                proxy.$message.error('用户添加失败');
+                proxy.$message.error('通知添加失败');
               }
               resetFields('addFromRef');
-            } catch (error) {}
-            // getUserList();
-            getAllUsersList();
+            } catch (error) {
+                proxy.$message.error('通知添加失败');
+            }
+            // getNoticeList();
+            getAllNoticesList();
             addDialog.value = false;
           }
         });
@@ -333,30 +302,29 @@
       // 生命周期
       onMounted(() => {
         getRoleList();
-        getDeptList();
-        getAllUsersList();
+        getAllNoticesList();
       });
       //
       return {
-        userFrom,
-        userColumns,
-        userList,
-        onChangeUserSelects,
+        noticeFrom,
+        noticeColumns,
+        noticeList,
+        onChangeNoticeSelects,
         pager,
         isEdit,
-        addUserFrom,
-        addUserFromRules,
+        addNoticeFrom,
+        addNoticeFromRules,
         roleList,
         deptList,
         addDialog,
         deleteDialog,
         onChangeCurrentPage,
-        onSearchUserFrom,
-        onResetUserFrom,
-        onEditUser,
-        onAddUserBtn,
+        onSearchNoticeFrom,
+        onResetNoticeFrom,
+        onEditNotice,
+        onAddNoticeBtn,
         onAddDeleteList,
-        onDeleteUserSelects,
+        onDeleteNoticeSelects,
         onSummit,
         onCancel,
       };
@@ -364,10 +332,10 @@
   });
 </script>
 <style lang="scss" scoped>
-  .user-page {
+  .notice-page {
     padding: 30px;
     box-sizing: border-box;
-    .user-from-wrap {
+    .notice-from-wrap {
       background: white;
       margin-bottom: 18px;
       .el-form {
