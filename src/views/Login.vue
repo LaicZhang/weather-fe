@@ -9,6 +9,12 @@
         <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item>
+        <el-image alt="Captcha image" :src="captchaRef"></el-image>
+      </el-form-item>
+      <el-form-item prop="captchaCode">
+        <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
+      </el-form-item>
+      <el-form-item>
         <el-button type="text" @click="toForget">忘记密码？</el-button>
         <span>或</span>
         <el-button type="text" @click="toRegister">注册</el-button>
@@ -20,10 +26,10 @@
       </el-form-item>
     </el-form>
   </div>
-</template> 
+</template>
 
 <script>
-  import { defineComponent, onMounted, onUpdated, reactive, ref } from 'vue';
+  import { defineComponent, onMounted, onBeforeMount, reactive, ref } from 'vue';
   import useVuexWithRouter from '@/hooks/useVuexWithRouter';
   import { loginApi, menuPermissionApi } from '@/api';
   export default defineComponent({
@@ -36,6 +42,7 @@
         console.log('toPageHome');
         router.push('/');
       };
+      const captchaRef = ref(null);
       const userFormRef = ref(null);
       const userForm = reactive({
         userName: '',
@@ -56,6 +63,13 @@
             trigger: 'blur',
           },
         ],
+        // captchaCode: [
+        //   {
+        //     required: true,
+        //     message: '必须填写验证码',
+        //     trigger: 'blur',
+        //   },
+        // ]
       };
       const userFromCommit = () => {
         userFormRef.value.validate(async (valid) => {
@@ -80,17 +94,23 @@
       const toForget = () => {
         router.push('/forget');
       };
-      const toHomeAsVisitor = () =>{
+      const toHomeAsVisitor = () => {
         userForm.userName = 'visitor';
         userForm.userPwd = '123456';
         console.log('userForm=>', userForm);
         userFromCommit();
       };
-      onMounted(()=>{
-        console.log('onMounted');
+      onBeforeMount(() => {
+        captchaRef.value = document.location.origin + '/api/auth/captcha';
+        console.log('captchaRef.value=>', captchaRef.value);
+        console.log('onBeforeMount');
+      });
+      onMounted(() => {
+        console.log(captchaRef.value);
       });
       return {
         toPageHome,
+        captchaRef,
         userFormRef,
         userForm,
         userRules,
@@ -98,7 +118,7 @@
         toRegister,
         toForget,
         toHomeAsVisitor,
-        onMounted
+        onMounted,
       };
     },
   });
