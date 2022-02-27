@@ -2,11 +2,11 @@
   <div class="notice-page">
     <div class="notice-from-wrap radius-hide" v-has="'notice-query'">
       <el-form inline :model="noticeFrom" ref="formRef">
-        <el-form-item label="通知ID" prop="_id">
+        <el-form-item label="公告ID" prop="_id">
           <el-input v-model="noticeFrom._id" />
         </el-form-item>
-        <el-form-item label="通知标题" prop="noticeName">
-          <el-input v-model="noticeFrom.noticeName" />
+        <el-form-item label="公告标题" prop="noticeTitle">
+          <el-input v-model="noticeFrom.noticeTitle" />
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="onSearchNoticeFrom">查询</el-button>
@@ -16,9 +16,9 @@
     </div>
     <div>
       <el-button type="primary" v-has="'notice-create'" @click="onAddNoticeBtn">新增</el-button>
-      <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
+      <!-- <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
         >批量删除</el-button
-      >
+      > -->
       <el-table
         @selection-change="onChangeNoticeSelects"
         class="base-table"
@@ -27,7 +27,7 @@
         stripe
         style="width: 100%"
       >
-        <el-table-column type="selection" width="55" />
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column
           v-for="column in noticeColumns"
           :key="column.prop"
@@ -72,15 +72,15 @@
         label-width="90px"
         :rules="addNoticeFromRules"
       >
-        <el-form-item label="通知标题" prop="noticeTitle">
+        <el-form-item label="公告标题" prop="noticeTitle">
           <el-input
-            placeholder="请输入通知标题"
+            placeholder="请输入公告标题"
             v-model="addNoticeFrom.noticeTitle"
           ></el-input>
         </el-form-item>
-        <el-form-item label="通知内容" prop="noticeContent">
+        <el-form-item label="公告内容" prop="noticeContent">
           <el-input
-            placeholder="请输入通知内容"
+            placeholder="请输入公告内容"
             v-model="addNoticeFrom.noticeContent"
             :rows="4"
             type="textarea"
@@ -132,11 +132,11 @@
         total: 0,
       });
       const noticeColumns = [
-        { prop: '_id', label: '通知ID' },
-        { prop: 'noticeTitle', label: '通知标题' },
+        { prop: '_id', label: '公告ID' },
+        { prop: 'noticeTitle', label: '公告标题' },
         {
           prop: 'noticeContent',
-          label: '通知内容',
+          label: '公告内容',
         },
         {
           prop: 'haveReadCount',
@@ -168,12 +168,12 @@
       const addNoticeFromRules = {
         noticeTitle: {
           required: true,
-          message: '必须填写通知标题',
+          message: '必须填写公告标题',
           trigger: 'blur',
         },
         noticeContent: {
           required: true,
-          message: '必须填写通知内容',
+          message: '必须填写公告内容',
           trigger: 'blur',
         },
       };
@@ -190,7 +190,6 @@
         pager.pageNum = page.pageNum;
         pager.total = page.total;
         noticeList.value = list;
-        console.log(noticeList.value);
       };
       const deleteNotice = async () => {
         if (noticeSelects.value.length > 0) {
@@ -253,8 +252,6 @@
           if (nModified > 0) {
             noticeSelects.value = [];
             proxy.$message.success('删除成功');
-          } else {
-            proxy.$message.error('删除失败');
           }
         } catch (error) {}
         deleteDialog.value = false;
@@ -278,13 +275,13 @@
                 res = await addNotice();
               }
               if (res) {
-                proxy.$message.success('通知操作成功');
+                proxy.$message.success('公告操作成功');
               } else {
-                proxy.$message.error('通知添加失败');
+                proxy.$message.error('公告添加失败');
               }
               resetFields('addFromRef');
             } catch (error) {
-                proxy.$message.error('通知添加失败');
+                proxy.$message.error('公告添加失败');
             }
             // getNoticeList();
             getAllNoticesList();
