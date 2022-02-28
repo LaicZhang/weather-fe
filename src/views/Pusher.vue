@@ -1,44 +1,35 @@
 <template>
-  <div class="user-page">
-    <div class="user-from-wrap radius-hide" v-has="'user-query'">
-      <el-form inline :model="userFrom" ref="formRef">
-        <el-form-item label="用户ID" prop="userId">
-          <el-input v-model="userFrom.userId" />
+  <div class="pusher-page">
+    <div class="pusher-from-wrap radius-hide" v-has="'pusher-query'">
+      <el-form inline :model="pusherFrom" ref="formRef">
+        <el-form-item label="推送ID" prop="_id">
+          <el-input v-model="pusherFrom._id" />
         </el-form-item>
-        <el-form-item label="用户名" prop="userName">
-          <el-input v-model="userFrom.userName" />
-        </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
-          <el-input v-model="userFrom.userEmail" />
-        </el-form-item>
-        <el-form-item label="状态" prop="state">
-          <el-select :model-value="1" v-model="userFrom.state">
-            <el-option label="已注销" :value="0" />
-            <el-option label="正常" :value="1" />
-          </el-select>
+        <el-form-item label="推送标题" prop="pusherTitle">
+          <el-input v-model="pusherFrom.pusherTitle" />
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="onSearchUserFrom">查询</el-button>
-          <el-button type="danger" @click="onResetUserFrom">重置</el-button>
+          <el-button type="primary" @click="onSearchPusherFrom">查询</el-button>
+          <el-button type="danger" @click="onResetPusherFrom">重置</el-button>
         </el-form-item>
       </el-form>
     </div>
     <div>
-      <el-button type="primary" v-has="'user-create'" @click="onAddUserBtn">新增</el-button>
-      <el-button type="danger" v-has="'user-delete'" @click="onDeleteUserSelects"
+      <el-button type="primary" v-has="'pusher-create'" @click="onAddPusherBtn">新增</el-button>
+      <!-- <el-button type="danger" v-has="'pusher-delete'" @click="onDeletePusherSelects"
         >批量删除</el-button
-      >
+      > -->
       <el-table
-        @selection-change="onChangeUserSelects"
+        @selection-change="onChangePusherSelects"
         class="base-table"
-        :data="userList"
+        :data="pusherList"
         size="medium"
         stripe
         style="width: 100%"
       >
-        <el-table-column type="selection" width="55" />
+        <!-- <el-table-column type="selection" width="55" /> -->
         <el-table-column
-          v-for="column in userColumns"
+          v-for="column in pusherColumns"
           :key="column.prop"
           :prop="column.prop"
           :label="column.label"
@@ -46,10 +37,12 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <el-table-column label="Operations">
+        <el-table-column label="Operations" width="250px">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="onEditUser(scope.row)">编辑</el-button>
-            <el-button size="mini" type="text" @click="onAddDeleteList(scope.row)">删除</el-button>
+            <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
+            <el-button size="mini" type="text" @click="onEditPusher(scope.row)">立即推送</el-button>
+            <el-button size="mini" type="text" v-has="'pusher-create'" @click="onEditPusher(scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" v-has="'pusher-create'" @click="onAddDeleteList(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -63,45 +56,55 @@
         @current-change="onChangeCurrentPage"
       />
     </div>
+    <!-- 详情弹窗-->
+    <el-dialog v-model="moreDialog" title="详情" width="30%">
+      <span>确定删除?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="moreDialog = false">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
     <!-- 删除弹窗 -->
     <el-dialog v-model="deleteDialog" title="操作" width="30%">
       <span>确定删除?</span>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="deleteDialog = false">取消</el-button>
-          <el-button type="primary" @click="onDeleteUserSelects">确定</el-button>
+          <el-button type="primary" @click="onDeletePusherSelects">确定</el-button>
         </span>
       </template>
     </el-dialog>
     <!-- 新增弹窗 -->
     <el-dialog v-model="addDialog" title="操作" width="30%">
-      <el-form ref="addFromRef" :model="addUserFrom" label-width="90px" :rules="addUserFromRules">
-        <el-form-item label="用户名" prop="userName">
+      <el-form
+        ref="addFromRef"
+        :model="addPusherFrom"
+        label-width="90px"
+        :rules="addPusherFromRules"
+      >
+        <el-form-item label="推送人ID" prop="userId">
+          <el-input v-model="addPusherFrom.userId" disabled/>
+        </el-form-item>
+        <el-form-item label="推送标题" prop="pusherTitle">
           <el-input
-            placeholder="请输入用户名"
-            v-model="addUserFrom.userName"
-            :disabled="isEdit"
+            placeholder="请输入推送标题"
+            v-model="addPusherFrom.pusherTitle"
           ></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="userEmail">
-          <el-input placeholder="请输入用户邮箱" :disabled="isEdit" v-model="addUserFrom.userEmail">
-            <template #append>@qq.com</template>
-          </el-input>
-        </el-form-item>
-        <el-form-item label="手机号" prop="mobile">
-          <el-input placeholder="请输入手机号" v-model="addUserFrom.mobile"></el-input>
-        </el-form-item>
-        <el-form-item label="性别" prop="sex">
-          <el-select v-model="addUserFrom.sex">
-            <el-option label="女" :value="0"></el-option>
-            <el-option label="男" :value="1"></el-option>
-          </el-select>
+        <el-form-item label="推送内容" prop="pusherContent">
+          <el-input
+            placeholder="请输入推送内容"
+            v-model="addPusherFrom.pusherContent"
+            :rows="4"
+            type="textarea"
+          ></el-input>
         </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取消</el-button>
-          <el-button type="primary" @click="onSummit">确定</el-button>
+          <el-button type="primary" @click="onSummit">发布</el-button>
         </span>
       </template>
     </el-dialog>
@@ -119,213 +122,201 @@
     nextTick,
   } from 'vue';
   import {
-    userListApi,
-    deleteUserApi,
+    pusherListApi,
+    deletePusherApi,
     rolesAllListApi,
-    deptListApi,
-    addUserApi,
-    editUserApi,
-    userAllListApi,
+    addPusherApi,
+    editPusherApi,
+    pusherAllListApi,
   } from '../api';
   import util from '../util/utils';
+  import storage from "@/util/storage";
   export default defineComponent({
-    name: 'User',
+    name: 'Pusher',
     components: {},
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
-      const userFrom = reactive({
-        userId: '',
-        userName: '',
-        state: 1,
+      const userInfo = storage.getItem('userInfo')
+      const pusherFrom = reactive({
+        userId: userInfo.userId,
+        pusherTitle: '',
+        pusherContent: '',
       });
       const pager = reactive({
         pageNum: 1,
         pageSize: 10,
         total: 0,
       });
-      const userColumns = [
-        { prop: 'userId', label: '用户ID' },
-        { prop: 'userName', label: '用户名' },
+      const pusherColumns = [
+        // { prop: '_id', label: '推送ID' },
+        { prop: 'pusherTitle', label: '推送标题' },
         {
-          prop: 'sex',
-          label: '性别',
-          formatter(row, column, cellValue) {
-            return { 0: '女', 1: '男' }[cellValue];
-          },
-        },
-        { prop: 'userEmail', label: '邮箱' },
-        { prop: 'mobile', label: '手机号' },
-        {
-          prop: 'role',
-          label: '角色',
-          formatter(row, column, cellValue) {
-            return { 0: '管理员', 1: '普通用户' }[cellValue];
-          },
+          prop: 'pusherContent',
+          label: '推送内容',
         },
         {
-          prop: 'state',
-          label: '状态',
-          formatter(row, column, cellValue) {
-            return { 0: '已注销', 1: '正常' }[cellValue];
-          },
+          prop: 'pusherLifeTime',
+          label: '推送周期',
         },
         {
-          prop: 'createTime',
-          label: '注册时间',
+          prop: 'todayState',
+          label: '今日推送状态',
+        },
+        {
+          prop: 'pushTime',
+          label: '推送时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
         },
         {
-          prop: 'lastLoginTime',
-          label: '最后登录',
+          prop: 'createTime',
+          label: '创建时间',
+          formatter(row, column, cellValue) {
+            return util.formateDate(new Date(cellValue));
+          },
+        },
+        {
+          prop: 'updateTime',
+          label: '更新时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
         },
       ];
       const isEdit = ref(false);
-      const userList = ref([]);
-      const userSelects = ref([]);
+      const pusherList = ref([]);
+      const pusherSelects = ref([]);
       const addDialog = ref(false);
       const deleteDialog = ref(false);
-      const addUserFrom = reactive({});
+      const moreDialog = ref(false);
+      const addPusherFrom = reactive({});
+      addPusherFrom.userId = userInfo.userId;
       const roleList = ref([]);
       const deptList = ref([]);
-      const addUserFromRules = {
-        userName: {
+      const addPusherFromRules = {
+        pusherTitle: {
           required: true,
-          message: '必须填写用户名',
+          message: '必须填写推送标题',
           trigger: 'blur',
         },
-        userEmail: {
+        pusherContent: {
           required: true,
-          message: '必须填写邮箱',
-          trigger: 'blur',
-        },
-        mobile: {
-          pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
-          message: '手机号格式错误',
+          message: '必须填写推送内容',
           trigger: 'blur',
         },
       };
       // api
-      const getUserList = async () => {
-        const params = { ...userFrom, ...pager };
-        const { list, page } = await userListApi(params);
+      const getPusherList = async () => {
+        const params = { ...pusherFrom, ...pager };
+        const { list, page } = await pusherListApi(params);
         pager.pageNum = page.pageNum;
         pager.total = page.total;
-        userList.value = list;
+        pusherList.value = list;
       };
-      const getAllUsersList = async () => {
-        const { list, page } = await userAllListApi({});
+      const getAllPushersList = async () => {
+        const { list, page } = await pusherAllListApi({});
         pager.pageNum = page.pageNum;
         pager.total = page.total;
-        userList.value = list;
-        console.log(userList.value);
+        pusherList.value = list;
       };
-      const deleteUser = async () => {
-        if (userSelects.value.length > 0) {
-          return deleteUserApi({ userIds: userSelects.value });
+      const deletePusher = async () => {
+        if (pusherSelects.value.length > 0) {
+          return deletePusherApi({ _ids: pusherSelects.value });
         } else {
           proxy.$message.error('请选择删除项');
         }
+        pusherAllListApi();
       };
       const getRoleList = async () => {
         roleList.value = await rolesAllListApi();
       };
-      const getDeptList = async () => {
-        deptList.value = await deptListApi();
+      const addPusher = async () => {
+        const pusherFormRaw = toRaw(addPusherFrom);
+        console.log('pusherFormRaw', pusherFormRaw);
+        return addPusherApi(pusherFormRaw);
       };
-      const addUser = async () => {
-        const userFormRaw = toRaw(addUserFrom);
-        let str = userFormRaw.userEmail;
-        let len = str.length;
-        if (str.substr(len - 7, len) == '@qq.com') {
-          userFormRaw.userEmail = str;
-        } else {
-          userFormRaw.userEmail = str + '@qq.com';
-        }
-        return addUserApi(userFormRaw);
-      };
-      const editUser = async () => {
-        const userFormRaw = toRaw(addUserFrom);
-        return editUserApi(userFormRaw);
+      const editPusher = async () => {
+        const pusherFormRaw = toRaw(addPusherFrom);
+        return editPusherApi(pusherFormRaw);
       };
       // 通用方法
       const resetFields = (refName) => {
         proxy.$refs[refName].resetFields();
       };
       // 事件方法: 多选时存入选中列表中
-      const onChangeUserSelects = (list) => {
-        userSelects.value = list.map((user) => user.userId);
+      const onChangePusherSelects = (list) => {
+        pusherSelects.value = list.map((pusher) => pusher._id);
       };
       const onChangeCurrentPage = (currentPage) => {
         pager.pageNum = currentPage;
-        getUserList();
+        getPusherList();
       };
-      const onSearchUserFrom = () => {
-        getUserList();
+      const onSearchPusherFrom = () => {
+        getPusherList();
       };
-      const onResetUserFrom = () => {
+      const onResetPusherFrom = () => {
         proxy.$refs.formRef.resetFields();
-        getAllUsersList();
+        getAllPushersList();
       };
-      const onEditUser = async (user) => {
+      const onEditPusher = async (pusher) => {
         addDialog.value = true;
         isEdit.value = true;
         await nextTick(() => {
-          Object.assign(addUserFrom, user);
+          Object.assign(addPusherFrom, pusher);
         });
       };
-      const onAddUserBtn = () => {
+      const onAddPusherBtn = () => {
         isEdit.value = false;
         addDialog.value = true;
       };
-      const onAddDeleteList = (user) => {
-        userSelects.value = [user.userId];
-        console.log('userSelects.value=>', userSelects.value);
+      const onAddDeleteList = (pusher) => {
+        pusherSelects.value = [pusher._id];
+        console.log('pusherSelects.value=>', pusherSelects.value);
         deleteDialog.value = true;
       };
-      const onDeleteUserSelects = async () => {
+      const onDeletePusherSelects = async () => {
         try {
-          const { nModified } = await deleteUser();
+          const { nModified } = await deletePusher();
           if (nModified > 0) {
-            userSelects.value = [];
+            pusherSelects.value = [];
             proxy.$message.success('删除成功');
-            getUserList();
-          } else {
-            proxy.$message.error('删除失败');
           }
         } catch (error) {}
         deleteDialog.value = false;
+            getAllPushersList();
       };
       const onCancel = () => {
         isEdit.value = false;
         resetFields('addFromRef');
-        // addUserFrom.state = 3;
         addDialog.value = false;
       };
+      const watchMore = (val) =>{
+          console.log('watchMore', val);
+          moreDialog.value = true;
+      }
       const onSummit = () => {
         proxy.$refs.addFromRef.validate(async (valid) => {
           if (valid) {
             try {
               let res;
+              console.log('isEdit.value=>', isEdit.value);
               if (isEdit.value) {
-                res = await editUser();
+                res = await editPusher();
               } else {
-                res = await addUser();
+                res = await addPusher();
               }
               if (res) {
-                proxy.$message.success('用户添加成功');
+                proxy.$message.success('推送操作成功');
               } else {
-                proxy.$message.error('用户添加失败');
+                proxy.$message.error('推送添加失败');
               }
               resetFields('addFromRef');
-            } catch (error) {}
-            // getUserList();
-            getAllUsersList();
+            } catch (error) {
+                proxy.$message.error('推送添加失败');
+            }
+            getAllPushersList();
             addDialog.value = false;
           }
         });
@@ -333,30 +324,31 @@
       // 生命周期
       onMounted(() => {
         getRoleList();
-        getDeptList();
-        getAllUsersList();
+        getAllPushersList();
       });
       //
       return {
-        userFrom,
-        userColumns,
-        userList,
-        onChangeUserSelects,
+        pusherFrom,
+        pusherColumns,
+        pusherList,
+        onChangePusherSelects,
         pager,
         isEdit,
-        addUserFrom,
-        addUserFromRules,
+        addPusherFrom,
+        addPusherFromRules,
         roleList,
         deptList,
         addDialog,
         deleteDialog,
+        moreDialog,
         onChangeCurrentPage,
-        onSearchUserFrom,
-        onResetUserFrom,
-        onEditUser,
-        onAddUserBtn,
+        onSearchPusherFrom,
+        onResetPusherFrom,
+        onEditPusher,
+        onAddPusherBtn,
         onAddDeleteList,
-        onDeleteUserSelects,
+        onDeletePusherSelects,
+        watchMore,
         onSummit,
         onCancel,
       };
@@ -364,11 +356,11 @@
   });
 </script>
 <style lang="scss" scoped>
-  .user-page {
+  .pusher-page {
     padding: 30px;
     box-sizing: border-box;
     height: 100vh;
-    .user-from-wrap {
+    .pusher-from-wrap {
       background: white;
       margin-bottom: 18px;
       .el-form {
