@@ -63,13 +63,13 @@
             trigger: 'blur',
           },
         ],
-        // captchaCode: [
-        //   {
-        //     required: true,
-        //     message: '必须填写验证码',
-        //     trigger: 'blur',
-        //   },
-        // ]
+        captchaCode: [
+          {
+            required: true,
+            message: '必须填写验证码',
+            trigger: 'blur',
+          },
+        ]
       };
       const userFromCommit = () => {
         userFormRef.value.validate(async (valid) => {
