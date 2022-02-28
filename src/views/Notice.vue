@@ -37,10 +37,11 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <el-table-column label="Operations">
+        <el-table-column label="Operations" >
           <template #default="scope">
-            <el-button size="mini" type="text" @click="onEditNotice(scope.row)">编辑</el-button>
-            <el-button size="mini" type="text" @click="onAddDeleteList(scope.row)">删除</el-button>
+            <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
+            <el-button size="mini" type="text" v-has="'notice-create'" @click="onEditNotice(scope.row)">编辑</el-button>
+            <el-button size="mini" type="text" v-has="'notice-create'" @click="onAddDeleteList(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -54,6 +55,15 @@
         @current-change="onChangeCurrentPage"
       />
     </div>
+    <!-- 详情弹窗-->
+    <el-dialog v-model="moreDialog" title="详情" width="30%">
+      <span>确定删除?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="moreDialog = false">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
     <!-- 删除弹窗 -->
     <el-dialog v-model="deleteDialog" title="操作" width="30%">
       <span>确定删除?</span>
@@ -162,6 +172,7 @@
       const noticeSelects = ref([]);
       const addDialog = ref(false);
       const deleteDialog = ref(false);
+      const moreDialog = ref(false);
       const addNoticeFrom = reactive({});
       const roleList = ref([]);
       const deptList = ref([]);
@@ -263,6 +274,10 @@
         // addNoticeFrom.state = 3;
         addDialog.value = false;
       };
+      const watchMore = (val) =>{
+          console.log('watchMore', val);
+          moreDialog.value = true;
+      }
       const onSummit = () => {
         proxy.$refs.addFromRef.validate(async (valid) => {
           if (valid) {
@@ -308,6 +323,7 @@
         deptList,
         addDialog,
         deleteDialog,
+        moreDialog,
         onChangeCurrentPage,
         onSearchNoticeFrom,
         onResetNoticeFrom,
@@ -315,6 +331,7 @@
         onAddNoticeBtn,
         onAddDeleteList,
         onDeleteNoticeSelects,
+        watchMore,
         onSummit,
         onCancel,
       };
