@@ -41,8 +41,20 @@
           <template #default="scope">
             <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
             <el-button size="mini" type="text" @click="onEditPusher(scope.row)">立即推送</el-button>
-            <el-button size="mini" type="text" v-has="'pusher-create'" @click="onEditPusher(scope.row)">编辑</el-button>
-            <el-button size="mini" type="text" v-has="'pusher-create'" @click="onAddDeleteList(scope.row)">删除</el-button>
+            <el-button
+              size="mini"
+              type="text"
+              v-has="'pusher-create'"
+              @click="onEditPusher(scope.row)"
+              >编辑</el-button
+            >
+            <el-button
+              size="mini"
+              type="text"
+              v-has="'pusher-create'"
+              @click="onAddDeleteList(scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
@@ -84,21 +96,32 @@
         :rules="addPusherFromRules"
       >
         <el-form-item label="推送人ID" prop="userId">
-          <el-input v-model="addPusherFrom.userId" disabled/>
+          <el-input v-model="addPusherFrom.userId" disabled />
+        </el-form-item>
+        <el-form-item label="推送人名字" prop="userName">
+          <el-input v-model="addPusherFrom.userName" disabled />
         </el-form-item>
         <el-form-item label="推送标题" prop="pusherTitle">
-          <el-input
-            placeholder="请输入推送标题"
-            v-model="addPusherFrom.pusherTitle"
-          ></el-input>
+          <el-input placeholder="请输入推送标题" v-model="addPusherFrom.pusherTitle"></el-input>
         </el-form-item>
-        <el-form-item label="推送内容" prop="pusherContent">
+        <!-- <el-form-item label="推送内容" prop="pusherContent">
           <el-input
             placeholder="请输入推送内容"
             v-model="addPusherFrom.pusherContent"
             :rows="4"
             type="textarea"
           ></el-input>
+        </el-form-item> -->
+        <el-form-item label="推送类型" prop="pusherCategory">
+          <el-select placeholder="请输入推送类型" v-model="addPusherFrom.pusherCategoryOptions">
+            <el-option
+              v-for="item in pusherCategoryOptions"
+              :key="item.text"
+              :label="item.value"
+              :value="item.text"
+            >
+            </el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <template #footer>
@@ -128,16 +151,17 @@
     addPusherApi,
     editPusherApi,
     pusherAllListApi,
+    getDictApi
   } from '../api';
   import util from '../util/utils';
-  import storage from "@/util/storage";
+  import storage from '@/util/storage';
   export default defineComponent({
     name: 'Pusher',
     components: {},
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
-      const userInfo = storage.getItem('userInfo')
+      const userInfo = storage.getItem('userInfo');
       const pusherFrom = reactive({
         userId: userInfo.userId,
         pusherTitle: '',
@@ -193,6 +217,7 @@
       const moreDialog = ref(false);
       const addPusherFrom = reactive({});
       addPusherFrom.userId = userInfo.userId;
+      addPusherFrom.userName = userInfo.userName;
       const roleList = ref([]);
       const deptList = ref([]);
       const addPusherFromRules = {
@@ -216,10 +241,15 @@
         pusherList.value = list;
       };
       const getAllPushersList = async () => {
-        const { list, page } = await pusherAllListApi({});
+        const { list, page } = await pusherAllListApi({userId: userInfo.userId});
         pager.pageNum = page.pageNum;
         pager.total = page.total;
         pusherList.value = list;
+      };
+      let pusherCategoryOptions = ref([]);
+      const getPusherCategoryOptions = async () =>{
+        pusherCategoryOptions.value = await getDictApi('pusher_category');
+        console.log(pusherCategoryOptions.value);
       };
       const deletePusher = async () => {
         if (pusherSelects.value.length > 0) {
@@ -285,17 +315,17 @@
           }
         } catch (error) {}
         deleteDialog.value = false;
-            getAllPushersList();
+        getAllPushersList();
       };
       const onCancel = () => {
         isEdit.value = false;
         resetFields('addFromRef');
         addDialog.value = false;
       };
-      const watchMore = (val) =>{
-          console.log('watchMore', val);
-          moreDialog.value = true;
-      }
+      const watchMore = (val) => {
+        console.log('watchMore', val);
+        moreDialog.value = true;
+      };
       const onSummit = () => {
         proxy.$refs.addFromRef.validate(async (valid) => {
           if (valid) {
@@ -314,7 +344,7 @@
               }
               resetFields('addFromRef');
             } catch (error) {
-                proxy.$message.error('推送添加失败');
+              proxy.$message.error('推送添加失败');
             }
             getAllPushersList();
             addDialog.value = false;
@@ -323,6 +353,7 @@
       };
       // 生命周期
       onMounted(() => {
+        getPusherCategoryOptions();
         getRoleList();
         getAllPushersList();
       });
@@ -331,7 +362,9 @@
         pusherFrom,
         pusherColumns,
         pusherList,
+        pusherCategoryOptions,
         onChangePusherSelects,
+        getPusherCategoryOptions,
         pager,
         isEdit,
         addPusherFrom,
