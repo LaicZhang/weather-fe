@@ -14,6 +14,13 @@ export const changePasswordApi = (data = {}) => {
 export const menuPermissionApi = (data = {}) => {
   return request.get("/auth/getPermissionList", data, { mock: false });
 };
+// ip相关
+export const getIpApi = (data = {}) => {
+  return request.get("/auth/ip", data, { mock: false });
+};
+export const getIpApi = (data = {}) => {
+  return request.get("/auth/location", data, { mock: false });
+};
 
 export const getDictApi = (item='',data = {}) => {
   return request.get("/dict?item="+item, data, { mock: false });
