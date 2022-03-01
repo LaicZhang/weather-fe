@@ -4,11 +4,7 @@
       <img
         alt="user picture"
         class="user-img"
-        v-lazy="{
-          src: userImage,
-          error: userImage,
-          loading: userImage,
-        }"
+        src="../../assets/images/default.jpg"
       />
       <em class="el-icon-arrow-down"></em>
     </span>
@@ -21,11 +17,12 @@
   </el-dropdown>
 </template>
 <script>
+//  import defaultImage from '@/assets/images/default.jpg';
   export default {
     name: 'CUserDropdown',
     data() {
       return {
-        userImage: '../../src/assets/images/default.jpg',
+        // userImage: defaultImage,
       }
     },
     props: {
@@ -45,6 +42,9 @@
           this.$router.push({ name: 'login' });
         }
       },
+    },
+    mounted() {
+      console.log(import.meta);
     },
   };
 </script>
