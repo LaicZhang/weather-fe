@@ -2,7 +2,8 @@ import { defineConfig,loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 let server={}
-if(process.env?.NODE_ENV !== 'development'){
+console.log('process.env.NODE_ENV',process.env.NODE_ENV)
+if(process.env.NODE_ENV !== 'development'){
   server={
     host:'0.0.0.0',
     proxy:{
