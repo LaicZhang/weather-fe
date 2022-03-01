@@ -123,11 +123,40 @@
             </el-option>
           </el-select>
         </el-form-item>
+        <el-form-item label="推送周期" >
+          <el-select placeholder="请选择推送周期" v-model="addPusherFrom.pusherLifetime">
+            <el-option
+              v-for="item in pushLifetimeOptions"
+              :key="item.text"
+              :label="item.value"
+              :value="item.text"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="推送时间" prop="pushTime" v-if="addPusherFrom.pusherLifetime == '1'">
+          <el-date-picker
+            v-model="addPusherFrom.pushTime"
+            type="datetime"
+            placeholder="请选择推送时间"
+            :shortcuts="shortcuts"
+            :picker-options="pickerOptions"
+          >
+          </el-date-picker>
+        </el-form-item>
+        <el-form-item label="推送时间" prop="pushTime" v-if="addPusherFrom.pusherLifetime == '0'">
+          <el-time-picker
+            v-model="addPusherFrom.pushTime"
+            type="date"
+            placeholder="请选择推送时间"
+          >
+          </el-time-picker>
+        </el-form-item>
       </el-form>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="onCancel">取消</el-button>
-          <el-button type="primary" @click="onSummit">发布</el-button>
+          <el-button type="primary" @click="onSummit">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -135,6 +164,7 @@
 </template>
 
 <script>
+  // import LimitTimePicker from '@/components/LimitTimePicker/LimitTimePicker.vue';
   import {
     defineComponent,
     onMounted,
@@ -157,7 +187,7 @@
   import storage from '@/util/storage';
   export default defineComponent({
     name: 'Pusher',
-    components: {},
+    // components: { LimitTimePicker },
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
@@ -167,6 +197,44 @@
         pusherTitle: '',
         pusherContent: '',
       });
+      const shortcuts = [
+        {
+          text: '此刻',
+          value: new Date()
+        },
+        {
+          text: '1小时后',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000);
+            return date;
+          },
+        },
+        {
+          text: '3小时后',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 3);
+            return date;
+          },
+        },
+        {
+          text: '1天后',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24);
+            return date;
+          },
+        },
+        {
+          text: '3天后',
+          value: () => {
+            const date = new Date();
+            date.setTime(date.getTime() + 3600 * 1000 * 24 * 3);
+            return date;
+          },
+        },
+      ];
       const pager = reactive({
         pageNum: 1,
         pageSize: 10,
@@ -175,17 +243,30 @@
       const pusherColumns = [
         // { prop: '_id', label: '推送ID' },
         { prop: 'pusherTitle', label: '推送标题' },
+        // {
+        //   prop: 'pusherContent',
+        //   label: '推送内容',
+        // },
         {
-          prop: 'pusherContent',
-          label: '推送内容',
+          prop: 'pusherCategory',
+          label: '推送类型',
+          formatter(row, column, cellValue) {
+            return { 0: '普通天气预报', 1: '降雨提醒', 2: '晴天提醒' }[cellValue];
+          },
         },
         {
           prop: 'pusherLifeTime',
           label: '推送周期',
+          formatter(row, column, cellValue) {
+            return { 0: '每天', 1: '一次' }[cellValue];
+          },
         },
         {
           prop: 'todayState',
           label: '今日推送状态',
+          formatter(row, column, cellValue) {
+            return { 0: '未推送', 1: '已推送' }[cellValue];
+          },
         },
         {
           prop: 'pushTime',
@@ -201,13 +282,13 @@
             return util.formateDate(new Date(cellValue));
           },
         },
-        {
-          prop: 'updateTime',
-          label: '更新时间',
-          formatter(row, column, cellValue) {
-            return util.formateDate(new Date(cellValue));
-          },
-        },
+        // {
+        //   prop: 'updateTime',
+        //   label: '更新时间',
+        //   formatter(row, column, cellValue) {
+        //     return util.formateDate(new Date(cellValue));
+        //   },
+        // },
       ];
       const isEdit = ref(false);
       const pusherList = ref([]);
@@ -220,6 +301,11 @@
       addPusherFrom.userName = userInfo.userName;
       const roleList = ref([]);
       const deptList = ref([]);
+      const pickerOptions =  {
+        disabledDate(time) {
+          return time.getTime() < Date.now() - 3600 * 1000 * 24;
+        }
+      }
       const addPusherFromRules = {
         pusherTitle: {
           required: true,
@@ -228,7 +314,7 @@
         },
         pusherContent: {
           required: true,
-          message: '必须填写推送内容',
+          message: '必须选择推送类型',
           trigger: 'blur',
         },
       };
@@ -241,15 +327,20 @@
         pusherList.value = list;
       };
       const getAllPushersList = async () => {
-        const { list, page } = await pusherAllListApi({userId: userInfo.userId});
+        const { list, page } = await pusherAllListApi({ userId: userInfo.userId });
         pager.pageNum = page.pageNum;
         pager.total = page.total;
         pusherList.value = list;
       };
       let pusherCategoryOptions = ref([]);
-      const getPusherCategoryOptions = async () =>{
+      const getPusherCategoryOptions = async () => {
         pusherCategoryOptions.value = await getDictApi('pusher_category');
-        console.log(pusherCategoryOptions.value);
+        console.log('pusherCategoryOptions.value=>', pusherCategoryOptions.value);
+      };
+      let pushLifetimeOptions = ref([]);
+      const getPushLifetimeOptions = async () => {
+        pushLifetimeOptions.value = await getDictApi('pusher_lifetime');
+        console.log('pushLifetimeOptions.value=>', pushLifetimeOptions.value);
       };
       const deletePusher = async () => {
         if (pusherSelects.value.length > 0) {
@@ -354,6 +445,7 @@
       // 生命周期
       onMounted(() => {
         getPusherCategoryOptions();
+        getPushLifetimeOptions();
         getRoleList();
         getAllPushersList();
       });
@@ -363,6 +455,10 @@
         pusherColumns,
         pusherList,
         pusherCategoryOptions,
+        shortcuts,
+        pickerOptions,
+        pushLifetimeOptions,
+        getPushLifetimeOptions,
         onChangePusherSelects,
         getPusherCategoryOptions,
         pager,
