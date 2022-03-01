@@ -6,12 +6,11 @@ if(import.meta.PROD){
   console.log('production')
   server={
     host:'weather.laiczhang.com',
-    port:443,
     proxy:{
       "/api":{
         target:"http://139.155.29.130/:9000",
-        changeOrigin: true,
-        secure: true,
+        // changeOrigin: true,
+        // secure: true,
       }
     }
   }
@@ -23,8 +22,8 @@ if(import.meta.PROD){
     proxy:{
       "/api":{
         target:"http://localhost:9000",
-        changeOrigin: true,
-        secure: true,
+        // changeOrigin: true,
+        // secure: true,
       }
     }
   }
