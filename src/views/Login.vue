@@ -19,7 +19,7 @@
         <span>或</span>
         <el-button type="text" @click="toRegister">注册</el-button>
         <span>或</span>
-        <el-button type="text" @click="toHomeAsVisitor">游客登陆</el-button>
+        <el-button type="text" @click="toHomeAsVisitor">不想注册？一键游客登陆</el-button>
       </el-form-item>
       <el-form-item>
         <el-button @click="userFromCommit" type="primary" class="login-submit">登录</el-button>
@@ -97,6 +97,7 @@
       const toHomeAsVisitor = () => {
         userForm.userName = 'visitor';
         userForm.userPwd = '123456';
+        userForm.captchaCode = '123456';
         console.log('userForm=>', userForm);
         userFromCommit();
       };

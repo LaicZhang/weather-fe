@@ -27,7 +27,7 @@
       ><!--</el-col>-->
       <!-- <el-col :span="24"> -->
         <el-form-item label="密码">
-          <el-input v-model="userForm.userPwd"></el-input> </el-form-item
+          <el-input type="password" v-model="userForm.userPwd"></el-input> </el-form-item
       ><!--</el-col>-->
       <el-col :span="24"
         ><el-form-item>
@@ -52,8 +52,7 @@
   };
   const getUserInfo = () => {
     let userInfo = storage.getItem('userInfo');
-    request.get('/users/info?userName=' + userInfo.userName).then((res) => {
-      console.log(res);
+    request.get('/users/info' , {userName:userInfo.userName}).then((res) => {
       Object.assign(userForm, res);
     });
   };
@@ -71,6 +70,7 @@
 
 <style lang="scss" scoped>
   .mine-info-page {
+    width: 30vw;
     padding: 30px;
     box-sizing: border-box;
     height: 80vh;

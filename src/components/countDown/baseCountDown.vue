@@ -110,7 +110,7 @@ export default {
 };
 </script>
 <style lang='scss' scoped>
-@import '~@assets/css/common.scss';
+// @import '~@assets/css/common.scss';
 
 ._base-count-down {
   color: #fff;

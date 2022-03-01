@@ -73,14 +73,15 @@
 </template>
 
 <script>
-import Hot from '@/components/Hot.vue'
-import Map from '@/components/Map.vue'
-import Rank from '@/components/Rank.vue'
-import Seller from '@/components/Seller.vue'
-import Stock from '@/components/Stock.vue'
-import Trend from '@/components/Trend.vue'
+import Hot from '@/components/echarts/Hot.vue'
+import Map from '@/components/echarts/Map.vue'
+import Rank from '@/components/echarts/Rank.vue'
+import Seller from '@/components/echarts/Seller.vue'
+import Stock from '@/components/echarts/Stock.vue'
+import Trend from '@/components/echarts/Trend.vue'
 import { mapState } from 'vuex'
-import { getThemeValue } from '@/utils/theme_utils'
+import { getThemeValue } from '@/util/theme_utils'
+// import * as echarts from 'echarts';
 export default {
   created () {
     // 注册接收到数据的回调函数

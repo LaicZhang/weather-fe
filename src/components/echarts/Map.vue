@@ -8,7 +8,7 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
-import { getProvinceMapInfo } from '@/utils/map_utils'
+import { getProvinceMapInfo } from '@/util/map_utils'
 export default {
   data () {
     return {

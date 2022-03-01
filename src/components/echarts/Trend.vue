@@ -15,7 +15,7 @@
 
 <script>
 import { mapState } from 'vuex'
-import { getThemeValue } from '@/utils/theme_utils'
+import { getThemeValue } from '@/util/theme_utils'
 export default {
   data () {
     return {

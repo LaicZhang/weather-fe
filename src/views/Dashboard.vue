@@ -1,5 +1,7 @@
 <template>
   <div class="dashboard-page">
+    <!-- <Test/> -->
+    <!-- <ScreenPage/> -->
   </div>
   <div class="to-dashboard" @click="toPageHome">
     <svg
@@ -20,8 +22,14 @@
 </template>
 
 <script>
+// import Test from '@/components/echarts/Test';
+// import ScreenPage from '@/components/echarts/ScreenPage.vue';
 export default {
     name: "Dashboard",
+    components: {
+    // Test,
+    // ScreenPage
+},
     methods: {
         toPageHome() {
             router.push("/");
