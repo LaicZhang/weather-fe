@@ -18,7 +18,7 @@ export const menuPermissionApi = (data = {}) => {
 export const getIpApi = (data = {}) => {
   return request.get("/auth/ip", data, { mock: false });
 };
-export const getIpApi = (data = {}) => {
+export const getLocationApi = (data = {}) => {
   return request.get("/auth/location", data, { mock: false });
 };
 
