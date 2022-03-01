@@ -101,6 +101,12 @@
         <el-form-item label="推送人名字" prop="userName">
           <el-input v-model="addPusherFrom.userName" disabled />
         </el-form-item>
+        <el-form-item label="ip" prop="pushIp">
+          <el-input v-model="addPusherFrom.pushIp" disabled />
+        </el-form-item>
+        <el-form-item label="地址" prop="pushLocation">
+          <el-input v-model="addPusherFrom.pushLocation" disabled />
+        </el-form-item>
         <el-form-item label="推送标题" prop="pusherTitle">
           <el-input placeholder="请输入推送标题" v-model="addPusherFrom.pusherTitle"></el-input>
         </el-form-item>
@@ -181,7 +187,9 @@
     addPusherApi,
     editPusherApi,
     pusherAllListApi,
-    getDictApi
+    getDictApi,
+    getIpApi,
+    getLocationApi
   } from '../api';
   import util from '../util/utils';
   import storage from '@/util/storage';
@@ -388,7 +396,11 @@
           Object.assign(addPusherFrom, pusher);
         });
       };
-      const onAddPusherBtn = () => {
+      const onAddPusherBtn = async () => {
+        let ip = await getIpApi();
+        addPusherFrom.pushIp = ip.ip
+        let location = await getLocationApi();
+        // addPusherFrom.pushLocation = location;
         isEdit.value = false;
         addDialog.value = true;
       };
