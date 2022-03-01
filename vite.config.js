@@ -1,29 +1,28 @@
-import { defineConfig } from 'vite'
+import { defineConfig,loadEnv } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 let server={}
-if(import.meta.PROD){
-  console.log('production')
+let env = 'production' //设置环境 development production
+if(env === 'production'){
   server={
-    host:'weather.laiczhang.com',
+    host:'0.0.0.0',
     proxy:{
       "/api":{
-        target:"http://139.155.29.130/:9000",
-        // changeOrigin: true,
-        // secure: true,
+        target:"http://139.155.29.130:9000",
+        changeOrigin: false,
+        // secure: true
       }
     }
   }
 }else{
-  console.log('dev')
   server={
     host:'localhost',
     port:8000,
     proxy:{
       "/api":{
         target:"http://localhost:9000",
-        // changeOrigin: true,
-        // secure: true,
+        changeOrigin: false,
+        // secure: true
       }
     }
   }
@@ -64,7 +63,6 @@ export default defineConfig({
     },
   },
   server,
-  
   // optimizeDeps: {
   //   include: [
   //     "pinia",
@@ -88,5 +86,5 @@ export default defineConfig({
   },
   plugins: [vue()],
   // base:'/weather-visualization-front-2/'
-  base: '/'
+  // base: './'
 })

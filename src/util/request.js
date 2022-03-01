@@ -19,7 +19,7 @@ service.interceptors.request.use((req) => {
   const headers = req.headers;
   const userInfo = storage.getItem("userInfo");
   if (!headers.Authorization) {
-    headers.Authorization = "weather " + userInfo.token;
+    headers.Authorization = "Bearer " + userInfo.token;
   }
   return req;
 });
