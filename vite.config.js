@@ -5,7 +5,7 @@ let server={}
 if(import.meta.PROD){
   console.log('production')
   server={
-    host:'weather.laiczhang.com',
+    host:'0.0.0.0',
     proxy:{
       "/api":{
         target:"http://139.155.29.130:9000",
