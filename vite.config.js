@@ -34,14 +34,27 @@ export default defineConfig({
       }
     },
   },
+  // dev
+  // server:{
+  //   host:'localhost',
+  //   port:8000,
+  //   proxy:{
+  //     "/api":{
+  //       target:"http://localhost:9000",
+  //       changeOrigin: true,
+  //       secure: true,
+  //     }
+  //   }
+  // },
+  // production
   server:{
-    host:'localhost',
-    port:8000,
+    // host:'localhost',
+    // port:8000,
     proxy:{
       "/api":{
-        target:"http://localhost:9000",
-        changeOrigin: true,
-        secure: true,
+        target:"http://139.155.29.130/:9000",
+        // changeOrigin: true,
+        // secure: true,
       }
     }
   },
@@ -66,5 +79,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 2000,
     minify: false
   },
-  plugins: [vue()]
+  plugins: [vue()],
+  // base:'/weather-visualization-front-2/'
+  base: './'
 })
