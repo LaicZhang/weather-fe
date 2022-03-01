@@ -8,7 +8,7 @@ if(import.meta.PROD){
     host:'weather.laiczhang.com',
     proxy:{
       "/api":{
-        target:"http://139.155.29.130/:9000",
+        target:"http://139.155.29.130:9000",
         // changeOrigin: true,
         // secure: true,
       }
