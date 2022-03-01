@@ -51,7 +51,7 @@ export default{
     <div :class="['nav-side', isCollapse ? 'fold' : 'unfold']">
       <!-- 系统LOGO -->
       <div class="logo">
-        <img src="./../assets/logo.png" />
+        <el-image src="./../assets/logo.png" />
         <span>Manager</span>
       </div>
       <!-- 导航菜单 -->
