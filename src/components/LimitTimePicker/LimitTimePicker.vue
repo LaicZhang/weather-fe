@@ -1,6 +1,6 @@
 <template>
   <el-date-picker
-    v-model.trim="val"
+    v-model="val"
     :picker-options="pickerOptions"
     :type="dateType"
     :placeholder="placeholder"
