@@ -1,5 +1,35 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+
+let server={}
+if(import.meta.PROD){
+  console.log('production')
+  server={
+    host:'weather.laiczhang.com',
+    port:443,
+    proxy:{
+      "/api":{
+        target:"http://139.155.29.130/:9000",
+        changeOrigin: true,
+        secure: true,
+      }
+    }
+  }
+}else{
+  console.log('dev')
+  server={
+    host:'localhost',
+    port:8000,
+    proxy:{
+      "/api":{
+        target:"http://localhost:9000",
+        changeOrigin: true,
+        secure: true,
+      }
+    }
+  }
+}
+
 // https://vitejs.dev/config/
 export default defineConfig({
   resolve: {
@@ -34,30 +64,8 @@ export default defineConfig({
       }
     },
   },
-  // dev
-  // server:{
-  //   host:'localhost',
-  //   port:8000,
-  //   proxy:{
-  //     "/api":{
-  //       target:"http://localhost:9000",
-  //       changeOrigin: true,
-  //       secure: true,
-  //     }
-  //   }
-  // },
-  // production
-  server:{
-    // host:'localhost',
-    // port:8000,
-    proxy:{
-      "/api":{
-        target:"http://139.155.29.130/:9000",
-        // changeOrigin: true,
-        // secure: true,
-      }
-    }
-  },
+  server,
+  
   // optimizeDeps: {
   //   include: [
   //     "pinia",
