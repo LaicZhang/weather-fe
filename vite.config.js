@@ -81,5 +81,5 @@ export default defineConfig({
   },
   plugins: [vue()],
   // base:'/weather-visualization-front-2/'
-  base: './'
+  base: '/'
 })
