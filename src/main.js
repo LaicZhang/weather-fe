@@ -11,7 +11,6 @@ import hasAction from './directive/has-action'
 import Directives from './directive/index';
 import * as echarts from 'echarts'
 // import echarts from 'echarts'
-import VueLazyLoad from 'vue3-lazyload'
 // import SocketService from '@/util/socket_service'
 import axios from 'axios'
 
@@ -35,7 +34,6 @@ app.directive('has',hasAction)
 app.use(ElementPlus, { size: "small", locale: zhCn, });
 app.use(router)
 app.use(store)
-app.use(VueLazyLoad, {})
 app.use(echarts)
 app.use(Directives)
 
