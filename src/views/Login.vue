@@ -102,15 +102,14 @@
         console.log('userForm=>', userForm);
         userFromCommit();
       };
-      let host = '';
+      let host = 'https://weather-api.zyha.cn';
       const getRequest = async () => {
         const {header} = await getRequestApi();
         host = header.host;
       };
       const changeCaptcha = () => {
         let randomNumber = Math.floor(Math.random()*10);
-        captchaRef.value = `http://${host}api/auth/captcha/${randomNumber}/`;
-        debugger;
+        captchaRef.value = `${host}/api/auth/captcha/${randomNumber}/`;
       };
       onBeforeMount(() => {
         captchaRef.value = host+'/api/auth/captcha/1/';
