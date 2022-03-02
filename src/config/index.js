@@ -5,7 +5,7 @@ const EnvConfig = {
         mockApi:'https://www.fastmock.site/mock/c1c302e8baed9894c48c17e4738c092e/api'
     },
     production: {
-        baseApi: '/api',
+        baseApi: 'https://weather-api.zyha.cn/api',
         mockApi: '/',
     },
     test: {

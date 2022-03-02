@@ -5,23 +5,25 @@ let server={}
 let env = 'production' //设置环境 development production
 if(env === 'production'){
   server={
+    cors: true,
     host:'0.0.0.0',
     proxy:{
       "/api":{
-        target:"http://139.155.29.130:9000",
-        changeOrigin: false,
+        target:"https://weather-api.zyha.cn",
+        changeOrigin: true,
         // secure: true
       }
     }
   }
 }else{
   server={
-    host:'localhost',
+    cors: true,
+    host:'0.0.0.0',
     port:8000,
     proxy:{
       "/api":{
         target:"http://localhost:9000",
-        changeOrigin: false,
+        changeOrigin: true,
         // secure: true
       }
     }
