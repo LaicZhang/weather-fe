@@ -1,4 +1,4 @@
-import { defineConfig,loadEnv } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 
 let server={}
@@ -27,6 +27,7 @@ if(env === 'production'){
     }
   }
 }
+console.log('server',server)
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -78,7 +79,7 @@ export default defineConfig({
   //   exclude: ["@zougt/vite-plugin-theme-preprocessor/dist/browser-utils"]
   // },
   build: {
-    sourcemap: false,
+    sourcemap: true,
     brotliSize: false,
     // 消除打包大小超过500kb警告
     chunkSizeWarningLimit: 2000,
