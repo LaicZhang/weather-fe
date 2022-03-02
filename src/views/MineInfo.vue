@@ -29,6 +29,12 @@
         <el-form-item label="密码">
           <el-input type="password" v-model="userForm.userPwd"></el-input> </el-form-item
       ><!--</el-col>-->
+      <el-form-item label="注册时间">
+          <el-input v-model="userForm.createTime"></el-input>
+        </el-form-item>
+        <el-form-item label="最近登陆">
+          <el-input v-model="userForm.lastLoginTime"></el-input>
+        </el-form-item>
       <el-col :span="24"
         ><el-form-item>
           <el-button @click="onSubmit" type="primary">提交</el-button>
@@ -44,6 +50,7 @@
   import request from '@/util/request';
   import storage from '@/util/storage';
   import { getDictApi } from '../api';
+  import util from '../util/utils';
   let userForm = reactive({});
   let sexDict = {};
 
@@ -54,6 +61,13 @@
     let userInfo = storage.getItem('userInfo');
     request.get('/users/info' , {userName:userInfo.userName}).then((res) => {
       Object.assign(userForm, res);
+      if(userForm.sex === 1){
+        userForm.sex = '男'
+      }else{
+        userForm.sex = '女'
+      }
+      userForm.createTime = util.formateDate(new Date(userForm.createTime));
+      userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime));
     });
   };
   const resetForm = () => {
@@ -73,6 +87,6 @@
     width: 30vw;
     padding: 30px;
     box-sizing: border-box;
-    height: 80vh;
+    height: 100vh;
   }
 </style>
