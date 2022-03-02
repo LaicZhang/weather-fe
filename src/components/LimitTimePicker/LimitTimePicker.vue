@@ -12,7 +12,7 @@
 </template>
 
 <script>
-import moment from "moment";
+import dayjs from "dayjs";
 //此组件主要目的是禁用未来时间的选择，当传入的limitFuture为false时表示不限制选择未来时间，那必须同时传入dateType为date
 export default {
   props: {
@@ -91,8 +91,8 @@ export default {
           const _newValue = new Date(newValue)
           let startTime = "";
           let endTime = "";
-          startTime = this.limitBefore ? moment(this.limitBefore).format("HH:mm:ss") : "00:00:00";
-          endTime = this.limitAfter ? moment(this.limitAfter).format("HH:mm:ss") : "23:59:59";
+          startTime = this.limitBefore ? dayjs(this.limitBefore).format("HH:mm:ss") : "00:00:00";
+          endTime = this.limitAfter ? dayjs(this.limitAfter).format("HH:mm:ss") : "23:59:59";
           this.pickerOptions.selectableRange = startTime + " - " + endTime;
 
           if (_newValue <= limitBefore) {
@@ -105,15 +105,15 @@ export default {
           }
           
           let date = new Date();
-          let nowDate = moment(date).format("HH:mm:ss");
-          let hh1 = moment(newValue).format("HH:mm:ss")
+          let nowDate = dayjs(date).format("HH:mm:ss");
+          let hh1 = dayjs(newValue).format("HH:mm:ss")
           if (!this.limitBefore || limitBefore.getTime() < _newValue.getTime()) {
             startTime = "00:00:00";
           }
           if (!this.limitAfter || limitAfter.getTime() < _newValue.getTime()) {
             endTime = "23:59:59";
           }
-          if (moment(date).format("yyyy-MM-DD") === moment(newValue).format("yyyy-MM-DD")) {
+          if (dayjs(date).format("yyyy-MM-DD") === dayjs(newValue).format("yyyy-MM-DD")) {
             if(hh1 > nowDate) {
                this.val = new Date();
             }
