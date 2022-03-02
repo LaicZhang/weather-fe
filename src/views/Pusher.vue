@@ -5,6 +5,28 @@
         <el-form-item label="推送ID" prop="_id">
           <el-input v-model="pusherFrom._id" />
         </el-form-item>
+        <el-form-item label="推送类型" prop="pusherCategory">
+          <el-select placeholder="请输入推送类型" v-model="pusherFrom.pusherCategoryOptions">
+            <el-option
+              v-for="item in pusherCategoryOptions"
+              :key="item.text"
+              :label="item.value"
+              :value="item.text"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="推送周期" prop="pusherLifeTime">
+          <el-select placeholder="请选择推送周期" v-model="pusherFrom.pusherLifetime">
+            <el-option
+              v-for="item in pushLifetimeOptions"
+              :key="item.text"
+              :label="item.value"
+              :value="item.text"
+            >
+            </el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="推送标题" prop="pusherTitle">
           <el-input v-model="pusherFrom.pusherTitle" />
         </el-form-item>
@@ -70,7 +92,16 @@
     </div>
     <!-- 详情弹窗-->
     <el-dialog v-model="moreDialog" title="详情" width="30%">
-      <span>确定删除?</span>
+      <span>详情</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="moreDialog = false">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <!-- 立即推送弹窗-->
+    <el-dialog v-model="moreDialog" title="详情" width="30%">
+      <span>立即推送?</span>
       <template #footer>
         <span class="dialog-footer">
           <el-button type="primary" @click="moreDialog = false">确定</el-button>
@@ -204,6 +235,7 @@
         userId: userInfo.userId,
         pusherTitle: '',
         pusherContent: '',
+        // pusherCategoryOptions: undefined
       });
       const shortcuts = [
         {
@@ -397,10 +429,11 @@
         });
       };
       const onAddPusherBtn = async () => {
-        let ip = await getIpApi();
-        addPusherFrom.pushIp = ip.ip
-        let location = await getLocationApi();
-        // addPusherFrom.pushLocation = location;
+        let {ip} = await getIpApi();
+        addPusherFrom.pushIp = ip
+        let {location} = await getLocationApi();
+        addPusherFrom.pushLocation = location.province + location.city;
+        console.log('addPusherFrom=>', addPusherFrom);
         isEdit.value = false;
         addDialog.value = true;
       };
