@@ -1,7 +1,11 @@
 import request from "@/util/request";
 
+
+export const getRequestApi = (data = {}) => {
+  return request.get("/request", data, { mock: false });
+};
 // auth
-export const loginApi = (data) => {
+export const loginApi = (data = {}) => {
   return request.post("/auth/login", data, { mock: false });
 };
 export const registerApi = (data = {}) => {

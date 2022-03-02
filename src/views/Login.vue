@@ -9,7 +9,7 @@
         <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-image alt="Captcha image" :src="captchaRef"></el-image>
+        <el-image alt="Captcha image" @click="changeCaptcha" :src="captchaRef"></el-image>
       </el-form-item>
       <el-form-item prop="captchaCode">
         <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
@@ -31,7 +31,8 @@
 <script>
   import { defineComponent, onMounted, onBeforeMount, reactive, ref } from 'vue';
   import useVuexWithRouter from '@/hooks/useVuexWithRouter';
-  import { loginApi, menuPermissionApi } from '@/api';
+  import { loginApi, menuPermissionApi,getIpApi,getRequestApi } from '@/api';
+  
   export default defineComponent({
     name: 'Login-page',
     components: {},
@@ -42,7 +43,7 @@
         console.log('toPageHome');
         router.push('/');
       };
-      const captchaRef = ref(null);
+      const captchaRef = ref('');
       const userFormRef = ref(null);
       const userForm = reactive({
         userName: '',
@@ -101,13 +102,23 @@
         console.log('userForm=>', userForm);
         userFromCommit();
       };
+      let host = '';
+      const getRequest = async () => {
+        const {header} = await getRequestApi();
+        host = header.host;
+      };
+      const changeCaptcha = () => {
+        let randomNumber = Math.floor(Math.random()*10);
+        captchaRef.value = `http://${host}api/auth/captcha/${randomNumber}/`;
+        debugger;
+      };
       onBeforeMount(() => {
-        captchaRef.value = document.location.origin + '/api/auth/captcha';
+        captchaRef.value = host+'/api/auth/captcha/1/';
         console.log('captchaRef.value=>', captchaRef.value);
-        console.log('onBeforeMount');
       });
       onMounted(() => {
-        console.log(captchaRef.value);
+        getRequest();
+        getIpApi();
       });
       return {
         toPageHome,
@@ -115,11 +126,13 @@
         userFormRef,
         userForm,
         userRules,
+        getRequest,
         userFromCommit,
         toRegister,
         toForget,
         toHomeAsVisitor,
         onMounted,
+        changeCaptcha
       };
     },
   });
