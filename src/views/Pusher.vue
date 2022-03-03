@@ -59,10 +59,22 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
+        <!-- <el-table-column label="倒计时">
+          <template #default="scope">
+            <baseCountDown v-slot="timeObj" :time="scope.row.pushTime" style="color:black">
+            <div class="count-down">
+              <div class="icon" ></div>
+              {{ timeObj.d }}天{{ timeObj.hh }}小时{{ timeObj.mm }}分钟{{ timeObj.ss }}秒
+            </div>
+          </baseCountDown>
+          </template>
+        </el-table-column> -->
         <el-table-column label="Operations" width="250px">
           <template #default="scope">
             <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
-            <el-button size="mini" type="text" @click="onEditPusher(scope.row)">立即推送</el-button>
+            <el-button size="mini" type="text" @click="openImmediatelyPushDialog(scope.row)"
+              >立即推送</el-button
+            >
             <el-button
               size="mini"
               type="text"
@@ -100,11 +112,11 @@
       </template>
     </el-dialog>
     <!-- 立即推送弹窗-->
-    <el-dialog v-model="moreDialog" title="详情" width="30%">
+    <el-dialog v-model="immediatelyPushDialog" title="详情" width="30%">
       <span>立即推送?</span>
       <template #footer>
         <span class="dialog-footer">
-          <el-button type="primary" @click="moreDialog = false">确定</el-button>
+          <el-button type="primary" @click="immediatelyPush">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -160,7 +172,7 @@
             </el-option>
           </el-select>
         </el-form-item>
-        <el-form-item label="推送周期" >
+        <el-form-item label="推送周期">
           <el-select placeholder="请选择推送周期" v-model="addPusherFrom.pusherLifetime">
             <el-option
               v-for="item in pushLifetimeOptions"
@@ -182,11 +194,7 @@
           </el-date-picker>
         </el-form-item>
         <el-form-item label="推送时间" prop="pushTime" v-if="addPusherFrom.pusherLifetime == '0'">
-          <el-time-picker
-            v-model="addPusherFrom.pushTime"
-            type="date"
-            placeholder="请选择推送时间"
-          >
+          <el-time-picker v-model="addPusherFrom.pushTime" type="date" placeholder="请选择推送时间">
           </el-time-picker>
         </el-form-item>
       </el-form>
@@ -202,6 +210,7 @@
 
 <script>
   // import LimitTimePicker from '@/components/LimitTimePicker/LimitTimePicker.vue';
+  import baseCountDown from '../components/countDown/baseCountDown.vue';
   import {
     defineComponent,
     onMounted,
@@ -220,13 +229,14 @@
     pusherAllListApi,
     getDictApi,
     getIpApi,
-    getLocationApi
+    getLocationApi,
+    immediatelyPushApi,
   } from '../api';
   import util from '../util/utils';
   import storage from '@/util/storage';
   export default defineComponent({
     name: 'Pusher',
-    // components: { LimitTimePicker },
+    components: { baseCountDown },
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
@@ -240,7 +250,7 @@
       const shortcuts = [
         {
           text: '此刻',
-          value: new Date()
+          value: new Date(),
         },
         {
           text: '1小时后',
@@ -302,10 +312,10 @@
           },
         },
         {
-          prop: 'todayState',
-          label: '今日推送状态',
+          prop: 'state',
+          label: '推送状态',
           formatter(row, column, cellValue) {
-            return { 0: '未推送', 1: '已推送' }[cellValue];
+            return { 0: '待推送', 1: '今日已推送', 2: '已过期' }[cellValue];
           },
         },
         {
@@ -336,16 +346,17 @@
       const addDialog = ref(false);
       const deleteDialog = ref(false);
       const moreDialog = ref(false);
+      const immediatelyPushDialog = ref(false);
       const addPusherFrom = reactive({});
       addPusherFrom.userId = userInfo.userId;
       addPusherFrom.userName = userInfo.userName;
       const roleList = ref([]);
       const deptList = ref([]);
-      const pickerOptions =  {
+      const pickerOptions = {
         disabledDate(time) {
           return time.getTime() < Date.now() - 3600 * 1000 * 24;
-        }
-      }
+        },
+      };
       const addPusherFromRules = {
         pusherTitle: {
           required: true,
@@ -429,10 +440,13 @@
         });
       };
       const onAddPusherBtn = async () => {
-        let {ip} = await getIpApi();
-        addPusherFrom.pushIp = ip
-        let {location} = await getLocationApi();
-        addPusherFrom.pushLocation = location.province + location.city;
+        let ip = '';
+        if (!ip) {
+          ip = await getIpApi();
+          addPusherFrom.pushIp = ip.ip;
+          let { location } = await getLocationApi();
+          addPusherFrom.pushLocation = location.province + location.city;
+        }
         console.log('addPusherFrom=>', addPusherFrom);
         isEdit.value = false;
         addDialog.value = true;
@@ -461,6 +475,16 @@
       const watchMore = (val) => {
         console.log('watchMore', val);
         moreDialog.value = true;
+      };
+      let pusherId = {};
+      const openImmediatelyPushDialog = async (val) => {
+        console.log('immediatelyPush', val);
+        immediatelyPushDialog.value = true;
+        pusherId = val._id;
+      };
+      const immediatelyPush = async () => {
+        immediatelyPushApi({ _id: pusherId });
+        immediatelyPushDialog.value = false;
       };
       const onSummit = () => {
         proxy.$refs.addFromRef.validate(async (valid) => {
@@ -513,8 +537,11 @@
         roleList,
         deptList,
         addDialog,
+        immediatelyPushDialog,
         deleteDialog,
         moreDialog,
+        immediatelyPush,
+        openImmediatelyPushDialog,
         onChangeCurrentPage,
         onSearchPusherFrom,
         onResetPusherFrom,

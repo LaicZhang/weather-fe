@@ -66,6 +66,9 @@ export const pusherAllListApi = (data = {}) => {
 export const pusherListApi = (data = {}) => {
   return request.get("/pushers/list", data, { mock: false });
 };
+export const immediatelyPushApi = (data = {}) => {
+  return request.post("/pushers/immediatelyPush", data, { mock: false });
+};
 
 // 用户管理
 export const userListApi = (data = {}) => {
