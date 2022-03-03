@@ -5,7 +5,7 @@
         <el-form-item label="推送ID" prop="_id">
           <el-input v-model="pusherFrom._id" />
         </el-form-item>
-        <el-form-item label="推送类型" prop="pusherCategory">
+        <!-- <el-form-item label="推送类型" prop="pusherCategory">
           <el-select placeholder="请输入推送类型" v-model="pusherFrom.pusherCategoryOptions">
             <el-option
               v-for="item in pusherCategoryOptions"
@@ -15,8 +15,8 @@
             >
             </el-option>
           </el-select>
-        </el-form-item>
-        <el-form-item label="推送周期" prop="pusherLifeTime">
+        </el-form-item> -->
+        <!-- <el-form-item label="推送周期" prop="pusherLifeTime">
           <el-select placeholder="请选择推送周期" v-model="pusherFrom.pusherLifetime">
             <el-option
               v-for="item in pushLifetimeOptions"
@@ -26,7 +26,7 @@
             >
             </el-option>
           </el-select>
-        </el-form-item>
+        </el-form-item> -->
         <el-form-item label="推送标题" prop="pusherTitle">
           <el-input v-model="pusherFrom.pusherTitle" />
         </el-form-item>
@@ -72,7 +72,7 @@
         <el-table-column label="Operations" width="250px">
           <template #default="scope">
             <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
-            <el-button size="mini" type="text" @click="openImmediatelyPushDialog(scope.row)"
+            <el-button size="mini" v-if="scope.row.state !== 2" type="text" @click="openImmediatelyPushDialog(scope.row)"
               >立即推送</el-button
             >
             <el-button
@@ -113,6 +113,11 @@
     </el-dialog>
     <!-- 立即推送弹窗-->
     <el-dialog v-model="immediatelyPushDialog" title="详情" width="30%">
+      <!-- <span>剩余时间：
+        <CountDownTime :endTime="pushTime" />
+        {{pushTime}}
+      </span>
+      <br/> -->
       <span>立即推送?</span>
       <template #footer>
         <span class="dialog-footer">
@@ -209,8 +214,8 @@
 </template>
 
 <script>
-  // import LimitTimePicker from '@/components/LimitTimePicker/LimitTimePicker.vue';
-  import baseCountDown from '../components/countDown/baseCountDown.vue';
+  // import baseCountDown from '../components/countDown/baseCountDown.vue';
+  // import countDownTime from '../components/countDown/countDownTime.vue';
   import {
     defineComponent,
     onMounted,
@@ -236,7 +241,7 @@
   import storage from '@/util/storage';
   export default defineComponent({
     name: 'Pusher',
-    components: { baseCountDown },
+    // components: { baseCountDown, countDownTime },
     setup() {
       const { proxy } = getCurrentInstance();
       // 属性
@@ -320,7 +325,7 @@
         },
         {
           prop: 'pushTime',
-          label: '推送时间',
+          label: '下次推送时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
@@ -477,13 +482,17 @@
         moreDialog.value = true;
       };
       let pusherId = {};
-      const openImmediatelyPushDialog = async (val) => {
+      // let pushTime = ref('2022-03-20 9:51:00');
+      let pusherLifeTime = ''
+      const openImmediatelyPushDialog = (val) => {
         console.log('immediatelyPush', val);
-        immediatelyPushDialog.value = true;
         pusherId = val._id;
+        // pushTime = val.pushTime;
+        pusherLifeTime = val.pusherLifeTime;
+        immediatelyPushDialog.value = true;
       };
       const immediatelyPush = async () => {
-        immediatelyPushApi({ _id: pusherId });
+        immediatelyPushApi({ _id: pusherId, pusherLifeTime });
         immediatelyPushDialog.value = false;
       };
       const onSummit = () => {
@@ -527,6 +536,8 @@
         shortcuts,
         pickerOptions,
         pushLifetimeOptions,
+        // pushTime,
+        // pusherLifetime,
         getPushLifetimeOptions,
         onChangePusherSelects,
         getPusherCategoryOptions,
