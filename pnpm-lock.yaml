@@ -4,6 +4,7 @@ specifiers:
   '@element-plus/icons-vue': ^0.2.7
   '@vitejs/plugin-vue': ^2.0.0
   '@vue/compiler-sfc': ^3.0.5
+  '@vueuse/core': 5.3.0
   autoprefixer: ^10.4.2
   axios: ^0.25.0
   dayjs: ^1.10.8
@@ -25,6 +26,7 @@ specifiers:
 
 dependencies:
   '@element-plus/icons-vue': 0.2.7_vue@3.2.31
+  '@vueuse/core': 5.3.0_vue@3.2.31
   axios: 0.25.0
   dayjs: 1.10.8
   echarts: 5.3.0
@@ -164,6 +166,16 @@ packages:
   /@vue/shared/3.2.31:
     resolution: {integrity: sha512-ymN2pj6zEjiKJZbrf98UM2pfDd6F2H7ksKw7NDt/ZZ1fh5Ei39X5tABugtT03ZRlWd9imccoK0hE8hpjpU7irQ==}
 
+  /@vueuse/core/5.3.0_vue@3.2.31:
+    resolution: {integrity: sha512-bBL1/JMRHFWmbgQzUZHF4WOwlqfenR1B8+elriXsbnHlogQM5foSz9++WyDBR0YPIVgCJq7fvNLqd4T7+cjc5w==}
+    dependencies:
+      '@vueuse/shared': 5.3.0_vue@3.2.31
+      vue-demi: 0.12.1_vue@3.2.31
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
+    dev: false
+
   /@vueuse/core/7.6.2_vue@3.2.31:
     resolution: {integrity: sha512-bjAbXJVJO6aElMaZtDz2B70C0L6jFk/jGVqJxWZS5huffxA6dW5DN6tQQJwzOnx9B9rDhePHJIFKsix0qZIH2Q==}
     peerDependencies:
@@ -178,6 +190,15 @@ packages:
       '@vueuse/shared': 7.6.2_vue@3.2.31
       vue: 3.2.31
       vue-demi: 0.12.1_vue@3.2.31
+    dev: false
+
+  /@vueuse/shared/5.3.0_vue@3.2.31:
+    resolution: {integrity: sha512-qZfkPFH0qTScFpYiPOFpTcxWriRhlM3bgSzl3DFTgr/U0eZg3w2EFWaRZHdWeSvAUdNQyjOC4Toa8S0zJyEjHw==}
+    dependencies:
+      vue-demi: 0.12.1_vue@3.2.31
+    transitivePeerDependencies:
+      - '@vue/composition-api'
+      - vue
     dev: false
 
   /@vueuse/shared/7.6.2_vue@3.2.31:

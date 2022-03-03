@@ -1,4 +1,5 @@
 import request from "@/util/request";
+import axios from 'axios'
 
 
 export const getRequestApi = (data = {}) => {
@@ -107,3 +108,32 @@ export const rolePermissionApi = (data = {}) => {
   return request.post("/roles/update/permission", data, { mock: false });
 };
 
+// 数据展示管理
+export const showDataApi = (data = {}) => {
+  return request.get("/data/showData", data, { mock: false });
+};
+
+// 数据获取管理
+export const getDataApi = (data = {}) => {
+  return request.get("/data/getData", data, { mock: false });
+};
+
+
+// 获取城市数据
+// 1. 数据在哪里？https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json
+// 2. 何时获取？打开城市列表的时候，做个内存中缓存
+// 3. 怎么使用数据？定义计算属性，根据点击的省份城市展示
+export const getCityList = async () => {
+  // 添加缓存，防止频繁加载列表数据
+  if (window.cityList) {
+    // 缓存中已经存在数据了
+    return window.cityList
+  }
+  const ret = await axios.get('https://laic-cdn.oss-cn-chengdu.aliyuncs.com/area.json')
+  // 给window对象添加了一个属性cityList
+  if (ret.data) {
+    window.cityList = ret.data
+  }
+  // 把数据返回
+  return ret.data
+}
