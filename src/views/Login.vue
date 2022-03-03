@@ -8,12 +8,12 @@
       <el-form-item prop="userPwd">
         <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-image alt="Captcha image" @click="changeCaptcha" :src="captchaRef"></el-image>
-      </el-form-item>
-      <el-form-item prop="captchaCode">
+      <!-- <el-form-item>
+        <el-image alt="Captcha image" :key="componentKey" @click="changeCaptcha" :src="captchaRef"></el-image>
+      </el-form-item> -->
+      <!-- <el-form-item prop="captchaCode">
         <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
-      </el-form-item>
+      </el-form-item> -->
       <el-form-item>
         <el-button type="text" @click="toForget">忘记密码？</el-button>
         <span>或</span>
@@ -102,36 +102,40 @@
         console.log('userForm=>', userForm);
         userFromCommit();
       };
-      let host = 'https://weather-api.zyha.cn';
-      const getRequest = async () => {
-        const {header} = await getRequestApi();
-        host = header.host;
-      };
-      const changeCaptcha = () => {
-        let randomNumber = Math.floor(Math.random()*10);
-        captchaRef.value = `${host}/api/auth/captcha/${randomNumber}/`;
-      };
-      onBeforeMount(() => {
-        captchaRef.value = host+'/api/auth/captcha/1/';
-        console.log('captchaRef.value=>', captchaRef.value);
-      });
+      // let host = 'https://weather-api.zyha.cn';
+      // let host = ''
+      // const getRequest = async () => {
+      //   const {header} = await getRequestApi();
+      //   host = header.host;
+      // };
+      const componentKey = ref(0);
+      // captchaRef.value = '/api/auth/captcha/1/';
+      // console.log('captchaRef.value=>', captchaRef.value);
+      // const changeCaptcha = () => {
+        // let randomNumber = Math.floor(Math.random()*10);
+        // captchaRef.value = `${host}api/auth/captcha/${randomNumber}/`;
+        // console.log('captchaRef=>', captchaRef.value);
+        // location.reload();
+        // componentKey.value++;
+      // };
       onMounted(() => {
-        getRequest();
+        // getRequest();
         getIpApi();
       });
       return {
         toPageHome,
         captchaRef,
+        componentKey,
         userFormRef,
         userForm,
         userRules,
-        getRequest,
+        // getRequest,
         userFromCommit,
         toRegister,
         toForget,
         toHomeAsVisitor,
         onMounted,
-        changeCaptcha
+        // changeCaptcha
       };
     },
   });

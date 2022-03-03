@@ -41,6 +41,11 @@
           prefix-icon="el-icon-lock"
         ></el-input>
       </el-form-item>
+      <el-input
+          v-model="userForm.captcha"
+          type="text"
+          placeholder="请输入验证码"
+        ></el-input>
       <el-form-item>
         <el-button type="text" @click="toLogin">已有账号？点击登陆</el-button>
         <el-button @click="userFromCommit" type="primary" class="register-submit"
@@ -94,6 +99,13 @@ export default defineComponent({
         {
           required: true,
           message: "请确认密码",
+          trigger: "blur",
+        },
+      ],
+      captcha: [
+        {
+          required: true,
+          message: "请填写验证码",
           trigger: "blur",
         },
       ],

@@ -2,7 +2,7 @@
   <div class="mine-info-page">
     <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
       <!--<el-col :span="24">-->
-        <el-form-item label="ID">
+        <el-form-item label="用户ID">
           <el-input v-model="userForm.userId"></el-input>
         </el-form-item>
       <!--</el-col>-->
