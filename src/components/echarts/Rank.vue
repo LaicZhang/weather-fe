@@ -7,10 +7,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import { shallowRef } from 'vue'
 export default {
   data () {
     return {
-      chartInstance: null,
+       chartInstance: shallowRef(null),
       allData: null,
       startValue: 0, // 区域缩放的起点值
       endValue: 9, // 区域缩放的终点值

@@ -8,11 +8,12 @@
 <script>
 import { mapState } from 'vuex'
 import axios from 'axios'
+import { shallowRef } from 'vue'
 import { getProvinceMapInfo } from '@/util/map_utils'
 export default {
   data () {
     return {
-      chartInstance: null,
+       chartInstance: shallowRef(null),
       allData: null,
       mapData: {} // 所获取的省份的地图矢量数据
     }
@@ -43,7 +44,7 @@ export default {
       // 获取中国地图的矢量数据
       // http://localhost:8999/static/map/china.json
       // 由于我们现在获取的地图矢量数据并不是位于KOA2的后台, 所以咱们不能使用this.$http
-      const ret = await axios.get('http://localhost:8999/static/map/china.json')
+      const ret = await axios.get('https://laic-cdn.oss-cn-chengdu.aliyuncs.com/json/map/china.json')
       this.$echarts.registerMap('china', ret.data)
       const initOption = {
         title: {

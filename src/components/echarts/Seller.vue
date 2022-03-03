@@ -7,10 +7,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import { shallowRef } from 'vue'
 export default {
   data () {
     return {
-      chartInstance: null,
+       chartInstance: shallowRef(null),
       allData: null, // 服务器返回的数据
       currentPage: 1, // 当前显示的页数
       totalPage: 0, // 一共有多少页

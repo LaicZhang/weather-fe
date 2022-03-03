@@ -15,6 +15,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import { shallowRef } from 'vue'
 import { getThemeValue } from '@/util/theme_utils'
 export default {
   data () {

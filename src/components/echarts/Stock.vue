@@ -7,10 +7,11 @@
 
 <script>
 import { mapState } from 'vuex'
+import { shallowRef } from 'vue'
 export default {
   data () {
     return {
-      chartInstance: null,
+       chartInstance: shallowRef(null),
       allData: null,
       currentIndex: 0, // 当前显示的数据
       timerId: null // 定时器的标识

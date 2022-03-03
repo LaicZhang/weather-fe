@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^0.2.7",
+    "@types/lodash-es": "*",
     "@vueuse/core": "5.3.0",
     "axios": "^0.25.0",
     "dayjs": "^1.10.8",

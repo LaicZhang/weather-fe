@@ -11,10 +11,11 @@
 <script>
 import { mapState } from 'vuex'
 import { getThemeValue } from '@/util/theme_utils'
+import { shallowRef } from 'vue'
 export default {
   data () {
     return {
-      chartInstance: null,
+       chartInstance: shallowRef(null),
       allData: null,
       currentIndex: 0, // 当前所展示出的一级分类数据
       titleFontSize: 0
@@ -58,6 +59,7 @@ export default {
   },
   methods: {
     initChart () {
+      // this.chartInstance = shallowRef()
       this.chartInstance = this.$echarts.init(this.$refs.hot_ref, this.theme)
       const initOption = {
         title: {

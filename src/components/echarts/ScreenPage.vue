@@ -178,15 +178,15 @@ export default {
 </script>
 <style lang="less" scoped>
 // 全屏样式的定义
-.fullscreen {
-  position: fixed!important;
-  top: 0 !important;
-  left: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  margin: 0 !important;
-  z-index: 100;
-}
+// .fullscreen {
+//   position: fixed!important;
+//   top: 0 !important;
+//   left: 0 !important;
+//   width: 100% !important;
+//   height: 100% !important;
+//   margin: 0 !important;
+//   z-index: 100;
+// }
 
 .screen-container {
   width: 100%;
