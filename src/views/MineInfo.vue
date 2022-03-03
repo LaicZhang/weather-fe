@@ -3,7 +3,7 @@
     <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
       <!--<el-col :span="24">-->
         <el-form-item label="用户ID">
-          <el-input v-model="userForm.userId"></el-input>
+          <el-input v-model="userForm.userId" disabled></el-input>
         </el-form-item>
       <!--</el-col>-->
       <!--<el-col :span="24">-->
@@ -13,7 +13,10 @@
       <!--</el-col>-->
       <!--<el-col :span="24">-->
         <el-form-item label="性别">
-          <el-input v-model="userForm.sex"></el-input>
+          <el-select v-model="userForm.sex">
+            <el-option label="男" value="1"></el-option>
+            <el-option label="女" value="0"></el-option>
+          </el-select>
         </el-form-item>
       <!--</el-col>-->
       <!--<el-col :span="24">-->
@@ -30,14 +33,17 @@
           <el-input type="password" v-model="userForm.userPwd"></el-input> </el-form-item
       ><!--</el-col>-->
       <el-form-item label="注册时间">
-          <el-input v-model="userForm.createTime"></el-input>
+          <el-input v-model="userForm.createTime" disabled></el-input>
         </el-form-item>
         <el-form-item label="最近登陆">
-          <el-input v-model="userForm.lastLoginTime"></el-input>
+          <el-input v-model="userForm.lastLoginTime" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="验证码" v-if="flag">
+          <el-input v-model="userForm.code"></el-input>
         </el-form-item>
       <el-col :span="24"
         ><el-form-item>
-          <el-button @click="onSubmit" type="primary">提交</el-button>
+          <el-button @click="onSubmit" :disable="!flag" type="primary">提交</el-button>
           <el-button @click="resetForm">撤销修改</el-button>
         </el-form-item></el-col
       >
@@ -46,13 +52,14 @@
 </template>
 
 <script setup>
-  import { onMounted, reactive } from 'vue';
+  import { onMounted, reactive, ref } from 'vue';
   import request from '@/util/request';
   import storage from '@/util/storage';
   import { getDictApi } from '../api';
   import util from '../util/utils';
   let userForm = reactive({});
   let sexDict = {};
+  let flag = ref(false);
 
   const onSubmit = () => {
     console.log('submit!');
