@@ -8,7 +8,9 @@
         <div class="middle-container">
           <div class="middle"></div>
         </div>
-        <div class="left">left</div>
+        <div class="left">
+          <line-marker />
+        </div>
         <div class="right">right</div>
         <div class="bottom">bottom</div>
       </div>
@@ -18,8 +20,11 @@
 </template>
 
 <script>
+import LineMarker from "@/views/echarts/LineMarker.vue";
   export default {
-
+    components: {
+      LineMarker
+    },
   };
 </script>
 
