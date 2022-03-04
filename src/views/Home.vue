@@ -30,21 +30,8 @@
       </div>
     </div>
   </div>
-  <div class="to-dashboard" @click="toPageHome">
-    <svg
-      class="icon"
-      width="50"
-      height="50"
-      viewBox="0 0 1024 1024"
-      xmlns="http://www.w3.org/2000/svg"
-      data-v-042ca774=""
-    >
-      <path
-        fill="currentColor"
-        d="M926.784 480H701.312A192.512 192.512 0 00544 322.688V97.216A416.064 416.064 0 01926.784 480zm0 64A416.064 416.064 0 01544 926.784V701.312A192.512 192.512 0 00701.312 544h225.472zM97.28 544h225.472A192.512 192.512 0 00480 701.312v225.472A416.064 416.064 0 0197.216 544zm0-64A416.064 416.064 0 01480 97.216v225.472A192.512 192.512 0 00322.688 480H97.216z"
-      ></path>
-    </svg>
-    <span style="font-size:12px">返回首页</span>
+  <div @click="toPageDashboard">
+    <back-to-svg :text="text" />
   </div>
 </template>
 
@@ -54,15 +41,17 @@
   import { menuPermissionApi } from '../api';
   import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue';
   import CUserDropdown from '../components/dropdown/c-user-dropdown.vue';
+import BackToSvg from '../components/backTo/backToSvg.vue';
   export default defineComponent({
     name: 'HOME',
-    components: { CMenu, CBreadCrumbs, CUserDropdown },
+    components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },
     data() {
       return {
         menus: this.$store.state.menuList || [],
         wrapClass: '',
         menuIconClass: ' el-icon-s-fold',
         userInfo: this.$store.state.userInfo || {},
+        text: '返回首页'
       };
     },
     computed: {
@@ -90,9 +79,9 @@
           this.menuIconClass = 'el-icon-s-fold';
         }
       },
-      toPageHome() {
+      toPageDashboard() {
         router.push('/dashboard');
-        console.log('toPageHome', this.router);
+        console.log('toPageDashboard', this.router);
       },
       async getMenuPermission() {
         const { menuList, actionList } = await menuPermissionApi();
