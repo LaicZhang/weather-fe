@@ -2,6 +2,7 @@
   <div class="dashboard-page">
     <!-- <Test/> -->
     <!-- <ScreenPage/> -->
+    <Layout />
   </div>
   <div @click="toPageHome">
     <backToSvg :text="text" />
@@ -12,6 +13,7 @@
 // import Test from '@/components/echarts/Test';
 import { getAllDataListApi } from '../api';
 import backToSvg from '@/components/backTo/backToSvg';
+import Layout from './dashborad/Layout.vue';
 // import ScreenPage from '@/components/echarts/ScreenPage.vue';
 export default {
     name: "Dashboard",
@@ -19,6 +21,7 @@ export default {
     // Test,
     // ScreenPage,
     backToSvg,
+    Layout
     },
     data(){
       return{
@@ -27,12 +30,12 @@ export default {
     },
     methods: {
         toPageHome() {
-            console.log('router',router)
+            console.log('router=>',router)
             router.push("/");
         },
         today(date) { // 判断今天是星期几
             let day = date.getDay();
-            let week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            let week = ['星期日','星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
             return week[day];
         },
         async getAllDataList() {

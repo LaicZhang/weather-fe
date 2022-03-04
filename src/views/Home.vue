@@ -184,13 +184,4 @@ import BackToSvg from '../components/backTo/backToSvg.vue';
       }
     }
   }
-  .to-dashboard {
-    /*  设置图片相对于浏览器窗口固定*/
-    position: fixed;
-    right: 180px;
-    bottom: 20px;
-    width: 50px;
-    cursor:pointer;
-    margin-right: -100px;
-  }
 </style>
