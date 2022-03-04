@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-page">
     <!-- <Test/> -->
-    <ScreenPage/>
+    <!-- <ScreenPage/> -->
   </div>
   <div class="to-dashboard" @click="toPageHome">
     <svg
@@ -23,19 +23,26 @@
 
 <script>
 // import Test from '@/components/echarts/Test';
-import ScreenPage from '@/components/echarts/ScreenPage.vue';
+import { getAllDataListApi } from '../api';
+// import ScreenPage from '@/components/echarts/ScreenPage.vue';
 export default {
     name: "Dashboard",
     components: {
     // Test,
-    ScreenPage
+    // ScreenPage
 },
     methods: {
         toPageHome() {
+          console.log('router',router)
             router.push("/");
+        },
+        async getAllDataList() {
+            const data = await getAllDataListApi();
+            console.log('data=>', data);
         }
     },
     mounted() {
+        this.getAllDataList();
         console.log("Dashboard mounted");
     }
 }

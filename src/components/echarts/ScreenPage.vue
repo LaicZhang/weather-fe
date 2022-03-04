@@ -10,7 +10,7 @@
       <span class="title">电商平台实时监控系统</span>
       <div class="title-right">
         <img :src="themeSrc" class="qiehuan" @click="handleChangeTheme">
-        <span class="datetime">2049-01-01 00:00:00</span>
+        <span class="datetime">{{new Date()}}</span>
       </div>
     </header>
     <div class="screen-body">
@@ -178,15 +178,15 @@ export default {
 </script>
 <style lang="less" scoped>
 // 全屏样式的定义
-// .fullscreen {
-//   position: fixed!important;
-//   top: 0 !important;
-//   left: 0 !important;
-//   width: 100% !important;
-//   height: 100% !important;
-//   margin: 0 !important;
-//   z-index: 100;
-// }
+.fullscreen {
+  position: fixed!important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  z-index: 10000;
+}
 
 .screen-container {
   width: 100%;

@@ -20,7 +20,7 @@ import { getThemeValue } from '@/util/theme_utils'
 export default {
   data () {
     return {
-      chartInstane: null,
+      chartInstane: shallowRef(null),
       allData: null, // 从服务器中获取的所有数据
       showChoice: false, // 是否显示可选项
       choiceType: 'map', // 显示的数据类型

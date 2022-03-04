@@ -80,7 +80,7 @@ import Seller from '@/components/echarts/Seller.vue'
 import Stock from '@/components/echarts/Stock.vue'
 import Trend from '@/components/echarts/Trend.vue'
 import { mapState } from 'vuex'
-import { getThemeValue } from '@/utils/theme_utils'
+import { getThemeValue } from '@/util/theme_utils'
 export default {
   created () {
     // 注册接收到数据的回调函数
