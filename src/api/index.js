@@ -118,6 +118,9 @@ export const getDataApi = (data = {}) => {
   return request.get("/data/getData", data, { mock: false });
 };
 
+export const getAllDataListApi = (data = {}) => {
+  return request.get("/data//getDataByIp", data, { mock: false });
+};
 
 // 获取城市数据
 // 1. 数据在哪里？https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json

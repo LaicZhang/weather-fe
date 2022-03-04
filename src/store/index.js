@@ -6,6 +6,7 @@ const state = {
   userInfo: storage.getItem("userInfo") || {},
   menuList: storage.getItem("menuList") || [],
   actionList: storage.getItem("actionList") || [],
+  weatherData: storage.getItem("weatherData") || {},
   leaveCount: 0,
   theme: 'chalk'
 };

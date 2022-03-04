@@ -24,6 +24,7 @@
 <script>
 // import Test from '@/components/echarts/Test';
 import { getAllDataListApi } from '../api';
+import storage from '../util/storage';
 // import ScreenPage from '@/components/echarts/ScreenPage.vue';
 export default {
     name: "Dashboard",
@@ -36,9 +37,21 @@ export default {
           console.log('router',router)
             router.push("/");
         },
+        today(date) { // 判断今天是星期几
+            let day = date.getDay();
+            let week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            return week[day];
+        },
         async getAllDataList() {
-            const data = await getAllDataListApi();
-            console.log('data=>', data);
+          let res = {}
+          let weatherData = JSON.parse(window.localStorage.getItem('weatherData'))
+          if(weatherData && weatherData.realTime.week === this.today(new Date())) {
+            console.log('localWeatherData', weatherData);
+          }else{
+            res = await getAllDataListApi();
+            window.localStorage.setItem('weatherData',JSON.stringify(res.result));
+            console.log('res',res)
+          }
         }
     },
     mounted() {

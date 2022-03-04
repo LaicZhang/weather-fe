@@ -13,6 +13,10 @@ export default {
     state.actionList = list
     storage.setItem("actionList", list);
   },
+  setWeatherData(state,data){
+    state.weatherData = data
+    storage.setItem("weatherData", data);
+  },
   setLeaveCount(state,count){
     state.leaveCount = count
   },

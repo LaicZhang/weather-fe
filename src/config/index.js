@@ -15,7 +15,7 @@ const EnvConfig = {
 };
 
 export default{
-    namespace: 'weather',
+    namespace: 'userInfo',
     env,
     mock: false,
     ...EnvConfig[env]
