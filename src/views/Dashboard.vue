@@ -2,7 +2,7 @@
   <div class="dashboard-page">
     <!-- <Test/> -->
     <!-- <ScreenPage/> -->
-    <Layout />
+    <Layout v-if="isLoaded"/>
   </div>
   <div @click="toPageHome">
     <backToSvg :text="text" />
@@ -25,7 +25,8 @@ export default {
     },
     data(){
       return{
-        text: '返回后台'
+        text: '前往后台',
+        isLoaded: false,
       }
     },
     methods: {
@@ -43,16 +44,18 @@ export default {
           let weatherData = JSON.parse(window.localStorage.getItem('weatherData'))
           if(weatherData && weatherData.realTime.week === this.today(new Date())) {
             console.log('localWeatherData', weatherData);
+            this.isLoaded = true;
           }else{
             res = await getAllDataListApi();
             window.localStorage.setItem('weatherData',JSON.stringify(res.result));
             console.log('newWeatherData',res)
+            this.isLoaded = true;
           }
         }
     },
-    mounted() {
-        this.getAllDataList();
-        console.log("Dashboard mounted");
+    async created() {
+        await this.getAllDataList();
+        console.log("Dashboard created");
     }
 }
 </script>
