@@ -2,7 +2,7 @@
   <div class="layout-page">
     <div class="grid-container">
       <div class="header">
-        <span>天气可视化系统</span>
+        <span>{{city}}</span>
       </div>
       <div class="content">
         <div class="middle-container">
@@ -22,11 +22,27 @@
 </template>
 
 <script>
+import {getIpInfoApi} from '@/api'
 import LineMarker from "@/views/echarts/LineMarker.vue";
   export default {
     components: {
       LineMarker
     },
+    data(){
+      return{
+        city: ''
+      }
+    },
+    methods:{
+      async getLocationByIp(){
+        const {result} = await getIpInfoApi();
+        this.city = (result.att+'天气可视化').replace(/,/g, "");
+      }
+    },
+    mounted(){
+      this.getLocationByIp()
+      console.log('layout mounted')
+    }
   };
 </script>
 

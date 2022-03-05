@@ -122,8 +122,12 @@ export const getAllDataListApi = (data = {}) => {
   return request.get("/data//getDataByIp", data, { mock: false });
 };
 
+export const getIpInfoApi = (data = {}) => {
+  return request.get("/data/getIpInfoByIp", data, { mock: false });
+};
+
 // 获取城市数据
-// 1. 数据在哪里？https://yjy-oss-files.oss-cn-zhangjiakou.aliyuncs.com/tuxian/area.json
+// 1. 数据在哪里？laic-cdn
 // 2. 何时获取？打开城市列表的时候，做个内存中缓存
 // 3. 怎么使用数据？定义计算属性，根据点击的省份城市展示
 export const getCityList = async () => {
