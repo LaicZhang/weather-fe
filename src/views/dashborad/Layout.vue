@@ -2,17 +2,17 @@
   <div class="layout-page">
     <div class="grid-container">
       <div class="header">
-        <span>{{city}}</span>
+        <div class="city-name">{{city}}</div>
       </div>
       <div class="content">
         <div class="middle-container">
           <div class="middle"></div>
         </div>
         <div class="left">
-          
+          <line-marker />
         </div>
         <div class="right">
-          <line-marker />
+          
         </div>
         <div class="bottom">bottom</div>
       </div>
@@ -47,6 +47,9 @@ import LineMarker from "@/views/echarts/LineMarker.vue";
 </script>
 
 <style lang="less" scoped>
+.city-name {
+  font-size: 45px;
+}
   .grid-container {
     height: 100vh;
     text-align: center;
