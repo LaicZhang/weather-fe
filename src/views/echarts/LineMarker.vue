@@ -1,5 +1,5 @@
 <template>
-  <div id="link-marker" ref="myRef" style="height:100%;width:100%"> </div>
+  <div id="link-marker" ref="myRef"> </div>
 </template>
 
 <script>
@@ -11,30 +11,40 @@
       const myRef = ref(null);
       const initT = () => {
         const myChart = echarts.init(document.getElementById('link-marker'));
+        let futureDay = JSON.parse(window.localStorage.getItem('weatherData')).futureDay
+        console.log(futureDay)
+        let xAxisData = [],
+            wtTemp1List = [],
+            wtTemp2List = []
+        futureDay.forEach(item =>{
+          xAxisData.push(item.week)
+          wtTemp1List.push(item.wtTemp1)
+          wtTemp2List.push(item.wtTemp2)
+        })
         let option = {
           title: {
-            text: 'Temperature Change in the Coming Week',
+            text: '一周温度变化',
           },
           tooltip: {
             trigger: 'axis',
           },
           legend: {},
-          toolbox: {
-            show: true,
-            feature: {
-              dataZoom: {
-                yAxisIndex: 'none',
-              },
-              dataView: { readOnly: false },
-              magicType: { type: ['line', 'bar'] },
-              restore: {},
-              saveAsImage: {},
-            },
-          },
+          // toolbox: {
+          //   show: true,
+          //   feature: {
+          //     dataZoom: {
+          //       yAxisIndex: 'none',
+          //     },
+          //     dataView: { readOnly: false },
+          //     magicType: { type: ['line', 'bar'] },
+          //     restore: {},
+          //     saveAsImage: {},
+          //   },
+          // },
           xAxis: {
             type: 'category',
             boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
+            data: xAxisData,
           },
           yAxis: {
             type: 'value',
@@ -44,25 +54,25 @@
           },
           series: [
             {
-              name: 'Highest',
+              name: '温度(白天)',
               type: 'line',
-              data: [10, 11, 13, 11, 12, 12, 9],
+              data: wtTemp1List,
               markPoint: {
-                data: [
-                  { type: 'max', name: 'Max' },
-                  { type: 'min', name: 'Min' },
-                ],
+                // data: [
+                //   { type: 'max', name: 'Max' },
+                //   { type: 'min', name: 'Min' },
+                // ],
               },
               markLine: {
                 data: [{ type: 'average', name: 'Avg' }],
               },
             },
             {
-              name: 'Lowest',
+              name: '温度(夜间)',
               type: 'line',
-              data: [1, -2, 2, 5, 3, 2, 0],
+              data: wtTemp2List,
               markPoint: {
-                data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }],
+                // data: [{ name: '周最低', value: -2, xAxis: 1, yAxis: -1.5 }],
               },
               markLine: {
                 data: [
@@ -77,7 +87,7 @@
                       symbol: 'circle',
                       label: {
                         position: 'start',
-                        formatter: 'Max',
+                        // formatter: 'Max',
                       },
                       type: 'max',
                       name: '最高点',
@@ -101,5 +111,9 @@
   });
 </script>
 
-<style>
+<style lang="scss" scoped>
+#link-marker {
+  height:120%;
+  width:100%
+}
 </style>

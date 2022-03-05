@@ -9,9 +9,11 @@
           <div class="middle"></div>
         </div>
         <div class="left">
+          
+        </div>
+        <div class="right">
           <line-marker />
         </div>
-        <div class="right">right</div>
         <div class="bottom">bottom</div>
       </div>
       <div class="sidebar">sidebar</div>
@@ -78,7 +80,7 @@ import LineMarker from "@/views/echarts/LineMarker.vue";
     .right {
       width: 380px;
       height: 200px;
-      background: purple;
+      background: palevioletred;
       font-size: 40px;
       float: left;
       color: #fff;
