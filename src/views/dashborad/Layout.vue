@@ -12,7 +12,7 @@
           <line-marker />
         </div>
         <div class="right">
-          
+          <life-index />
         </div>
         <div class="bottom">bottom</div>
       </div>
@@ -24,10 +24,12 @@
 <script>
 import {getIpInfoApi} from '@/api'
 import LineMarker from "@/views/echarts/LineMarker.vue";
+import LifeIndex from '../echarts/LifeIndex.vue';
   export default {
     components: {
-      LineMarker
-    },
+    LineMarker,
+    LifeIndex
+},
     data(){
       return{
         city: ''
