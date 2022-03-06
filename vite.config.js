@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import { visualizer } from 'rollup-plugin-visualizer';
 
 let server={}
 let env = 'production' //设置环境 development production
@@ -66,20 +67,20 @@ export default defineConfig({
     },
   },
   server,
-  // optimizeDeps: {
-  //   include: [
+  optimizeDeps: {
+    include: [
   //     "pinia",
   //     "vue-i18n",
-  //     "lodash-es",
-  //     "@vueuse/core",
+      // "lodash-es",
+      "@vueuse/core",
   //     "@iconify/vue",
   //     "element-plus/lib/locale/lang/en",
-  //     "element-plus/lib/locale/lang/zh-cn",
+      "element-plus/lib/locale/lang/zh-cn",
   //     "vxe-table/lib/locale/lang/zh-CN",
   //     "vxe-table/lib/locale/lang/en-US"
-  //   ],
-  //   exclude: ["@zougt/vite-plugin-theme-preprocessor/dist/browser-utils"]
-  // },
+    ],
+    // exclude: ["@zougt/vite-plugin-theme-preprocessor/dist/browser-utils"]
+  },
   build: {
     sourcemap: true,
     brotliSize: false,
@@ -87,7 +88,7 @@ export default defineConfig({
     chunkSizeWarningLimit: 2000,
     minify: false
   },
-  plugins: [vue()],
+  plugins: [vue(),visualizer()],
   // base:'/weather-visualization-front-2/'
   // base: './'
 })
