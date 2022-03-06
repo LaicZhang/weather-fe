@@ -31,7 +31,7 @@
     },
     methods: {
       toPageHome() {
-        console.log('router=>', router);
+        console.log('dashboard router=>', router);
         router.push('/');
       },
       today(date) {
@@ -40,19 +40,15 @@
         let week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
         return week[day];
       },
-      getInervalMin(startDate, endDate) {
-        // 计算时间差(单位分)
-        var ms = endDate.getTime() - startDate.getTime();
-        if (ms < 0) return 0;
-        return Mat.floor(ms / 1000 / 60);
-      },
       async getAllDataList() {
         let res = {};
         let weatherData = JSON.parse(window.localStorage.getItem('weatherData'));
+        let ms = new Date() - new Date(weatherData.queryTime);
+        console.log('ms=>', ms);
         if (
           weatherData &&
           weatherData.realTime.week === this.today(new Date()) &&
-          this.getInervalMin(new Date(), new Date(weatherData.queryTime)) < 30
+          ms < 600000
         ) {
           console.log('localWeatherData', weatherData);
           this.isLoaded = true;
