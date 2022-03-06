@@ -10,7 +10,7 @@ import storage from "./util/storage";
 import hasAction from './directive/has-action'
 import Directives from './directive/index';
 import './assets/font/iconfont.css'
-// import * as echarts from 'echarts'
+import * as echarts from 'echarts'
 // import echarts from 'echarts'
 // import SocketService from '@/util/socket_service'
 import axios from 'axios'
@@ -27,7 +27,7 @@ const app = createApp(App)
 app.config.globalProperties.$http = axios
 app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
-app.config.globalProperties.$echarts = window.echarts
+app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$store = store
 
 app.directive('has',hasAction)
