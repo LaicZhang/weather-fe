@@ -12,23 +12,30 @@
           <line-marker />
         </div>
         <div class="right">
-          <life-index />
+          <!-- <life-index /> -->
+          <bar1 />
         </div>
         <div class="bottom">bottom</div>
       </div>
-      <div class="sidebar">sidebar</div>
+      <div class="sidebar">
+        <Radar />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import {getIpInfoApi} from '@/api'
+import {getIpInfoApi} from '@/api';
 import LineMarker from "@/views/echarts/LineMarker.vue";
 import LifeIndex from '../echarts/LifeIndex.vue';
+import Radar from '../echarts/Radar.vue';
+import Bar1 from '../echarts/Bar1.vue';
   export default {
     components: {
     LineMarker,
-    LifeIndex
+    LifeIndex,
+    Radar,
+    Bar1
 },
     data(){
       return{
@@ -50,7 +57,8 @@ import LifeIndex from '../echarts/LifeIndex.vue';
 
 <style lang="less" scoped>
 .city-name {
-  font-size: 45px;
+  font-size: 25px;
+  line-height: 50px;
 }
   .grid-container {
     height: 100vh;
@@ -118,8 +126,9 @@ import LifeIndex from '../echarts/LifeIndex.vue';
   }
   .sidebar {
     grid-area: sidebar;
-    background: #5bc0de;
+    background: palevioletred;;
     height: 80vh;
+    width: 15vw;
     border-radius: 10px;
   }
 </style>
