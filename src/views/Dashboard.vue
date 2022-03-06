@@ -14,6 +14,7 @@
   import { getAllDataListApi } from '../api';
   import backToSvg from '@/components/backTo/backToSvg';
   import Layout from './dashborad/Layout.vue';
+  import storage from '../util/storage';
   // import ScreenPage from '@/components/echarts/ScreenPage.vue';
   export default {
     name: 'Dashboard',
@@ -25,7 +26,7 @@
     },
     data() {
       return {
-        text: '前往后台',
+        text: '前往登陆',
         isLoaded: false,
       };
     },
@@ -43,7 +44,7 @@
       async getAllDataList() {
         let res = {};
         let weatherData = JSON.parse(window.localStorage.getItem('weatherData'));
-        let ms = new Date() - new Date(weatherData.queryTime);
+        let ms = new Date() - new Date(weatherData?.queryTime);
         console.log('ms=>', ms);
         if (
           weatherData &&
@@ -64,6 +65,12 @@
       await this.getAllDataList();
       console.log('Dashboard created');
     },
+    mounted(){
+      if(storage.getItem('userInfo')){
+        this.text = '前往后台';
+      }
+      console.log('Dashboard mounted');
+    }
   };
 </script>
 
