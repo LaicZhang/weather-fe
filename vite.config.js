@@ -82,7 +82,7 @@ export default defineConfig({
     // exclude: ["@zougt/vite-plugin-theme-preprocessor/dist/browser-utils"]
   },
   build: {
-    sourcemap: true,
+    sourcemap: false,
     brotliSize: false,
     // 消除打包大小超过500kb警告
     chunkSizeWarningLimit: 2000,
