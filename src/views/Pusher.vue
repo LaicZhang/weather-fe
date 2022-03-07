@@ -71,19 +71,19 @@
         </el-table-column> -->
         <el-table-column label="Operations" width="250px">
           <template #default="scope">
-            <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
-            <el-button size="mini" v-if="scope.row.state !== 2" type="text" @click="openImmediatelyPushDialog(scope.row)"
+            <el-button size="default" type="text" @click="watchMore(scope.row)">查看</el-button>
+            <el-button size="default" v-if="scope.row.state !== 2" type="text" @click="openImmediatelyPushDialog(scope.row)"
               >立即推送</el-button
             >
             <el-button
-              size="mini"
+              size="default"
               type="text"
               v-has="'pusher-create'"
               @click="onEditPusher(scope.row)"
               >编辑</el-button
             >
             <el-button
-              size="mini"
+              size="default"
               type="text"
               v-has="'pusher-create'"
               @click="onAddDeleteList(scope.row)"

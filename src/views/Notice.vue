@@ -39,9 +39,9 @@
         />
         <el-table-column label="Operations" >
           <template #default="scope">
-            <el-button size="mini" type="text" @click="watchMore(scope.row)">查看</el-button>
-            <el-button size="mini" type="text" v-has="'notice-create'" @click="onEditNotice(scope.row)">编辑</el-button>
-            <el-button size="mini" type="text" v-has="'notice-create'" @click="onAddDeleteList(scope.row)">删除</el-button>
+            <el-button size="default" type="text" @click="watchMore(scope.row)">查看</el-button>
+            <el-button size="default" type="text" v-has="'notice-create'" @click="onEditNotice(scope.row)">编辑</el-button>
+            <el-button size="default" type="text" v-has="'notice-create'" @click="onAddDeleteList(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
