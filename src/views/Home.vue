@@ -41,7 +41,7 @@
   import { menuPermissionApi } from '../api';
   import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue';
   import CUserDropdown from '../components/dropdown/c-user-dropdown.vue';
-import BackToSvg from '../components/backTo/backToSvg.vue';
+  import BackToSvg from '../components/backTo/backToSvg.vue';
   export default defineComponent({
     name: 'HOME',
     components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },
@@ -51,7 +51,7 @@ import BackToSvg from '../components/backTo/backToSvg.vue';
         wrapClass: '',
         menuIconClass: ' el-icon-s-fold',
         userInfo: this.$store.state.userInfo || {},
-        text: '返回首页'
+        text: '前往首页'
       };
     },
     computed: {
@@ -66,6 +66,7 @@ import BackToSvg from '../components/backTo/backToSvg.vue';
       // const menus = await menuListApi();
       // const menus = await menuPermissionApi()
       // this.menus = menus.menuList;
+      this.judgeUserInfo();
       this.getMenuPermission();
     },
     methods: {
@@ -88,6 +89,11 @@ import BackToSvg from '../components/backTo/backToSvg.vue';
         this.$store.commit('setActionList', actionList);
         this.$store.commit('setMenuList', menuList);
       },
+      judgeUserInfo(){
+        if(window.localStorage.getItem('userInfo') === null){
+          router.push('/login');
+        }
+      }
     },
   });
 </script>
