@@ -14,9 +14,9 @@
     "dayjs": "^1.10.8",
     "echarts": "^5.3.0",
     "element-plus": "^2.0.1",
-    "vite": "^2.3.7",
+    "vite": "^2.8.6",
     "vue": "^3.2.25",
-    "vue-i18n": "8",
+    "vue-i18n": "^9.1.9",
     "vue-router": "^4.0.4",
     "vue-simple-upload": "^0.1.6",
     "vuex": "^4.0.0"
