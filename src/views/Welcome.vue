@@ -4,7 +4,11 @@
       <div class="title-one">欢迎体验</div>
       <div class="title-two">天气大数据可视化后台管理系统</div>
       <div class="title-three">
-        by vue3+ElementPlus+Node+mongo
+        front-end by Vite2 + Vue3 + ElementPlus
+        <br/>
+        back-end by Koa2 + Mongodb + Python
+        <br />
+        deploy by Github + Vercel + Tencent Cloud
       </div>
     </div>
     <img class="welcome-img" alt="welcome" src="../assets/images/welcome.png" />
@@ -50,6 +54,7 @@ export default defineComponent({
     .title-three {
       font-size: 16px;
       color: $color-sub;
+      line-height: 25px;
     }
   }
 }
