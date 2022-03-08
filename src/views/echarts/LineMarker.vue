@@ -11,9 +11,7 @@
       const myRef = ref(null);
       const initT = () => {
         const myChart = echarts.init(document.getElementById('link-marker'));
-        // let futureDay = JSON.parse(window.localStorage.getItem('weatherData')).futureDay;
         let futureHour = JSON.parse(window.localStorage.getItem('weatherData')).futureHour;
-        // console.log('futureDay', futureDay);
         console.log('futureHour', futureHour);
         let xAxisData = [],
             wtTempList = []
@@ -31,7 +29,7 @@
         })
         let option = {
           title: {
-            text: '24小时温度变化',
+            text: '未来24小时温度变化',
           },
           tooltip: {
             trigger: 'axis',
@@ -107,7 +105,7 @@
           ],
         };
         myChart.setOption(option);
-        console.log('myChart', myChart);
+        console.log('line-marker=>', myChart);
       };
       onMounted(() => {
         initT();
@@ -122,6 +120,7 @@
 <style lang="scss" scoped>
 #link-marker {
   height:120%;
-  width:100%
+  width:100%;
+  border-radius: 10px;
 }
 </style>

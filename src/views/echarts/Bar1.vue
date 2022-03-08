@@ -102,5 +102,6 @@
   #bar1 {
     height: 120%;
     width: 100%;
+    border-radius: 10px;
   }
 </style>

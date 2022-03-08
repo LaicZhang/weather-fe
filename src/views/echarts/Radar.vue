@@ -77,5 +77,6 @@
   #radar {
     height: 60%;
     width: 100%;
+    border-radius: 10px;
   }
 </style>

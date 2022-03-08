@@ -19,6 +19,7 @@
       </div>
       <div class="sidebar">
         <Radar />
+        <!-- <weather-info /> -->
       </div>
     </div>
   </div>
@@ -30,12 +31,14 @@ import LineMarker from "@/views/echarts/LineMarker.vue";
 import LifeIndex from '../echarts/LifeIndex.vue';
 import Radar from '../echarts/Radar.vue';
 import Bar1 from '../echarts/Bar1.vue';
+// import WeatherInfo from '../echarts/weatherInfo.vue';
   export default {
     components: {
     LineMarker,
     LifeIndex,
     Radar,
-    Bar1
+    Bar1,
+    // WeatherInfo
 },
     data(){
       return{
@@ -67,7 +70,7 @@ import Bar1 from '../echarts/Bar1.vue';
     display: grid;
     grid-column-gap: 30px;
     grid-row-gap: 30px;
-    background: pink;
+    background: #F2F6FC;
     grid-template-areas:
       'header header header header header'
       'sidebar content content content content'
@@ -78,7 +81,7 @@ import Bar1 from '../echarts/Bar1.vue';
 
   .header {
     grid-area: header;
-    background: #fff;
+    background: #EBEEF5;
     border-radius: 10px;
   }
   .content {
@@ -97,7 +100,7 @@ import Bar1 from '../echarts/Bar1.vue';
       border-radius: 10px;
     }
     .left {
-      background: palevioletred;
+      background: #DCDFE6;
       width: 65%;
       height: 200px;
       float: left;
@@ -109,7 +112,7 @@ import Bar1 from '../echarts/Bar1.vue';
     .right {
       width: 380px;
       height: 200px;
-      background: palevioletred;
+      background: #DCDFE6;
       font-size: 40px;
       float: left;
       color: #fff;
@@ -117,7 +120,7 @@ import Bar1 from '../echarts/Bar1.vue';
       border-radius: 10px;
     }
     .bottom{
-      background: #fff;
+      background: #DCDFE6;
       width: 100%;
       height: 65%;
       border-radius: 10px;
@@ -126,7 +129,7 @@ import Bar1 from '../echarts/Bar1.vue';
   }
   .sidebar {
     grid-area: sidebar;
-    background: palevioletred;;
+    background: #909399;
     height: 80vh;
     width: 15vw;
     border-radius: 10px;

@@ -1,6 +1,6 @@
 <template>
   <div class="life-index">
-    <div>生活指数</div>
+    <div>今日生活指数</div>
     <div class="index-content">
       <el-tooltip
         class="box-item"
@@ -67,6 +67,7 @@
 <style>
   .life-index {
     font-size: 20px;
+    border-radius: 10px;
   }
   .index-content {
       margin: 10px;
@@ -79,5 +80,6 @@
     /*当文本溢出包含元素时，以省略号表示超出的文本*/
     text-overflow: ellipsis;
     font-size: 15px;
+    cursor: default;
   }
 </style>
