@@ -93,6 +93,9 @@ export const editUserApi = (data = {}) => {
   data.action = "edit";
   return request.post("/users/operate", data, { mock: false });
 };
+export const changeInfoApi = (data = {}) => {
+  return request.post("/users/changeInfo", data, { mock: false });
+};
 
 // 删除单个或多个 `userIds:[userId,userId...]`
 export const deleteUserApi = (data = {}) => {
