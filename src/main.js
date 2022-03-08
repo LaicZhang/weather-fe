@@ -11,9 +11,10 @@ import hasAction from './directive/has-action'
 import Directives from './directive/index';
 import './assets/font/iconfont.css'
 import * as echarts from 'echarts'
+import * as Icons from '@element-plus/icons-vue'
 // import echarts from 'echarts'
 // import SocketService from '@/util/socket_service'
-import axios from 'axios'
+// import axios from 'axios'
 
 const app = createApp(App)
 
@@ -24,11 +25,16 @@ const app = createApp(App)
 // axios.defaults.baseURL = 'http://127.0.0.1:9000/api/'
 // 将axios挂载到Vue的原型对象上
 // 在别的组件中 this.$http
-app.config.globalProperties.$http = axios
+// app.config.globalProperties.$http = axios
 app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
 app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$store = store
+
+// 注册Icons 全局组件
+Object.keys(Icons).forEach(key => {
+    app.component(key, Icons[key])
+  })
 
 app.directive('has',hasAction)
 
