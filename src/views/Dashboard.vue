@@ -1,5 +1,5 @@
 <template>
-  <div class="dashboard-page">
+  <div class="dashboard-page" v-loading="!isLoaded">
     <!-- <Test/> -->
     <!-- <ScreenPage/> -->
     <Layout v-if="isLoaded" />
@@ -27,7 +27,7 @@
     data() {
       return {
         text: '前往登陆',
-        isLoaded: false,
+        isLoaded: false
       };
     },
     methods: {
