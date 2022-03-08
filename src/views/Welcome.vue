@@ -11,7 +11,7 @@
         deploy by Github + Vercel + Tencent Cloud
       </div>
     </div>
-    <img class="welcome-img" alt="welcome" src="../assets/images/welcome.png" />
+    <img class="welcome-img" alt="welcome" src="../assets/images/welcome.webp" />
   </div>
 </template>
 
