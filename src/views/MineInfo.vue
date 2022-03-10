@@ -47,7 +47,7 @@
         >
       </el-form>
     </el-card>
-    <el-card class="mine-info-right">
+    <el-card class="mine-info-right" v-show="isVisitor">
       <span>推送配置</span>
       <el-form ref="configRef" :model="pusherConfigForm" label-position="left">
         <el-form-item>
@@ -151,6 +151,7 @@
   let dingtalkDialogVisible = ref(false);
   let feishuDialogVisible = ref(false);
   let serverchanDialogVisible = ref(false);
+  let isVisitor = ref(true);
   let pusherConfigForm = reactive({
     // useEmail: true,
     // useSms: true,
@@ -161,6 +162,12 @@
   });
   let userInfo = storage.getItem('userInfo');
 
+  const isVisitorFn = () => {
+    if (userInfo.role === 2) {
+      isVisitor.value = false;
+      console.log('isVisitor', isVisitor.value);
+    }
+  };
   const onSubmit = async (data) => {
     console.log('userForm', data);
     await changeInfoApi(data);
@@ -206,6 +213,7 @@
   };
   onMounted(() => {
     init();
+    isVisitorFn();
     getUserInfo();
     getPusherSettings();
   });
