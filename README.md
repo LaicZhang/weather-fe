@@ -2,6 +2,25 @@
 
 ![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220206202800.png)
 
-## 技术选型
-### Vue 3 + Vite
-This template should help get you started developing with Vue 3 in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+## 技术栈
+
+### 前端
+
+- Vue3
+- Vite2
+- Vue Router
+- Vuex
+- Element-plus
+- Echarts
+- Axios
+
+### 后端
+- Koa2
+- Python
+
+### 数据库
+- MongoDB
+
+### 包管理器
+- pnpm
+
