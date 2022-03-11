@@ -55,7 +55,7 @@
           <el-checkbox v-model="pusherConfigForm.useSms" label="短信" border></el-checkbox>
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="pusherConfigForm.useFeishu" label="飞书" border></el-checkbox>
+          <el-checkbox v-model="pusherConfigForm.useFeiShu" label="飞书" border></el-checkbox>
           <el-checkbox v-model="pusherConfigForm.useDingTalk" label="钉钉" border></el-checkbox>
           <el-checkbox v-model="pusherConfigForm.useWecom" label="企业微信" border></el-checkbox>
           <el-checkbox
@@ -64,7 +64,7 @@
             border
           ></el-checkbox>
         </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useFeishu">
+        <el-form-item v-if="pusherConfigForm.useFeiShu">
           <el-button type="text" @click="feishuDialogVisible=true" >飞书群消息机器人网址获取方法</el-button>
           <el-input placeholder="飞书群消息机器人网址" v-model="pusherConfigForm.feishuUrl"></el-input>
         </el-form-item>
@@ -155,7 +155,7 @@
   let pusherConfigForm = reactive({
     // useEmail: true,
     // useSms: true,
-    // useFeishu: false,
+    // useFeiShu: false,
     // useWecom: false,
     // useDingtalk: false,
     // useServerChan: false
