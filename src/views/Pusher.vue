@@ -79,6 +79,7 @@
               size="default"
               type="text"
               v-has="'pusher-create'"
+              v-if="scope.row.state !== 2"
               @click="onEditPusher(scope.row)"
               >编辑</el-button
             >
@@ -307,7 +308,7 @@
           prop: 'pusherCategory',
           label: '推送类型',
           formatter(row, column, cellValue) {
-            return { 0: '普通天气预报', 1: '降雨提醒', 2: '晴天提醒' }[cellValue];
+            return { 0: '普通天气预报', 1: '降雨提醒', 2: '晴天提醒',3: '穿衣指数提醒' }[cellValue];
           },
         },
         {
@@ -321,12 +322,12 @@
           prop: 'state',
           label: '推送状态',
           formatter(row, column, cellValue) {
-            return { 0: '待推送', 1: '今日已推送', 2: '已过期' }[cellValue];
+            return { 0: '待推送', 1: '今日已推送', 2: '已发送/已过期' }[cellValue];
           },
         },
         {
           prop: 'pushTime',
-          label: '下次推送时间',
+          label: '推送时间',
           formatter(row, column, cellValue) {
             return util.formateDate(new Date(cellValue));
           },
@@ -493,7 +494,8 @@
         immediatelyPushDialog.value = true;
       };
       const immediatelyPush = async () => {
-        immediatelyPushApi({ _id: pusherId, pusherLifeTime });
+        await immediatelyPushApi({ _id: pusherId, pusherLifeTime });
+        await getAllPushersList();
         immediatelyPushDialog.value = false;
       };
       const onSummit = () => {
