@@ -5,7 +5,7 @@
           lazy
         alt="user picture"
         class="user-img"
-        src="src/assets/images/default.jpg"
+        src="../public/img/default.jpg"
       />
       <em class="el-icon-arrow-down"></em>
     </span>

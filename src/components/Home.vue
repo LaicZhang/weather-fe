@@ -70,7 +70,7 @@ export default{
       <div class="nav-top">
         <div class="nav-left">
           <div class="menu-fold" @click="toggle">
-            <i class="el-icon-s-fold"></i>
+            <em class="el-icon-s-fold"></em>
           </div>
           <div class="bread">
             <BreadCrumb />
@@ -82,12 +82,12 @@ export default{
             class="notice"
             type="danger"
           >
-            <i class="el-icon-bell"></i>
+            <em class="el-icon-bell"></em>
           </el-badge>
           <el-dropdown @command="handleLogout">
             <span class="user-link">
               {{ userInfo.userName }}
-              <i class="el-icon--right"></i>
+              <em class="el-icon--right"></em>
             </span>
             <template #dropdown>
               <el-dropdown-menu>

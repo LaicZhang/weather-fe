@@ -11,7 +11,7 @@
         deploy by Github + Vercel + Tencent Cloud
       </div>
     </div>
-    <el-image  lazy class="welcome-img" alt="welcome" src="src/assets/images/welcome.webp" />
+    <el-image lazy class="welcome-img" alt="welcome" src="../public/img/welcome.webp" />
   </div>
 </template>
 
