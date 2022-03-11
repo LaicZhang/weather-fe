@@ -1,7 +1,8 @@
 <template>
   <el-dropdown @command="onLoginOut">
     <span class="el-dropdown-link user-dropdown-title">
-      <img
+      <el-image
+          lazy
         alt="user picture"
         class="user-img"
         src="../../assets/images/default.jpg"
