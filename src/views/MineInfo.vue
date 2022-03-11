@@ -57,7 +57,7 @@
         <el-form-item>
           <el-checkbox v-model="pusherConfigForm.useFeiShu" label="飞书" border></el-checkbox>
           <el-checkbox v-model="pusherConfigForm.useDingTalk" label="钉钉" border></el-checkbox>
-          <el-checkbox v-model="pusherConfigForm.useWecom" label="企业微信" border></el-checkbox>
+          <el-checkbox v-model="pusherConfigForm.useWeCom" label="企业微信" border></el-checkbox>
           <el-checkbox
             v-model="pusherConfigForm.useServerChan"
             label="Server酱"
@@ -68,7 +68,7 @@
           <el-button type="text" @click="feishuDialogVisible=true" >飞书群消息机器人网址获取方法</el-button>
           <el-input placeholder="飞书群消息机器人网址" v-model="pusherConfigForm.feishuUrl"></el-input>
         </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useWecom">
+        <el-form-item v-if="pusherConfigForm.useWeCom">
           <el-button type="text" @click="wecomDialogVisible=true" >企业微信群消息机器人网址获取方法</el-button>
           <el-input placeholder="企业微信群消息机器人网址" v-model="pusherConfigForm.wecomUrl"></el-input>
         </el-form-item>
@@ -156,7 +156,7 @@
     // useEmail: true,
     // useSms: true,
     // useFeiShu: false,
-    // useWecom: false,
+    // useWeCom: false,
     // useDingtalk: false,
     // useServerChan: false
   });
