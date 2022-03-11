@@ -90,7 +90,7 @@
         this.$store.commit('setMenuList', menuList);
       },
       judgeUserInfo(){
-        if(window.localStorage.getItem('userInfo') === null){
+        if(window.localStorage.getItem('userInfo') === null || window.localStorage.getItem('userInfo') === ""){
           router.push('/login');
         }
       }
