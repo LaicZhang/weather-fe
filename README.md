@@ -10,10 +10,16 @@
 - Vite2
 - Vue Router
 - Vuex
+- Element-plus
+- Echarts
+- Axios
 
 ### 后端
 - Koa2
 - Python
+
+### 数据库
+- MongoDB
 
 ### 包管理器
 - pnpm
