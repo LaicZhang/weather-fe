@@ -122,7 +122,9 @@ export const rolePermissionApi = (data = {}) => {
 export const showDataApi = (data = {}) => {
   return request.get("/data/showData", data, { mock: false });
 };
-
+export const getWeatherListApi = (data = {}) => {
+  return request.get("/data/WeatherList", data, { mock: false });
+};
 // 数据获取管理
 export const getDataApi = (data = {}) => {
   return request.get("/data/getData", data, { mock: false });
