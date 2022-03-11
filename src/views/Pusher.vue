@@ -297,6 +297,7 @@
       });
       const pusherColumns = [
         // { prop: '_id', label: '推送ID' },
+        { prop: 'userId', label: '用户ID' },
         { prop: 'pusherTitle', label: '推送标题' },
         // {
         //   prop: 'pusherContent',
