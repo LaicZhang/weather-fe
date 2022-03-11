@@ -17,7 +17,7 @@ export default{
       this.isCollapse = !this.isCollapse;
     },
     handleLogout(key) {
-      if (key == "email") return;
+      if (key === "email") return;
       this.$store.commit("saveUserInfo", "");
       this.userInfo = null;
       this.$router.push("/login");
