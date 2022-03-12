@@ -77,7 +77,7 @@ export default defineConfig({
       '@vueuse/core',
       //     "@iconify/vue",
       //     "element-plus/lib/locale/lang/en",
-      'element-plus/lib/locale/lang/zh-cn',
+      'element-plus/es/locale/lang/zh-cn',
       //     "vxe-table/lib/locale/lang/zh-CN",
       //     "vxe-table/lib/locale/lang/en-US"
     ],
