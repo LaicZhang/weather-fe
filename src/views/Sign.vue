@@ -1,90 +1,95 @@
 <template>
-  <div class="container" id="container">
-        <div class="form-container sign-up-container">
-            <form action="#">
-                <h1>注 册</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-qq"></i></a>
-                    <a href="#" class="social"><i class="fab fa-weixin"></i></a>
-                    <a href="#" class="social"><i class="fab fa-weibo"></i></a>
-					<a href="#" class="social"><i class="fab fa-github"></i></a>
-                </div>
-                <span>选择以上方式注册您的账号</span>
-				<input type="text" placeholder="手机号" />
-                <input type="text" placeholder="用户名" />
-                <input type="email" placeholder="邮箱" />
-                <input type="password" placeholder="密码" />
-                <button>注册</button>
-            </form>
+  <div id="container" class="container">
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <h1>注 册</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-qq" /></a>
+          <a href="#" class="social"><i class="fab fa-weixin" /></a>
+          <a href="#" class="social"><i class="fab fa-weibo" /></a>
+          <a href="#" class="social"><i class="fab fa-github" /></a>
         </div>
-        <div class="form-container sign-in-container">
-            <form action="#">
-                <h1>登 录</h1>
-                <div class="social-container">
-                    <a href="#" class="social"><i class="fab fa-qq"></i></a>
-                    <a href="#" class="social"><i class="fab fa-weixin"></i></a>
-                    <a href="#" class="social"><i class="fab fa-weibo"></i></a>
-					<a href="#" class="social"><i class="fab fa-github"></i></a>
-                </div>
-                <span>选择以上方式登录或使用您的账号</span>
-                <input type="email" placeholder="邮箱" />
-                <input type="password" placeholder="密码" />
-                <a href="#">忘记密码？</a>
-                <button>登录</button>
-            </form>
-        </div>
-        <div class="overlay-container">
-            <div class="overlay">
-                <div class="overlay-panel overlay-left">
-                    <h1>已有账号？</h1>
-                    <p>请使用您的账号进行登录</p>
-                    <button class="ghost" id="signIn">登录</button>
-                </div>
-                <div class="overlay-panel overlay-right">
-                    <h1>没有账号？</h1>
-                    <p>立即注册加入我们</p>
-                    <button class="ghost" id="signUp">注册</button>
-                </div>
-            </div>
-        </div>
+        <span>选择以上方式注册您的账号</span>
+        <input type="text" placeholder="手机号">
+        <input type="text" placeholder="用户名">
+        <input type="email" placeholder="邮箱">
+        <input type="password" placeholder="密码">
+        <button>注册</button>
+      </form>
     </div>
+    <div class="form-container sign-in-container">
+      <form action="#">
+        <h1>登 录</h1>
+        <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-qq" /></a>
+          <a href="#" class="social"><i class="fab fa-weixin" /></a>
+          <a href="#" class="social"><i class="fab fa-weibo" /></a>
+          <a href="#" class="social"><i class="fab fa-github" /></a>
+        </div>
+        <span>选择以上方式登录或使用您的账号</span>
+        <input type="email" placeholder="邮箱">
+        <input type="password" placeholder="密码">
+        <a href="#">忘记密码？</a>
+        <button>登录</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>已有账号？</h1>
+          <p>请使用您的账号进行登录</p>
+          <button id="signIn" class="ghost">
+            登录
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>没有账号？</h1>
+          <p>立即注册加入我们</p>
+          <button id="signUp" class="ghost">
+            注册
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-    name: "Sign",
-    components: {},
-    methods: {
-        toPageHome() {
-            console.log("toPageHome");
-            router.push("/");
-        },
-        init(){
-            const signUpButton = document.getElementById('signUp');
-            const signInButton = document.getElementById('signIn');
-            const container = document.getElementById('container');
-
-            signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'));
-            signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'));
-
-            var demoImg = document.getElementById("demo_img");
-            var demoInput = document.getElementById("demo_input");
-
-            //隐藏text block，显示password block
-            function hideShowPsw(){
-                if (demoInput.type == "password") {
-                    demoInput.type = "text";
-                    demo_img.src = "invisible.png";
-                }else {
-                    demoInput.type = "password";
-                    demo_img.src = "visible.png";
-                }
-            }
-        }
+  name: 'Sign',
+  components: {},
+  mounted() {
+    this.init()
+  },
+  methods: {
+    toPageHome() {
+      console.log('toPageHome')
+      router.push('/')
     },
-    mounted(){
-        this.init();
-    }
+    init() {
+      const signUpButton = document.getElementById('signUp')
+      const signInButton = document.getElementById('signIn')
+      const container = document.getElementById('container')
+
+      signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'))
+      signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'))
+
+      const demoImg = document.getElementById('demo_img')
+      const demoInput = document.getElementById('demo_input')
+
+      // 隐藏text block，显示password block
+      function hideShowPsw() {
+        if (demoInput.type == 'password') {
+          demoInput.type = 'text'
+          demo_img.src = 'invisible.png'
+        }
+        else {
+          demoInput.type = 'password'
+          demo_img.src = 'visible.png'
+        }
+      }
+    },
+  },
 }
 </script>
 

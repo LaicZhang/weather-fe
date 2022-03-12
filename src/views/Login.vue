@@ -1,12 +1,14 @@
 <template>
   <div class="login-page">
-    <el-form class="login-form" ref="userFormRef" :model="userForm" :rules="userRules" status-icon>
-      <div class="login-title">登陆</div>
+    <el-form ref="userFormRef" class="login-form" :model="userForm" :rules="userRules" status-icon>
+      <div class="login-title">
+        登陆
+      </div>
       <el-form-item prop="userName">
-        <el-input v-model="userForm.userName" type="text" placeholder="请输入账号"></el-input>
+        <el-input v-model="userForm.userName" type="text" placeholder="请输入账号" />
       </el-form-item>
       <el-form-item prop="userPwd">
-        <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码"></el-input>
+        <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码" />
       </el-form-item>
       <!-- <el-form-item>
         <el-image alt="Captcha image" :key="componentKey" @click="changeCaptcha" :src="captchaRef"></el-image>
@@ -15,130 +17,139 @@
         <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
       </el-form-item> -->
       <el-form-item>
-        <el-button type="text" @click="toForget">忘记密码？</el-button>
+        <el-button type="text" @click="toForget">
+          忘记密码？
+        </el-button>
         <span>或</span>
-        <el-button type="text" @click="toRegister">注册</el-button>
+        <el-button type="text" @click="toRegister">
+          注册
+        </el-button>
         <span>或</span>
-        <el-button type="text" @click="toHomeAsVisitor">不想注册？一键游客登陆</el-button>
+        <el-button type="text" @click="toHomeAsVisitor">
+          不想注册？一键游客登陆
+        </el-button>
       </el-form-item>
       <el-form-item>
-        <el-button @click="userFromCommit" type="primary" class="login-submit">登录</el-button>
+        <el-button type="primary" class="login-submit" @click="userFromCommit">
+          登录
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-  import { defineComponent, onMounted, onBeforeMount, reactive, ref } from 'vue';
-  import useVuexWithRouter from '@/hooks/useVuexWithRouter';
-  import { loginApi, menuPermissionApi,getIpApi,getRequestApi } from '@/api';
-  
-  export default defineComponent({
-    name: 'Login-page',
-    components: {},
-    setup() {
-      const { router, store } = useVuexWithRouter();
-      console.log('store=>', store);
-      const toPageHome = () => {
-        console.log('toPageHome');
-        router.push('/');
-      };
-      const captchaRef = ref('');
-      const userFormRef = ref(null);
-      const userForm = reactive({
-        userName: '',
-        userPwd: '',
-      });
-      const userRules = {
-        userName: [
-          {
-            required: true,
-            message: '必须填写用户名',
-            trigger: 'blur',
-          },
-        ],
-        userPwd: [
-          {
-            required: true,
-            message: '必须填写密码',
-            trigger: 'blur',
-          },
-        ],
-        captchaCode: [
-          {
-            required: true,
-            message: '必须填写验证码',
-            trigger: 'blur',
-          },
-        ]
-      };
-      const userFromCommit = () => {
-        userFormRef.value.validate(async (valid) => {
-          if (valid) {
-            const loginInfo = await loginApi(userForm);
-            store.commit('setUserInfo', loginInfo);
-            await getMenuPermission();
-            toPageHome();
-          } else {
-            return false;
-          }
-        });
-      };
-      const getMenuPermission = async () => {
-        const { menuList, actionList } = await menuPermissionApi();
-        store.commit('setActionList', actionList);
-        store.commit('setMenuList', menuList);
-      };
-      const toRegister = () => {
-        router.push('/register');
-      };
-      const toForget = () => {
-        router.push('/forget');
-      };
-      const toHomeAsVisitor = () => {
-        userForm.userName = 'visitor';
-        userForm.userPwd = '123456';
-        userForm.captchaCode = '123456';
-        console.log('userForm=>', userForm);
-        userFromCommit();
-      };
-      // let host = 'https://weather-api.zyha.cn';
-      // let host = ''
-      // const getRequest = async () => {
-      //   const {header} = await getRequestApi();
-      //   host = header.host;
-      // };
-      const componentKey = ref(0);
-      // captchaRef.value = '/api/auth/captcha/1/';
-      // console.log('captchaRef.value=>', captchaRef.value);
-      // const changeCaptcha = () => {
-        // let randomNumber = Math.floor(Math.random()*10);
-        // captchaRef.value = `${host}api/auth/captcha/${randomNumber}/`;
-        // console.log('captchaRef=>', captchaRef.value);
-        // location.reload();
-        // componentKey.value++;
-      // };
-      onMounted(() => {
-        // getRequest();
-        getIpApi();
-      });
-      return {
-        toPageHome,
-        captchaRef,
-        componentKey,
-        userFormRef,
-        userForm,
-        userRules,
-        // getRequest,
-        userFromCommit,
-        toRegister,
-        toForget,
-        toHomeAsVisitor,
-        onMounted,
-        // changeCaptcha
-      };
-    },
-  });
+import { defineComponent, onBeforeMount, onMounted, reactive, ref } from 'vue'
+import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import { getIpApi, getRequestApi, loginApi, menuPermissionApi } from '@/api'
+
+export default defineComponent({
+  name: 'LoginPage',
+  components: {},
+  setup() {
+    const { router, store } = useVuexWithRouter()
+    console.log('store=>', store)
+    const toPageHome = () => {
+      console.log('toPageHome')
+      router.push('/')
+    }
+    const captchaRef = ref('')
+    const userFormRef = ref(null)
+    const userForm = reactive({
+      userName: '',
+      userPwd: '',
+    })
+    const userRules = {
+      userName: [
+        {
+          required: true,
+          message: '必须填写用户名',
+          trigger: 'blur',
+        },
+      ],
+      userPwd: [
+        {
+          required: true,
+          message: '必须填写密码',
+          trigger: 'blur',
+        },
+      ],
+      captchaCode: [
+        {
+          required: true,
+          message: '必须填写验证码',
+          trigger: 'blur',
+        },
+      ],
+    }
+    const userFromCommit = () => {
+      userFormRef.value.validate(async(valid) => {
+        if (valid) {
+          const loginInfo = await loginApi(userForm)
+          store.commit('setUserInfo', loginInfo)
+          await getMenuPermission()
+          toPageHome()
+        }
+        else {
+          return false
+        }
+      })
+    }
+    const getMenuPermission = async() => {
+      const { menuList, actionList } = await menuPermissionApi()
+      store.commit('setActionList', actionList)
+      store.commit('setMenuList', menuList)
+    }
+    const toRegister = () => {
+      router.push('/register')
+    }
+    const toForget = () => {
+      router.push('/forget')
+    }
+    const toHomeAsVisitor = () => {
+      userForm.userName = 'visitor'
+      userForm.userPwd = '123456'
+      userForm.captchaCode = '123456'
+      console.log('userForm=>', userForm)
+      userFromCommit()
+    }
+    // let host = 'https://weather-api.zyha.cn';
+    // let host = ''
+    // const getRequest = async () => {
+    //   const {header} = await getRequestApi();
+    //   host = header.host;
+    // };
+    const componentKey = ref(0)
+    // captchaRef.value = '/api/auth/captcha/1/';
+    // console.log('captchaRef.value=>', captchaRef.value);
+    // const changeCaptcha = () => {
+    // let randomNumber = Math.floor(Math.random()*10);
+    // captchaRef.value = `${host}api/auth/captcha/${randomNumber}/`;
+    // console.log('captchaRef=>', captchaRef.value);
+    // location.reload();
+    // componentKey.value++;
+    // };
+    onMounted(() => {
+      // getRequest();
+      getIpApi()
+    })
+    return {
+      toPageHome,
+      captchaRef,
+      componentKey,
+      userFormRef,
+      userForm,
+      userRules,
+      // getRequest,
+      userFromCommit,
+      toRegister,
+      toForget,
+      toHomeAsVisitor,
+      onMounted,
+      // changeCaptcha
+    }
+  },
+})
 </script>
 
 <style lang="scss" scoped>

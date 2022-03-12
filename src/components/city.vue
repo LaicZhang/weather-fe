@@ -1,23 +1,23 @@
 <template>
-  <div class="city" ref="target">
-    <div class="select" @click="toggle" :class="{active:isShow}">
-      <span v-if='!fullLocation' class="placeholder">请选择您的地址</span>
-      <span v-else class="value">{{fullLocation}}</span>
-      <em class="iconfont icon-angle-down"></em>
+  <div ref="target" class="city">
+    <div class="select" :class="{active:isShow}" @click="toggle">
+      <span v-if="!fullLocation" class="placeholder">请选择您的地址</span>
+      <span v-else class="value">{{ fullLocation }}</span>
+      <em class="iconfont icon-angle-down" />
     </div>
     <!-- 下拉弹层 -->
-    <div class="option" v-show='isShow'>
+    <div v-show="isShow" class="option">
       <!-- 数据的加载过程进行提示 -->
-      <div class="loading" v-if='loading'></div>
+      <div v-if="loading" class="loading" />
       <template v-else>
-        <span @click='changeCity(item)' class="ellipsis" v-for="item in cityList" :key="item.code">{{item.name}}</span>
+        <span v-for="item in cityList" :key="item.code" class="ellipsis" @click="changeCity(item)">{{ item.name }}</span>
       </template>
     </div>
   </div>
 </template>
 
 <script>
-import { ref, reactive, computed } from 'vue'
+import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { getCityList } from '@/api'
 export default {
@@ -25,10 +25,10 @@ export default {
   props: {
     fullLocation: {
       type: String,
-      default: ''
-    }
+      default: '',
+    },
   },
-  setup (props, { emit }) {
+  setup(props, { emit }) {
     const isShow = ref(false)
     const loading = ref(false)
     // 城市列表原始数据
@@ -42,7 +42,7 @@ export default {
       cityName: '',
       countyCode: '',
       countyName: '',
-      fullLocation: ''
+      fullLocation: '',
     })
 
     // 选择城市操作
@@ -51,11 +51,13 @@ export default {
         // 点击的省级单位
         changeResult.provinceCode = city.code
         changeResult.provinceName = city.name
-      } else if (city.level === 1) {
+      }
+      else if (city.level === 1) {
         // 点击的市级单位
         changeResult.cityCode = city.code
         changeResult.cityName = city.name
-      } else if (city.level === 2) {
+      }
+      else if (city.level === 2) {
         // 点击的县级单位:选中最终的省市区数据，并且传递给父组件
         changeResult.countyCode = city.code
         changeResult.countyName = city.name
@@ -72,12 +74,12 @@ export default {
     const cityList = computed(() => {
       let result = list.value
       // 当前点击的是省，那么就计算市级列表
-      if (changeResult.provinceCode && changeResult.provinceName) {
+      if (changeResult.provinceCode && changeResult.provinceName)
         result = result.find(item => item.code === changeResult.provinceCode).areaList
-      }
-      if (changeResult.cityCode && changeResult.cityName) {
+
+      if (changeResult.cityCode && changeResult.cityName)
         result = result.find(item => item.code === changeResult.cityCode).areaList
-      }
+
       // 当前点击的是市，那么就计算县级列表
       return result
     })
@@ -88,11 +90,11 @@ export default {
       if (isShow.value) {
         loading.value = true
         // 调用接口之前，把之前选中的数据置空
-        for (const key in changeResult) {
+        for (const key in changeResult)
           changeResult[key] = ''
-        }
+
         // 弹层显示了，调用接口
-        getCityList().then(ret => {
+        getCityList().then((ret) => {
           list.value = ret
           loading.value = false
         })
@@ -104,7 +106,7 @@ export default {
       isShow.value = false
     })
     return { isShow, toggle, target, cityList, loading, changeCity }
-  }
+  },
 }
 </script>
 
@@ -164,4 +166,3 @@ export default {
   }
 }
 </style>
-

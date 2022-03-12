@@ -1,17 +1,17 @@
 <template>
-  <div class="weather-info"> </div>
+  <div class="weather-info" />
   <div>
     <life-index />
   </div>
 </template>
 
 <script>
-  import LifeIndex from './LifeIndex.vue';
-  export default {
-    components: {
-      LifeIndex,
-    },
-  };
+import LifeIndex from './LifeIndex.vue'
+export default {
+  components: {
+    LifeIndex,
+  },
+}
 </script>
 
 <style lang="less" scoped>

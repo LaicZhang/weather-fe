@@ -1,30 +1,29 @@
-import storage from "@/util/storage";
+import storage from '@/util/storage'
 
 export default {
   setUserInfo(state, userInfo) {
-    state.userInfo = userInfo;
-    storage.setItem("userInfo", userInfo);
+    state.userInfo = userInfo
+    storage.setItem('userInfo', userInfo)
   },
-  setMenuList(state,list){
+  setMenuList(state, list) {
     state.menuList = list
-    storage.setItem("menuList", list);
+    storage.setItem('menuList', list)
   },
-  setActionList(state,list){
+  setActionList(state, list) {
     state.actionList = list
-    storage.setItem("actionList", list);
+    storage.setItem('actionList', list)
   },
-  setWeatherData(state,data){
+  setWeatherData(state, data) {
     state.weatherData = data
-    storage.setItem("weatherData", data);
+    storage.setItem('weatherData', data)
   },
-  setLeaveCount(state,count){
+  setLeaveCount(state, count) {
     state.leaveCount = count
   },
-  changeTheme (state) {
-    if (state.theme === 'chalk') {
+  changeTheme(state) {
+    if (state.theme === 'chalk')
       state.theme = 'vintage'
-    } else {
+    else
       state.theme = 'chalk'
-    }
-  }
-};
+  },
+}

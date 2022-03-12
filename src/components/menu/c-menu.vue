@@ -1,5 +1,6 @@
 <template>
   <el-menu
+    ref="menuRef"
     :default-active="activePath"
     class="menu-wrap"
     :collapse="isCollapse"
@@ -7,59 +8,60 @@
     text-color="#ffffff"
     active-text-color="#409eff"
     router
-    ref="menuRef"
   >
     <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
-      <div class="menu-logo-img"></div>
-      <div class="menu-logo-title">Manager</div>
+      <div class="menu-logo-img" />
+      <div class="menu-logo-title">
+        Manager
+      </div>
     </div>
-    <c-tree-menu :menus="menus"></c-tree-menu>
+    <c-tree-menu :menus="menus" />
   </el-menu>
 </template>
 
 <script>
-  import { defineComponent, onMounted } from 'vue';
-  import CTreeMenu from './c-tree-menu.vue';
+import { defineComponent, onMounted } from 'vue'
+import CTreeMenu from './c-tree-menu.vue'
 
-  export default defineComponent({
-    name: 'CMenu',
-    props: {
-      menus: {
-        type: Array,
-        default: () => {
-          return [];
-        },
+export default defineComponent({
+  name: 'CMenu',
+  components: { CTreeMenu },
+  props: {
+    menus: {
+      type: Array,
+      default: () => {
+        return []
       },
     },
-    components: { CTreeMenu },
-    data() {
-      return {
-        isCollapse: false,
-        activePath: '',
-      };
+  },
+  data() {
+    return {
+      isCollapse: false,
+      activePath: '',
+    }
+  },
+  computed: {
+    calcLogoClass() {
+      return this.isCollapse
     },
-    mounted() {
-      this.activePath = this.$route.path;
-      // try {
-      //   const path = "/" + this.$route.path.split("/").filter((item) => item)[0];
-      //   this.$refs.menuRef.open(path);
-      // } catch (error) {}
+  },
+  mounted() {
+    this.activePath = this.$route.path
+    // try {
+    //   const path = "/" + this.$route.path.split("/").filter((item) => item)[0];
+    //   this.$refs.menuRef.open(path);
+    // } catch (error) {}
+  },
+  methods: {
+    toggleCollapse() {
+      this.isCollapse = !this.isCollapse
+      return this.isCollapse
     },
-    computed: {
-      calcLogoClass() {
-        return this.isCollapse;
-      },
+    toIndexPage() {
+      this.$router.push('/')
     },
-    methods: {
-      toggleCollapse() {
-        this.isCollapse = !this.isCollapse;
-        return this.isCollapse;
-      },
-      toIndexPage() {
-        this.$router.push('/');
-      },
-    },
-  });
+  },
+})
 </script>
 <style lang="scss" scoped>
   .menu-wrap {

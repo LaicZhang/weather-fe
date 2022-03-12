@@ -1,14 +1,14 @@
 <template>
   <div class="manager-wrap" :class="[wrapClass]">
     <div class="manager-left">
-      <c-menu :menus="menus" ref="menuRef"></c-menu>
+      <c-menu ref="menuRef" :menus="menus" />
     </div>
     <div class="manager-right">
       <div class="manager-top-nav">
         <div class="manager-bread">
           <c-bread-crumbs>
             <template #left>
-              <em @click="toggleMenu" class="menu-icon-fold" :class="[menuIconClass]"></em>
+              <em class="menu-icon-fold" :class="[menuIconClass]" @click="toggleMenu" />
             </template>
           </c-bread-crumbs>
         </div>
@@ -18,14 +18,14 @@
             class="manager-user-badge"
             @click="leaveCount != 0 ? $router.push({ name: 'check' }) : ''"
           >
-            <em class="el-icon-bell"></em>
+            <em class="el-icon-bell" />
           </el-badge>
-          <c-user-dropdown :userInfo="userInfo"></c-user-dropdown>
+          <c-user-dropdown :user-info="userInfo" />
         </div>
       </div>
       <div class="manager-main">
         <div class="manager-main-box">
-          <router-view></router-view>
+          <router-view />
         </div>
       </div>
     </div>
@@ -36,66 +36,66 @@
 </template>
 
 <script>
-  import { defineComponent } from 'vue';
-  import CMenu from '../components/menu/c-menu.vue';
-  import { menuPermissionApi } from '../api';
-  import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue';
-  import CUserDropdown from '../components/dropdown/c-user-dropdown.vue';
-  import BackToSvg from '../components/backTo/backToSvg.vue';
-  export default defineComponent({
-    name: 'HOME',
-    components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },
-    data() {
-      return {
-        menus: this.$store.state.menuList || [],
-        wrapClass: '',
-        menuIconClass: ' el-icon-s-fold',
-        userInfo: this.$store.state.userInfo || {},
-        text: '前往首页'
-      };
+import { defineComponent } from 'vue'
+import CMenu from '../components/menu/c-menu.vue'
+import { menuPermissionApi } from '../api'
+import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
+import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
+import BackToSvg from '../components/backTo/backToSvg.vue'
+export default defineComponent({
+  name: 'HOME',
+  components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },
+  data() {
+    return {
+      menus: this.$store.state.menuList || [],
+      wrapClass: '',
+      menuIconClass: ' el-icon-s-fold',
+      userInfo: this.$store.state.userInfo || {},
+      text: '前往首页',
+    }
+  },
+  computed: {
+    leaveCount() {
+      return this.$store.state.leaveCount
     },
-    computed: {
-      leaveCount() {
-        return this.$store.state.leaveCount;
-      },
-    },
-    async mounted() {
-      // const leaveCount = await leaveCountApi();
-      // this.leaveCount = leaveCount;
-      // this.$store.dispatch('getLeaveCount')
-      // const menus = await menuListApi();
-      // const menus = await menuPermissionApi()
-      // this.menus = menus.menuList;
-      this.judgeUserInfo();
-      this.getMenuPermission();
-    },
-    methods: {
-      toggleMenu() {
-        const flag = this.$refs.menuRef.toggleCollapse();
-        if (flag) {
-          this.wrapClass = 'fold';
-          this.menuIconClass = 'el-icon-s-unfold';
-        } else {
-          this.wrapClass = '';
-          this.menuIconClass = 'el-icon-s-fold';
-        }
-      },
-      toPageDashboard() {
-        router.push('/dashboard');
-        console.log('toPageDashboard', this.router);
-      },
-      async getMenuPermission() {
-        const { menuList, actionList } = await menuPermissionApi();
-        this.$store.commit('setActionList', actionList);
-        this.$store.commit('setMenuList', menuList);
-      },
-      judgeUserInfo(){
-        if(window.localStorage.getItem('userInfo') === null || window.localStorage.getItem('userInfo') === ""){
-          router.push('/login');
-        }
+  },
+  async mounted() {
+    // const leaveCount = await leaveCountApi();
+    // this.leaveCount = leaveCount;
+    // this.$store.dispatch('getLeaveCount')
+    // const menus = await menuListApi();
+    // const menus = await menuPermissionApi()
+    // this.menus = menus.menuList;
+    this.judgeUserInfo()
+    this.getMenuPermission()
+  },
+  methods: {
+    toggleMenu() {
+      const flag = this.$refs.menuRef.toggleCollapse()
+      if (flag) {
+        this.wrapClass = 'fold'
+        this.menuIconClass = 'el-icon-s-unfold'
+      }
+      else {
+        this.wrapClass = ''
+        this.menuIconClass = 'el-icon-s-fold'
       }
     },
-  });
+    toPageDashboard() {
+      router.push('/dashboard')
+      console.log('toPageDashboard', this.router)
+    },
+    async getMenuPermission() {
+      const { menuList, actionList } = await menuPermissionApi()
+      this.$store.commit('setActionList', actionList)
+      this.$store.commit('setMenuList', menuList)
+    },
+    judgeUserInfo() {
+      if (window.localStorage.getItem('userInfo') === null || window.localStorage.getItem('userInfo') === '')
+        router.push('/login')
+    },
+  },
+})
 </script>
 <style>
   @import '@/assets/scss/reset.scss';

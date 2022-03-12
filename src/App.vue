@@ -5,16 +5,16 @@ import { provide } from 'vue'
 // import '../public/static/theme/chalk.js'
 // import '../public/static/theme/vintage.js'
 export default {
-  name: 'app',
-  setup(){
-    provide('echarts',echarts)               //provide
-  },
+  name: 'App',
   components: {},
+  setup() {
+    provide('echarts', echarts) // provide
+  },
 }
 </script>
 
 <template>
-  <router-view></router-view>
+  <router-view />
 </template>
 
 <style lang="scss">

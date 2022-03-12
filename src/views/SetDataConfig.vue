@@ -1,20 +1,18 @@
 <template>
-  <div class="SetDataConfig-page">
-    
-  </div>
+  <div class="SetDataConfig-page" />
 </template>
 
 <script>
-  export default {
-    name: 'setDataConfig',
-    components: {
-    },
-    props: {
-    },
-    setup() {
-      
-    },
-  };
+export default {
+  name: 'SetDataConfig',
+  components: {
+  },
+  props: {
+  },
+  setup() {
+
+  },
+}
 </script>
 
 <style lang="scss" scoped>

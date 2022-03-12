@@ -2,20 +2,22 @@
 <template>
   <div class="register-page">
     <el-form
-      class="register-form"
       ref="userFormRef"
+      class="register-form"
       :model="userForm"
       :rules="userRules"
       status-icon
     >
-      <div class="register-title">注册</div>
+      <div class="register-title">
+        注册
+      </div>
       <el-form-item prop="userName">
         <el-input
           v-model="userForm.userName"
           type="text"
           placeholder="请输入用户名"
           prefix-icon="el-icon-user"
-        ></el-input>
+        />
       </el-form-item>
       <el-form-item prop="userEmail">
         <el-input
@@ -23,7 +25,7 @@
           type="text"
           placeholder="请输入邮箱"
           prefix-icon="el-icon-email"
-        ></el-input>
+        />
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
@@ -31,7 +33,7 @@
           type="password"
           placeholder="请输入密码"
           prefix-icon="el-icon-lock"
-        ></el-input>
+        />
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
@@ -39,101 +41,104 @@
           type="password"
           placeholder="请确认密码"
           prefix-icon="el-icon-lock"
-        ></el-input>
+        />
       </el-form-item>
       <el-input
-          v-model="userForm.captcha"
-          type="text"
-          placeholder="请输入验证码"
-        ></el-input>
+        v-model="userForm.captcha"
+        type="text"
+        placeholder="请输入验证码"
+      />
       <el-form-item>
-        <el-button type="text" @click="toLogin">已有账号？点击登陆</el-button>
-        <el-button @click="userFromCommit" type="primary" class="register-submit"
-          >注册</el-button
-        >
+        <el-button type="text" @click="toLogin">
+          已有账号？点击登陆
+        </el-button>
+        <el-button type="primary" class="register-submit" @click="userFromCommit">
+          注册
+        </el-button>
       </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
-import { defineComponent, onMounted, reactive, ref } from "vue";
-import useVuexWithRouter from "@/hooks/useVuexWithRouter";
-import { registerApi, menuPermissionApi } from "@/api";
+import { defineComponent, onMounted, reactive, ref } from 'vue'
+import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import { menuPermissionApi, registerApi } from '@/api'
 export default defineComponent({
-  name: "Register",
+  name: 'Register',
   components: {},
   setup() {
-    const { router, store } = useVuexWithRouter();
+    const { router, store } = useVuexWithRouter()
     const toPageHome = () => {
-      router.push("/");
-    };
-    const userFormRef = ref(null);
+      router.push('/')
+    }
+    const userFormRef = ref(null)
     const userForm = reactive({
-      userName: "",
-      userPwd: "",
-    });
+      userName: '',
+      userPwd: '',
+    })
     const userRules = {
       userName: [
         {
           required: true,
-          message: "请填写用户名",
-          trigger: "blur",
+          message: '请填写用户名',
+          trigger: 'blur',
         },
       ],
       userEmail: [
         {
           required: true,
-          message: "请填写邮箱",
-          trigger: "blur",
+          message: '请填写邮箱',
+          trigger: 'blur',
         },
       ],
       userPwd: [
         {
           required: true,
-          message: "请填写密码",
-          trigger: "blur",
+          message: '请填写密码',
+          trigger: 'blur',
         },
       ],
       userConfirmPwd: [
         {
           required: true,
-          message: "请确认密码",
-          trigger: "blur",
+          message: '请确认密码',
+          trigger: 'blur',
         },
       ],
       captcha: [
         {
           required: true,
-          message: "请填写验证码",
-          trigger: "blur",
+          message: '请填写验证码',
+          trigger: 'blur',
         },
       ],
-    };
+    }
     const userFromCommit = () => {
-      userFormRef.value.validate(async (valid) => {
+      userFormRef.value.validate(async(valid) => {
         if (valid) {
-          if(userForm.userPwd !== userForm.userConfirmPwd){
-            this.$message.error('两次密码不一致');
-            return false;
+          if (userForm.userPwd !== userForm.userConfirmPwd) {
+            this.$message.error('两次密码不一致')
+            return false
           }
-          const registerInfo = await registerApi(userForm);
-          store.commit("setUserInfo", registerInfo);
-          await getMenuPermission();
-          toPageHome();
-        } else {
-          return false;
+          const registerInfo = await registerApi(userForm)
+          store.commit('setUserInfo', registerInfo)
+          await getMenuPermission()
+          toPageHome()
         }
-      });
-    };
-    const getMenuPermission = async () => {
-      const { menuList, actionList } = await menuPermissionApi();
-      store.commit("setActionList", actionList);
-      store.commit("setMenuList", menuList);
-    };
+        else {
+          return false
+        }
+      })
+    }
+    const getMenuPermission = async() => {
+      const { menuList, actionList } = await menuPermissionApi()
+      store.commit('setActionList', actionList)
+      store.commit('setMenuList', menuList)
+    }
     const toLogin = () => {
-      router.push("/login");
-    };
+      router.push('/login')
+    }
     return {
       toPageHome,
       toLogin,
@@ -141,9 +146,9 @@ export default defineComponent({
       userForm,
       userRules,
       userFromCommit,
-    };
+    }
   },
-});
+})
 </script>
 
 <style lang="scss"  scoped >

@@ -8,9 +8,9 @@
         :content="clothesIndexText"
         placement="top-end"
       >
-        <p>{{clothesIndexText}}</p>
+        <p>{{ clothesIndexText }}</p>
       </el-tooltip>
-      <el-divider> </el-divider>
+      <el-divider />
       <el-tooltip
         class="box-item"
         effect="dark"
@@ -19,49 +19,49 @@
       >
         <p>{{ carIndexText }}</p>
       </el-tooltip>
-      <el-divider> </el-divider>
+      <el-divider />
       <el-tooltip
         class="box-item"
         effect="dark"
         :content="rayIndexText"
         placement="top-end"
       >
-        <p>{{ rayIndexText}}</p>
+        <p>{{ rayIndexText }}</p>
       </el-tooltip>
     </div>
   </div>
 </template>
 
 <script>
-  export default {
-    name: 'life-index',
-    data() {
-      return {
-        clothesIndex: {},
-        rayIndex: {},
-        carIndex: {},
-        clothesIndexText: '',
-        rayIndexText: '',
-        carIndexText: '',
-      };
+export default {
+  name: 'LifeIndex',
+  data() {
+    return {
+      clothesIndex: {},
+      rayIndex: {},
+      carIndex: {},
+      clothesIndexText: '',
+      rayIndexText: '',
+      carIndexText: '',
+    }
+  },
+  mounted() {
+    this.getLifeIndex()
+    console.log('life-index mounted')
+  },
+  methods: {
+    getLifeIndex() {
+      const { today } = JSON.parse(window.localStorage.getItem('weatherData'))
+      console.log('today=>', today)
+      this.clothesIndex = today.lifeIndex.ct
+      this.rayIndex = today.lifeIndex.uv
+      this.carIndex = today.lifeIndex.xc
+      this.clothesIndexText = `${this.clothesIndex.liNm}:${this.clothesIndex.liAttr},${this.clothesIndex.liDese}`
+      this.rayIndexText = `${this.rayIndex.liNm}:${this.rayIndex.liAttr},${this.rayIndex.liDese}`
+      this.carIndexText = `${this.carIndex.liNm}:${this.carIndex.liAttr},${this.carIndex.liDese}`
     },
-    methods: {
-      getLifeIndex() {
-        let { today } = JSON.parse(window.localStorage.getItem('weatherData'));
-        console.log('today=>', today);
-        this.clothesIndex = today.lifeIndex.ct;
-        this.rayIndex = today.lifeIndex.uv;
-        this.carIndex = today.lifeIndex.xc;
-        this.clothesIndexText = `${this.clothesIndex.liNm}:${this.clothesIndex.liAttr},${this.clothesIndex.liDese}`;
-        this.rayIndexText = `${this.rayIndex.liNm}:${this.rayIndex.liAttr},${this.rayIndex.liDese}`;
-        this.carIndexText = `${this.carIndex.liNm}:${this.carIndex.liAttr},${this.carIndex.liDese}`;
-      },
-    },
-    mounted() {
-      this.getLifeIndex();
-      console.log('life-index mounted');
-    },
-  };
+  },
+}
 </script>
 
 <style>

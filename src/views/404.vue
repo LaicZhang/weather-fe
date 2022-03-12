@@ -1,23 +1,24 @@
 <template>
   <div class="page-404">
-<!--    <el-image id="not-found-img" alt="404.jpeg" src="'./../public/img/404.jpeg" />-->
+    <!--    <el-image id="not-found-img" alt="404.jpeg" src="'./../public/img/404.jpeg" />-->
     <div style="text-align: center;font-size: 50px;">
       <h1>404 not found</h1>
       <h2>it seems you're in the wrong page</h2>
     </div>
-    <el-button class="btn-404" @click="$router.push('/')">返回首页</el-button>
+    <el-button class="btn-404" @click="$router.push('/')">
+      返回首页
+    </el-button>
   </div>
 </template>
 
 <script>
-  export default {
-     setup() {
-      
-      return {
+export default {
+  setup() {
+    return {
 
-      }
     }
-  }
+  },
+}
 </script>
 
 <style scoped lang="scss">

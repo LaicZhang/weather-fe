@@ -1,10 +1,10 @@
 <script>
-import TreeMenuVue from "./TreeMenu.vue";
-import BreadCrumb from "./BreadCrumb.vue";
-export default{
-  name: 'home',
-  data(){
-    return{
+import TreeMenuVue from './TreeMenu.vue'
+import BreadCrumb from './BreadCrumb.vue'
+export default {
+  name: 'Home',
+  data() {
+    return {
       isCollapse: false,
       userInfo: this.$store.state.userInfo,
       noticeCount: 0,
@@ -12,37 +12,39 @@ export default{
       activeMenu: location.hash.slice(1),
     }
   },
-  methods:{
+  mounted() {
+    this.getNoticeCount()
+    this.getMenuList()
+  },
+  methods: {
     toggle() {
-      this.isCollapse = !this.isCollapse;
+      this.isCollapse = !this.isCollapse
     },
     handleLogout(key) {
-      if (key === "email") return;
-      this.$store.commit("saveUserInfo", "");
-      this.userInfo = null;
-      this.$router.push("/login");
+      if (key === 'email') return
+      this.$store.commit('saveUserInfo', '')
+      this.userInfo = null
+      this.$router.push('/login')
     },
     async getNoticeCount() {
       try {
-        const count = await this.$api.noticeCount();
-        this.noticeCount = count;
-      } catch (error) {
-        console.error(error);
+        const count = await this.$api.noticeCount()
+        this.noticeCount = count
+      }
+      catch (error) {
+        console.error(error)
       }
     },
     async getMenuList() {
       try {
-        const list = await this.$api.getMenuList();
-        this.userMenu = list;
-      } catch (error) {
-        console.error(error);
+        const list = await this.$api.getMenuList()
+        this.userMenu = list
+      }
+      catch (error) {
+        console.error(error)
       }
     },
   },
-  mounted(){
-    this.getNoticeCount();
-    this.getMenuList();
-  }
 }
 </script>
 
@@ -63,14 +65,14 @@ export default{
         :collapse="isCollapse"
         class="nav-menu"
       >
-        <tree-menu :userMenu="userMenu" />
+        <tree-menu :user-menu="userMenu" />
       </el-menu>
     </div>
     <div :class="['content-right', isCollapse ? 'fold' : 'unfold']">
       <div class="nav-top">
         <div class="nav-left">
           <div class="menu-fold" @click="toggle">
-            <em class="el-icon-s-fold"></em>
+            <em class="el-icon-s-fold" />
           </div>
           <div class="bread">
             <BreadCrumb />
@@ -82,26 +84,28 @@ export default{
             class="notice"
             type="danger"
           >
-            <em class="el-icon-bell"></em>
+            <em class="el-icon-bell" />
           </el-badge>
           <el-dropdown @command="handleLogout">
             <span class="user-link">
               {{ userInfo.userName }}
-              <em class="el-icon--right"></em>
+              <em class="el-icon--right" />
             </span>
             <template #dropdown>
               <el-dropdown-menu>
-                <el-dropdown-item command="email"
-                  >邮箱：{{ userInfo.userEmail }}</el-dropdown-item
-                >
-                <el-dropdown-item command="logout">退出</el-dropdown-item>
+                <el-dropdown-item command="email">
+                  邮箱：{{ userInfo.userEmail }}
+                </el-dropdown-item>
+                <el-dropdown-item command="logout">
+                  退出
+                </el-dropdown-item>
               </el-dropdown-menu>
             </template>
           </el-dropdown>
         </div>
       </div>
       <div class="wrapper">
-        <router-view></router-view>
+        <router-view />
       </div>
     </div>
   </div>

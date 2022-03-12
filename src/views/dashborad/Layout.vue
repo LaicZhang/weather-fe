@@ -2,11 +2,13 @@
   <div class="layout-page">
     <div class="grid-container">
       <div class="header">
-        <div class="city-name">{{city}}</div>
+        <div class="city-name">
+          {{ city }}
+        </div>
       </div>
       <div class="content">
         <div class="middle-container">
-          <div class="middle"></div>
+          <div class="middle" />
         </div>
         <div class="left">
           <line-marker />
@@ -15,7 +17,9 @@
           <!-- <life-index /> -->
           <bar1 />
         </div>
-        <div class="bottom">bottom</div>
+        <div class="bottom">
+          bottom
+        </div>
       </div>
       <div class="sidebar">
         <Radar />
@@ -26,36 +30,36 @@
 </template>
 
 <script>
-import {getIpInfoApi} from '@/api';
-import LineMarker from "@/views/echarts/LineMarker.vue";
-import LifeIndex from '../echarts/LifeIndex.vue';
-import Radar from '../echarts/Radar.vue';
-import Bar1 from '../echarts/Bar1.vue';
+import LifeIndex from '../echarts/LifeIndex.vue'
+import Radar from '../echarts/Radar.vue'
+import Bar1 from '../echarts/Bar1.vue'
+import LineMarker from '@/views/echarts/LineMarker.vue'
+import { getIpInfoApi } from '@/api'
 // import WeatherInfo from '../echarts/weatherInfo.vue';
-  export default {
-    components: {
+export default {
+  components: {
     LineMarker,
     LifeIndex,
     Radar,
     Bar1,
     // WeatherInfo
-},
-    data(){
-      return{
-        city: ''
-      }
-    },
-    methods:{
-      async getLocationByIp(){
-        const {result} = await getIpInfoApi();
-        this.city = (result.att+'天气可视化').replace(/,/g, "");
-      }
-    },
-    mounted(){
-      this.getLocationByIp()
-      console.log('layout mounted')
+  },
+  data() {
+    return {
+      city: '',
     }
-  };
+  },
+  mounted() {
+    this.getLocationByIp()
+    console.log('layout mounted')
+  },
+  methods: {
+    async getLocationByIp() {
+      const { result } = await getIpInfoApi()
+      this.city = (`${result.att}天气可视化`).replace(/,/g, '')
+    },
+  },
+}
 </script>
 
 <style lang="less" scoped>
@@ -88,6 +92,7 @@ import Bar1 from '../echarts/Bar1.vue';
     grid-area: content;
     height: 80vh;
     border-radius: 10px;
+    margin-left: 30px;
     .middle-container {
       width: 100%;
       height: 200px;
@@ -131,7 +136,7 @@ import Bar1 from '../echarts/Bar1.vue';
     grid-area: sidebar;
     background: #909399;
     height: 80vh;
-    width: 15vw;
+    width: 17vw;
     border-radius: 10px;
   }
 </style>

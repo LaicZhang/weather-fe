@@ -2,52 +2,56 @@
   <el-dropdown @command="onLoginOut">
     <span class="el-dropdown-link user-dropdown-title">
       <el-image
-          lazy
+        lazy
         alt="user picture"
         class="user-img"
         src="/img/default.jpg"
       />
-      <em class="el-icon-arrow-down"></em>
+      <em class="el-icon-arrow-down" />
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="email">{{ userInfo.userEmail }}</el-dropdown-item>
-        <el-dropdown-item command="out">退出</el-dropdown-item>
+        <el-dropdown-item command="email">
+          {{ userInfo.userEmail }}
+        </el-dropdown-item>
+        <el-dropdown-item command="out">
+          退出
+        </el-dropdown-item>
       </el-dropdown-menu>
     </template>
   </el-dropdown>
 </template>
 <script>
 //  import defaultImage from '@/assets/images/default.jpg';
-  export default {
-    name: 'CUserDropdown',
-    data() {
-      return {
-        // userImage: defaultImage,
+export default {
+  name: 'CUserDropdown',
+  props: {
+    userInfo: {
+      type: Object,
+      default: () => {
+        return {}
+      },
+    },
+  },
+  data() {
+    return {
+      // userImage: defaultImage,
+    }
+  },
+  mounted() {
+    console.log(import.meta)
+  },
+  methods: {
+    onLoginOut(command) {
+      if (command === 'out') {
+        this.$store.commit('setUserInfo', '')
+        this.$store.commit('setActionList', [])
+        this.$store.commit('setMenuList', [])
+        this.$router.push({ name: 'login' })
       }
     },
-    props: {
-      userInfo: {
-        type: Object,
-        default: () => {
-          return {};
-        },
-      },
-    },
-    methods: {
-      onLoginOut(command) {
-        if (command === 'out') {
-          this.$store.commit('setUserInfo', '');
-          this.$store.commit('setActionList', []);
-          this.$store.commit('setMenuList', []);
-          this.$router.push({ name: 'login' });
-        }
-      },
-    },
-    mounted() {
-      console.log(import.meta);
-    },
-  };
+  },
+}
 </script>
 <style scoped lang="scss">
   .user-dropdown-title {

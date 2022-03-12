@@ -4,22 +4,22 @@
       <span>个人信息</span>
       <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
         <el-form-item label="用户ID">
-          <el-input v-model="userForm.userId" disabled></el-input>
+          <el-input v-model="userForm.userId" disabled />
         </el-form-item>
         <el-form-item label="用户名">
-          <el-input v-model="userForm.userName" disabled></el-input>
+          <el-input v-model="userForm.userName" disabled />
         </el-form-item>
         <el-form-item label="性别">
           <el-select v-model="userForm.sexText" @change="(value) => (userForm.sex = value)">
-            <el-option label="男" value="1"></el-option>
-            <el-option label="女" value="0"></el-option>
+            <el-option label="男" value="1" />
+            <el-option label="女" value="0" />
           </el-select>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="userForm.userEmail"></el-input>
+          <el-input v-model="userForm.userEmail" />
         </el-form-item>
         <el-form-item label="电话号码">
-          <el-input v-model="userForm.mobile"></el-input>
+          <el-input v-model="userForm.mobile" />
         </el-form-item>
         <!-- <el-form-item label="密码">
           <el-input
@@ -31,65 +31,86 @@
           <el-input type="password" v-model="userForm.userPwd2"></el-input>
         </el-form-item> -->
         <el-form-item label="注册时间">
-          <el-input v-model="userForm.createTime" disabled></el-input>
+          <el-input v-model="userForm.createTime" disabled />
         </el-form-item>
         <el-form-item label="最近登陆">
-          <el-input v-model="userForm.lastLoginTime" disabled></el-input>
+          <el-input v-model="userForm.lastLoginTime" disabled />
         </el-form-item>
         <!-- <el-form-item label="验证码" v-if="flag">
           <el-input v-model="userForm.code"></el-input>
         </el-form-item> -->
-        <el-col :span="24"
-          ><el-form-item>
-            <el-button @click="onSubmit(userForm)" type="primary">提交</el-button>
-            <el-button @click="resetForm">撤销修改</el-button>
-          </el-form-item></el-col
-        >
+        <el-col :span="24">
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit(userForm)">
+              提交
+            </el-button>
+            <el-button @click="resetForm">
+              撤销修改
+            </el-button>
+          </el-form-item>
+        </el-col>
       </el-form>
     </el-card>
-    <el-card class="mine-info-right" v-show="isVisitor">
+    <el-card v-show="isVisitor" class="mine-info-right">
       <span>推送配置</span>
       <el-form ref="configRef" :model="pusherConfigForm" label-position="left">
         <el-form-item>
-          <el-checkbox v-model="pusherConfigForm.useEmail" label="邮箱" border></el-checkbox>
-          <el-checkbox v-model="pusherConfigForm.useSms" label="短信" border></el-checkbox>
+          <el-checkbox v-model="pusherConfigForm.useEmail" label="邮箱" border />
+          <el-checkbox v-model="pusherConfigForm.useSms" label="短信" border />
         </el-form-item>
         <el-form-item>
-          <el-checkbox v-model="pusherConfigForm.useFeiShu" label="飞书" border></el-checkbox>
-          <el-checkbox v-model="pusherConfigForm.useDingTalk" label="钉钉" border></el-checkbox>
-          <el-checkbox v-model="pusherConfigForm.useWeCom" label="企业微信" border></el-checkbox>
+          <el-checkbox v-model="pusherConfigForm.useFeiShu" label="飞书" border />
+          <el-checkbox v-model="pusherConfigForm.useDingTalk" label="钉钉" border />
+          <el-checkbox v-model="pusherConfigForm.useWeCom" label="企业微信" border />
           <el-checkbox
             v-model="pusherConfigForm.useServerChan"
             label="Server酱"
             border
-          ></el-checkbox>
+          />
+        </el-form-item>
+        <el-form-item v-if="pusherConfigForm.useEmail" label="电子邮箱">
+          <el-input v-model="pusherConfigForm.userEmail" />
+        </el-form-item>
+        <el-form-item v-if="pusherConfigForm.useSms" label="电话号码">
+          <el-input v-model="pusherConfigForm.mobile" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useFeiShu">
-          <el-button type="text" @click="feishuDialogVisible=true" >飞书群消息机器人网址获取方法</el-button>
-          <el-input placeholder="飞书群消息机器人网址" v-model="pusherConfigForm.feishuUrl"></el-input>
+          <el-button type="text" @click="feishuDialogVisible=true">
+            飞书群消息机器人网址获取方法
+          </el-button>
+          <el-input v-model="pusherConfigForm.feishuUrl" placeholder="飞书群消息机器人网址" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useWeCom">
-          <el-button type="text" @click="wecomDialogVisible=true" >企业微信群消息机器人网址获取方法</el-button>
-          <el-input placeholder="企业微信群消息机器人网址" v-model="pusherConfigForm.wecomUrl"></el-input>
+          <el-button type="text" @click="wecomDialogVisible=true">
+            企业微信群消息机器人网址获取方法
+          </el-button>
+          <el-input v-model="pusherConfigForm.wecomUrl" placeholder="企业微信群消息机器人网址" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useDingTalk">
-          <el-button type="text" @click="dingtalkDialogVisible=true" >钉钉群消息机器人网址获取方法</el-button>
-          <el-input placeholder="钉钉群消息机器人网址" v-model="pusherConfigForm.dingtalkUrl"></el-input>
+          <el-button type="text" @click="dingtalkDialogVisible=true">
+            钉钉群消息机器人网址获取方法
+          </el-button>
+          <el-input v-model="pusherConfigForm.dingtalkUrl" placeholder="钉钉群消息机器人网址" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useServerChan">
-          <el-button type="text" @click="serverchanDialogVisible=true" >server酱key获取方法</el-button>
-          <el-input placeholder="server酱key" v-model="pusherConfigForm.serverChanKey"></el-input>
+          <el-button type="text" @click="serverchanDialogVisible=true">
+            server酱key获取方法
+          </el-button>
+          <el-input v-model="pusherConfigForm.serverChanKey" placeholder="server酱key" />
         </el-form-item>
         <el-form-item>
-          <el-button @click="onSubmitPusherConfigForm" type="primary">提交</el-button>
-          <el-button @click="resetPusherConfigForm">撤销修改</el-button>
+          <el-button type="primary" @click="onSubmitPusherConfigForm">
+            提交
+          </el-button>
+          <el-button @click="resetPusherConfigForm">
+            撤销修改
+          </el-button>
         </el-form-item>
       </el-form>
     </el-card>
   </div>
   <el-dialog v-model="wecomDialogVisible" title="Tips" width="30%">
-    <span
-      >开启企业微信内部群群机器人方法：
+    <span>开启企业微信内部群群机器人方法：
       手机端开启入口，进入企业微信内部群聊，点击右上角的群组，在群聊信息页面中群成员就可以看到添加群机器人按钮了，并添加群机器人了。
       电脑端开启入口，在PC端选中群聊点击鼠标右键即可发现添加机器人按钮.
     </span>
@@ -101,8 +122,7 @@
     </template>
   </el-dialog>
   <el-dialog v-model="dingtalkDialogVisible" title="Tips" width="30%">
-    <span
-      >在群设置->群助理里添加自定义机器人后获得，添加中的"自定义关键字"请设置为：LAICWEATHER
+    <span>在群设置->群助理里添加自定义机器人后获得，添加中的"自定义关键字"请设置为：LAICWEATHER
     </span>
     <template #footer>
       <span class="dialog-footer">
@@ -112,8 +132,7 @@
     </template>
   </el-dialog>
   <el-dialog v-model="feishuDialogVisible" title="Tips" width="30%">
-    <span
-      >在群设置添加自定义机器人后获得的网址
+    <span>在群设置添加自定义机器人后获得的网址
     </span>
     <template #footer>
       <span class="dialog-footer">
@@ -123,8 +142,7 @@
     </template>
   </el-dialog>
   <el-dialog v-model="serverchanDialogVisible" title="Tips" width="30%">
-    <span
-      ><a href="https://sct.ftqq.com/sendkey" style="color:blue" target="view_window">点击此处</a> 获取SCKEY
+    <span><a href="https://sct.ftqq.com/sendkey" style="color:blue" target="view_window">点击此处</a> 获取SCKEY
     </span>
     <template #footer>
       <span class="dialog-footer">
@@ -136,87 +154,87 @@
 </template>
 
 <script setup>
-  import { onMounted, reactive, ref } from 'vue';
-  import request from '@/util/request';
-  import storage from '@/util/storage';
-  import { getDictApi, changeInfoApi, getPusherSettingsApi, updatePusherSettingsApi } from '../api';
-  import util from '../util/utils';
-  let userForm = reactive({});
-  let sexDict = {};
-  let flag = ref(false);
-  let isChangeEmail = ref(false);
-  let isChangeMobile = ref(false);
-  let isChangePassword = ref(false);
-  let wecomDialogVisible = ref(false);
-  let dingtalkDialogVisible = ref(false);
-  let feishuDialogVisible = ref(false);
-  let serverchanDialogVisible = ref(false);
-  let isVisitor = ref(true);
-  let pusherConfigForm = reactive({
-    // useEmail: true,
-    // useSms: true,
-    // useFeiShu: false,
-    // useWeCom: false,
-    // useDingtalk: false,
-    // useServerChan: false
-  });
-  let userInfo = storage.getItem('userInfo');
+import { onMounted, reactive, ref } from 'vue'
+import { changeInfoApi, getDictApi, getPusherSettingsApi, updatePusherSettingsApi } from '../api'
+import util from '../util/utils'
+import request from '@/util/request'
+import storage from '@/util/storage'
+const userForm = reactive({})
+let sexDict = {}
+const flag = ref(false)
+const isChangeEmail = ref(false)
+const isChangeMobile = ref(false)
+const isChangePassword = ref(false)
+const wecomDialogVisible = ref(false)
+const dingtalkDialogVisible = ref(false)
+const feishuDialogVisible = ref(false)
+const serverchanDialogVisible = ref(false)
+const isVisitor = ref(true)
+let pusherConfigForm = reactive({
+  // useEmail: true,
+  // useSms: true,
+  // useFeiShu: false,
+  // useWeCom: false,
+  // useDingtalk: false,
+  // useServerChan: false
+})
+const userInfo = storage.getItem('userInfo')
 
-  const isVisitorFn = () => {
-    if (userInfo.role === 2) {
-      isVisitor.value = false;
-      console.log('isVisitor', isVisitor.value);
-    }
-  };
-  const onSubmit = async (data) => {
-    console.log('userForm', data);
-    await changeInfoApi(data);
-  };
-  const getUserInfo = () => {
-    request
-      .get('/users/info', { userName: userInfo.userName })
-      .then((res) => {
-        Object.assign(userForm, res);
-        if (userForm.sex === 1) {
-          userForm.sexText = '男';
-        } else {
-          userForm.sexText = '女';
-        }
-        userForm.createTime = util.formateDate(new Date(userForm.createTime));
-        userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime));
-      })
-      .catch(() => {
-        console.log('获取用户信息失败');
-      });
-  };
-  const resetForm = () => {
-    getUserInfo();
-  };
-  const onSubmitPusherConfigForm = () => {
-    console.log('pusherConfigForm', pusherConfigForm);
-    updatePusherSettings();
-  };
-  const resetPusherConfigForm = () => {
-    getPusherSettings();
-  };
-  const init = () => {
-    sexDict = getDictApi('sex');
-  };
-  const getPusherSettings = async () => {
-    let { list } = await getPusherSettingsApi({ userId: userInfo.userId });
-    pusherConfigForm = Object.assign(pusherConfigForm, list);
-    console.log('getPusherSettings=>', pusherConfigForm);
-  };
-  const updatePusherSettings = async () => {
-    let data = await updatePusherSettingsApi(pusherConfigForm);
-    console.log('updatePusherSettings=>', data);
-  };
-  onMounted(() => {
-    init();
-    isVisitorFn();
-    getUserInfo();
-    getPusherSettings();
-  });
+const isVisitorFn = () => {
+  if (userInfo.role === 2) {
+    isVisitor.value = false
+    console.log('isVisitor', isVisitor.value)
+  }
+}
+const onSubmit = async(data) => {
+  console.log('userForm', data)
+  await changeInfoApi(data)
+}
+const getUserInfo = () => {
+  request
+    .get('/users/info', { userName: userInfo.userName })
+    .then((res) => {
+      Object.assign(userForm, res)
+      if (userForm.sex === 1)
+        userForm.sexText = '男'
+      else
+        userForm.sexText = '女'
+
+      userForm.createTime = util.formateDate(new Date(userForm.createTime))
+      userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
+    })
+    .catch(() => {
+      console.log('获取用户信息失败')
+    })
+}
+const resetForm = () => {
+  getUserInfo()
+}
+const onSubmitPusherConfigForm = () => {
+  console.log('pusherConfigForm', pusherConfigForm)
+  updatePusherSettings()
+}
+const resetPusherConfigForm = () => {
+  getPusherSettings()
+}
+const init = () => {
+  sexDict = getDictApi('sex')
+}
+const getPusherSettings = async() => {
+  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
+  pusherConfigForm = Object.assign(pusherConfigForm, list)
+  console.log('getPusherSettings=>', pusherConfigForm)
+}
+const updatePusherSettings = async() => {
+  const data = await updatePusherSettingsApi(pusherConfigForm)
+  console.log('updatePusherSettings=>', data)
+}
+onMounted(() => {
+  init()
+  isVisitorFn()
+  getUserInfo()
+  getPusherSettings()
+})
 </script>
 
 <style lang="scss" scoped>

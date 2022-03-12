@@ -1,13 +1,17 @@
 <template>
   <div class="welcome-page">
     <div class="word">
-      <div class="title-one">欢迎体验</div>
-      <div class="title-two">天气大数据可视化后台管理系统</div>
+      <div class="title-one">
+        欢迎体验
+      </div>
+      <div class="title-two">
+        天气大数据可视化后台管理系统
+      </div>
       <div class="title-three">
         front-end by Vite2 + Vue3 + ElementPlus
-        <br/>
+        <br>
         back-end by Koa2 + Mongodb + Python
-        <br />
+        <br>
         deploy by Github + Vercel + Tencent Cloud
       </div>
     </div>
@@ -16,19 +20,19 @@
 </template>
 
 <script>
-import { defineComponent } from "vue";
-import { useRouter } from "vue-router";
+import { defineComponent } from 'vue'
+import { useRouter } from 'vue-router'
 export default defineComponent({
-  name: "Welcome",
+  name: 'Welcome',
   components: {},
   setup() {
-    const router = useRouter();
+    const router = useRouter()
     const toPageLogin = () => {
-      router.push({ name: "login" });
-    };
-    return { toPageLogin };
+      router.push({ name: 'login' })
+    }
+    return { toPageLogin }
   },
-});
+})
 </script>
 <style lang="scss" scoped>
 .welcome-page {
@@ -59,4 +63,3 @@ export default defineComponent({
   }
 }
 </style>
-
