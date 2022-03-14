@@ -59,13 +59,12 @@ const LazyLoad = {
     let prevTime
     return function(...args) {
       const currTime = Date.now()
-      const context = this
       if (!prevTime) prevTime = currTime
       clearTimeout(timer)
 
       if (currTime - prevTime > delay) {
         prevTime = currTime
-        fn.apply(context, args)
+        fn.apply(this, args)
         clearTimeout(timer)
         return
       }
@@ -73,7 +72,7 @@ const LazyLoad = {
       timer = setTimeout(() => {
         prevTime = Date.now()
         timer = null
-        fn.apply(context, args)
+        fn.apply(this, args)
       }, delay)
     }
   },
