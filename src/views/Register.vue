@@ -114,6 +114,11 @@ export default defineComponent({
         },
       ],
     }
+    const getMenuPermission = async() => {
+      const { menuList, actionList } = await menuPermissionApi()
+      store.commit('setActionList', actionList)
+      store.commit('setMenuList', menuList)
+    }
     const userFromCommit = () => {
       userFormRef.value.validate(async(valid) => {
         if (valid) {
@@ -131,11 +136,7 @@ export default defineComponent({
         }
       })
     }
-    const getMenuPermission = async() => {
-      const { menuList, actionList } = await menuPermissionApi()
-      store.commit('setActionList', actionList)
-      store.commit('setMenuList', menuList)
-    }
+
     const toLogin = () => {
       router.push('/login')
     }
