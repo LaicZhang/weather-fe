@@ -68,11 +68,27 @@
       />
     </div>
     <!-- 详情弹窗-->
-    <el-dialog v-model="moreDialog" title="详情" width="30%">
-      <span>确定删除?</span>
+    <el-dialog v-if="selectedRow" v-model="moreDialog" title="公告详情" width="35%">
+      <el-descriptions direction="vertical" border :title="selectedRow.value.noticeTitle">
+        <el-descriptions-item label="公告ID">
+          {{ selectedRow.value._id }}
+        </el-descriptions-item>
+        <el-descriptions-item label="公告标题">
+          {{ selectedRow.value.noticeTitle }}
+        </el-descriptions-item>
+        <el-descriptions-item label="公告内容">
+          {{ selectedRow.value.noticeContent }}
+        </el-descriptions-item>
+        <el-descriptions-item label="已读次数">
+          {{ selectedRow.value.haveReadCount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="发布时间">
+          {{ selectedRow.value.createTime }}
+        </el-descriptions-item>
+      </el-descriptions>
       <template #footer>
         <span class="dialog-footer">
-          <el-button type="primary" @click="moreDialog = false">确定</el-button>
+          <el-button type="primary" @click="haveReadCount">确定</el-button>
         </span>
       </template>
     </el-dialog>
@@ -134,10 +150,12 @@ import {
   deleteNoticeApi,
   editNoticeApi,
   noticeAllListApi,
+  noticeHaveReadApi,
   noticeListApi,
   rolesAllListApi,
 } from '../api'
 import util from '../util/utils'
+import store from '../store'
 export default defineComponent({
   name: 'Notice',
   components: {},
@@ -162,7 +180,7 @@ export default defineComponent({
       },
       {
         prop: 'haveReadCount',
-        label: '已阅读人数',
+        label: '已读次数',
       },
       {
         prop: 'createTime',
@@ -188,6 +206,8 @@ export default defineComponent({
     const addNoticeFrom = reactive({})
     const roleList = ref([])
     const deptList = ref([])
+    const selectedRow = reactive({})
+
     const addNoticeFromRules = {
       noticeTitle: {
         required: true,
@@ -234,6 +254,12 @@ export default defineComponent({
       const noticeFormRaw = toRaw(addNoticeFrom)
       return editNoticeApi(noticeFormRaw)
     }
+    const haveReadCount = async() => {
+      const userInfo = store.state.userInfo
+      await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
+      moreDialog.value = false
+      getAllNoticesList()
+    }
     // 通用方法
     const resetFields = (refName) => {
       proxy.$refs[refName].resetFields()
@@ -256,7 +282,7 @@ export default defineComponent({
     const onEditNotice = async(notice) => {
       addDialog.value = true
       isEdit.value = true
-      await nextTick(() => {
+      nextTick(() => {
         Object.assign(addNoticeFrom, notice)
       })
     }
@@ -288,7 +314,8 @@ export default defineComponent({
       addDialog.value = false
     }
     const watchMore = (val) => {
-      console.log('watchMore', val)
+      selectedRow.value = val
+      console.log('selectedRow', selectedRow.value)
       moreDialog.value = true
     }
     const onSummit = () => {
@@ -331,6 +358,7 @@ export default defineComponent({
       onChangeNoticeSelects,
       pager,
       isEdit,
+      selectedRow,
       addNoticeFrom,
       addNoticeFromRules,
       roleList,
@@ -348,6 +376,7 @@ export default defineComponent({
       watchMore,
       onSummit,
       onCancel,
+      haveReadCount,
     }
   },
 })
