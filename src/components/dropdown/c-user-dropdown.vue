@@ -1,4 +1,11 @@
 <template>
+  <div class="banner-bell" @click="toPagenotice">
+    <el-badge :value="0" class="notice-count">
+      <el-icon size="large">
+        <bell-filled />
+      </el-icon>
+    </el-badge>
+  </div>
   <el-dropdown @command="onLoginOut">
     <span class="el-dropdown-link user-dropdown-title">
       <el-image
@@ -23,6 +30,7 @@
 </template>
 <script>
 //  import defaultImage from '@/assets/images/default.jpg';
+import { noticeCountApi } from '@/api'
 export default {
   name: 'CUserDropdown',
   props: {
@@ -36,12 +44,19 @@ export default {
   data() {
     return {
       // userImage: defaultImage,
+      noticeCount: 0,
     }
   },
   mounted() {
     console.log(import.meta)
+    this.getNoticeCount()
   },
   methods: {
+    toPagenotice() {
+      this.$router.push({
+        name: 'notice',
+      })
+    },
     onLoginOut(command) {
       if (command === 'out') {
         this.$store.commit('setUserInfo', '')
@@ -49,6 +64,10 @@ export default {
         this.$store.commit('setMenuList', [])
         this.$router.push({ name: 'login' })
       }
+    },
+    async getNoticeCount() {
+      const data = await noticeCountApi({ userId: this.$store.state.userId })
+      console.log('getNoticeCount data=>', data)
     },
   },
 }

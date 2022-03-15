@@ -52,6 +52,9 @@ export const noticeListApi = (data = {}) => {
 export const noticeHaveReadApi = (data = {}) => {
   return request.post('/notices/haveRead', data, { mock: false })
 }
+export const noticeCountApi = (data = {}) => {
+  return request.get('/notices/count', data, { mock: false })
+}
 
 // 推送管理
 export const addPusherApi = (data = {}) => {
