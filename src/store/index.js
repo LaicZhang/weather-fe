@@ -9,6 +9,7 @@ const state = {
   weatherData: storage.getItem('weatherData') || {},
   leaveCount: 0,
   theme: 'chalk',
+  imgUrl: 'https://cdn.zyha.cn/',
 }
 const getters = {}
 export default createStore({
