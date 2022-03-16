@@ -41,6 +41,7 @@
 import { defineComponent } from 'vue'
 import CMenu from '../components/menu/c-menu.vue'
 import { menuPermissionApi } from '../api'
+import store from '../store'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
