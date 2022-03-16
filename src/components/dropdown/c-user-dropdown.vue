@@ -29,8 +29,6 @@
   </el-dropdown>
 </template>
 <script>
-//  import defaultImage from '@/assets/images/default.jpg';
-import { noticeCountApi } from '@/api'
 export default {
   name: 'CUserDropdown',
   props: {
@@ -49,8 +47,6 @@ export default {
   },
   mounted() {
     console.log(import.meta)
-    // this.noticeCount = this.$store.state.unReadCount
-    // this.getNoticeCount()
   },
   methods: {
     toPagenotice() {
@@ -65,9 +61,6 @@ export default {
         this.$store.commit('setMenuList', [])
         this.$router.push({ name: 'login' })
       }
-    },
-    async getNoticeCount() {
-      const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
     },
   },
 }

@@ -18,7 +18,6 @@
             class="manager-user-badge"
             @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
           >
-            <!-- <em class="el-icon-bell" /> -->
             <el-icon size="large">
               <bell-filled />
             </el-icon>
@@ -41,7 +40,7 @@
 <script>
 import { defineComponent } from 'vue'
 import CMenu from '../components/menu/c-menu.vue'
-import { menuPermissionApi, noticeCountApi } from '../api'
+import { menuPermissionApi } from '../api'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
@@ -64,12 +63,9 @@ export default defineComponent({
   //   },
   // },
   async mounted() {
-    const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
-    this.noticeCount = count
     this.$store.dispatch('getNoticeCount')
-    // const menus = await menuListApi();
-    // const menus = await menuPermissionApi()
-    // this.menus = menus.menuList;
+    // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
+    this.noticeCount = store.state.noticeCount
     this.judgeUserInfo()
     this.getMenuPermission()
   },
@@ -87,7 +83,6 @@ export default defineComponent({
     },
     toPageDashboard() {
       router.push('/dashboard')
-      console.log('toPageDashboard', this.router)
     },
     async getMenuPermission() {
       const { menuList, actionList } = await menuPermissionApi()

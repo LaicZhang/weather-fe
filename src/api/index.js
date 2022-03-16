@@ -153,7 +153,7 @@ export const getCityList = async() => {
     // 缓存中已经存在数据了
     return window.cityList
   }
-  const ret = await axios.get('https://laic-cdn.oss-cn-chengdu.aliyuncs.com/area.json')
+  const ret = await axios.get('https://cdn.zyha.cn/area.json')
   // 给window对象添加了一个属性cityList
   if (ret.data)
     window.cityList = ret.data
