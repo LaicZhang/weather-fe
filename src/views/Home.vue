@@ -14,11 +14,14 @@
         </div>
         <div class="manager-user">
           <el-badge
-            :is-dot="leaveCount > 0"
+            :is-dot="noticeCount > 0"
             class="manager-user-badge"
-            @click="leaveCount != 0 ? $router.push({ name: 'check' }) : ''"
+            @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
           >
-            <em class="el-icon-bell" />
+            <!-- <em class="el-icon-bell" /> -->
+            <el-icon size="large">
+              <bell-filled />
+            </el-icon>
           </el-badge>
           <c-user-dropdown :user-info="userInfo" />
         </div>
@@ -38,7 +41,7 @@
 <script>
 import { defineComponent } from 'vue'
 import CMenu from '../components/menu/c-menu.vue'
-import { menuPermissionApi } from '../api'
+import { menuPermissionApi, noticeCountApi } from '../api'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
@@ -52,17 +55,18 @@ export default defineComponent({
       menuIconClass: ' el-icon-s-fold',
       userInfo: this.$store.state.userInfo || {},
       text: '前往首页',
+      noticeCount: 0,
     }
   },
-  computed: {
-    leaveCount() {
-      return this.$store.state.leaveCount
-    },
-  },
+  // computed: {
+  //   noticeCount() {
+  //     return this.$store.state.noticeCount
+  //   },
+  // },
   async mounted() {
-    // const leaveCount = await leaveCountApi();
-    // this.leaveCount = leaveCount;
-    // this.$store.dispatch('getLeaveCount')
+    const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
+    this.noticeCount = count
+    this.$store.dispatch('getNoticeCount')
     // const menus = await menuListApi();
     // const menus = await menuPermissionApi()
     // this.menus = menus.menuList;

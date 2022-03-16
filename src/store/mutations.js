@@ -17,8 +17,11 @@ export default {
     state.weatherData = data
     storage.setItem('weatherData', data)
   },
-  setLeaveCount(state, count) {
-    state.leaveCount = count
+  // setLeaveCount(state, count) {
+  //   state.leaveCount = count
+  // },
+  setNoticeCount(state, count) {
+    state.noticeCount = count
   },
   changeTheme(state) {
     if (state.theme === 'chalk')

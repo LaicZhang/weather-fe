@@ -1,11 +1,10 @@
-// import { leaveCountApi } from "../api"
+import { noticeCountApi } from '../api'
 
-// export default {
-//   async getLeaveCount({commit}){
-//     const count = await leaveCountApi()
-//     console.log(count);
-//     commit('setLeaveCount',count)
-//   }
-// }
-
-export default {}
+export default {
+  async getNoticeCount({ commit }) {
+    const { userInfo } = JSON.parse(localStorage.getItem('userInfo'))
+    const userId = userInfo.userId
+    const count = await noticeCountApi({ userId })
+    commit('setNoticeCount', count)
+  },
+}

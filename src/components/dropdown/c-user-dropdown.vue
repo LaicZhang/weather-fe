@@ -1,11 +1,11 @@
 <template>
-  <div class="banner-bell" @click="toPagenotice">
-    <el-badge :value="0" class="notice-count">
+  <!-- <div class="banner-bell" @click="toPagenotice">
+    <el-badge :value="noticeCount" class="notice-count">
       <el-icon size="large">
         <bell-filled />
       </el-icon>
     </el-badge>
-  </div>
+  </div> -->
   <el-dropdown @command="onLoginOut">
     <span class="el-dropdown-link user-dropdown-title">
       <el-image
@@ -49,7 +49,8 @@ export default {
   },
   mounted() {
     console.log(import.meta)
-    this.getNoticeCount()
+    // this.noticeCount = this.$store.state.unReadCount
+    // this.getNoticeCount()
   },
   methods: {
     toPagenotice() {
@@ -66,8 +67,7 @@ export default {
       }
     },
     async getNoticeCount() {
-      const data = await noticeCountApi({ userId: this.$store.state.userId })
-      console.log('getNoticeCount data=>', data)
+      const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
     },
   },
 }
