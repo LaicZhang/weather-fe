@@ -24,3 +24,6 @@
 ### 包管理器
 - pnpm
 
+### 代码规范
+- ESlint
+- ESLint config by antfu
