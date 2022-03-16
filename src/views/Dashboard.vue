@@ -13,6 +13,7 @@
 // import Test from '@/components/echarts/Test';
 import { getAllDataListApi } from '../api'
 import storage from '../util/storage'
+import store from '../store'
 import Layout from './dashborad/Layout.vue'
 import backToSvg from '@/components/backTo/backToSvg'
 // import ScreenPage from '@/components/echarts/ScreenPage.vue';
@@ -61,12 +62,14 @@ export default {
           && weatherData.realTime.week === this.today(new Date())
           && ms < 600000
       ) {
+        store.commit('setWeatherData', weatherData)
         console.log('localWeatherData', weatherData)
         this.isLoaded = true
       }
       else {
         res = await getAllDataListApi()
-        window.localStorage.setItem('weatherData', JSON.stringify(res.result))
+        const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
+        store.commit('setWeatherData', data)
         console.log('newWeatherData', res)
         this.isLoaded = true
       }
