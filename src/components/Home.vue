@@ -22,7 +22,7 @@ export default {
     },
     handleLogout(key) {
       if (key === 'email') return
-      this.$store.commit('saveUserInfo', '')
+      this.$store.commit('setUserInfo', '')
       this.userInfo = null
       this.$router.push('/login')
     },
