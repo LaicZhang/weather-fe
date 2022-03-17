@@ -2,6 +2,20 @@
   <div class="mine-info-page">
     <el-card class="mine-info-left">
       <span>个人信息</span>
+      <el-upload
+        class="avatar-uploader"
+        action="/api/upload"
+        :limit="1"
+        :show-file-list="false"
+        :on-success="handleAvatarSuccess"
+        :before-upload="beforeAvatarUpload"
+      >
+        <el-image v-if="!imageUrl" src="/img/default.jpg" class="avatar" />
+        <el-image v-else class="avatar" :src="imageUrl" />
+        <!-- <div style="">
+          <Plus class="avatar" />
+        </div> -->
+      </el-upload>
       <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
         <el-form-item label="用户ID">
           <el-input v-model="userForm.userId" disabled />
@@ -72,7 +86,7 @@
           <el-input v-model="pusherConfigForm.userEmail" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useSms" label="电话号码">
-          <el-input v-model="pusherConfigForm.mobile" />
+          <el-input v-model="pusherConfigForm.mobile" placeholder="暂不支持国内号码" />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useFeiShu">
           <el-button type="text" @click="feishuDialogVisible=true">
@@ -155,10 +169,13 @@
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { Plus } from '@element-plus/icons-vue'
 import { changeInfoApi, getDictApi, getPusherSettingsApi, updatePusherSettingsApi } from '../api'
 import util from '../util/utils'
 import request from '@/util/request'
 import storage from '@/util/storage'
+
 const userForm = reactive({})
 let sexDict = {}
 const flag = ref(false)
@@ -185,6 +202,15 @@ const isVisitorFn = () => {
     isVisitor.value = false
     console.log('isVisitor', isVisitor.value)
   }
+}
+const updatePusherSettings = async() => {
+  const data = await updatePusherSettingsApi(pusherConfigForm)
+  console.log('updatePusherSettings=>', data)
+}
+const getPusherSettings = async() => {
+  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
+  pusherConfigForm = Object.assign(pusherConfigForm, list)
+  console.log('getPusherSettings=>', pusherConfigForm)
 }
 const onSubmit = async(data) => {
   console.log('userForm', data)
@@ -220,15 +246,24 @@ const resetPusherConfigForm = () => {
 const init = () => {
   sexDict = getDictApi('sex')
 }
-const getPusherSettings = async() => {
-  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
-  pusherConfigForm = Object.assign(pusherConfigForm, list)
-  console.log('getPusherSettings=>', pusherConfigForm)
+const imageUrl = ref('')
+const handleAvatarSuccess = (res, file) => {
+  imageUrl.value = URL.createObjectURL(file.raw)
+  console.log('handleAvatarSuccess', res, file, imageUrl.value)
 }
-const updatePusherSettings = async() => {
-  const data = await updatePusherSettingsApi(pusherConfigForm)
-  console.log('updatePusherSettings=>', data)
+const beforeAvatarUpload = (file) => {
+  const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
+  const isLt5M = file.size / 1024 / 1024 < 5
+
+  if (!isImage)
+    ElMessage.error('Avatar picture must be JPG format!')
+
+  if (!isLt5M)
+    ElMessage.error('Avatar picture size can not exceed 2MB!')
+
+  return isImage && isLt5M
 }
+
 onMounted(() => {
   init()
   isVisitorFn()
@@ -248,6 +283,11 @@ onMounted(() => {
       line-height: 45px;
       width: 30vw;
       height: 80vh;
+      .avatar{
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+      }
     }
     .mine-info-right {
       float: right;
