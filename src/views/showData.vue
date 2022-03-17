@@ -3,8 +3,8 @@
     <div class="home-banner">
       <el-form>
         <el-form-item>
-          <span>您的地址：{{}}</span>
-          修改地址：<city :full-location="fullLocation" @change-city="changeCity" />
+          <p>当前地址：{{ currentLocation }}</p>
+          <div>修改地址：<city :full-location="fullLocation" @change-city="changeCity" /></div>
         </el-form-item>
         <el-col :span="24">
           <el-form-item>
@@ -58,11 +58,11 @@
 
 <script >
 import { onMounted, reactive, ref } from 'vue'
-import { userListApi } from '../api'
+import store from '../store'
 import city from '@/components/city.vue'
 import { getWeatherListApi } from '@/api'
 export default {
-  name: 'SetDataConfig',
+  name: 'ShowData',
   components: {
     city,
   },
@@ -95,6 +95,8 @@ export default {
       { prop: 'daytime_wind', label: '白天风向风向' },
       { prop: 'nighttime_wind', label: '夜晚风向' },
     ]
+    const data = store.state.weatherData
+    const currentLocation = data.area_1 + data.area_2 + data.area_3
 
     // 更新选中的省市区数据
     const changeCity = (cityInfo) => {
@@ -121,7 +123,16 @@ export default {
     })
 
     return {
-      fullLocation, pager, dataList, getWeatherListApi, dataColumns, changeCity, onSubmit, resetForm,
+      fullLocation,
+      pager,
+      dataList,
+      getWeatherListApi,
+      dataColumns,
+      currentLocation,
+      changeCity,
+      onSubmit,
+      resetForm,
+      onChangeCurrentPage,
     }
   },
 }
