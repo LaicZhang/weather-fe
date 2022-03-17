@@ -11,10 +11,10 @@
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
       >
-        <el-image lazy class="avatar" :src="imageUrl" />
-        <!-- <div style="">
-          <Plus class="avatar" />
-        </div> -->
+        <el-image v-if="imageUrl" lazy class="avatar" :src="imageUrl" />
+        <!-- <el-icon class="avatar-uploader-icon">
+          <Plus />
+        </el-icon> -->
       </el-upload>
       <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
         <el-form-item label="用户ID">
@@ -306,7 +306,33 @@ onMounted(() => {
         width: 80px;
         height: 80px;
         border-radius: 50%;
+        z-index: 99;
       }
+      .avatar-uploader .el-upload {
+        border: 1px dashed #d9d9d9;
+        border-radius: 6px;
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+        transition: var(--el-transition-duration-fast);
+      }
+    .avatar-uploader .avatar:hover {
+      border-color: var(--el-color-primary);
+      opacity:0.5;
+    }
+    .el-icon.avatar-uploader-icon {
+      font-size: 28px;
+      color: #8c939d;
+      width: 178px;
+      height: 178px;
+      z-index: 999;
+      text-align: center;
+    }
+    // .avatar {
+    //   width: 178px;
+    //   height: 178px;
+    //   display: block;
+    // }
     }
     .mine-info-right {
       float: right;
