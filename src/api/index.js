@@ -14,6 +14,10 @@ export const registerApi = (data = {}) => {
 export const changePasswordApi = (data = {}) => {
   return request.post('/auth/changePassword', data, { mock: false })
 }
+export const refreshApi = (data = {}) => {
+  return request.post('/auth/refresh', data, { mock: false })
+}
+
 // 获取当前角色的权限
 export const menuPermissionApi = (data = {}) => {
   return request.get('/auth/getPermissionList', data, { mock: false })
@@ -133,6 +137,10 @@ export const getWeatherListApi = (data = {}) => {
 // 数据获取管理
 export const getDataApi = (data = {}) => {
   return request.get('/data/getData', data, { mock: false })
+}
+
+export const requestDataApi = (data = {}) => {
+  return request.get('/data/request', data, { mock: false })
 }
 
 export const getAllDataListApi = (data = {}) => {

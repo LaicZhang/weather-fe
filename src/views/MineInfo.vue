@@ -5,13 +5,13 @@
       <el-upload
         class="avatar-uploader"
         action="/api/upload"
+        :data="uploadData"
         :limit="1"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
       >
-        <el-image v-if="!imageUrl" src="/img/default.jpg" class="avatar" />
-        <el-image v-else class="avatar" :src="imageUrl" />
+        <el-image lazy class="avatar" :src="imageUrl" />
         <!-- <div style="">
           <Plus class="avatar" />
         </div> -->
@@ -171,12 +171,23 @@
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { Plus } from '@element-plus/icons-vue'
-import { changeInfoApi, getDictApi, getPusherSettingsApi, updatePusherSettingsApi } from '../api'
+import {
+  changeInfoApi,
+  getDictApi,
+  getPusherSettingsApi,
+  refreshApi,
+  updatePusherSettingsApi,
+} from '../api'
 import util from '../util/utils'
 import request from '@/util/request'
-import storage from '@/util/storage'
+// import store from '@/store'
+import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+
+const { router, store } = useVuexWithRouter()
 
 const userForm = reactive({})
+const userInfo = store.state.userInfo
+const cdnUrl = store.state.BASE_CDN_URL
 let sexDict = {}
 const flag = ref(false)
 const isChangeEmail = ref(false)
@@ -187,6 +198,9 @@ const dingtalkDialogVisible = ref(false)
 const feishuDialogVisible = ref(false)
 const serverchanDialogVisible = ref(false)
 const isVisitor = ref(true)
+const uploadData = ref({
+  userId: userInfo.userId,
+})
 let pusherConfigForm = reactive({
   // useEmail: true,
   // useSms: true,
@@ -195,7 +209,6 @@ let pusherConfigForm = reactive({
   // useDingtalk: false,
   // useServerChan: false
 })
-const userInfo = storage.getItem('userInfo')
 
 const isVisitorFn = () => {
   if (userInfo.role === 2) {
@@ -216,6 +229,11 @@ const onSubmit = async(data) => {
   console.log('userForm', data)
   await changeInfoApi(data)
 }
+const refreshInfo = async() => {
+  const data = await refreshApi({ userId: userInfo.userId })
+  console.log('refreshInfo=>', data)
+  store.commit('setUserInfo', data)
+}
 const getUserInfo = () => {
   request
     .get('/users/info', { userName: userInfo.userName })
@@ -230,7 +248,7 @@ const getUserInfo = () => {
       userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
     })
     .catch(() => {
-      console.log('获取用户信息失败')
+      console.error('获取用户信息失败')
     })
 }
 const resetForm = () => {
@@ -246,9 +264,10 @@ const resetPusherConfigForm = () => {
 const init = () => {
   sexDict = getDictApi('sex')
 }
-const imageUrl = ref('')
+const imageUrl = ref(`${cdnUrl}${userInfo.avatar}`)
 const handleAvatarSuccess = (res, file) => {
   imageUrl.value = URL.createObjectURL(file.raw)
+  refreshInfo()
   console.log('handleAvatarSuccess', res, file, imageUrl.value)
 }
 const beforeAvatarUpload = (file) => {

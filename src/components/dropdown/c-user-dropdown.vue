@@ -12,7 +12,7 @@
         lazy
         alt="user picture"
         class="user-img"
-        src="/img/default.jpg"
+        :src="imageUrl"
       />
       <em class="el-icon-arrow-down" />
     </span>
@@ -29,6 +29,7 @@
   </el-dropdown>
 </template>
 <script>
+import store from '@/store'
 export default {
   name: 'CUserDropdown',
   props: {
@@ -44,6 +45,11 @@ export default {
       // userImage: defaultImage,
       noticeCount: 0,
     }
+  },
+  computed: {
+    imageUrl() {
+      return store.state.BASE_CDN_URL + store.state.userInfo.avatar
+    },
   },
   mounted() {
     console.log(import.meta)
