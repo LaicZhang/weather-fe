@@ -4,14 +4,14 @@
       <span>个人信息</span>
       <el-upload
         class="avatar-uploader"
-        action="/api/upload"
+        action="https://weather-api.zyha.cn/api/upload"
         :data="uploadData"
         :limit="1"
         :show-file-list="false"
         :on-success="handleAvatarSuccess"
         :before-upload="beforeAvatarUpload"
       >
-        <el-image v-if="imageUrl" lazy class="avatar" :src="imageUrl" />
+        <el-image v-if="imageUrl" alt="user avatar" lazy class="avatar" :src="imageUrl" />
         <!-- <el-icon class="avatar-uploader-icon">
           <Plus />
         </el-icon> -->
