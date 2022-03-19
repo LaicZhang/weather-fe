@@ -1,7 +1,5 @@
 <template>
   <div v-loading="!isLoaded" class="dashboard-page">
-    <!-- <Test/> -->
-    <!-- <ScreenPage/> -->
     <Layout v-if="isLoaded" />
   </div>
   <div @click="toPageHome">
@@ -10,13 +8,11 @@
 </template>
 
 <script>
-// import Test from '@/components/echarts/Test';
 import { getAllDataListApi } from '../api'
 import storage from '../util/storage'
 import store from '../store'
 import Layout from './dashborad/Layout.vue'
 import backToSvg from '@/components/backTo/backToSvg'
-// import ScreenPage from '@/components/echarts/ScreenPage.vue';
 export default {
   name: 'Dashboard',
   components: {
@@ -33,13 +29,10 @@ export default {
   },
   async created() {
     await this.getAllDataList()
-    console.log('Dashboard created')
   },
   mounted() {
     if (storage.getItem('userInfo'))
       this.text = '前往后台'
-
-    console.log('Dashboard mounted')
   },
   methods: {
     toPageHome() {
@@ -55,12 +48,11 @@ export default {
     async getAllDataList() {
       let res = {}
       const weatherData = JSON.parse(window.localStorage.getItem('weatherData'))
-      const ms = new Date() - new Date(weatherData?.queryTime)
-      console.log('ms=>', ms)
       if (
         weatherData
+        && weatherData.queryTime !== null && weatherData.queryTime !== undefined
           && weatherData.realTime.week === this.today(new Date())
-          && ms < 600000
+          && (new Date() - new Date(weatherData?.queryTime)) < 600000
       ) {
         store.commit('setWeatherData', weatherData)
         console.log('localWeatherData', weatherData)
