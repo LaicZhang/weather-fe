@@ -25,6 +25,7 @@
           type="text"
           placeholder="请输入邮箱"
           prefix-icon="el-icon-email"
+          @blur="OnSubscribe"
         />
       </el-form-item>
       <el-form-item prop="userPwd">
@@ -45,11 +46,16 @@
           prefix-icon="el-icon-lock"
         />
       </el-form-item>
-      <el-input
-        v-model="userForm.captcha"
-        type="text"
-        placeholder="请输入验证码"
-      />
+      <el-form-item v-if="userForm.userConfirmPwd">
+        <el-button @click="sendCaptchaEmail">
+          发送邮件验证码
+        </el-button>
+        <el-input
+          v-model="userForm.captcha"
+          type="text"
+          placeholder="请输入验证码"
+        />
+      </el-form-item>
       <el-form-item>
         <el-button type="text" @click="toLogin">
           已有账号？点击登陆
@@ -66,7 +72,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import useVuexWithRouter from '@/hooks/useVuexWithRouter'
-import { menuPermissionApi, registerApi } from '@/api'
+import { menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
 export default defineComponent({
   name: 'Register',
   components: {
@@ -78,11 +84,43 @@ export default defineComponent({
       router.push('/')
     }
     const userFormRef = ref(null)
-    const password = ref('')
     const userForm = reactive({
       userName: '',
       userPwd: '',
     })
+
+    // const checkPhone = (rule, value, callback) => {
+    //   const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
+    //   if (!value)
+    //     return callback(new Error('电话号码不能为空'))
+
+    //   setTimeout(() => {
+    //   // Number.isInteger是es6验证数字是否为整数的方法,但是实际用的时候输入的数字总是识别成字符串
+    //   // 所以在加了一个+实现隐式转换
+    //     if (!Number.isInteger(+value)) {
+    //       callback(new Error('请输入数字值'))
+    //     }
+    //     else {
+    //       if (phoneReg.test(value))
+    //         callback()
+
+    //       else
+    //         callback(new Error('电话号码格式不正确'))
+    //     }
+    //   }, 100)
+    // }
+    const checkEmail = (rule, value, callback) => {
+      const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
+      if (!value)
+        return callback(new Error('邮箱不能为空'))
+
+      setTimeout(() => {
+        if (mailReg.test(value))
+          callback()
+        else
+          callback(new Error('请输入正确的邮箱格式'))
+      }, 100)
+    }
     const userRules = {
       userName: [
         {
@@ -97,6 +135,7 @@ export default defineComponent({
           message: '请填写邮箱',
           trigger: 'blur',
         },
+        { validator: checkEmail, trigger: 'blur' },
       ],
       userPwd: [
         {
@@ -142,16 +181,20 @@ export default defineComponent({
         }
       })
     }
-
+    const sendCaptchaEmail = async() => {
+      console.log('userForm', userForm)
+      const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+      console.log('sendCaptchaEmail=>', data)
+    }
     const toLogin = () => {
       router.push('/login')
     }
     return {
       toPageHome,
       toLogin,
-      password,
       userFormRef,
       userForm,
+      sendCaptchaEmail,
       userRules,
       userFromCommit,
     }
