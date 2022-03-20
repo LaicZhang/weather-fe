@@ -41,7 +41,6 @@
 import { defineComponent } from 'vue'
 import CMenu from '../components/menu/c-menu.vue'
 import { menuPermissionApi } from '../api'
-import store from '../store'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
@@ -55,18 +54,19 @@ export default defineComponent({
       menuIconClass: ' el-icon-s-fold',
       userInfo: this.$store.state.userInfo || {},
       text: '前往首页',
-      noticeCount: 0,
+      // noticeCount: 0,
     }
   },
-  // computed: {
-  //   noticeCount() {
-  //     return this.$store.state.noticeCount
-  //   },
-  // },
+  computed: {
+    noticeCount() {
+      return this.$store.state.noticeCount
+    },
+  },
   async mounted() {
     this.$store.dispatch('getNoticeCount')
     // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
-    this.noticeCount = store.state.noticeCount
+    this.noticeCount = this.$store.state.noticeCount
+    console.log('this.noticeCount', this.noticeCount)
     this.judgeUserInfo()
     this.getMenuPermission()
   },
