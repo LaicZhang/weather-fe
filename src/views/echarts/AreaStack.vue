@@ -31,7 +31,7 @@ const init = () => {
       bottom: '10%',
     },
     xAxis: {
-      data: data.map((item) => {
+      data: stackData.arr.map((item) => {
         return item[0]
       }),
     },

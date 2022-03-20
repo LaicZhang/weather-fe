@@ -19,7 +19,6 @@
     "vue": "^3.2.25",
     "vue-router": "^4.0.4",
     "vue-simple-password-meter": "^1.1.0",
-    "vue-simple-upload": "^0.1.6",
     "vuex": "^4.0.0"
   },
   "devDependencies": {

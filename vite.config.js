@@ -6,7 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 
 let server = {}
-const env = 'production' // 设置环境 development production
+const env = 'development' // 设置环境 development production
 if (env === 'production') {
   server = {
     cors: true,

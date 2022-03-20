@@ -16,6 +16,7 @@
           start="08:00"
           step="00:30"
           end="12:00"
+          size="small"
           placeholder="Select time"
         />
       </el-form-item>
@@ -39,6 +40,7 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue'
+import { requestDataApi } from '../api'
 
 defineProps({
 })
@@ -48,20 +50,16 @@ const dataConfig = reactive({
   method: 'python',
   time: '08:00',
 })
-const consoleConfig = () => {
-  console.log(dataConfig)
-}
 const onSubmit = () => {
   console.log('submit')
 }
-const getDataAtNow = () => {
-  console.log('getDataAtNow')
+const getDataAtNow = async() => {
+  await requestDataApi(dataConfig.value)
 }
 const resetForm = () => {
   console.log('resetForm')
 }
 onMounted(() => {
-  consoleConfig()
 })
 </script>
 

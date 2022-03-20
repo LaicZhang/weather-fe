@@ -75,11 +75,11 @@
           </baseCountDown>
           </template>
         </el-table-column> -->
-        <el-table-column label="Operations" width="250px">
+        <el-table-column label="Operations" width="200px">
           <template #default="scope">
-            <el-button size="default" type="text" @click="watchMore(scope.row)">
+            <!-- <el-button size="default" type="text" @click="watchMore(scope.row)">
               查看
-            </el-button>
+            </el-button> -->
             <el-button v-if="scope.row.state !== 2" size="default" type="text" @click="openImmediatelyPushDialog(scope.row)">
               立即推送
             </el-button>
@@ -114,14 +114,14 @@
       />
     </div>
     <!-- 详情弹窗-->
-    <el-dialog v-model="moreDialog" title="详情" width="30%">
+    <!-- <el-dialog v-model="moreDialog" title="详情" width="30%">
       <span>详情</span>
       <template #footer>
         <span class="dialog-footer">
           <el-button type="primary" @click="moreDialog = false">确定</el-button>
         </span>
       </template>
-    </el-dialog>
+    </el-dialog> -->
     <!-- 立即推送弹窗-->
     <el-dialog v-model="immediatelyPushDialog" title="详情" width="30%">
       <!-- <span>剩余时间：
@@ -487,21 +487,21 @@ export default defineComponent({
       addDialog.value = false
     }
     const watchMore = (val) => {
-      console.log('watchMore', val)
+      // console.log('watchMore', val)
       moreDialog.value = true
     }
     let pusherId = {}
     // let pushTime = ref('2022-03-20 9:51:00');
     let pusherLifeTime = ''
     const openImmediatelyPushDialog = (val) => {
-      console.log('immediatelyPush', val)
+      // console.info('immediatelyPush', val)
       pusherId = val._id
       // pushTime = val.pushTime;
       pusherLifeTime = val.pusherLifeTime
       immediatelyPushDialog.value = true
     }
     const immediatelyPush = async() => {
-      await immediatelyPushApi({ _id: pusherId, pusherLifeTime })
+      await immediatelyPushApi({ _id: pusherId, userId: userInfo.userId, pusherLifeTime })
       await getAllPushersList()
       immediatelyPushDialog.value = false
     }
@@ -510,7 +510,6 @@ export default defineComponent({
         if (valid) {
           try {
             let res
-            console.log('isEdit.value=>', isEdit.value)
             if (isEdit.value)
               res = await editPusher()
             else
