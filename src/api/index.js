@@ -154,6 +154,10 @@ export const getAllDataListApi = (data = {}) => {
   return request.get('/data/getDataByIp', data, { mock: false })
 }
 
+export const getStackdataApi = (data = {}) => {
+  return request.get('/data/stackData', data, { mock: false })
+}
+
 export const getIpInfoApi = (data = {}) => {
   return request.get('/data/getIpInfoByIp', data, { mock: false })
 }

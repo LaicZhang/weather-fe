@@ -5,114 +5,131 @@
 <script>
 import * as echarts from 'echarts'
 import { defineComponent, onMounted, ref } from 'vue'
+import { getStackdataApi } from '@/api'
 export default defineComponent({
   name: 'AreaStack',
   setup() {
     const myRef = ref(null)
+    let stackData
+    const getStackdata = async() => {
+      if (!stackData) {
+        stackData = await getStackdataApi()
+        console.log('getStackdataApi', stackData)
+      }
+    }
     const init = () => {
       const myChart = echarts.init(document.getElementById('area-stack'))
-      const futureDay = JSON.parse(window.localStorage.getItem('weatherData')).futureDay
-      console.log('futureDay', futureDay)
       const option = {
         title: {
-          text: 'Stacked Area Chart',
+          text: 'Beijing AQI',
+          left: '1%',
         },
         tooltip: {
           trigger: 'axis',
-          axisPointer: {
-            type: 'cross',
-            label: {
-              backgroundColor: '#6a7985',
-            },
-          },
         },
-        legend: {
-          data: ['Email', 'Union Ads', 'Video Ads', 'Direct', 'Search Engine'],
+        grid: {
+          left: '5%',
+          right: '15%',
+          bottom: '10%',
         },
+        xAxis: {
+          data: data.map((item) => {
+            return item[0]
+          }),
+        },
+        yAxis: {},
         toolbox: {
+          right: 10,
           feature: {
+            dataZoom: {
+              yAxisIndex: 'none',
+            },
+            restore: {},
             saveAsImage: {},
           },
         },
-        grid: {
-          left: '3%',
-          right: '4%',
-          bottom: '3%',
-          containLabel: true,
+        dataZoom: [
+          {
+            startValue: '2014-06-01',
+          },
+          {
+            type: 'inside',
+          },
+        ],
+        visualMap: {
+          top: 50,
+          right: 10,
+          pieces: [
+            {
+              gt: 0,
+              lte: 50,
+              color: '#93CE07',
+            },
+            {
+              gt: 50,
+              lte: 100,
+              color: '#FBDB0F',
+            },
+            {
+              gt: 100,
+              lte: 150,
+              color: '#FC7D02',
+            },
+            {
+              gt: 150,
+              lte: 200,
+              color: '#FD0100',
+            },
+            {
+              gt: 200,
+              lte: 300,
+              color: '#AA069F',
+            },
+            {
+              gt: 300,
+              color: '#AC3B2A',
+            },
+          ],
+          outOfRange: {
+            color: '#999',
+          },
         },
-        xAxis: [
-          {
-            type: 'category',
-            boundaryGap: false,
-            data: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-          },
-        ],
-        yAxis: [
-          {
-            type: 'value',
-          },
-        ],
-        series: [
-          {
-            name: 'Email',
-            type: 'line',
-            stack: 'Total',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series',
+        series: {
+          name: 'Beijing AQI',
+          type: 'line',
+          data: data.map((item) => {
+            return item[1]
+          }),
+          markLine: {
+            silent: true,
+            lineStyle: {
+              color: '#333',
             },
-            data: [120, 132, 101, 134, 90, 230, 210],
+            data: [
+              {
+                yAxis: 50,
+              },
+              {
+                yAxis: 100,
+              },
+              {
+                yAxis: 150,
+              },
+              {
+                yAxis: 200,
+              },
+              {
+                yAxis: 300,
+              },
+            ],
           },
-          {
-            name: 'Union Ads',
-            type: 'line',
-            stack: 'Total',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series',
-            },
-            data: [220, 182, 191, 234, 290, 330, 310],
-          },
-          {
-            name: 'Video Ads',
-            type: 'line',
-            stack: 'Total',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series',
-            },
-            data: [150, 232, 201, 154, 190, 330, 410],
-          },
-          {
-            name: 'Direct',
-            type: 'line',
-            stack: 'Total',
-            areaStyle: {},
-            emphasis: {
-              focus: 'series',
-            },
-            data: [320, 332, 301, 334, 390, 330, 320],
-          },
-          {
-            name: 'Search Engine',
-            type: 'line',
-            stack: 'Total',
-            label: {
-              show: true,
-              position: 'top',
-            },
-            areaStyle: {},
-            emphasis: {
-              focus: 'series',
-            },
-            data: [820, 932, 901, 934, 1290, 1330, 1320],
-          },
-        ],
+        },
       }
       myChart.setOption(option)
       console.log('area stack=>', myChart)
     }
     onMounted(() => {
+      getStackdata()
       init()
     })
     return {
