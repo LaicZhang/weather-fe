@@ -18,7 +18,7 @@
           <bar1 />
         </div>
         <div class="bottom">
-          bottom
+          <area-stack />
         </div>
       </div>
       <div class="sidebar">
@@ -34,6 +34,7 @@ import LifeIndex from '../echarts/LifeIndex.vue'
 import Radar from '../echarts/Radar.vue'
 import Bar1 from '../echarts/Bar1.vue'
 import LineMarker from '@/views/echarts/LineMarker.vue'
+import AreaStack from '@/views/echarts/AreaStack.vue'
 import { getIpInfoApi } from '@/api'
 // import WeatherInfo from '../echarts/weatherInfo.vue';
 export default {
@@ -42,6 +43,7 @@ export default {
     LifeIndex,
     Radar,
     Bar1,
+    AreaStack,
     // WeatherInfo
   },
   data() {
@@ -57,6 +59,7 @@ export default {
     async getLocationByIp() {
       const { result } = await getIpInfoApi()
       this.city = (`${result.att}天气可视化`).replace(/,/g, '')
+      // this.city = this.$store.state.weatherData
     },
   },
 }
