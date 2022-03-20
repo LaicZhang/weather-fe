@@ -123,8 +123,8 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
-  #bar1 {
-    height: 120%;
+  #area-stack {
+    height: 100%;
     width: 100%;
     border-radius: 10px;
   }
