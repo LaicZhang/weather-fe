@@ -25,6 +25,7 @@ specifiers:
   vite: ^2.8.6
   vue: ^3.2.25
   vue-router: ^4.0.4
+  vue-simple-password-meter: ^1.1.0
   vue-simple-upload: ^0.1.6
   vuex: ^4.0.0
 
@@ -38,6 +39,7 @@ dependencies:
   vite: 2.8.6_less@3.13.1+sass@1.49.7
   vue: 3.2.31
   vue-router: 4.0.12_vue@3.2.31
+  vue-simple-password-meter: 1.1.0
   vue-simple-upload: 0.1.6
   vuex: 4.0.2_vue@3.2.31
 
@@ -3102,6 +3104,10 @@ packages:
     dependencies:
       '@vue/devtools-api': 6.0.12
       vue: 3.2.31
+    dev: false
+
+  /vue-simple-password-meter/1.1.0:
+    resolution: {integrity: sha512-gLtbE7oXvGiDrPMWp/sENCzFkyTFVENN8RN1+kANC0erJDaoMJt0q343ELR9aZOqLnoGxG1BL3ESInR/CeCYJA==}
     dev: false
 
   /vue-simple-upload/0.1.6:

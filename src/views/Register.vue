@@ -34,6 +34,8 @@
           placeholder="请输入密码"
           prefix-icon="el-icon-lock"
         />
+        <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
+        <password-meter :password="userForm.userPwd" />
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
@@ -62,17 +64,21 @@
 
 <script>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
+import PasswordMeter from 'vue-simple-password-meter'
 import useVuexWithRouter from '@/hooks/useVuexWithRouter'
 import { menuPermissionApi, registerApi } from '@/api'
 export default defineComponent({
   name: 'Register',
-  components: {},
+  components: {
+    PasswordMeter,
+  },
   setup() {
     const { router, store } = useVuexWithRouter()
     const toPageHome = () => {
       router.push('/')
     }
     const userFormRef = ref(null)
+    const password = ref('')
     const userForm = reactive({
       userName: '',
       userPwd: '',
@@ -143,6 +149,7 @@ export default defineComponent({
     return {
       toPageHome,
       toLogin,
+      password,
       userFormRef,
       userForm,
       userRules,
