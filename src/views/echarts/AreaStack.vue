@@ -8,18 +8,11 @@ import { defineComponent, onMounted, ref } from 'vue'
 import { getStackdataApi } from '@/api'
 
 const myRef = ref(null)
-let stackData
-const getStackdata = async() => {
-  if (!stackData) {
-    stackData = await getStackdataApi()
-    console.log('getStackdataApi', stackData.arr)
-  }
-}
-const init = () => {
+const init = async() => {
   const myChart = echarts.init(document.getElementById('area-stack'))
+  const stackData = await getStackdataApi()
   console.log('init stackData', stackData)
   console.log('init arr', stackData.arr)
-  debugger
   const option = {
     title: {
       text: '历史天气变化',
@@ -130,7 +123,6 @@ const init = () => {
   console.log('area stack=>', myChart)
 }
 onMounted(() => {
-  getStackdata()
   init()
 })
 </script>
