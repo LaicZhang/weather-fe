@@ -47,7 +47,15 @@ export default {
     },
     async getAllDataList() {
       let res = {}
-      const weatherData = JSON.parse(window.localStorage.getItem('weatherData'))
+      let weatherData
+      if (window.localStorage.getItem('weatherData') === undefined) {
+        res = await getAllDataListApi()
+        const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
+        store.commit('setWeatherData', data)
+        console.log('newWeatherData', res)
+        this.isLoaded = true
+        return
+      }
       if (
         weatherData
         && weatherData.queryTime !== null && weatherData.queryTime !== undefined
