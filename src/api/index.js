@@ -18,6 +18,13 @@ export const refreshApi = (data = {}) => {
   return request.post('/auth/refresh', data, { mock: false })
 }
 
+// 用户验证
+export const sendCaptchaEmailApi = (data = {}) => {
+  return request.post('/auth/captchaEmail', data, { mock: false })
+}
+export const sendCaptchaSmsApi = (data = {}) => {
+  return request.post('/auth/captchaSms', data, { mock: false })
+}
 // 获取当前角色的权限
 export const menuPermissionApi = (data = {}) => {
   return request.get('/auth/getPermissionList', data, { mock: false })
