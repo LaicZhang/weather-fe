@@ -12,11 +12,14 @@ let stackData
 const getStackdata = async() => {
   if (!stackData) {
     stackData = await getStackdataApi()
-    console.log('getStackdataApi', stackData)
+    console.log('getStackdataApi', stackData.arr)
   }
 }
 const init = () => {
   const myChart = echarts.init(document.getElementById('area-stack'))
+  console.log('init stackData', stackData)
+  console.log('init arr', stackData.arr)
+  debugger
   const option = {
     title: {
       text: '历史天气变化',
@@ -105,19 +108,19 @@ const init = () => {
         },
         data: [
           {
-            yAxis: 50,
+            yAxis: 0,
           },
           {
-            yAxis: 100,
+            yAxis: 15,
           },
           {
-            yAxis: 150,
+            yAxis: 25,
           },
           {
-            yAxis: 200,
+            yAxis: 30,
           },
           {
-            yAxis: 300,
+            yAxis: 40,
           },
         ],
       },
