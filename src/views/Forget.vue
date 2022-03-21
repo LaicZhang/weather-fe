@@ -1,5 +1,6 @@
-<template />
-
+<template>
+  <div class="forget-page" />
+</template>
 <script>
 export default {
 

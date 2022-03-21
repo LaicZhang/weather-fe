@@ -1,19 +1,19 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { menuPermissionApi } from '../api'
+// import { menuPermissionApi } from '../api'
 import storage from '../util/storage'
 import Home from '@/views/Home'
 import Welcome from '@/views/Welcome'
-import User from '@/views/User'
-import MineInfo from '@/views/MineInfo'
-import Notice from '@/views/Notice'
-import Login from '@/views/Login'
-import Register from '@/views/Register'
-import Forget from '@/views/Forget'
-import Sign from '@/views/Sign'
-import Dashboard from '@/views/Dashboard'
-import showData from '@/views/showData'
-import SetDataConfig from '@/views/SetDataConfig'
-import Pusher from '@/views/Pusher'
+// import User from '@/views/User'
+// import MineInfo from '@/views/MineInfo'
+// import Notice from '@/views/Notice'
+// import Login from '@/views/Login'
+// import Register from '@/views/Register'
+// import Forget from '@/views/Forget'
+// import Sign from '@/views/Sign'
+// import Dashboard from '@/views/Dashboard'
+// import showData from '@/views/showData'
+// import SetDataConfig from '@/views/SetDataConfig'
+// import Pusher from '@/views/Pusher'
 /**
  * @type {import('vue-router').RouteRecordRaw[]}
  * */
@@ -35,37 +35,37 @@ const routes = [
         name: 'info',
         path: '/system/userInfo',
         meta: { title: '个人信息' },
-        component: MineInfo,
+        component: () => import('@/views/MineInfo'),
       },
       {
         name: 'user',
         path: '/system/user',
         meta: { title: '用户管理' },
-        component: User,
+        component: () => import('@/views/User'),
       },
       {
         name: 'notice',
         path: '/system/notice',
         meta: { title: '公告管理' },
-        component: Notice,
+        component: () => import('@/views/Notice'),
       },
       {
         name: 'pusher',
         path: '/system/pusher',
         meta: { title: '推送管理' },
-        component: Pusher,
+        component: () => import('@/views/Pusher'),
       },
       {
         name: 'showData',
         path: '/data/showData',
         meta: { title: '数据展示设置' },
-        component: showData,
+        component: () => import('@/views/showData'),
       },
       {
         name: 'SetDataConfig',
         path: '/data/SetDataConfig',
         meta: { title: '数据获取管理' },
-        component: SetDataConfig,
+        component: () => import('@/views/SetDataConfig'),
       },
     ],
   },
@@ -73,31 +73,31 @@ const routes = [
     name: 'login',
     path: '/login',
     meta: { title: '登录页' },
-    component: Login,
+    component: () => import('@/views/Login'),
   },
   {
     name: 'register',
     path: '/register',
     meta: { title: '注册页' },
-    component: Register,
+    component: () => import('@/views/Register'),
   },
   {
     name: 'forget',
     path: '/forget',
     meta: { title: '忘记密码' },
-    component: Forget,
+    component: () => import('@/views/Forget'),
   },
   {
     name: 'sign',
     path: '/sign',
     meta: { title: '登陆注册页' },
-    component: Sign,
+    component: () => import('@/views/Sign'),
   },
   {
     name: 'dashboard',
     path: '/dashboard',
     meta: { title: '数据展示页' },
-    component: Dashboard,
+    component: () => import('@/views/Dashboard'),
   },
   {
     name: '404',

@@ -93,12 +93,22 @@ export default defineConfig({
     // 消除打包大小超过500kb警告
     chunkSizeWarningLimit: 2000,
     minify: false,
+    // rollupOptions: {
+    //   output: {
+    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    //     chunkFileNames: (chunkInfo) => {
+    //       const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []
+    //       const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'
+    //       return `js/${fileName}/[name].[hash].js`
+    //     },
+    //   },
+    // },
   },
   plugins: [
     vue(),
-    chunkSplitPlugin({
-      strategy: 'unbundle',
-    }),
+    // chunkSplitPlugin({
+    // strategy: 'unbundle',
+    // }),
     visualizer(),
     AutoImport({
       resolvers: [ElementPlusResolver()],
