@@ -4,7 +4,7 @@
       <el-form>
         <el-form-item>
           <p>当前地址：{{ currentLocation }}</p>
-          <div>修改地址：<city :full-location="fullLocation" @change-city="changeCity" /></div>
+          <div>修改地址：<city :key="locationKey" :full-location="fullLocation" @change-city="changeCity" /></div>
         </el-form-item>
         <el-col :span="24">
           <el-form-item>
@@ -95,9 +95,12 @@ export default {
       { prop: 'daytime_wind', label: '白天风力风向' },
       { prop: 'nighttime__wind', label: '夜晚风力风向' },
     ]
-    const data = store.state.weatherData
-    const currentLocation = data.area_1 + data.area_2 + data.area_3
+    const weatherData = store.state.weatherData
+    const currentLocation = ref('')
+    currentLocation.value = weatherData.area_1 + weatherData.area_2 + weatherData.area_3 || '四川省成都市'
 
+    let cityNm = '成都'
+    const locationKey = ref(1)
     // 更新选中的省市区数据
     const changeCity = (cityInfo) => {
       provinceCode.value = cityInfo.provinceCode
@@ -105,21 +108,31 @@ export default {
       countyCode.value = cityInfo.countyCode
       fullLocation.value = cityInfo.fullLocation
       console.log('changeCity', cityInfo)
+      cityNm = cityInfo.cityName
+      cityNm = cityNm.substring(0, cityNm.length - 1)
+      currentLocation.value = cityInfo.fullLocation
     }
-
-    const onChangeCurrentPage = async(currentPage) => {
-      pager.pageNum = currentPage
+    const getWeatherList = async() => {
       const { list } = await getWeatherListApi({ page })
+      console.log('getWeatherListApi onMounted', list)
       dataList.value = list
     }
-    const onSubmit = () => {
-      console.log('submit!')
+    const onChangeCurrentPage = async(currentPage) => {
+      pager.pageNum = currentPage
+      const { list } = await getWeatherListApi({ pager, city: cityNm })
+      console.log('getWeatherListApi onChangeCurrentPage', list)
+      dataList.value = list
+    }
+    const onSubmit = async() => {
+      const { list } = await getWeatherListApi({ pager, city: cityNm })
+      console.log('getWeatherListApi onSubmit', list)
+      dataList.value = list
     }
     const resetForm = () => {
-      getUserInfo()
+      locationKey.value++
     }
     onMounted(async() => {
-      const { list } = await getWeatherListApi()
+      const { list } = await getWeatherListApi({ pager, city: cityNm })
       console.log('getWeatherListApi onMounted', list)
       dataList.value = list
     })
@@ -130,10 +143,13 @@ export default {
       getWeatherListApi,
       dataColumns,
       currentLocation,
+      locationKey,
       changeCity,
       onSubmit,
       resetForm,
       onChangeCurrentPage,
+      onMounted,
+      // getWeatherList,
     }
   },
 }
