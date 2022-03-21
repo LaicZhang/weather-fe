@@ -4,9 +4,10 @@ import { visualizer } from 'rollup-plugin-visualizer'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
 let server = {}
-const env = 'development' // 设置环境 development production
+const env = 'production' // 设置环境 development production
 if (env === 'production') {
   server = {
     cors: true,
@@ -95,6 +96,9 @@ export default defineConfig({
   },
   plugins: [
     vue(),
+    chunkSplitPlugin({
+      strategy: 'unbundle',
+    }),
     visualizer(),
     AutoImport({
       resolvers: [ElementPlusResolver()],

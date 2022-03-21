@@ -6,7 +6,6 @@ declare module 'vue' {
   export interface GlobalComponents {
     BackToSvg: typeof import('./src/components/backTo/backToSvg.vue')['default']
     BaseCountDown: typeof import('./src/components/countDown/baseCountDown.vue')['default']
-    BreadCrumb: typeof import('./src/components/BreadCrumb.vue')['default']
     CBreadCrumbs: typeof import('./src/components/bread-crumbs/c-bread-crumbs.vue')['default']
     City: typeof import('./src/components/city.vue')['default']
     CMenu: typeof import('./src/components/menu/c-menu.vue')['default']
@@ -45,12 +44,9 @@ declare module 'vue' {
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    Home: typeof import('./src/components/Home.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     Notification: typeof import('./src/components/notification/notification.vue')['default']
-    PasswordStrengthshow: typeof import('./src/components/valid/passwordStrengthshow.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
-    TreeMenu: typeof import('./src/components/TreeMenu.vue')['default']
   }
 }
 

@@ -23,10 +23,10 @@ specifiers:
   unplugin-auto-import: ^0.6.6
   unplugin-vue-components: ^0.18.0
   vite: ^2.8.6
+  vite-plugin-chunk-split: ^0.0.1
   vue: ^3.2.25
   vue-router: ^4.0.4
   vue-simple-password-meter: ^1.1.0
-  vue-simple-upload: ^0.1.6
   vuex: ^4.0.0
 
 dependencies:
@@ -37,10 +37,10 @@ dependencies:
   echarts: 5.3.0
   element-plus: 2.0.2_vue@3.2.31
   vite: 2.8.6_less@3.13.1+sass@1.49.7
+  vite-plugin-chunk-split: 0.0.1_vite@2.8.6
   vue: 3.2.31
   vue-router: 4.0.12_vue@3.2.31
   vue-simple-password-meter: 1.1.0
-  vue-simple-upload: 0.1.6
   vuex: 4.0.2_vue@3.2.31
 
 devDependencies:
@@ -3038,6 +3038,15 @@ packages:
       spdx-expression-parse: 3.0.1
     dev: true
 
+  /vite-plugin-chunk-split/0.0.1_vite@2.8.6:
+    resolution: {integrity: sha512-Gouk8rkUOGIssKrdGHQvxfeZ6CKBE2FSXSaacEHxlvx/0U3sVQ3QFp1GR3ddSstjW5LLjGCqEjtpko1RhPmN/w==}
+    peerDependencies:
+      vite: '>=2.0.0'
+    dependencies:
+      resolve: 1.22.0
+      vite: 2.8.6_less@3.13.1+sass@1.49.7
+    dev: false
+
   /vite/2.8.6_less@3.13.1+sass@1.49.7:
     resolution: {integrity: sha512-e4H0QpludOVKkmOsRyqQ7LTcMUDF3mcgyNU4lmi0B5JUbe0ZxeBBl8VoZ8Y6Rfn9eFKYtdXNPcYK97ZwH+K2ug==}
     engines: {node: '>=12.2.0'}
@@ -3108,10 +3117,6 @@ packages:
 
   /vue-simple-password-meter/1.1.0:
     resolution: {integrity: sha512-gLtbE7oXvGiDrPMWp/sENCzFkyTFVENN8RN1+kANC0erJDaoMJt0q343ELR9aZOqLnoGxG1BL3ESInR/CeCYJA==}
-    dev: false
-
-  /vue-simple-upload/0.1.6:
-    resolution: {integrity: sha1-cdChFslRypHo5wxwUYPLQ9BzyuE=}
     dev: false
 
   /vue/3.2.31:
