@@ -65,7 +65,7 @@ export default defineComponent({
   async mounted() {
     this.$store.dispatch('getNoticeCount')
     // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
-    this.noticeCount = this.$store.state.noticeCount
+    // this.noticeCount = this.$store.state.noticeCount
     console.log('this.noticeCount', this.noticeCount)
     this.judgeUserInfo()
     this.getMenuPermission()
