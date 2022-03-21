@@ -92,8 +92,8 @@ export default {
       { prop: 'nighttime_weather_conditions', label: '夜晚天气' },
       { prop: 'maximum_temperature', label: '最高温度' },
       { prop: 'minimum_temperature', label: '最低温度' },
-      { prop: 'daytime_wind', label: '白天风向风向' },
-      { prop: 'nighttime_wind', label: '夜晚风向' },
+      { prop: 'daytime_wind', label: '白天风力风向' },
+      { prop: 'nighttime__wind', label: '夜晚风力风向' },
     ]
     const data = store.state.weatherData
     const currentLocation = data.area_1 + data.area_2 + data.area_3
@@ -107,9 +107,10 @@ export default {
       console.log('changeCity', cityInfo)
     }
 
-    const onChangeCurrentPage = (currentPage) => {
+    const onChangeCurrentPage = async(currentPage) => {
       pager.pageNum = currentPage
-      getWeatherListApi()
+      const { list } = await getWeatherListApi({ page })
+      dataList.value = list
     }
     const onSubmit = () => {
       console.log('submit!')
@@ -117,11 +118,11 @@ export default {
     const resetForm = () => {
       getUserInfo()
     }
-
-    onMounted(() => {
-      getWeatherListApi()
+    onMounted(async() => {
+      const { list } = await getWeatherListApi()
+      console.log('getWeatherListApi onMounted', list)
+      dataList.value = list
     })
-
     return {
       fullLocation,
       pager,
