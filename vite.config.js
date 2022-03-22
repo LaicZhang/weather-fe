@@ -93,16 +93,28 @@ export default defineConfig({
     // 消除打包大小超过500kb警告
     chunkSizeWarningLimit: 2000,
     minify: false,
-    // rollupOptions: {
-    //   output: {
-    //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    //     chunkFileNames: (chunkInfo) => {
-    //       const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []
-    //       const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'
-    //       return `js/${fileName}/[name].[hash].js`
-    //     },
-    //   },
-    // },
+    rollupOptions: {
+      output: {
+      //   // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      //   chunkFileNames: (chunkInfo) => {
+      //     const facadeModuleId = chunkInfo.facadeModuleId ? chunkInfo.facadeModuleId.split('/') : []
+      //     const fileName = facadeModuleId[facadeModuleId.length - 2] || '[name]'
+      //     return `js/${fileName}/[name].[hash].js`
+        manualChunks(id) {
+          if (id.includes('node_modules') && id.includes('element'))
+            return 'element'
+
+          else if (id.includes('node_modules') && (id.includes('echarts')))
+            return 'echarts'
+
+          else if (id.includes('node_modules') && id.includes('vue'))
+            return 'vue'
+
+          else if (id.includes('node_modules'))
+            return 'vendor'
+        },
+      },
+    },
   },
   plugins: [
     vue(),
