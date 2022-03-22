@@ -32,16 +32,16 @@ const init = async() => {
       }),
     },
     yAxis: {},
-    toolbox: {
-      right: 10,
-      feature: {
-        dataZoom: {
-          yAxisIndex: 'none',
-        },
-        restore: {},
-        saveAsImage: {},
-      },
-    },
+    // toolbox: {
+    //   right: 10,
+    //   feature: {
+    //     dataZoom: {
+    //       yAxisIndex: 'none',
+    //     },
+    //     restore: {},
+    //     saveAsImage: {},
+    //   },
+    // },
     dataZoom: [
       {
         startValue: '2022-03-10',
@@ -55,32 +55,32 @@ const init = async() => {
       right: 10,
       pieces: [
         {
-          gt: 0,
-          lte: 50,
+          // gt: 0,
+          lte: 15,
           color: '#93CE07',
         },
         {
-          gt: 50,
-          lte: 100,
+          gt: 15,
+          lte: 25,
           color: '#FBDB0F',
         },
         {
-          gt: 100,
-          lte: 150,
+          gt: 25,
+          lte: 30,
           color: '#FC7D02',
         },
         {
-          gt: 150,
-          lte: 200,
+          gt: 30,
+          lte: 35,
           color: '#FD0100',
         },
         {
-          gt: 200,
-          lte: 300,
+          gt: 35,
+          lte: 40,
           color: '#AA069F',
         },
         {
-          gt: 300,
+          gt: 40,
           color: '#AC3B2A',
         },
       ],
@@ -89,7 +89,7 @@ const init = async() => {
       },
     },
     series: {
-      name: 'Beijing AQI',
+      // name: 'Beijing AQI',
       type: 'line',
       data: stackData.arr.map((item) => {
         return item[1]
