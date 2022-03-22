@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import zhCn from 'element-plus/es/locale/lang/zh-cn'
 import 'element-plus/dist/index.css'
-import * as echarts from 'echarts'
+// import * as echarts from 'echarts'
 import * as Icons from '@element-plus/icons-vue'
 import App from './App.vue'
 import router from './router'
@@ -12,7 +12,6 @@ import storage from './util/storage'
 import hasAction from './directive/has-action'
 import Directives from './directive/index'
 import './assets/font/iconfont.css'
-// import echarts from 'echarts'
 // import SocketService from '@/util/socket_service'
 // import axios from 'axios'
 
@@ -28,7 +27,7 @@ const app = createApp(App)
 // app.config.globalProperties.$http = axios
 app.config.globalProperties.$request = request
 app.config.globalProperties.$storage = storage
-app.config.globalProperties.$echarts = echarts
+// app.config.globalProperties.$echarts = echarts
 app.config.globalProperties.$store = store
 
 // 注册Icons 全局组件
