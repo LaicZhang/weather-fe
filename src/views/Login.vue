@@ -51,7 +51,6 @@ export default defineComponent({
   components: {},
   setup() {
     const { router, store } = useVuexWithRouter()
-    console.log('store=>', store)
     const toPageHome = () => {
       console.log('toPageHome')
       router.push('/')

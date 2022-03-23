@@ -1,9 +1,6 @@
 <script>
 // import * as echarts from 'echarts'
 // import { provide } from 'vue'
-// import '../public/static/lib/echarts.min.js'
-// import '../public/static/theme/chalk.js'
-// import '../public/static/theme/vintage.js'
 export default {
   name: 'App',
   components: {},
