@@ -1,9 +1,9 @@
 <template>
   <div class="forget-page">
     <el-form ref="userFormRef" class="forget-form" :model="userForm" :rules="userRules" status-icon>
-      <div class="forget-title">
-        <!-- 忘记密码？ -->
-      </div>
+      <!-- <div class="forget-title">
+        忘记密码？
+      </div> -->
       <el-form-item>
         <div class="methods-radio">
           <span style="font-size:23px">通过</span>
@@ -27,24 +27,35 @@
           v-model="userForm.userEmail"
           placeholder="请输入邮箱"
         />
-      </el-form-item>
-      <el-form-item prop="mobile">
         <el-input
           v-if="methodsRadio==='手机号码'"
           v-model="userForm.mobile"
           placeholder="请输入手机号码"
         />
       </el-form-item>
-      <!-- <el-form-item>
-        <el-image :key="componentKey" alt="Captcha image" :src="captchaRef" @click="changeCaptcha" />
-      </el-form-item> -->
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userPwd"
+          type="password"
+          placeholder="请输入密码"
+        />
+        <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
+        <password-meter :password="userForm.userPwd" />
+      </el-form-item>
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userConfirmPwd"
+          type="password"
+          placeholder="请确认密码"
+        />
+      </el-form-item>
       <el-form-item prop="captchaCode">
         <div style="display:inline;width:20vw">
           <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码" />
         </div>
         <div style="display:inline">
-          <el-button @click="sendCaptchaCode">
-            发送验证码
+          <el-button :disabled="totalTime <60" @click="sendCaptchaCode">
+            {{ content }}
           </el-button>
         </div>
       </el-form-item>
@@ -58,8 +69,16 @@
 </template>
 <script setup>
 import { reactive, ref } from 'vue'
+import PasswordMeter from 'vue-simple-password-meter'
+import { ElMessage } from 'element-plus'
+import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import { changePasswordApi, sendCaptchaEmailApi, sendCaptchaSmsApi } from '@/api'
 
 const methodsRadio = ref('邮件')
+const content = ref('发送验证码')
+const totalTime = ref(60)
+const userFormRef = ref(null)
+const { router, store } = useVuexWithRouter()
 const userRules = {
   userName: [
     {
@@ -80,10 +99,48 @@ const userForm = reactive({
   userName: '',
   userEmail: '',
   captchaCode: '',
+  changeAction: 'forget',
 })
 
-const sendCaptchaCode = () => {
-
+const sendCaptchaCode = async() => {
+  let data
+  if (methodsRadio.value === '邮件') {
+    data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+    console.log('sendCaptchaCode emial', data)
+  }
+  else {
+    await sendCaptchaSmsApi({ mobile: userForm.mobile })
+    console.log('sendCaptchaCode sms', data)
+  }
+  const clock = window.setInterval(() => {
+    content.value = `${totalTime.value}s后重新发送`
+    totalTime.value--
+    if (totalTime.value < 0) {
+      totalTime.value = 60
+      content.value = '重新发送验证码'
+      window.clearInterval(clock)
+    }
+  }, 1000)
+}
+const toPageLogin = () => {
+  router.push('/login')
+}
+const userFromCommit = () => {
+  userFormRef.value.validate(async(valid) => {
+    if (valid) {
+      const data = await changePasswordApi(userForm)
+      if (data) {
+        ElMessage({
+          message: '修改成功',
+          type: 'success',
+        })
+      }
+      toPageLogin()
+    }
+    else {
+      return false
+    }
+  })
 }
 
 </script>
