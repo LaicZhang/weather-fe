@@ -30,6 +30,9 @@
         </el-button>
       </el-form-item>
       <el-form-item>
+        <el-checkbox v-model="userForm.isRememberMe" label="记住我" border />
+      </el-form-item>
+      <el-form-item>
         <el-button type="primary" class="login-submit" @click="userFromCommit">
           登录
         </el-button>
@@ -58,6 +61,7 @@ export default defineComponent({
     const userForm = reactive({
       userName: '',
       userPwd: '',
+      isRememberMe: true,
     })
     const userRules = {
       userName: [
