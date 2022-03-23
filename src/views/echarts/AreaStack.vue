@@ -15,7 +15,7 @@ const init = async() => {
   console.log('init arr', stackData.arr)
   const option = {
     title: {
-      text: '历史天气变化',
+      text: '历史温度变化',
       left: '1%',
     },
     tooltip: {
@@ -88,36 +88,68 @@ const init = async() => {
         color: '#999',
       },
     },
-    series: {
-      // name: 'Beijing AQI',
-      type: 'line',
-      data: stackData.arr.map((item) => {
-        return item[1]
-      }),
-      markLine: {
-        silent: true,
-        lineStyle: {
-          color: '#333',
+    series: [
+      {
+        name: '最高温度',
+        type: 'line',
+        data: stackData.arr.map((item) => {
+          return item[1]
+        }),
+        markLine: {
+          silent: true,
+          lineStyle: {
+            color: '#333',
+          },
+          data: [
+            {
+              yAxis: 0,
+            },
+            {
+              yAxis: 15,
+            },
+            {
+              yAxis: 25,
+            },
+            {
+              yAxis: 30,
+            },
+            {
+              yAxis: 40,
+            },
+          ],
         },
-        data: [
-          {
-            yAxis: 0,
-          },
-          {
-            yAxis: 15,
-          },
-          {
-            yAxis: 25,
-          },
-          {
-            yAxis: 30,
-          },
-          {
-            yAxis: 40,
-          },
-        ],
       },
-    },
+      {
+        name: '最低温度',
+        type: 'line',
+        data: stackData.arr.map((item) => {
+          return item[2]
+        }),
+        markLine: {
+          silent: true,
+          lineStyle: {
+            color: '#444',
+          },
+          data: [
+            {
+              yAxis: 0,
+            },
+            {
+              yAxis: 15,
+            },
+            {
+              yAxis: 25,
+            },
+            {
+              yAxis: 30,
+            },
+            {
+              yAxis: 40,
+            },
+          ],
+        },
+      },
+    ],
   }
   myChart.setOption(option)
   console.log('area stack=>', myChart)
