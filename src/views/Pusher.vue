@@ -75,7 +75,7 @@
           </baseCountDown>
           </template>
         </el-table-column> -->
-        <el-table-column label="Operations" width="200px">
+        <el-table-column label="Operations" width="180px">
           <template #default="scope">
             <!-- <el-button size="default" type="text" @click="watchMore(scope.row)">
               查看
@@ -303,8 +303,9 @@ export default defineComponent({
       total: 0,
     })
     const pusherColumns = [
-      // { prop: '_id', label: '推送ID' },
+      { prop: 'pusherId', label: '推送ID' },
       { prop: 'userId', label: '用户ID' },
+      { prop: 'userName', label: '用户名' },
       { prop: 'pusherTitle', label: '推送标题' },
       // {
       //   prop: 'pusherContent',
