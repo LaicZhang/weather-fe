@@ -9,7 +9,8 @@ const state = {
   weatherData: storage.getItem('weatherData') || {},
   noticeCount: 0,
   theme: 'chalk',
-  BASE_CDN_URL: 'https://cdn.zyha.cn/public/upload/',
+  BASE_CDN_URL: 'https://cdn.zyha.cn/',
+  UPLOAD_CDN_URL: 'https://cdn.zyha.cn/public/upload/',
 }
 const getters = {}
 export default createStore({

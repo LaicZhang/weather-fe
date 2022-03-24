@@ -178,9 +178,8 @@
     <p>(注意：这里不要安装PushDeer自架版)</p>
     <el-image
       alt="the ios pusherdeer install image"
-      src="https://cdn.zyha.cn/img/pushdeer-resize.png"
+      :src="`${baseCdnUrl}img/pushdeer-resize.png`"
       style="width:10vw"
-      lazy
     />
     <p>MacOS 11+</p>
     <p>PushDeer有Mac客户端，亦支持推送。可在Mac应用商店中搜索「PushDeer」安装。</p>
@@ -241,7 +240,8 @@ const { router, store } = useVuexWithRouter()
 
 const userForm = reactive({})
 const userInfo = store.state.userInfo
-const cdnUrl = store.state.BASE_CDN_URL
+const baseCdnUrl = store.state.BASE_CDN_URL
+const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 let sexDict = {}
 const flag = ref(false)
 const isChangeEmail = ref(false)
@@ -319,7 +319,7 @@ const resetPusherConfigForm = () => {
 const init = () => {
   sexDict = getDictApi('sex')
 }
-const imageUrl = ref(`${cdnUrl}${userInfo.avatar}`)
+const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
 const handleAvatarSuccess = (res, file) => {
   imageUrl.value = URL.createObjectURL(file.raw)
   refreshInfo()

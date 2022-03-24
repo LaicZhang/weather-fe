@@ -48,7 +48,7 @@ export default {
   },
   computed: {
     imageUrl() {
-      return store.state.BASE_CDN_URL + store.state.userInfo.avatar
+      return store.state.UPLOAD_CDN_URL + store.state.userInfo.avatar
     },
   },
   mounted() {
