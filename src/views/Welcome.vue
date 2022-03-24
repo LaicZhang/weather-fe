@@ -17,22 +17,30 @@
         Stored by AliBaBa OSS
       </div>
     </div>
-    <el-image lazy class="welcome-img" alt="welcome" src="/img/welcome.webp" />
+    <el-image lazy class="welcome-img" alt="welcome" :src="`${baseCdnUrl}img/welcome.webp`" />
   </div>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
 import { useRouter } from 'vue-router'
+import store from '../store'
+
 export default defineComponent({
   name: 'Welcome',
-  components: {},
   setup() {
     const router = useRouter()
+    const baseCdnUrl = store.state.BASE_CDN_URL
     const toPageLogin = () => {
       router.push({ name: 'login' })
     }
-    return { toPageLogin }
+    return {
+      defineComponent,
+      useRouter,
+      router,
+      baseCdnUrl,
+      toPageLogin,
+    }
   },
 })
 </script>
