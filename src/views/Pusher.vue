@@ -490,18 +490,18 @@ export default defineComponent({
       // console.log('watchMore', val)
       moreDialog.value = true
     }
-    let pusherId = {}
     // let pushTime = ref('2022-03-20 9:51:00');
     let pusherLifeTime = ''
     const openImmediatelyPushDialog = (val) => {
       // console.info('immediatelyPush', val)
-      pusherId = val._id
+      _id = val._id
+      pusherId = val.pusherId
       // pushTime = val.pushTime;
       pusherLifeTime = val.pusherLifeTime
       immediatelyPushDialog.value = true
     }
     const immediatelyPush = async() => {
-      await immediatelyPushApi({ _id: pusherId, userId: userInfo.userId, pusherLifeTime })
+      await immediatelyPushApi({ _id, pusherId, userId: userInfo.userId, pusherLifeTime })
       await getAllPushersList()
       immediatelyPushDialog.value = false
     }
