@@ -233,7 +233,8 @@ export default defineComponent({
       userList.value = list
     }
     const getAllUsersList = async() => {
-      const { list, page } = await userAllListApi({})
+      const params = { ...pager }
+      const { list, page } = await userAllListApi(params)
       pager.pageNum = page.pageNum
       pager.total = page.total
       userList.value = list
