@@ -110,7 +110,7 @@ export default defineComponent({
     top: 0;
     bottom: 0;
     height: 100vh;
-    width: 100%;
+    width: 100vw;
     font-size: $font-size-small;
     // 导航栏收缩样式
     &.fold {
@@ -181,7 +181,7 @@ export default defineComponent({
       }
       .manager-main {
         width: 100%;
-        padding: 30px;
+        padding: 50px;
         box-sizing: border-box;
         .manager-main-box {
           height: 100%;

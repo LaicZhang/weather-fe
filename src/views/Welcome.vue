@@ -2,7 +2,7 @@
   <div class="welcome-page">
     <!-- begin github animated corner https://github.com/eugena/github-animated-corners/ -->
     <a
-      href="https://github.com/laiczhang/vue-admin-beautiful"
+      href="https://github.com/LaicZhang/weather-visualization-front-2"
       target="_blank" aria-label="View source on Github"
       class="github-corner"
     >
