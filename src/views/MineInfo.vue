@@ -327,10 +327,10 @@ const handleAvatarSuccess = (res, file) => {
 }
 const beforeAvatarUpload = (file) => {
   const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt5M = file.size / 1024 / 1024 < 5
+  const isLt5M = file.size / 1024 / 1024 < 2
 
   if (!isImage)
-    ElMessage.error('Avatar picture must be JPG format!')
+    ElMessage.error('Avatar picture must be JPG/PNG format!')
 
   if (!isLt5M)
     ElMessage.error('Avatar picture size can not exceed 2MB!')

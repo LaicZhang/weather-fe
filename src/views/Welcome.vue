@@ -8,16 +8,16 @@
         天气大数据可视化后台管理系统
       </div>
       <div class="title-three">
-        front-end by Vue3 + Vite2 + ElementPlus
+        front-end by Vue3 + Vite2 + ElementPlus + Echarts5
         <br>
-        back-end by Koa2 + Mongodb + Python
+        back-end by Koa2 + Mongodb + Python3
         <br>
         deploy by Github + Vercel + Tencent Cloud
         <br>
         Stored by AliBaBa OSS
       </div>
     </div>
-    <el-image lazy class="welcome-img" alt="welcome" :src="`${baseCdnUrl}img/welcome.webp`" />
+    <el-image class="welcome-img" alt="welcome" :src="`${baseCdnUrl}img/welcome.webp`" />
   </div>
 </template>
 
