@@ -13,7 +13,7 @@
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
-    // "allowJS": true,
+    "allowJs": true,
     // "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "types": [
@@ -25,5 +25,5 @@
       "@components/*": ["src/components/*"],
     }
   },
-  "exclude": ["dist", "node_modules", "cypress", "**/*.js"],
+  "exclude": ["dist", "node_modules", "cypress"],
 }
