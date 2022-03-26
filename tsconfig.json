@@ -13,18 +13,17 @@
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
-    "allowJS": true,
-    "checkJs": true,
+    // "allowJS": true,
+    // "checkJs": true,
     "forceConsistentCasingInFileNames": true,
     "types": [
       "vite/client",
       "vue/ref-macros",
-      "vite-plugin-pages/client",
-      "vite-plugin-vue-layouts/client"
     ],
     "paths": {
-      "~/*": ["src/*"]
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"],
     }
   },
-  "exclude": ["dist", "node_modules", "cypress"]
+  "exclude": ["dist", "node_modules", "cypress", "**/*.js"],
 }
