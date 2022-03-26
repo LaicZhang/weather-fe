@@ -17,6 +17,7 @@
           type="text"
           placeholder="请输入用户名"
           prefix-icon="el-icon-user"
+          @change="checkRepeatUserName"
         />
       </el-form-item>
       <el-form-item prop="userEmail">
@@ -25,7 +26,7 @@
           type="text"
           placeholder="请输入邮箱"
           prefix-icon="el-icon-email"
-          @blur="OnSubscribe"
+          @change="checkRepeatUserEmail"
         />
       </el-form-item>
       <el-form-item prop="userPwd">
@@ -47,14 +48,15 @@
         />
       </el-form-item>
       <el-form-item v-if="userForm.userConfirmPwd">
-        <el-button @click="sendCaptchaEmail">
-          发送邮件验证码
-        </el-button>
         <el-input
           v-model="userForm.captcha"
           type="text"
           placeholder="请输入验证码"
+          style="width: 20vw;"
         />
+        <el-button @click="sendCaptchaEmail">
+          发送邮件验证码
+        </el-button>
       </el-form-item>
       <el-form-item>
         <el-button type="text" @click="toLogin">
@@ -72,7 +74,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import useVuexWithRouter from '@/hooks/useVuexWithRouter'
-import { menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
+import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
 export default defineComponent({
   name: 'Register',
   components: {
@@ -86,6 +88,7 @@ export default defineComponent({
     const userFormRef = ref(null)
     const userForm = reactive({
       userName: '',
+      userEmail: '',
       userPwd: '',
     })
 
@@ -109,11 +112,22 @@ export default defineComponent({
     //     }
     //   }, 100)
     // }
+    const checkRepeatUserName = async(rule, value, callback) => {
+      const { userName, userEmail } = userForm
+      if (!userName || !userEmail)
+        return
+      const { isRepeat } = await checkRepeatApi({ userName })
+      return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
+    }
+    const checkRepeatUserEmail = async(rule, value, callback) => {
+      const { userName, userEmail } = userForm
+      if (!userName || !userEmail)
+        return
+      const { isRepeat } = await checkRepeatApi({ userEmail })
+      return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+    }
     const checkEmail = (rule, value, callback) => {
       const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-      if (!value)
-        return callback(new Error('邮箱不能为空'))
-
       setTimeout(() => {
         if (mailReg.test(value))
           callback()
@@ -128,6 +142,7 @@ export default defineComponent({
           message: '请填写用户名',
           trigger: 'blur',
         },
+        { validator: checkRepeatUserName, trigger: 'blur' },
       ],
       userEmail: [
         {
@@ -136,6 +151,7 @@ export default defineComponent({
           trigger: 'blur',
         },
         { validator: checkEmail, trigger: 'blur' },
+        { validator: checkRepeatUserEmail, trigger: 'blur' },
       ],
       userPwd: [
         {
@@ -197,6 +213,8 @@ export default defineComponent({
       sendCaptchaEmail,
       userRules,
       userFromCommit,
+      checkRepeatUserName,
+      checkRepeatUserEmail,
     }
   },
 })

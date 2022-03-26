@@ -25,6 +25,11 @@ export const sendCaptchaEmailApi = (data = {}) => {
 export const sendCaptchaSmsApi = (data = {}) => {
   return request.post('/auth/captchaSms', data, { mock: false })
 }
+// 检查重复
+export const checkRepeatApi = (data = {}) => {
+  return request.post('/auth/checkRepeat', data, { mock: false })
+}
+
 // 获取当前角色的权限
 export const menuPermissionApi = (data = {}) => {
   return request.get('/auth/getPermissionList', data, { mock: false })
