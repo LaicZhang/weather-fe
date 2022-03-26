@@ -46,6 +46,7 @@ declare module 'vue' {
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    GithubCorner: typeof import('./src/components/corner/github-corner.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     Notification: typeof import('./src/components/notification/notification.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
