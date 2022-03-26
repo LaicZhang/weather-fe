@@ -223,7 +223,7 @@
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-import { Plus } from '@element-plus/icons-vue'
+// import { Plus } from '@element-plus/icons-vue'
 import {
   changeInfoApi,
   getDictApi,
@@ -233,20 +233,26 @@ import {
 } from '../api'
 import util from '../util/utils'
 import request from '@/util/request'
-// import store from '@/store'
-import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import store from '@/store'
 
-const { router, store } = useVuexWithRouter()
-
-const userForm = reactive({})
+const userForm = reactive({
+  userId: 0,
+  userName: '',
+  sex: 1,
+  userEmail: '',
+  sexText: '',
+  mobile: '',
+  createTime: '',
+  lastLoginTime: '',
+})
 const userInfo = store.state.userInfo
 const baseCdnUrl = store.state.BASE_CDN_URL
 const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 let sexDict = {}
-const flag = ref(false)
-const isChangeEmail = ref(false)
-const isChangeMobile = ref(false)
-const isChangePassword = ref(false)
+// const flag = ref(false)
+// const isChangeEmail = ref(false)
+// const isChangeMobile = ref(false)
+// const isChangePassword = ref(false)
 const wecomDialogVisible = ref(false)
 const dingtalkDialogVisible = ref(false)
 const feishuDialogVisible = ref(false)
@@ -257,12 +263,20 @@ const uploadData = ref({
   userId: userInfo.userId,
 })
 let pusherConfigForm = reactive({
-  // useEmail: true,
-  // useSms: true,
-  // useFeiShu: false,
-  // useWeCom: false,
-  // useDingtalk: false,
-  // useServerChan: false
+  useEmail: true,
+  useSms: false,
+  useFeiShu: false,
+  useWeCom: false,
+  useDingTalk: false,
+  useServerChan: false,
+  usePushDeer: false,
+  userEmail: '',
+  mobile: '',
+  pushkey: '',
+  feishuUrl: '',
+  wecomUrl: '',
+  dingtalkUrl: '',
+  serverChanKey: '',
 })
 
 const isVisitorFn = () => {
@@ -316,8 +330,8 @@ const onSubmitPusherConfigForm = () => {
 const resetPusherConfigForm = () => {
   getPusherSettings()
 }
-const init = () => {
-  sexDict = getDictApi('sex')
+const init = async() => {
+  sexDict = await getDictApi('sex')
 }
 const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
 const handleAvatarSuccess = (res, file) => {
