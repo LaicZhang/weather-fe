@@ -228,9 +228,12 @@
   </div>
   <div class="info-dialog">
     <el-dialog v-model="changeEmailDialogVisible" title="修改邮箱" width="30%">
-      <el-form ref="changeEmailForm" :model="changeEmailForm" :rules="changeEmailRules" label-width="80px">
+      <el-form ref="changeEmailFormRef" :model="changeEmailForm" :rules="changeEmailRules" label-width="80px">
         <el-form-item label="邮箱" prop="userEmail">
-          <el-input v-model="changeEmailForm.userEmail" placeholder="请输入邮箱" />
+          <el-input
+            v-model="changeEmailForm.userEmail"
+            placeholder="请输入邮箱"
+          />
         </el-form-item>
         <el-form-item label="验证码" prop="captcha">
           <el-input v-model="changeEmailForm.captcha" placeholder="请输入验证码" />
@@ -249,9 +252,12 @@
       </el-form>
     </el-dialog>
     <el-dialog v-model="changeMobileDialogVisible" title="修改手机号" width="30%">
-      <el-form ref="changeMobileForm" :model="changeMobileForm" :rules="changeMobileRules" label-width="80px">
+      <el-form ref="changeMobileFormRef" :model="changeMobileForm" :rules="changeMobileRules" label-width="80px">
         <el-form-item label="手机号" prop="mobile">
-          <el-input v-model="changeMobileForm.mobile" placeholder="请输入手机号" />
+          <el-input
+            v-model="changeMobileForm.mobile"
+            placeholder="请输入手机号"
+          />
         </el-form-item>
         <el-form-item label="验证码" prop="captcha">
           <el-input v-model="changeMobileForm.captcha" placeholder="请输入验证码" />
@@ -330,7 +336,7 @@ const checkRepeatUserEmail = async(rule, value, callback) => {
 const changeEmailRules = {
   userEmail: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'userEmail', message: '请输入正确的邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' },
     { validator: checkRepeatUserEmail, trigger: 'blur' },
   ],
   captcha: [
@@ -399,6 +405,7 @@ const changeEmailSubmit = async() => {
   })
   if (state === 1) {
     ElMessage.success('修改成功')
+    userForm.userEmail = changeEmailForm.userEmail
     changeEmailDialogVisible.value = false
   }
   else {
@@ -422,6 +429,7 @@ const changeMobileSubmit = async() => {
   })
   if (state === 1) {
     ElMessage.success('修改成功')
+    userForm.usermobile = changeMobileForm.mobile
     changeMobileDialogVisible.value = false
   }
   else {
