@@ -66,12 +66,6 @@ export default {
   components: {
     city,
   },
-  props: {
-    goods: {
-      type: Object,
-      default: () => {},
-    },
-  },
   setup() {
     const provinceCode = ref('110000')
     const cityCode = ref('119900')
@@ -113,34 +107,42 @@ export default {
       currentLocation.value = cityInfo.fullLocation
     }
     const getWeatherList = async() => {
-      const { list } = await getWeatherListApi({ page })
+      const { list, page } = await getWeatherListApi({ pager })
       console.log('getWeatherListApi onMounted', list)
+      pager.pageNum = page.pageNum
+      pager.total = page.total
       dataList.value = list
     }
     const onChangeCurrentPage = async(currentPage) => {
       pager.pageNum = currentPage
-      const { list } = await getWeatherListApi({ pager, city: cityNm })
+      const { list, page } = await getWeatherListApi({ pager, city: cityNm })
       console.log('getWeatherListApi onChangeCurrentPage', list)
+      pager.pageNum = page.pageNum
+      pager.total = page.total
       dataList.value = list
     }
     const onSubmit = async() => {
-      const { list } = await getWeatherListApi({ pager, city: cityNm })
+      const { list, page } = await getWeatherListApi({ pager, city: cityNm })
       console.log('getWeatherListApi onSubmit', list)
+      pager.pageNum = page.pageNum
+      pager.total = page.total
       dataList.value = list
     }
     const resetForm = () => {
       locationKey.value++
     }
     onMounted(async() => {
-      const { list } = await getWeatherListApi({ pager, city: cityNm })
+      const { list, page } = await getWeatherListApi({ pager, city: cityNm })
       console.log('getWeatherListApi onMounted', list)
+      pager.pageNum = page.pageNum
+      pager.total = page.total
       dataList.value = list
     })
     return {
       fullLocation,
       pager,
       dataList,
-      getWeatherListApi,
+      // getWeatherListApi,
       dataColumns,
       currentLocation,
       locationKey,
@@ -149,7 +151,7 @@ export default {
       resetForm,
       onChangeCurrentPage,
       onMounted,
-      // getWeatherList,
+      getWeatherList,
     }
   },
 }
