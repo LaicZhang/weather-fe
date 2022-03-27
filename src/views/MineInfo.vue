@@ -400,6 +400,7 @@ const getChangeEmailCaptcha = async() => {
 }
 const changeEmailSubmit = async() => {
   const { state } = await changeInfoApi({
+    userId: userForm.userId,
     userEmail: changeEmailForm.userEmail,
     captcha: changeEmailForm.captcha,
   })
@@ -424,6 +425,7 @@ const getChangeMobileCaptcha = async() => {
 }
 const changeMobileSubmit = async() => {
   const { state } = await changeInfoApi({
+    userId: userForm.userId,
     mobile: changeMobileForm.mobile,
     captcha: changeMobileForm.captcha,
   })
