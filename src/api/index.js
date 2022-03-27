@@ -114,6 +114,12 @@ export const editUserApi = (data = {}) => {
 export const changeInfoApi = (data = {}) => {
   return request.post('/users/changeInfo', data, { mock: false })
 }
+export const getCaptchaEmailApi = (data = {}) => {
+  return request.post('/users/captchaEmail', data, { mock: false })
+}
+export const getCaptchaSmsApi = (data = {}) => {
+  return request.post('/users/captchaSms', data, { mock: false })
+}
 
 // 删除单个或多个 `userIds:[userId,userId...]`
 export const deleteUserApi = (data = {}) => {

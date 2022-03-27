@@ -30,10 +30,16 @@
           </el-select>
         </el-form-item>
         <el-form-item label="邮箱">
-          <el-input v-model="userForm.userEmail" />
+          <el-input v-model="userForm.userEmail" disabled />
+          <el-button type="text" @click="changeEmailDialogVisible = true">
+            修改邮箱
+          </el-button>
         </el-form-item>
         <el-form-item label="电话号码">
-          <el-input v-model="userForm.mobile" />
+          <el-input v-model="userForm.mobile" disabled />
+          <el-button type="text" @click="changeMobileDialogVisible = true">
+            修改电话号码
+          </el-button>
         </el-form-item>
         <!-- <el-form-item label="密码">
           <el-input
@@ -44,12 +50,12 @@
         <!-- <el-form-item label="确认密码" v-show="isChangePassword">
           <el-input type="password" v-model="userForm.userPwd2"></el-input>
         </el-form-item> -->
-        <el-form-item label="注册时间">
+        <!-- <el-form-item label="注册时间">
           <el-input v-model="userForm.createTime" disabled />
         </el-form-item>
         <el-form-item label="最近登陆">
           <el-input v-model="userForm.lastLoginTime" disabled />
-        </el-form-item>
+        </el-form-item> -->
         <!-- <el-form-item label="验证码" v-if="flag">
           <el-input v-model="userForm.code"></el-input>
         </el-form-item> -->
@@ -130,94 +136,140 @@
       </el-form>
     </el-card>
   </div>
-  <el-dialog v-model="wecomDialogVisible" title="Tips" width="30%">
-    <span>开启企业微信内部群群机器人方法：
-      手机端开启入口，进入企业微信内部群聊，点击右上角的群组，在群聊信息页面中群成员就可以看到添加群机器人按钮了，并添加群机器人了。
-      电脑端开启入口，在PC端选中群聊点击鼠标右键即可发现添加机器人按钮.
-    </span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="wecomDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="wecomDialogVisible = false">Confirm</el-button>
+  <div class="settings-dialog">
+    <el-dialog v-model="wecomDialogVisible" title="Tips" width="30%">
+      <span>开启企业微信内部群群机器人方法：
+        手机端开启入口，进入企业微信内部群聊，点击右上角的群组，在群聊信息页面中群成员就可以看到添加群机器人按钮了，并添加群机器人了。
+        电脑端开启入口，在PC端选中群聊点击鼠标右键即可发现添加机器人按钮.
       </span>
-    </template>
-  </el-dialog>
-  <el-dialog v-model="dingtalkDialogVisible" title="Tips" width="30%">
-    <span>在群设置->群助理里添加自定义机器人后获得，添加中的"自定义关键字"请设置为：LAICWEATHER
-    </span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="dingtalkDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="dingtalkDialogVisible = false">Confirm</el-button>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="wecomDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="wecomDialogVisible = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="dingtalkDialogVisible" title="Tips" width="30%">
+      <span>在群设置->群助理里添加自定义机器人后获得，添加中的"自定义关键字"请设置为：LAICWEATHER
       </span>
-    </template>
-  </el-dialog>
-  <el-dialog v-model="feishuDialogVisible" title="Tips" width="30%">
-    <span>在群设置添加自定义机器人后获得的网址
-    </span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="feishuDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="feishuDialogVisible = false">Confirm</el-button>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="dingtalkDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="dingtalkDialogVisible = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="feishuDialogVisible" title="Tips" width="30%">
+      <span>在群设置添加自定义机器人后获得的网址
       </span>
-    </template>
-  </el-dialog>
-  <el-dialog v-model="serverchanDialogVisible" title="Tips" width="30%">
-    <span><a href="https://sct.ftqq.com/sendkey" style="color:blue" target="view_window">点击此处</a> 获取SCKEY
-    </span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="serverchanDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="serverchanDialogVisible = false">Confirm</el-button>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="feishuDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="feishuDialogVisible = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="serverchanDialogVisible" title="Tips" width="30%">
+      <span><a href="https://sct.ftqq.com/sendkey" style="color:blue" target="view_window">点击此处</a> 获取SCKEY
       </span>
-    </template>
-  </el-dialog>
-  <el-dialog v-model="pushDeerDialogVisible" title="Tips" width="40%">
-    <p>iOS14+</p>
-    <p>苹果手机（iOS 14+）用系统摄像头扫描下方二维码即可拉起轻应用，亦可在苹果商店搜索「PushDeer」安装</p>
-    <p>(注意：这里不要安装PushDeer自架版)</p>
-    <el-image
-      alt="the ios pusherdeer install image"
-      :src="`${baseCdnUrl}img/pushdeer-resize.png`"
-      style="width:10vw"
-    />
-    <p>MacOS 11+</p>
-    <p>PushDeer有Mac客户端，亦支持推送。可在Mac应用商店中搜索「PushDeer」安装。</p>
-    <p>Android</p>
-    <p>
-      快应用尚在开发，可下载并安装Android测试版APP(
-      <a style="color:blue" href="https://github.com/easychen/pushdeer/releases/tag/android1.0alpha">GitHub</a>
-      |<a style="color:blue" href="https://gitee.com/easychen/pushdeer/releases/android1.0alpha">Gitee</a>)。
-    </p>
-    <p>获取key</p>
-    <p>
-      <ol>
-        <li>
-          1. 通过apple账号（或微信账号·仅Android版支持）登录
-        </li>
-        <li>
-          2. 切换到「设备」标签页，点击右上角的加号，注册当前设备
-        </li>
-        <li>
-          3. 切换到「Key」标签页，点击右上角的加号，创建一个Key
-        </li>
-        <li>
-          4. 将获取的key填入输入框
-        </li>
-        <li>
-          5. 注意注册设备用到了device token，应用一旦重装，device token会变，所以需要重新注册一次。
-        </li>
-      </ol>
-    </p>
-    <!-- 通过访问后边的URL即可推送内容： -->
-    <!-- <p>https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容</p> -->
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="pushDeerDialogVisible = false">Cancel</el-button>
-        <el-button type="primary" @click="pushDeerDialogVisible = false">Confirm</el-button>
-      </span>
-    </template>
-  </el-dialog>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="serverchanDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="serverchanDialogVisible = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <el-dialog v-model="pushDeerDialogVisible" title="Tips" width="40%">
+      <p>iOS14+</p>
+      <p>苹果手机（iOS 14+）用系统摄像头扫描下方二维码即可拉起轻应用，亦可在苹果商店搜索「PushDeer」安装</p>
+      <p>(注意：这里不要安装PushDeer自架版)</p>
+      <el-image
+        alt="the ios pusherdeer install image"
+        :src="`${baseCdnUrl}img/pushdeer-resize.png`"
+        style="width:10vw"
+      />
+      <p>MacOS 11+</p>
+      <p>PushDeer有Mac客户端，亦支持推送。可在Mac应用商店中搜索「PushDeer」安装。</p>
+      <p>Android</p>
+      <p>
+        快应用尚在开发，可下载并安装Android测试版APP(
+        <a style="color:blue" href="https://github.com/easychen/pushdeer/releases/tag/android1.0alpha">GitHub</a>
+        |<a style="color:blue" href="https://gitee.com/easychen/pushdeer/releases/android1.0alpha">Gitee</a>)。
+      </p>
+      <p>获取key</p>
+      <p>
+        <ol>
+          <li>
+            1. 通过apple账号（或微信账号·仅Android版支持）登录
+          </li>
+          <li>
+            2. 切换到「设备」标签页，点击右上角的加号，注册当前设备
+          </li>
+          <li>
+            3. 切换到「Key」标签页，点击右上角的加号，创建一个Key
+          </li>
+          <li>
+            4. 将获取的key填入输入框
+          </li>
+          <li>
+            5. 注意注册设备用到了device token，应用一旦重装，device token会变，所以需要重新注册一次。
+          </li>
+        </ol>
+      </p>
+      <!-- 通过访问后边的URL即可推送内容： -->
+      <!-- <p>https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容</p> -->
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="pushDeerDialogVisible = false">Cancel</el-button>
+          <el-button type="primary" @click="pushDeerDialogVisible = false">Confirm</el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
+  <div class="info-dialog">
+    <el-dialog v-model="changeEmailDialogVisible" title="修改邮箱" width="30%">
+      <el-form ref="changeEmailForm" :model="changeEmailForm" :rules="changeEmailRules" label-width="80px">
+        <el-form-item label="邮箱" prop="userEmail">
+          <el-input v-model="changeEmailForm.userEmail" placeholder="请输入邮箱" />
+        </el-form-item>
+        <el-form-item label="验证码" prop="captcha">
+          <el-input v-model="changeEmailForm.captcha" placeholder="请输入验证码" />
+          <el-button type="primary" @click="getChangeEmailCaptcha">
+            获取验证码
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="changeEmailSubmit">
+            确定
+          </el-button>
+          <el-button @click="changeEmailDialogVisible = false">
+            取消
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <el-dialog v-model="changeMobileDialogVisible" title="修改手机号" width="30%">
+      <el-form ref="changeMobileForm" :model="changeMobileForm" :rules="changeMobileRules" label-width="80px">
+        <el-form-item label="手机号" prop="mobile">
+          <el-input v-model="changeMobileForm.mobile" placeholder="请输入手机号" />
+        </el-form-item>
+        <el-form-item label="验证码" prop="captcha">
+          <el-input v-model="changeMobileForm.captcha" placeholder="请输入验证码" />
+          <el-button type="primary" @click="getChangeMobileCaptcha">
+            获取验证码
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="changeMobileSubmit">
+            确定
+          </el-button>
+          <el-button @click="changeMobileDialogVisible = false">
+            取消
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup>
@@ -226,6 +278,9 @@ import { ElMessage } from 'element-plus'
 // import { Plus } from '@element-plus/icons-vue'
 import {
   changeInfoApi,
+  checkRepeatApi,
+  getCaptchaEmailApi,
+  getCaptchaSmsApi,
   getDictApi,
   getPusherSettingsApi,
   refreshApi,
@@ -249,15 +304,63 @@ const userInfo = store.state.userInfo
 const baseCdnUrl = store.state.BASE_CDN_URL
 const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 let sexDict = {}
-// const flag = ref(false)
-// const isChangeEmail = ref(false)
-// const isChangeMobile = ref(false)
-// const isChangePassword = ref(false)
+
+// settings dialog
 const wecomDialogVisible = ref(false)
 const dingtalkDialogVisible = ref(false)
 const feishuDialogVisible = ref(false)
 const serverchanDialogVisible = ref(false)
 const pushDeerDialogVisible = ref(false)
+
+// info dialog
+const changeEmailDialogVisible = ref(false)
+const changeMobileDialogVisible = ref(false)
+
+const changeEmailForm = reactive({
+  userEmail: '',
+  captcha: '',
+})
+const checkRepeatUserEmail = async(rule, value, callback) => {
+  const { userEmail } = changeEmailForm
+  if (!userEmail)
+    return
+  const { isRepeat } = await checkRepeatApi({ userEmail })
+  return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+}
+const changeEmailRules = {
+  userEmail: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'userEmail', message: '请输入正确的邮箱', trigger: 'blur' },
+    { validator: checkRepeatUserEmail, trigger: 'blur' },
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
+  ],
+}
+const changeMobileForm = reactive({
+  mobile: '',
+  captcha: '',
+})
+const checkRepeatMobile = async(rule, value, callback) => {
+  const { mobile } = changeMobileForm
+  if (!mobile)
+    return
+  const { isRepeat } = await checkRepeatApi({ mobile })
+  return isRepeat !== undefined ? callback(new Error('手机号已存在')) : callback()
+}
+const changeMobileRules = {
+  mobile: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { min: 11, max: 11, message: '手机号长度为11位', trigger: 'blur' },
+    { validator: checkRepeatMobile, trigger: 'blur' },
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
+  ],
+}
+
 const isVisitor = ref(true)
 const uploadData = ref({
   userId: userInfo.userId,
@@ -279,11 +382,56 @@ let pusherConfigForm = reactive({
   serverChanKey: '',
 })
 
-const isVisitorFn = () => {
-  if (userInfo.role === 2) {
-    isVisitor.value = false
-    console.log('isVisitor', isVisitor.value)
+const getChangeEmailCaptcha = async() => {
+  const res = await getCaptchaEmailApi({
+    userEmail: changeEmailForm.userEmail,
+  })
+  if (res)
+    ElMessage.success('验证码已发送')
+
+  else
+    ElMessage.error(res.msg)
+}
+const changeEmailSubmit = async() => {
+  const { state } = await changeInfoApi({
+    userEmail: changeEmailForm.userEmail,
+    captcha: changeEmailForm.captcha,
+  })
+  if (state === 1) {
+    ElMessage.success('修改成功')
+    changeEmailDialogVisible.value = false
   }
+  else {
+    ElMessage.error(res.msg)
+  }
+}
+const getChangeMobileCaptcha = async() => {
+  const res = await getCaptchaSmsApi({
+    mobile: changeMobileForm.mobile,
+  })
+  if (res)
+    ElMessage.success('验证码已发送')
+
+  else
+    ElMessage.error(res.msg)
+}
+const changeMobileSubmit = async() => {
+  const { state } = await changeInfoApi({
+    mobile: changeMobileForm.mobile,
+    captcha: changeMobileForm.captcha,
+  })
+  if (state === 1) {
+    ElMessage.success('修改成功')
+    changeMobileDialogVisible.value = false
+  }
+  else {
+    ElMessage.error(res.msg)
+  }
+}
+
+const isVisitorFn = () => {
+  if (userInfo.role === 2)
+    isVisitor.value = false
 }
 const updatePusherSettings = async() => {
   const data = await updatePusherSettingsApi(pusherConfigForm)
