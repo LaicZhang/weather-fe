@@ -3,17 +3,17 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 // import storage from '../util/storage'
 import Home from '@/views/Home.vue'
 import Welcome from '@/views/Welcome.vue'
-// import User from '@/views/User'
-// import MineInfo from '@/views/MineInfo'
-// import Notice from '@/views/Notice'
-// import Login from '@/views/Login'
-// import Register from '@/views/Register'
-// import Forget from '@/views/Forget'
-// import Sign from '@/views/Sign'
-// import Dashboard from '@/views/Dashboard'
-// import showData from '@/views/showData'
-// import SetDataConfig from '@/views/SetDataConfig'
-// import Pusher from '@/views/Pusher'
+import User from '@/views/User.vue'
+import MineInfo from '@/views/MineInfo.vue'
+import Notice from '@/views/Notice.vue'
+import Login from '@/views/Login.vue'
+import Register from '@/views/Register.vue'
+import Forget from '@/views/Forget.vue'
+import Sign from '@/views/Sign.vue'
+import Dashboard from '@/views/Dashboard.vue'
+import showData from '@/views/showData.vue'
+import SetDataConfig from '@/views/SetDataConfig.vue'
+import Pusher from '@/views/Pusher.vue'
 /**
  * @type {import('vue-router').RouteRecordRaw[]}
  * */
@@ -35,37 +35,43 @@ const routes = [
         name: 'info',
         path: '/system/userInfo',
         meta: { title: '个人信息' },
-        component: () => import('@/views/MineInfo.vue'),
+        // component: () => import('@/views/MineInfo.vue'),
+        component: MineInfo,
       },
       {
         name: 'user',
         path: '/system/user',
         meta: { title: '用户管理' },
-        component: () => import('@/views/User.vue'),
+        // component: () => import('@/views/User.vue'),
+        component: User,
       },
       {
         name: 'notice',
         path: '/system/notice',
         meta: { title: '公告管理' },
-        component: () => import('@/views/Notice.vue'),
+        // component: () => import('@/views/Notice.vue'),
+        component: Notice,
       },
       {
         name: 'pusher',
         path: '/system/pusher',
         meta: { title: '推送管理' },
-        component: () => import('@/views/Pusher.vue'),
+        // component: () => import('@/views/Pusher.vue'),
+        component: Pusher,
       },
       {
         name: 'showData',
         path: '/data/showData',
         meta: { title: '数据展示设置' },
-        component: () => import('@/views/showData.vue'),
+        // component: () => import('@/views/showData.vue'),
+        component: showData,
       },
       {
         name: 'SetDataConfig',
         path: '/data/SetDataConfig',
         meta: { title: '数据获取管理' },
-        component: () => import('@/views/SetDataConfig.vue'),
+        // component: () => import('@/views/SetDataConfig.vue'),
+        component: SetDataConfig,
       },
     ],
   },
@@ -73,31 +79,36 @@ const routes = [
     name: 'login',
     path: '/login',
     meta: { title: '登录页' },
-    component: () => import('@/views/Login.vue'),
+    // component: () => import('@/views/Login.vue'),
+    component: Login,
   },
   {
     name: 'register',
     path: '/register',
     meta: { title: '注册页' },
-    component: () => import('@/views/Register.vue'),
+    // component: () => import('@/views/Register.vue'),
+    component: Register,
   },
   {
     name: 'forget',
     path: '/forget',
     meta: { title: '忘记密码' },
-    component: () => import('@/views/Forget.vue'),
+    // component: () => import('@/views/Forget.vue'),
+    component: Forget,
   },
   {
     name: 'sign',
     path: '/sign',
     meta: { title: '登陆注册页' },
-    component: () => import('@/views/Sign.vue'),
+    // component: () => import('@/views/Sign.vue'),
+    component: Sign,
   },
   {
     name: 'dashboard',
     path: '/dashboard',
     meta: { title: '数据展示页' },
-    component: () => import('@/views/Dashboard.vue'),
+    // component: () => import('@/views/Dashboard.vue'),
+    component: Dashboard,
   },
   {
     name: '404',
