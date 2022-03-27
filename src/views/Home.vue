@@ -44,6 +44,7 @@ import { menuPermissionApi } from '../api'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
+import router from '@/router'
 export default defineComponent({
   name: 'HOME',
   components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },

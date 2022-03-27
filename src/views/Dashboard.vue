@@ -11,6 +11,7 @@
 import { getAllDataListApi } from '../api'
 import storage from '../util/storage'
 import store from '../store'
+import router from '../router'
 import Layout from './dashborad/Layout.vue'
 import backToSvg from '@/components/backTo/backToSvg'
 export default {
