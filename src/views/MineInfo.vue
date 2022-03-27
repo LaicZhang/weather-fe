@@ -284,6 +284,7 @@ import { ElMessage } from 'element-plus'
 // import { Plus } from '@element-plus/icons-vue'
 import {
   changeInfoApi,
+  checkCaptchaApi,
   checkRepeatApi,
   getCaptchaEmailApi,
   getCaptchaSmsApi,
@@ -399,7 +400,7 @@ const getChangeEmailCaptcha = async() => {
     ElMessage.error(res.msg)
 }
 const changeEmailSubmit = async() => {
-  const { state } = await changeInfoApi({
+  const { state } = await checkCaptchaApi({
     userId: userForm.userId,
     userEmail: changeEmailForm.userEmail,
     captcha: changeEmailForm.captcha,
@@ -424,7 +425,7 @@ const getChangeMobileCaptcha = async() => {
     ElMessage.error(res.msg)
 }
 const changeMobileSubmit = async() => {
-  const { state } = await changeInfoApi({
+  const { state } = await checkCaptchaApi({
     userId: userForm.userId,
     mobile: changeMobileForm.mobile,
     captcha: changeMobileForm.captcha,

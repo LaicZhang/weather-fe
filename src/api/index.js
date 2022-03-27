@@ -120,6 +120,9 @@ export const getCaptchaEmailApi = (data = {}) => {
 export const getCaptchaSmsApi = (data = {}) => {
   return request.post('/users/captchaSms', data, { mock: false })
 }
+export const checkCaptchaApi = (data = {}) => {
+  return request.post('/users/checkCaptcha', data, { mock: false })
+}
 
 // 删除单个或多个 `userIds:[userId,userId...]`
 export const deleteUserApi = (data = {}) => {
