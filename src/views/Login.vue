@@ -33,7 +33,7 @@
         <el-checkbox v-model="userForm.isRememberMe" label="记住我" border />
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" class="login-submit" @click="userFromCommit">
+        <el-button type="primary" class="login-submit" size="large" @click="userFromCommit">
           登录
         </el-button>
       </el-form-item>
@@ -44,7 +44,7 @@
 <script>
 import { defineComponent, onBeforeMount, onMounted, reactive, ref } from 'vue'
 import useVuexWithRouter from '@/hooks/useVuexWithRouter'
-import { getIpApi, getRequestApi, loginApi, menuPermissionApi } from '@/api'
+import { getIpApi, loginApi, menuPermissionApi } from '@/api'
 
 export default defineComponent({
   name: 'LoginPage',
@@ -118,24 +118,8 @@ export default defineComponent({
       console.log('userForm=>', userForm)
       userFromCommit()
     }
-    // let host = 'https://weather-api.zyha.cn';
-    // let host = ''
-    // const getRequest = async () => {
-    //   const {header} = await getRequestApi();
-    //   host = header.host;
-    // };
     const componentKey = ref(0)
-    // captchaRef.value = '/api/auth/captcha/1/';
-    // console.log('captchaRef.value=>', captchaRef.value);
-    // const changeCaptcha = () => {
-    // let randomNumber = Math.floor(Math.random()*10);
-    // captchaRef.value = `${host}api/auth/captcha/${randomNumber}/`;
-    // console.log('captchaRef=>', captchaRef.value);
-    // location.reload();
-    // componentKey.value++;
-    // };
     onMounted(() => {
-      // getRequest();
       getIpApi()
     })
     return {
@@ -145,7 +129,6 @@ export default defineComponent({
       userFormRef,
       userForm,
       userRules,
-      // getRequest,
       userFromCommit,
       toRegister,
       toForget,
@@ -176,6 +159,8 @@ export default defineComponent({
       }
       .login-submit {
         width: 100%;
+        display: block;
+        margin: 0 auto;
       }
     }
   }
