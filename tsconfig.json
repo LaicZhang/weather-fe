@@ -19,6 +19,7 @@
     "types": [
       "vite/client",
       "vue/ref-macros",
+      "unplugin-icons/types/vue",
     ],
     "paths": {
       "@/*": ["src/*"],

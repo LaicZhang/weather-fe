@@ -5,6 +5,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
+import Icons from 'unplugin-icons/vite'
 
 let server = {}
 const env = 'development' // 设置环境 development production
@@ -120,6 +121,7 @@ export default defineConfig({
     // chunkSplitPlugin({
     // strategy: 'unbundle',
     // }),
+    Icons({ autoInstall: true, compiler: 'vue3' }),
     visualizer(),
     AutoImport({
       resolvers: [ElementPlusResolver()],

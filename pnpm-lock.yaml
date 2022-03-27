@@ -3,10 +3,11 @@ lockfileVersion: 5.3
 specifiers:
   '@antfu/eslint-config': ^0.18.8
   '@element-plus/icons-vue': ^0.2.7
+  '@iconify/json': ^2.1.20
   '@types/lodash-es': '*'
   '@types/node': ^17.0.23
   '@vitejs/plugin-vue': ^2.0.0
-  '@vue/compiler-sfc': ^3.0.5
+  '@vue/compiler-sfc': ^3.2.31
   '@vueuse/core': 5.3.0
   autoprefixer: ^10.4.2
   axios: ^0.25.0
@@ -50,6 +51,7 @@ dependencies:
 
 devDependencies:
   '@antfu/eslint-config': 0.18.8_eslint@8.11.0+typescript@4.6.2
+  '@iconify/json': 2.1.20
   '@types/node': 17.0.23
   '@vitejs/plugin-vue': 2.2.0_vite@2.8.6+vue@3.2.31
   '@vue/compiler-sfc': 3.2.31
@@ -231,6 +233,17 @@ packages:
 
   /@humanwhocodes/object-schema/1.2.1:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
+    dev: true
+
+  /@iconify/json/2.1.20:
+    resolution: {integrity: sha512-UIxSAbo5e2s/p6jkIFgNR2Je6DpJdO5WOdqYmuxx3Je0r4BVXq6+UJ+t49OsB1AlKzSZscHQ4tvFLrXIWvWCyA==}
+    dependencies:
+      '@iconify/types': 1.1.0
+      pathe: 0.0.2
+    dev: true
+
+  /@iconify/types/1.1.0:
+    resolution: {integrity: sha512-Jh0llaK2LRXQoYsorIH8maClebsnzTcve+7U3rQUSnC11X4jtPnFuyatqFLvMxZ8MLG8dB4zfHsbPfuvxluONw==}
     dev: true
 
   /@nodelib/fs.scandir/2.1.5:
@@ -2487,6 +2500,10 @@ packages:
   /path-type/4.0.0:
     resolution: {integrity: sha512-gDKb8aZMDeD/tZWs9P6+q0J9Mwkdl6xMV8TjnGP3qJVJ06bdMgkbBlLU8IdfOsIsFz2BW1rNVT3XuNEl8zPAvw==}
     engines: {node: '>=8'}
+    dev: true
+
+  /pathe/0.0.2:
+    resolution: {integrity: sha512-mmK20YtPb4yXHlaPuOD/uPIpRu7iIK45GA/GiRSlNpIdfWDG5aEQmFT1HHtBmJB+t/6DvFOtOsEipsPA8Bx2cw==}
     dev: true
 
   /picocolors/1.0.0:
