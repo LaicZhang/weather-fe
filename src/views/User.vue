@@ -94,11 +94,7 @@
           />
         </el-form-item>
         <el-form-item label="邮箱" prop="userEmail">
-          <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" :disabled="isEdit">
-            <template #append>
-              @qq.com
-            </template>
-          </el-input>
+          <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" :disabled="isEdit" />
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
           <el-input v-model="addUserFrom.mobile" placeholder="请输入手机号" />
@@ -208,21 +204,43 @@ export default defineComponent({
     const roleList = ref([])
     const deptList = ref([])
     const addUserFromRules = {
-      userName: {
+      userName: [{
         required: true,
         message: '必须填写用户名',
         trigger: 'blur',
-      },
-      userEmail: {
+      }, {
+        min: 3,
+        max: 18,
+        message: '长度在 3 到 18 个字符',
+        trigger: 'blur',
+      }],
+      userEmail: [{
         required: true,
         message: '必须填写邮箱',
         trigger: 'blur',
-      },
-      mobile: {
+      }, {
+        type: 'email',
+        message: '邮箱格式不正确',
+        trigger: 'blur',
+      }],
+      mobile: [{
         pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
         message: '手机号格式错误',
         trigger: 'blur',
-      },
+      }, {
+        required: true,
+        message: '必须填写手机号',
+        trigger: 'blur',
+      }, {
+        type: 'number',
+        message: '手机号格式错误',
+        trigger: 'blur',
+      }, {
+        min: 11,
+        max: 11,
+        message: '手机号长度错误',
+        trigger: 'blur',
+      }],
     }
     // api
     const getUserList = async() => {
@@ -251,13 +269,6 @@ export default defineComponent({
     }
     const addUser = async() => {
       const userFormRaw = toRaw(addUserFrom)
-      const str = userFormRaw.userEmail
-      const len = str.length
-      if (str.substr(len - 7, len) == '@qq.com')
-        userFormRaw.userEmail = str
-      else
-        userFormRaw.userEmail = `${str}@qq.com`
-
       return addUserApi(userFormRaw)
     }
     const editUser = async() => {
