@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "ESNext",
-    "target": "es2017",
+    "target": "es2016",
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "esModuleInterop": true,
@@ -15,16 +15,16 @@
     "strictNullChecks": true,
     "allowJs": true,
     "checkJs": false,
-    "forceConsistentCasingInFileNames": true,
+    "forceConsistentCasingInFileNames": false,
+    "allowSyntheticDefaultImports": true,
+    "types": [
+      "vite/client",
+      "vue/ref-macros",
+    ],
     "paths": {
       "@/*": ["src/*"],
       "@components/*": ["src/components/*"],
     }
   },
-  "exclude": [
-    "**/dist",
-    "**/node_modules",
-    "**/test",
-    "dist"
-  ],
+  "exclude": ["dist", "node_modules", "cypress"],
 }
