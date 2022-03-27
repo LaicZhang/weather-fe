@@ -73,7 +73,7 @@
 <script>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
-import useVuexWithRouter from '@/hooks/useVuexWithRoutertjs'
+import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
 export default defineComponent({
   name: 'Register',

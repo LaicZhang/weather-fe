@@ -15,7 +15,7 @@
     "strictNullChecks": true,
     "allowJs": true,
     "checkJs": false,
-    "forceConsistentCasingInFileNames": false,
+    "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "types": [
       "vite/client",
