@@ -1,17 +1,17 @@
 import config from '../config'
-const namespace = config.namespace
+const namespace: string = config.namespace
 
 export default {
-  setItem(key, val) {
+  setItem(key: string, val: string) {
     const storage = getStorage()
     storage[key] = val
     setStorage(storage)
   },
-  getItem(key) {
+  getItem(key: string) {
     const storage = getStorage()
     return storage[key] || {}
   },
-  clearItem(key) {
+  clearItem(key: string) {
     const storage = getStorage()
     Reflect.deleteProperty(storage, key)
     setStorage(storage)
@@ -21,8 +21,8 @@ export default {
   },
 }
 function getStorage() {
-  return JSON.parse(window.localStorage.getItem(namespace)) || {}
+  return JSON.parse(window.localStorage.getItem(namespace) as any) || {}
 }
-function setStorage(obj) {
+function setStorage(obj: any) {
   window.localStorage.setItem(namespace, JSON.stringify(obj))
 }

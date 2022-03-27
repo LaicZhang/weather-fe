@@ -1,12 +1,12 @@
 const LazyLoad = {
   // install方法
-  install(Vue, options) {
+  install(Vue: any, options: any) {
     const defaultSrc = options.default
     Vue.directive('lazy', {
-      bind(el, binding) {
+      bind(el: any, binding: any) {
         LazyLoad.init(el, binding.value, defaultSrc)
       },
-      inserted(el) {
+      inserted(el: any) {
         if (IntersectionObserver)
           LazyLoad.observe(el)
         else
@@ -15,12 +15,12 @@ const LazyLoad = {
     })
   },
   // 初始化
-  init(el, val, def) {
+  init(el: any, val: any, def: any) {
     el.setAttribute('data-src', val)
     el.setAttribute('src', def)
   },
   // 利用IntersectionObserver监听el
-  observe(el) {
+  observe(el: any) {
     const io = new IntersectionObserver((entries) => {
       const realSrc = el.dataset.src
       if (entries[0].isIntersecting) {
@@ -33,7 +33,7 @@ const LazyLoad = {
     io.observe(el)
   },
   // 监听scroll事件
-  listenerScroll(el) {
+  listenerScroll(el: any) {
     const handler = LazyLoad.throttle(LazyLoad.load, 300)
     LazyLoad.load(el)
     window.addEventListener('scroll', () => {
@@ -41,7 +41,7 @@ const LazyLoad = {
     })
   },
   // 加载真实图片
-  load(el) {
+  load(el: any) {
     const windowHeight = document.documentElement.clientHeight
     const elTop = el.getBoundingClientRect().top
     const elBtm = el.getBoundingClientRect().bottom
@@ -54,10 +54,10 @@ const LazyLoad = {
     }
   },
   // 节流
-  throttle(fn, delay) {
-    let timer
-    let prevTime
-    return function(...args) {
+  throttle(fn: any, delay: any) {
+    let timer: any
+    let prevTime: any
+    return (...args: any) => {
       const currTime = Date.now()
       if (!prevTime) prevTime = currTime
       clearTimeout(timer)

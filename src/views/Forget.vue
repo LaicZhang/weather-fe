@@ -71,7 +71,7 @@
 import { reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import { ElMessage } from 'element-plus'
-import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import useVuexWithRouter from '@/hooks/useVuexWithRoutertjs'
 import { changePasswordApi, sendCaptchaEmailApi, sendCaptchaSmsApi } from '@/api'
 
 const methodsRadio = ref('邮件')

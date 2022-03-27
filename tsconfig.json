@@ -14,7 +14,7 @@
     "noUnusedLocals": true,
     "strictNullChecks": true,
     "allowJs": true,
-    // "checkJs": true,
+    "checkJs": false,
     "forceConsistentCasingInFileNames": true,
     "types": [
       "vite/client",

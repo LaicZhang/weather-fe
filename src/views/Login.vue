@@ -43,7 +43,7 @@
 
 <script>
 import { defineComponent, onBeforeMount, onMounted, reactive, ref } from 'vue'
-import useVuexWithRouter from '@/hooks/useVuexWithRouter'
+import useVuexWithRouter from '@/hooks/useVuexWithRoutertjs'
 import { getIpApi, loginApi, menuPermissionApi } from '@/api'
 
 export default defineComponent({

@@ -1,6 +1,6 @@
 import storage from '../util/storage'
 const directive = {
-  beforeMount(el, { value }) {
+  beforeMount(el: any, { value }: any) {
     const actionList = storage.getItem('actionList')
     if (!actionList.includes(value)) {
       el.style.display = 'none'

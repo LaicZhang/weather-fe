@@ -1,6 +1,6 @@
 const debounce = {
-  inserted(el, binding) {
-    let timer
+  inserted(el: any, binding: any) {
+    let timer: any
     el.addEventListener('keyup', () => {
       if (timer)
         clearTimeout(timer)

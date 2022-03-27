@@ -2,7 +2,7 @@ import axios from 'axios'
 import { ElMessage } from 'element-plus'
 import config from '../config'
 import router from '../router'
-import storage from '../util/storage'
+import storage from './storage'
 
 const TOKEN_INVALID = 'Token认证失败，请重新登录'
 const NETWORK_ERROR = '网络请求异常，请稍后重试'
@@ -16,7 +16,7 @@ const service = axios.create({
 
 // 请求拦截
 service.interceptors.request.use((req) => {
-  const headers = req.headers
+  const headers: any = req.headers
   const userInfo = storage.getItem('userInfo')
   if (!headers.Authorization)
     headers.Authorization = `Bearer ${userInfo.token}`
@@ -45,7 +45,7 @@ service.interceptors.response.use((res) => {
  * 请求核心函数
  * @param {*} options 请求配置
  */
-function request(options) {
+function request(options: any) {
   options.method = options.method || 'get'
   if (options.method.toLowerCase() === 'get')
     options.params = options.data
@@ -63,7 +63,7 @@ function request(options) {
 }
 // 支持 request.get ...
 ['get', 'post', 'put', 'delete', 'patch'].forEach((method) => {
-  request[method] = (url, data, options) => {
+  (request as any)[method] = (url: string, data: any, options: any) => {
     return request({
       url,
       data,
@@ -72,4 +72,4 @@ function request(options) {
     })
   }
 })
-export default request
+export default request as any

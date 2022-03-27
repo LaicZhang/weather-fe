@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 // import { menuPermissionApi } from '../api'
-import storage from '../util/storage'
-import Home from '@/views/Home'
-import Welcome from '@/views/Welcome'
+// import storage from '../util/storage'
+import Home from '@/views/Home.vue'
+import Welcome from '@/views/Welcome.vue'
 // import User from '@/views/User'
 // import MineInfo from '@/views/MineInfo'
 // import Notice from '@/views/Notice'
@@ -35,37 +35,37 @@ const routes = [
         name: 'info',
         path: '/system/userInfo',
         meta: { title: '个人信息' },
-        component: () => import('@/views/MineInfo'),
+        component: () => import('@/views/MineInfo.vue'),
       },
       {
         name: 'user',
         path: '/system/user',
         meta: { title: '用户管理' },
-        component: () => import('@/views/User'),
+        component: () => import('@/views/User.vue'),
       },
       {
         name: 'notice',
         path: '/system/notice',
         meta: { title: '公告管理' },
-        component: () => import('@/views/Notice'),
+        component: () => import('@/views/Notice.vue'),
       },
       {
         name: 'pusher',
         path: '/system/pusher',
         meta: { title: '推送管理' },
-        component: () => import('@/views/Pusher'),
+        component: () => import('@/views/Pusher.vue'),
       },
       {
         name: 'showData',
         path: '/data/showData',
         meta: { title: '数据展示设置' },
-        component: () => import('@/views/showData'),
+        component: () => import('@/views/showData.vue'),
       },
       {
         name: 'SetDataConfig',
         path: '/data/SetDataConfig',
         meta: { title: '数据获取管理' },
-        component: () => import('@/views/SetDataConfig'),
+        component: () => import('@/views/SetDataConfig.vue'),
       },
     ],
   },
@@ -73,31 +73,31 @@ const routes = [
     name: 'login',
     path: '/login',
     meta: { title: '登录页' },
-    component: () => import('@/views/Login'),
+    component: () => import('@/views/Login.vue'),
   },
   {
     name: 'register',
     path: '/register',
     meta: { title: '注册页' },
-    component: () => import('@/views/Register'),
+    component: () => import('@/views/Register.vue'),
   },
   {
     name: 'forget',
     path: '/forget',
     meta: { title: '忘记密码' },
-    component: () => import('@/views/Forget'),
+    component: () => import('@/views/Forget.vue'),
   },
   {
     name: 'sign',
     path: '/sign',
     meta: { title: '登陆注册页' },
-    component: () => import('@/views/Sign'),
+    component: () => import('@/views/Sign.vue'),
   },
   {
     name: 'dashboard',
     path: '/dashboard',
     meta: { title: '数据展示页' },
-    component: () => import('@/views/Dashboard'),
+    component: () => import('@/views/Dashboard.vue'),
   },
   {
     name: '404',
@@ -113,17 +113,17 @@ const router = createRouter({
 })
 // 加载动态路由
 // await loadAsyncRoutes();
-router.beforeEach(async(to, from, next) => {
-  // const valid = tokenValidate()
-  // if (to.path === "/login" || valid) {
-  //   next();
-  //   // await loadAsyncRoutes();
-  // } else {
-  //   next({ name: "login" });
-  // }
-  document.title = to.meta.title
-  next()
-})
+// router.beforeEach(async(to, from, next) => {
+//   // const valid = tokenValidate()
+//   // if (to.path === "/login" || valid) {
+//   //   next();
+//   //   // await loadAsyncRoutes();
+//   // } else {
+//   //   next({ name: "login" });
+//   // }
+//   document.title = to.meta.title
+//   next()
+// })
 
 // export async function loadAsyncRoutes() {
 //   const valid = tokenValidate()
@@ -144,35 +144,35 @@ router.beforeEach(async(to, from, next) => {
 //   }
 // }
 
-function generatorRoutes(menuList) {
-  const result = []
-  const deep = (list) => {
-    while (list.length) {
-      const item = list.pop()
-      if (item.action) {
-        result.push({
-          name: item.component,
-          path: item.path,
-          meta: { title: item.menuName },
-          component: item.component,
-        })
-      }
-      if (item.children && !item.action)
-        deep(item.children)
-    }
-  }
-  deep(JSON.parse(JSON.stringify(menuList)))
-  return result
-}
-function tokenValidate() {
-  const userInfo = storage.getItem('userInfo') || {}
-  // if (userInfo.token) {
-  //   return true;
-  // } else {
-  //   return false;
-  // }
-  return !!userInfo.token
-}
-window.router = router
+// function generatorRoutes(menuList) {
+//   const result = []
+//   const deep = (list) => {
+//     while (list.length) {
+//       const item = list.pop()
+//       if (item.action) {
+//         result.push({
+//           name: item.component,
+//           path: item.path,
+//           meta: { title: item.menuName },
+//           component: item.component,
+//         })
+//       }
+//       if (item.children && !item.action)
+//         deep(item.children)
+//     }
+//   }
+//   deep(JSON.parse(JSON.stringify(menuList)))
+//   return result
+// }
+// function tokenValidate() {
+//   const userInfo = storage.getItem('userInfo') || {}
+//   // if (userInfo.token) {
+//   //   return true;
+//   // } else {
+//   //   return false;
+//   // }
+//   return !!userInfo.token
+// }
+// window.router = router
 
 export default router

@@ -3,7 +3,7 @@ import emoji from './utils/noEmoji'
 import LazyLoad from './utils/lazyLoad'
 import copy from './utils/copyText'
 
-const directives = {
+const directives: any = {
   debounce,
   emoji,
   LazyLoad,
@@ -11,7 +11,7 @@ const directives = {
 }
 
 export default {
-  install(Vue) {
+  install(Vue: any) {
     Object.keys(directives).forEach((key) => {
       Vue.directive(key, directives[key])
     })
