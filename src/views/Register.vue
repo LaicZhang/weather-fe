@@ -113,15 +113,15 @@ export default defineComponent({
     //   }, 100)
     // }
     const checkRepeatUserName = async(rule, value, callback) => {
-      const { userName, userEmail } = userForm
-      if (!userName || !userEmail)
+      const { userName } = userForm
+      if (!userName)
         return
       const { isRepeat } = await checkRepeatApi({ userName })
       return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
     }
     const checkRepeatUserEmail = async(rule, value, callback) => {
-      const { userName, userEmail } = userForm
-      if (!userName || !userEmail)
+      const { userEmail } = userForm
+      if (!userEmail)
         return
       const { isRepeat } = await checkRepeatApi({ userEmail })
       return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
