@@ -103,11 +103,11 @@ export const userListApi = (data = {}) => {
 export const userAllListApi = (data = {}) => {
   return request.get('/users/all/list', data, { mock: false })
 }
-export const addUserApi = (data = {}) => {
+export const addUserApi = (data: any = {}) => {
   data.action = 'add'
   return request.post('/users/operate', data, { mock: false })
 }
-export const editUserApi = (data = {}) => {
+export const editUserApi = (data: any = {}) => {
   data.action = 'edit'
   return request.post('/users/operate', data, { mock: false })
 }
@@ -150,7 +150,10 @@ export const showDataApi = (data = {}) => {
   return request.get('/data/showData', data, { mock: false })
 }
 export const getWeatherListApi = (data = {}) => {
-  return request.post('/data/WeatherList', data, { mock: false })
+  return request.post('/data/weatherList', data, { mock: false })
+}
+export const getWeatherLikeApi = (data = {}) => {
+  return request.get('/data/weatherLike', data, { mock: false })
 }
 // 数据获取管理
 export const getDataApi = (data = {}) => {
