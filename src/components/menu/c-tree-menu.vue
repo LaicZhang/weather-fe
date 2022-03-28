@@ -7,7 +7,7 @@
           menu.children[0].menuType == '1'
       "
       :key="index"
-      :index="menu.path.replace('%2F', '/').replace('=', '')"
+      :index="menu.path"
       default-openeds="[0]"
     >
       <template #title>
@@ -19,7 +19,7 @@
     <el-menu-item
       v-else-if="menu.menuType !== '2'"
       :key="-index"
-      :index="menu.path.replace('%2F', '/').replace('=', '')"
+      :index="menu.path"
     >
       {{
         menu.menuName
@@ -42,21 +42,6 @@ export default defineComponent({
       default: () => {
         return []
       },
-    },
-  },
-  mounted() {
-    // console.log('CTreeMenu mounted')
-    this.menus.forEach((menu) => {
-      if (menu.children && menu.children.length > 0) {
-        menu.children.forEach((child) => {
-          child.path = this.resolvePath(child.path)
-        })
-      }
-    })
-  },
-  methods: {
-    resolvePath(path) {
-      return path.replace('%2F', '/').replace('=', '')
     },
   },
 })

@@ -14,9 +14,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import showData from '@/views/showData.vue'
 import SetDataConfig from '@/views/SetDataConfig.vue'
 import Pusher from '@/views/Pusher.vue'
-/**
- * @type {import('vue-router').RouteRecordRaw[]}
- * */
+
 const routes = [
   {
     name: 'home',
@@ -184,6 +182,6 @@ const router = createRouter({
 //   // }
 //   return !!userInfo.token
 // }
-// window.router = router
+window.router = router
 
 export default router
