@@ -151,7 +151,7 @@ export default {
     .loading {
       height: 290px;
       width: 100%;
-      background: url(https://code-1307161657.cos.ap-beijing.myqcloud.com/images%2Fload.gif) no-repeat center;
+      background: url(https://code-1307161657.cos.ap-beijing.myqcloud.com/images/load.gif) no-repeat center;
     }
     > span {
       width: 130px;
