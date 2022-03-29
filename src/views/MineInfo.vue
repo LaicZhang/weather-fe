@@ -289,6 +289,7 @@ import {
   getCaptchaEmailApi,
   getCaptchaSmsApi,
   getPusherSettingsApi,
+  getUserInfoApi,
   refreshApi,
   updatePusherSettingsApi,
 } from '../api'
@@ -465,22 +466,16 @@ const refreshInfo = async() => {
   console.log('refreshInfo=>', data)
   store.commit('setUserInfo', data)
 }
-const getUserInfo = () => {
-  request
-    .get('/users/info', { userId: userInfo.userId })
-    .then((res) => {
-      Object.assign(userForm, res)
-      if (userForm.sex === 1)
-        userForm.sexText = '男'
-      else
-        userForm.sexText = '女'
+const getUserInfo = async() => {
+  const data = await getUserInfoApi({ userId: userInfo.userId })
+  Object.assign(userForm, data)
+  if (userForm.sex === 1)
+    userForm.sexText = '男'
+  else
+    userForm.sexText = '女'
 
-      userForm.createTime = util.formateDate(new Date(userForm.createTime))
-      userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
-    })
-    .catch(() => {
-      console.error('获取用户信息失败')
-    })
+  userForm.createTime = util.formateDate(new Date(userForm.createTime))
+  userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
 }
 const resetForm = () => {
   getUserInfo()
