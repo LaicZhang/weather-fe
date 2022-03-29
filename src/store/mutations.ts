@@ -23,6 +23,12 @@ export default {
   setNoticeCount(state: any, count: number | string) {
     state.noticeCount = count
   },
+  setIp(state: any, ip: string) {
+    state.ip = ip
+  },
+  setLocation(state: any, location: string) {
+    state.location = location
+  },
   changeTheme(state: any) {
     if (state.theme === 'chalk')
       state.theme = 'vintage'

@@ -25,7 +25,7 @@ const routes = [
     children: [
       {
         name: 'welcome',
-        path: 'welcome',
+        path: '/welcome',
         meta: { title: '欢迎页' },
         component: Welcome,
       },
@@ -182,6 +182,6 @@ const router = createRouter({
 //   // }
 //   return !!userInfo.token
 // }
-window.router = router
+// window.router = router
 
 export default router

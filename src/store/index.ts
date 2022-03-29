@@ -11,6 +11,8 @@ const state = {
   theme: 'chalk',
   BASE_CDN_URL: 'https://cdn.zyha.cn/',
   UPLOAD_CDN_URL: 'https://cdn.zyha.cn/public/upload/',
+  ip: '',
+  location: '',
 }
 const getters = {}
 export default createStore({
