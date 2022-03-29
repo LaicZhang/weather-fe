@@ -39,10 +39,6 @@ export const getLocationApi = (data = {}) => {
   return request.get('/auth/location', data, { mock: false })
 }
 
-export const getDictApi = (item = '', data = {}) => {
-  return request.get(`/dict?item=${item}`, data, { mock: false })
-}
-
 // 通知管理
 export const addNoticeApi = (data = {}) => {
   return request.post('/notices/add', data, { mock: false })

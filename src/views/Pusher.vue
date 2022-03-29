@@ -237,7 +237,6 @@ import {
   addPusherApi,
   deletePusherApi,
   editPusherApi,
-  getDictApi,
   getIpApi,
   getLocationApi,
   immediatelyPushApi,
@@ -245,6 +244,7 @@ import {
   pusherListApi,
   rolesAllListApi,
 } from '../api'
+import { getDictApi } from '../api/dict'
 import util from '../util/utils'
 import storage from '@/util/storage'
 export default defineComponent({

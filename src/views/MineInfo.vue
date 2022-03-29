@@ -62,7 +62,7 @@
         <el-col :span="24">
           <el-form-item>
             <el-button type="primary" @click="onSubmit(userForm)">
-              提交
+              保存修改
             </el-button>
             <el-button @click="resetForm">
               撤销修改
@@ -288,11 +288,11 @@ import {
   checkRepeatApi,
   getCaptchaEmailApi,
   getCaptchaSmsApi,
-  getDictApi,
   getPusherSettingsApi,
   refreshApi,
   updatePusherSettingsApi,
 } from '../api'
+import { getDictApi } from '../api/dict'
 import util from '../util/utils'
 import request from '@/util/request'
 import store from '@/store'
@@ -409,7 +409,7 @@ const changeEmailSubmit = async() => {
     captcha: changeEmailForm.captcha,
   })
   if (state === 1) {
-    ElMessage.success('修改成功')
+    ElMessage.success('验证成功，请保存本次修改')
     userForm.userEmail = changeEmailForm.userEmail
     changeEmailDialogVisible.value = false
   }
@@ -434,8 +434,8 @@ const changeMobileSubmit = async() => {
     captcha: changeMobileForm.captcha,
   })
   if (state === 1) {
-    ElMessage.success('修改成功')
-    userForm.usermobile = changeMobileForm.mobile
+    ElMessage.success('验证成功，请保存本次修改')
+    userForm.mobile = changeMobileForm.mobile
     changeMobileDialogVisible.value = false
   }
   else {
@@ -467,7 +467,7 @@ const refreshInfo = async() => {
 }
 const getUserInfo = () => {
   request
-    .get('/users/info', { userName: userInfo.userName })
+    .get('/users/info', { userId: userInfo.userId })
     .then((res) => {
       Object.assign(userForm, res)
       if (userForm.sex === 1)
@@ -533,6 +533,7 @@ onMounted(() => {
       line-height: 45px;
       width: 30vw;
       height: 80vh;
+      overflow-y: auto;
       .avatar{
         width: 80px;
         height: 80px;
