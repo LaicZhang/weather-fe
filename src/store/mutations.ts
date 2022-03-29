@@ -29,6 +29,9 @@ export default {
   setLocation(state: any, location: string) {
     state.location = location
   },
+  setCondition(state: any, condition: string) {
+    state.condition = condition
+  },
   changeTheme(state: any) {
     if (state.theme === 'chalk')
       state.theme = 'vintage'

@@ -13,6 +13,7 @@ const state = {
   UPLOAD_CDN_URL: 'https://cdn.zyha.cn/public/upload/',
   ip: '',
   location: '',
+  condition: '',
 }
 const getters = {}
 export default createStore({
