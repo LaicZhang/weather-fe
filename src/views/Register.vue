@@ -15,6 +15,7 @@
         <el-input
           v-model="userForm.userName"
           type="text"
+          clearable
           placeholder="请输入用户名"
           prefix-icon="el-icon-user"
           @change="checkRepeatUserName"
@@ -43,6 +44,7 @@
         <el-input
           v-model="userForm.userPwd"
           type="password"
+          clearable
           placeholder="请输入密码"
           prefix-icon="el-icon-lock"
         />
@@ -53,6 +55,7 @@
         <el-input
           v-model="userForm.userConfirmPwd"
           type="password"
+          clearable
           placeholder="请确认密码"
           prefix-icon="el-icon-lock"
         />
@@ -61,6 +64,7 @@
         <el-input
           v-model="userForm.captcha"
           type="text"
+          clearable
           placeholder="请输入验证码"
           style="width: 20vw;"
         />
@@ -97,26 +101,6 @@ const userForm = reactive({
   userPwd: '',
 })
 
-// const checkPhone = (rule, value, callback) => {
-//   const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
-//   if (!value)
-//     return callback(new Error('电话号码不能为空'))
-
-//   setTimeout(() => {
-//   // Number.isInteger是es6验证数字是否为整数的方法,但是实际用的时候输入的数字总是识别成字符串
-//   // 所以在加了一个+实现隐式转换
-//     if (!Number.isInteger(+value)) {
-//       callback(new Error('请输入数字值'))
-//     }
-//     else {
-//       if (phoneReg.test(value))
-//         callback()
-
-//       else
-//         callback(new Error('电话号码格式不正确'))
-//     }
-//   }, 100)
-// }
 const checkRepeatUserName = async(rule, value, callback) => {
   const { userName } = userForm
   if (!userName)
@@ -125,8 +109,6 @@ const checkRepeatUserName = async(rule, value, callback) => {
   // return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
   if (isRepeat)
     return callback(new Error('用户名已存在'))
-  else
-    return callback()
 }
 const checkRepeatUserEmail = async(rule, value, callback) => {
   const { userEmail } = userForm
@@ -136,8 +118,6 @@ const checkRepeatUserEmail = async(rule, value, callback) => {
   // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
   if (isRepeat)
     return callback(new Error('邮箱已存在'))
-  else
-    return callback()
 }
 const userRules = {
   userName: [
@@ -147,6 +127,8 @@ const userRules = {
       trigger: 'blur',
     },
     { validator: checkRepeatUserName, trigger: 'blur' },
+    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+    { pattern: /^[a-zA-Z]+$/, message: '只能是字母', trigger: 'blur' },
   ],
   userEmail: [
     {
@@ -185,9 +167,9 @@ const getMenuPermission = async() => {
 }
 const arr = [
   { value: '@qq.com' },
+  { value: '@gmail.com' },
   { value: '@126.com' },
   { value: '@163.com' },
-  { value: '@gmail.com' },
   { value: '@hotmail.com' },
   { value: '@yahoo.com' },
   { value: '@sohu.com' },
@@ -197,6 +179,7 @@ const arr = [
 ]
 const querySearch = (queryString, callback) => {
   const results = []
+  queryString = queryString.toLowerCase()
 
   for (const item in arr)
     results[item] = `${queryString}${arr[item].value}`
@@ -224,9 +207,7 @@ const userFromCommit = () => {
   })
 }
 const sendCaptchaEmail = async() => {
-  console.log('userForm', userForm)
   const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
-  console.log('sendCaptchaEmail=>', data)
 }
 const toLogin = () => {
   router.push('/login')

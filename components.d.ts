@@ -12,6 +12,8 @@ declare module 'vue' {
     CountDownTime: typeof import('./src/components/countDown/countDownTime.vue')['default']
     CTreeMenu: typeof import('./src/components/menu/c-tree-menu.vue')['default']
     CUserDropdown: typeof import('./src/components/dropdown/c-user-dropdown.vue')['default']
+    ElAu: typeof import('element-plus/es')['ElAu']
+    ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElBadge: typeof import('element-plus/es')['ElBadge']
     ElBreadcrumb: typeof import('element-plus/es')['ElBreadcrumb']
     ElBreadcrumbItem: typeof import('element-plus/es')['ElBreadcrumbItem']
