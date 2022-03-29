@@ -11,12 +11,13 @@
 - Vue Router
 - Vuex
 - Element-plus
-- Echarts
+- Echarts5
 - Axios
+- Typescript
 
 ### 后端
 - Koa2
-- Python
+- Python3
 
 ### 数据库
 - MongoDB
