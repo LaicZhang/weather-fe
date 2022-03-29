@@ -21,13 +21,23 @@
         />
       </el-form-item>
       <el-form-item prop="userEmail">
-        <el-input
+        <el-autocomplete
           v-model="userForm.userEmail"
           type="text"
+          style="width: 28vw;"
           placeholder="请输入邮箱"
           prefix-icon="el-icon-email"
-          @change="checkRepeatUserEmail"
-        />
+          clearable
+          :fetch-suggestions="querySearch"
+          :trigger-on-focus="false"
+          @select="handleSelect"
+        >
+          <template #default="{ item }">
+            <div class="user-email-value">
+              {{ item }}
+            </div>
+          </template>
+        </el-autocomplete>
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
@@ -70,154 +80,157 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
-export default defineComponent({
-  name: 'Register',
-  components: {
-    PasswordMeter,
-  },
-  setup() {
-    const { router, store } = useVuexWithRouter()
-    const toPageHome = () => {
-      router.push('/')
-    }
-    const userFormRef = ref(null)
-    const userForm = reactive({
-      userName: '',
-      userEmail: '',
-      userPwd: '',
-    })
 
-    // const checkPhone = (rule, value, callback) => {
-    //   const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
-    //   if (!value)
-    //     return callback(new Error('电话号码不能为空'))
-
-    //   setTimeout(() => {
-    //   // Number.isInteger是es6验证数字是否为整数的方法,但是实际用的时候输入的数字总是识别成字符串
-    //   // 所以在加了一个+实现隐式转换
-    //     if (!Number.isInteger(+value)) {
-    //       callback(new Error('请输入数字值'))
-    //     }
-    //     else {
-    //       if (phoneReg.test(value))
-    //         callback()
-
-    //       else
-    //         callback(new Error('电话号码格式不正确'))
-    //     }
-    //   }, 100)
-    // }
-    const checkRepeatUserName = async(rule, value, callback) => {
-      const { userName } = userForm
-      if (!userName)
-        return
-      const { isRepeat } = await checkRepeatApi({ userName })
-      return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
-    }
-    const checkRepeatUserEmail = async(rule, value, callback) => {
-      const { userEmail } = userForm
-      if (!userEmail)
-        return
-      const { isRepeat } = await checkRepeatApi({ userEmail })
-      return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
-    }
-    const checkEmail = (rule, value, callback) => {
-      const mailReg = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(.[a-zA-Z0-9_-])+/
-      setTimeout(() => {
-        if (mailReg.test(value))
-          callback()
-        else
-          callback(new Error('请输入正确的邮箱格式'))
-      }, 100)
-    }
-    const userRules = {
-      userName: [
-        {
-          required: true,
-          message: '请填写用户名',
-          trigger: 'blur',
-        },
-        { validator: checkRepeatUserName, trigger: 'blur' },
-      ],
-      userEmail: [
-        {
-          required: true,
-          message: '请填写邮箱',
-          trigger: 'blur',
-        },
-        { validator: checkEmail, trigger: 'blur' },
-        { validator: checkRepeatUserEmail, trigger: 'blur' },
-      ],
-      userPwd: [
-        {
-          required: true,
-          message: '请填写密码',
-          trigger: 'blur',
-        },
-      ],
-      userConfirmPwd: [
-        {
-          required: true,
-          message: '请确认密码',
-          trigger: 'blur',
-        },
-      ],
-      captcha: [
-        {
-          required: true,
-          message: '请填写验证码',
-          trigger: 'blur',
-        },
-      ],
-    }
-    const getMenuPermission = async() => {
-      const { menuList, actionList } = await menuPermissionApi()
-      store.commit('setActionList', actionList)
-      store.commit('setMenuList', menuList)
-    }
-    const userFromCommit = () => {
-      userFormRef.value.validate(async(valid) => {
-        if (valid) {
-          if (userForm.userPwd !== userForm.userConfirmPwd) {
-            this.$message.error('两次密码不一致')
-            return false
-          }
-          const registerInfo = await registerApi(userForm)
-          store.commit('setUserInfo', registerInfo)
-          await getMenuPermission()
-          toPageHome()
-        }
-        else {
-          return false
-        }
-      })
-    }
-    const sendCaptchaEmail = async() => {
-      console.log('userForm', userForm)
-      const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
-      console.log('sendCaptchaEmail=>', data)
-    }
-    const toLogin = () => {
-      router.push('/login')
-    }
-    return {
-      toPageHome,
-      toLogin,
-      userFormRef,
-      userForm,
-      sendCaptchaEmail,
-      userRules,
-      userFromCommit,
-      checkRepeatUserName,
-      checkRepeatUserEmail,
-    }
-  },
+const { router, store } = useVuexWithRouter()
+const toPageHome = () => {
+  router.push('/')
+}
+const userFormRef = ref(null)
+const userForm = reactive({
+  userName: '',
+  userEmail: '',
+  userPwd: '',
 })
+
+// const checkPhone = (rule, value, callback) => {
+//   const phoneReg = /^1[3|4|5|7|8][0-9]{9}$/
+//   if (!value)
+//     return callback(new Error('电话号码不能为空'))
+
+//   setTimeout(() => {
+//   // Number.isInteger是es6验证数字是否为整数的方法,但是实际用的时候输入的数字总是识别成字符串
+//   // 所以在加了一个+实现隐式转换
+//     if (!Number.isInteger(+value)) {
+//       callback(new Error('请输入数字值'))
+//     }
+//     else {
+//       if (phoneReg.test(value))
+//         callback()
+
+//       else
+//         callback(new Error('电话号码格式不正确'))
+//     }
+//   }, 100)
+// }
+const checkRepeatUserName = async(rule, value, callback) => {
+  const { userName } = userForm
+  if (!userName)
+    return
+  const { isRepeat } = await checkRepeatApi({ userName })
+  // return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('用户名已存在'))
+  else
+    return callback()
+}
+const checkRepeatUserEmail = async(rule, value, callback) => {
+  const { userEmail } = userForm
+  if (!userEmail)
+    return
+  const { isRepeat } = await checkRepeatApi({ userEmail })
+  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('邮箱已存在'))
+  else
+    return callback()
+}
+const userRules = {
+  userName: [
+    {
+      required: true,
+      message: '请填写用户名',
+      trigger: 'blur',
+    },
+    { validator: checkRepeatUserName, trigger: 'blur' },
+  ],
+  userEmail: [
+    {
+      required: true,
+      message: '请填写邮箱',
+      trigger: 'blur',
+    },
+    { validator: checkRepeatUserEmail, trigger: 'blur' },
+  ],
+  userPwd: [
+    {
+      required: true,
+      message: '请填写密码',
+      trigger: 'blur',
+    },
+  ],
+  userConfirmPwd: [
+    {
+      required: true,
+      message: '请确认密码',
+      trigger: 'blur',
+    },
+  ],
+  captcha: [
+    {
+      required: true,
+      message: '请填写验证码',
+      trigger: 'blur',
+    },
+  ],
+}
+const getMenuPermission = async() => {
+  const { menuList, actionList } = await menuPermissionApi()
+  store.commit('setActionList', actionList)
+  store.commit('setMenuList', menuList)
+}
+const arr = [
+  { value: '@qq.com' },
+  { value: '@126.com' },
+  { value: '@163.com' },
+  { value: '@gmail.com' },
+  { value: '@hotmail.com' },
+  { value: '@yahoo.com' },
+  { value: '@sohu.com' },
+  { value: '@sina.com' },
+  { value: '@139.com' },
+  { value: '@189.com' },
+]
+const querySearch = (queryString, callback) => {
+  const results = []
+
+  for (const item in arr)
+    results[item] = `${queryString}${arr[item].value}`
+
+  callback(results)
+}
+const handleSelect = (item) => {
+  userForm.userEmail = item
+}
+const userFromCommit = () => {
+  userFormRef.value.validate(async(valid) => {
+    if (valid) {
+      if (userForm.userPwd !== userForm.userConfirmPwd) {
+        this.$message.error('两次密码不一致')
+        return false
+      }
+      const registerInfo = await registerApi(userForm)
+      store.commit('setUserInfo', registerInfo)
+      await getMenuPermission()
+      toPageHome()
+    }
+    else {
+      return false
+    }
+  })
+}
+const sendCaptchaEmail = async() => {
+  console.log('userForm', userForm)
+  const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+  console.log('sendCaptchaEmail=>', data)
+}
+const toLogin = () => {
+  router.push('/login')
+}
 </script>
 
 <style lang="scss"  scoped >
