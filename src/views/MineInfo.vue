@@ -295,7 +295,6 @@ import {
 } from '../api'
 import { getDictApi } from '../api/dict'
 import util from '../util/utils'
-import request from '@/util/request'
 import store from '@/store'
 
 const userForm = reactive({
@@ -358,7 +357,10 @@ const checkRepeatMobile = async(rule, value, callback) => {
   if (!mobile)
     return
   const { isRepeat } = await checkRepeatApi({ mobile })
-  return isRepeat !== undefined ? callback(new Error('手机号已存在')) : callback()
+  // return isRepeat !== undefined ? callback(new Error('手机号已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('手机号已存在'))
+  return callback()
 }
 const changeMobileRules = {
   mobile: [
