@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import LifeIndex from '../echarts/LifeIndex.vue'
+// import LifeIndex from '../echarts/LifeIndex.vue'
 import Radar from '../echarts/Radar.vue'
 import Bar1 from '../echarts/Bar1.vue'
 import LineMarker from '@/views/echarts/LineMarker.vue'
@@ -40,7 +40,6 @@ import { getIpInfoApi } from '@/api'
 export default {
   components: {
     LineMarker,
-    LifeIndex,
     Radar,
     Bar1,
     AreaStack,
@@ -53,7 +52,6 @@ export default {
   },
   mounted() {
     this.getLocationByIp()
-    console.log('layout mounted')
   },
   methods: {
     async getLocationByIp() {
