@@ -33,17 +33,18 @@
         style="width: 100%"
         @selection-change="onChangeNoticeSelects"
       >
-        <!-- <el-table-column type="selection" width="55" /> -->
+        <!-- <el-table-column sortable type="selection" width="55" /> -->
         <el-table-column
           v-for="column in noticeColumns"
           :key="column.prop"
+          sortable
           :prop="column.prop"
           :label="column.label"
           :width="column.width"
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <el-table-column label="Operations">
+        <el-table-column sortable label="Operations">
           <template #default="scope">
             <el-button size="default" type="text" @click="watchMore(scope.row)">
               查看

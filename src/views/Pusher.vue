@@ -55,17 +55,18 @@
         style="width: 100%"
         @selection-change="onChangePusherSelects"
       >
-        <!-- <el-table-column type="selection" width="55" /> -->
+        <!-- <el-table-column sortable type="selection" width="55" /> -->
         <el-table-column
           v-for="column in pusherColumns"
           :key="column.prop"
+          sortable
           :prop="column.prop"
           :label="column.label"
           :width="column.width"
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <!-- <el-table-column label="倒计时">
+        <!-- <el-table-column sortable label="倒计时">
           <template #default="scope">
             <baseCountDown v-slot="timeObj" :time="scope.row.pushTime" style="color:black">
             <div class="count-down">
@@ -75,7 +76,7 @@
           </baseCountDown>
           </template>
         </el-table-column> -->
-        <el-table-column label="Operations" width="180px">
+        <el-table-column sortable label="Operations" width="180px">
           <template #default="scope">
             <!-- <el-button size="default" type="text" @click="watchMore(scope.row)">
               查看
