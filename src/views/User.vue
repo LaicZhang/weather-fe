@@ -204,7 +204,7 @@ const roleList = ref([])
 const deptList = ref([])
 
 const checkRepeatUserName = async(rule, value, callback) => {
-  const { userName } = addUserFrom.userName
+  const userName = addUserFrom.userName
   if (!userName)
     return
   const { isRepeat } = await checkRepeatApi({ userName })
@@ -214,7 +214,7 @@ const checkRepeatUserName = async(rule, value, callback) => {
   return callback()
 }
 const checkRepeatUserEmail = async(rule, value, callback) => {
-  const { userEmail } = addUserFrom.userEmail
+  const userEmail = addUserFrom.userEmail
   if (!userEmail)
     return
   const { isRepeat } = await checkRepeatApi({ userEmail })
@@ -224,7 +224,7 @@ const checkRepeatUserEmail = async(rule, value, callback) => {
   return callback()
 }
 const checkRepeatMobile = async(rule, value, callback) => {
-  const { mobile } = addUserFrom.mobile
+  const mobile = addUserFrom.mobile
   if (!mobile)
     return
   const { isRepeat } = await checkRepeatApi({ mobile })
@@ -259,10 +259,6 @@ const addUserFromRules = {
   ],
   mobile: [{
     pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
-    message: '手机号格式错误',
-    trigger: 'blur',
-  }, {
-    type: 'number',
     message: '手机号格式错误',
     trigger: 'blur',
   }, {
