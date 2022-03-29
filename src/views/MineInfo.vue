@@ -332,7 +332,10 @@ const checkRepeatUserEmail = async(rule, value, callback) => {
   if (!userEmail)
     return
   const { isRepeat } = await checkRepeatApi({ userEmail })
-  return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('邮箱已存在'))
+  return callback()
 }
 const changeEmailRules = {
   userEmail: [
