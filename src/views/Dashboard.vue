@@ -79,4 +79,9 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.dashboard-page {
+  height: 100vh;
+  color: #F2F6FC;
+}
+</style>

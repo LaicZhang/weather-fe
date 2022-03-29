@@ -67,6 +67,7 @@ export default {
 .city-name {
   font-size: 25px;
   line-height: 50px;
+  color: #303133;
 }
   .grid-container {
     height: 100vh;
