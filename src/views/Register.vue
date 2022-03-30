@@ -87,6 +87,7 @@
 <script setup>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
+import { ElMessage } from 'element-plus'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
 
@@ -144,6 +145,8 @@ const userRules = {
       message: '请填写密码',
       trigger: 'blur',
     },
+    { pattern: /^(?=.*[a-zA-Z])(?=.*\d)[^]{8,16}$/, message: '密码必须包含字母和数字', trigger: 'blur' },
+    { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' },
   ],
   userConfirmPwd: [
     {
@@ -193,7 +196,7 @@ const userFromCommit = () => {
   userFormRef.value.validate(async(valid) => {
     if (valid) {
       if (userForm.userPwd !== userForm.userConfirmPwd) {
-        this.$message.error('两次密码不一致')
+        ElMessage.error('两次密码不一致')
         return false
       }
       const registerInfo = await registerApi(userForm)
@@ -211,6 +214,7 @@ const sendCaptchaEmail = async() => {
 }
 const toLogin = () => {
   router.push('/login')
+  // router.back()
 }
 </script>
 
