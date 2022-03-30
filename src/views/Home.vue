@@ -46,10 +46,10 @@ export default defineComponent({
   components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg, isOnline, noticesCount },
   data() {
     return {
-      menus: this.$store.state.menuList || [],
+      menus: [],
       wrapClass: '',
       menuIconClass: ' el-icon-s-fold',
-      userInfo: this.$store.state.userInfo || {},
+      userInfo: {},
       text: '前往首页',
       // noticeCount: 0,
     }
@@ -57,12 +57,17 @@ export default defineComponent({
   created() {
     this.judgeUserInfo()
   },
-  async mounted() {
+  mounted() {
     // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
     // this.noticeCount = this.$store.state.noticeCount
+    init()
     this.getMenuPermission()
   },
   methods: {
+    init() {
+      this.menus = this.$store.state.menuList || [],
+      this.userInfo = this.$store.state.userInfo || {}
+    },
     toggleMenu() {
       const flag = this.$refs.menuRef.toggleCollapse()
       if (flag) {

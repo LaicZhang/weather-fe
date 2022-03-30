@@ -6,8 +6,10 @@ const userId = userInfo?.userId
 
 export default {
   async getNoticeCount({ commit }: any) {
-    const { count } = await noticeCountApi({ userId })
-    commit('setNoticeCount', count)
+    if (userId) {
+      const { count } = await noticeCountApi({ userId })
+      commit('setNoticeCount', count)
+    }
   },
   async getIp({ commit }: any) {
     const { ip } = await getIpApi({ userId })
