@@ -1,0 +1,26 @@
+
+<template>
+  <el-badge
+    :is-dot="noticeCount > 0"
+    class="manager-user-badge"
+    @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
+  >
+    <el-icon size="large">
+      <bell-filled />
+    </el-icon>
+  </el-badge>
+</template>
+<script>import { defineComponent } from 'vue'
+
+export default defineComponent({
+  computed: {
+    noticeCount() {
+      return this.$store.state.noticeCount
+    },
+  },
+  async mounted() {
+    this.$store.dispatch('getNoticeCount')
+  },
+})
+</script>
+<style lang="scss" scoped></style>

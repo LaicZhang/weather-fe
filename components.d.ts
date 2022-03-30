@@ -4,14 +4,6 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
-    BackToSvg: typeof import('./src/components/backTo/backToSvg.vue')['default']
-    BaseCountDown: typeof import('./src/components/countDown/baseCountDown.vue')['default']
-    CBreadCrumbs: typeof import('./src/components/bread-crumbs/c-bread-crumbs.vue')['default']
-    City: typeof import('./src/components/city.vue')['default']
-    CMenu: typeof import('./src/components/menu/c-menu.vue')['default']
-    CountDownTime: typeof import('./src/components/countDown/countDownTime.vue')['default']
-    CTreeMenu: typeof import('./src/components/menu/c-tree-menu.vue')['default']
-    CUserDropdown: typeof import('./src/components/dropdown/c-user-dropdown.vue')['default']
     ElAu: typeof import('element-plus/es')['ElAu']
     ElAutocomplete: typeof import('element-plus/es')['ElAutocomplete']
     ElBadge: typeof import('element-plus/es')['ElBadge']
@@ -48,10 +40,9 @@ declare module 'vue' {
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    GithubCorner: typeof import('./src/components/corner/github-corner.vue')['default']
+    IsOnline: typeof import('./src/components/is-online/index.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
-    Notification: typeof import('./src/components/notification/notification.vue')['default']
-    PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
+    NoticesCount: typeof import('./src/components/notices-count/index.vue')['default']
   }
 }
 

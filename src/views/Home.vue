@@ -13,15 +13,8 @@
           </c-bread-crumbs>
         </div>
         <div class="manager-user">
-          <el-badge
-            :is-dot="noticeCount > 0"
-            class="manager-user-badge"
-            @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
-          >
-            <el-icon size="large">
-              <bell-filled />
-            </el-icon>
-          </el-badge>
+          <is-online />
+          <notices-count />
           <c-user-dropdown :user-info="userInfo" />
         </div>
       </div>
@@ -44,10 +37,13 @@ import { menuPermissionApi } from '../api'
 import CBreadCrumbs from '../components/bread-crumbs/c-bread-crumbs.vue'
 import CUserDropdown from '../components/dropdown/c-user-dropdown.vue'
 import BackToSvg from '../components/backTo/backToSvg.vue'
+import isOnline from '@/components/is-online/index.vue'
+import noticesCount from '@/components/notices-count/index.vue'
 import router from '@/router'
+
 export default defineComponent({
   name: 'HOME',
-  components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg },
+  components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg, isOnline, noticesCount },
   data() {
     return {
       menus: this.$store.state.menuList || [],
@@ -58,17 +54,12 @@ export default defineComponent({
       // noticeCount: 0,
     }
   },
-  computed: {
-    noticeCount() {
-      return this.$store.state.noticeCount
-    },
+  created() {
+    this.judgeUserInfo()
   },
   async mounted() {
-    this.$store.dispatch('getNoticeCount')
     // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
     // this.noticeCount = this.$store.state.noticeCount
-    console.log('this.noticeCount', this.noticeCount)
-    this.judgeUserInfo()
     this.getMenuPermission()
   },
   methods: {
