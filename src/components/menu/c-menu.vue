@@ -8,6 +8,7 @@
     text-color="#ffffff"
     active-text-color="#409eff"
     router
+    default-openeds="['/system/userInfo', '/system/user', '/system/notice', '/system/pusher', '/data/showData', '/data/SetDataConfig']"
   >
     <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
       <div class="menu-logo-img" />

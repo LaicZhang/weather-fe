@@ -8,7 +8,6 @@
       "
       :key="index"
       :index="menu.path"
-      default-openeds="[0]"
     >
       <template #title>
         <em :class="menu.icon" />
