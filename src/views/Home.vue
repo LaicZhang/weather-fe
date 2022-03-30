@@ -60,13 +60,13 @@ export default defineComponent({
   mounted() {
     // const { count } = await noticeCountApi({ userId: this.$store.state.userInfo.userId })
     // this.noticeCount = this.$store.state.noticeCount
-    init()
-    this.getMenuPermission()
+    this.init()
   },
   methods: {
     init() {
-      this.menus = this.$store.state.menuList || [],
+      this.menus = this.$store.state.menuList || []
       this.userInfo = this.$store.state.userInfo || {}
+      this.getMenuPermission()
     },
     toggleMenu() {
       const flag = this.$refs.menuRef.toggleCollapse()
@@ -83,9 +83,14 @@ export default defineComponent({
       router.push('/dashboard')
     },
     async getMenuPermission() {
-      const { menuList, actionList } = await menuPermissionApi()
-      this.$store.commit('setActionList', actionList)
-      this.$store.commit('setMenuList', menuList)
+      if (window.localStorage.getItem('userInfo')) {
+        const { menuList, actionList } = await menuPermissionApi()
+        this.$store.commit('setMenuList', menuList)
+        this.$store.commit('setActionList', actionList)
+      }
+      // const { menuList, actionList } = await menuPermissionApi()
+      // this.$store.commit('setActionList', actionList)
+      // this.$store.commit('setMenuList', menuList)
     },
     judgeUserInfo() {
       if (window.localStorage.getItem('userInfo') === null || window.localStorage.getItem('userInfo') === '')
