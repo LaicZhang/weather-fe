@@ -1,7 +1,8 @@
 import { getIpApi, getLocationApi, getWeatherLikeApi, noticeCountApi } from '../api'
 
-const { userInfo } = JSON.parse(localStorage.getItem('userInfo') as any)
-const userId = userInfo.userId
+const localUserInfo = localStorage.getItem('userInfo') || '{}'
+const { userInfo } = JSON.parse(localUserInfo as any)
+const userId = userInfo?.userId
 
 export default {
   async getNoticeCount({ commit }: any) {
