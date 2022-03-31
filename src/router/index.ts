@@ -14,6 +14,7 @@ import Dashboard from '@/views/Dashboard.vue'
 import showData from '@/views/showData.vue'
 import SetDataConfig from '@/views/SetDataConfig.vue'
 import Pusher from '@/views/Pusher.vue'
+import FeedBack from '@/views/FeedBack.vue'
 
 const routes = [
   {
@@ -56,6 +57,13 @@ const routes = [
         meta: { title: '推送管理' },
         // component: () => import('@/views/Pusher.vue'),
         component: Pusher,
+      },
+      {
+        name: '反馈管理',
+        path: '/system/feedback',
+        meta: { title: '反馈管理' },
+        // component: () => import('@/views/Pusher.vue'),
+        component: FeedBack,
       },
       {
         name: 'showData',
