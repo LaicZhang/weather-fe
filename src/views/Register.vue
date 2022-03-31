@@ -192,6 +192,9 @@ const querySearch = (queryString, callback) => {
 const handleSelect = (item) => {
   userForm.userEmail = item
 }
+const encodedUserPwd = (userPwd) => {
+  return btoa(userPwd)
+}
 const userFromCommit = () => {
   userFormRef.value.validate(async(valid) => {
     if (valid) {
@@ -199,6 +202,8 @@ const userFromCommit = () => {
         ElMessage.error('两次密码不一致')
         return false
       }
+      userForm.userPwd = encodedUserPwd(userForm.userPwd)
+      userForm.userConfirmPwd = encodedUserPwd(userForm.userConfirmPwd)
       const registerInfo = await registerApi(userForm)
       store.commit('setUserInfo', registerInfo)
       await getMenuPermission()

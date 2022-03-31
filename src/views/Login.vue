@@ -89,16 +89,21 @@ const userRules = {
     },
   ],
 }
+// const componentKey = ref(0)
 const getMenuPermission = async() => {
   const { menuList, actionList } = await menuPermissionApi()
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
 }
+const encodedUserPwd = (userPwd) => {
+  userForm.userPwd = btoa(userPwd)
+  return userForm.userPwd
+}
 const userFromCommit = () => {
   userFormRef.value.validate(async(valid) => {
     if (valid) {
+      encodedUserPwd(userForm.userPwd)
       const loginInfo = await loginApi(userForm)
-      console.log('loginInfo=>', loginInfo)
       store.commit('setUserInfo', loginInfo)
       await getMenuPermission()
       toPageHome()
@@ -122,10 +127,8 @@ const toHomeAsVisitor = () => {
   userForm.userName = 'visitor'
   userForm.userPwd = '123456'
   userForm.captchaCode = '123456'
-  console.log('userForm=>', userForm)
   userFromCommit()
 }
-const componentKey = ref(0)
 onMounted(() => {
   getIpApi()
   getWeatherLike()
