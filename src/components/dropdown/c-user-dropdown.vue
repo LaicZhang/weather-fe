@@ -18,8 +18,8 @@
     </span>
     <template #dropdown>
       <el-dropdown-menu>
-        <el-dropdown-item command="email">
-          {{ userInfo.userEmail }}
+        <el-dropdown-item command="info">
+          个人信息
         </el-dropdown-item>
         <el-dropdown-item command="out">
           退出
@@ -43,7 +43,7 @@ export default {
   data() {
     return {
       // userImage: defaultImage,
-      noticeCount: 0,
+      // noticeCount: 0,
     }
   },
   computed: {
@@ -55,17 +55,22 @@ export default {
     console.log(import.meta)
   },
   methods: {
-    toPagenotice() {
-      this.$router.push({
-        name: 'notice',
-      })
-    },
+    // toPagenotice() {
+    //   this.$router.push({
+    //     name: 'notice',
+    //   })
+    // },
     onLoginOut(command) {
       if (command === 'out') {
         this.$store.commit('setUserInfo', '')
         this.$store.commit('setActionList', [])
         this.$store.commit('setMenuList', [])
         this.$router.push({ name: 'login' })
+      }
+      else if (command === 'info') {
+        this.$router.push({
+          name: 'info',
+        })
       }
     },
   },
