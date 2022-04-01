@@ -15,6 +15,7 @@ import showData from '@/views/showData.vue'
 import SetDataConfig from '@/views/SetDataConfig.vue'
 import Pusher from '@/views/Pusher.vue'
 import FeedBack from '@/views/FeedBack.vue'
+import History from '@/views/History.vue'
 
 const routes = [
   {
@@ -59,11 +60,18 @@ const routes = [
         component: Pusher,
       },
       {
-        name: '反馈管理',
+        name: 'feedback',
         path: '/system/feedback',
         meta: { title: '反馈管理' },
         // component: () => import('@/views/Pusher.vue'),
         component: FeedBack,
+      },
+      {
+        name: 'history',
+        path: '/system/history',
+        meta: { title: '登录历史' },
+        // component: () => import('@/views/History.vue'),
+        component: History,
       },
       {
         name: 'showData',

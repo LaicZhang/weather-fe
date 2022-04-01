@@ -21,6 +21,9 @@
         <el-dropdown-item command="info">
           个人信息
         </el-dropdown-item>
+        <el-dropdown-item command="history">
+          登录历史
+        </el-dropdown-item>
         <el-dropdown-item command="out">
           退出
         </el-dropdown-item>
@@ -51,9 +54,6 @@ export default {
       return store.state.UPLOAD_CDN_URL + store.state.userInfo.avatar
     },
   },
-  mounted() {
-    console.log(import.meta)
-  },
   methods: {
     // toPagenotice() {
     //   this.$router.push({
@@ -70,6 +70,11 @@ export default {
       else if (command === 'info') {
         this.$router.push({
           name: 'info',
+        })
+      }
+      else if (command === 'history') {
+        this.$router.push({
+          name: 'history',
         })
       }
     },
