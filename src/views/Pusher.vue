@@ -97,6 +97,7 @@
               v-has="'pusher-create'"
               size="default"
               type="text"
+              style="color:#F56C6C"
               @click="onAddDeleteList(scope.row)"
             >
               删除

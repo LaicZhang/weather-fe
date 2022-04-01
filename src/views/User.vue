@@ -58,7 +58,7 @@
             <el-button size="default" type="text" @click="onEditUser(scope.row)">
               编辑
             </el-button>
-            <el-button size="default" type="text" @click="onAddDeleteList(scope.row)">
+            <el-button size="default" style="color:#F56C6C" type="text" @click="onAddDeleteList(scope.row)">
               删除
             </el-button>
           </template>
@@ -95,7 +95,7 @@
           />
         </el-form-item>
         <el-form-item label="邮箱" prop="userEmail">
-          <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" :disabled="isEdit" />
+          <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" />
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
           <el-input v-model="addUserFrom.mobile" placeholder="请输入手机号" />
@@ -192,6 +192,10 @@ const userColumns = [
     formatter(row, column, cellValue) {
       return util.formateDate(new Date(cellValue))
     },
+  },
+  {
+    prop: 'ip',
+    label: '最后登录IP',
   },
 ]
 const isEdit = ref(false)

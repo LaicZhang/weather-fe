@@ -52,7 +52,7 @@
             <el-button v-has="'notice-create'" size="default" type="text" @click="onEditNotice(scope.row)">
               编辑
             </el-button>
-            <el-button v-has="'notice-create'" size="default" type="text" @click="onAddDeleteList(scope.row)">
+            <el-button v-has="'notice-create'" style="color:#F56C6C" size="default" type="text" @click="onAddDeleteList(scope.row)">
               删除
             </el-button>
           </template>
