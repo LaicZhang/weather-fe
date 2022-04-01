@@ -5,6 +5,10 @@ export const addFeedbackApi = (data = {}) => {
 }
 
 export const getFeedbackListApi = (data = {}) => {
+  return request.get('/feedback/list/all', data, { mock: false })
+}
+
+export const getQueryListApi = (data = {}) => {
   return request.get('/feedback/list', data, { mock: false })
 }
 
