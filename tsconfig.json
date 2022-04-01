@@ -20,6 +20,7 @@
     "types": [
       "vite/client",
       "vue/ref-macros",
+      "element-plus/global"
     ],
     "paths": {
       "@/*": ["src/*"],

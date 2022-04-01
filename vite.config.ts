@@ -47,6 +47,9 @@ export default defineConfig({
   },
   css: {
     preprocessorOptions: {
+      css: {
+        devSourceMap: true,
+      },
       scss: {
         charset: false,
         additionalData: `
