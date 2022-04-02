@@ -1,6 +1,6 @@
 <template>
   <div class="SetDataConfig-page">
-    <el-form ref="dataFormRules" :model="dataConfig" :rules="dataFormRules">
+    <el-form ref="dataFormRef" :model="dataConfig" :rules="dataFormRules">
       <el-form-item label="目标地址">
         <el-select
           v-model="dataConfig.targetUrl"
@@ -49,7 +49,7 @@
 </script>
 
 <script setup>
-import { onMounted, reactive } from 'vue'
+import { onMounted, reactive, ref } from 'vue'
 import { readConfigApi, requestDataApi, writeConfigApi } from '../api'
 
 const options = [
@@ -91,6 +91,7 @@ const options = [
   },
 ]
 const savedConfig = {}
+const dataFormRef = ref(null)
 const dataConfig = reactive({})
 const onSubmit = () => {
   writeConfig()
