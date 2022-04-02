@@ -3,26 +3,14 @@
     <el-card>
       <el-card v-for="item in historyList" :key="item.loginId" class="history-card">
         <el-image class="browser-img" :src="`${BASE_CLIENT_URL}${item.loginBrowser}.png`" />
-        <!-- <div class="facility-content">
-          <div class="facility-message">
-            <p class="facility-name">
-              浏览器：
-            </p> <p class="record-facility">
-              浏览器版本：
-            </p> <p class="login-address">
-
-            </p>
-          </div>
-        </div> -->
-        <el-descriptions style="float: right;margin-right: 5vw;" :title="item.loginTime">
+        <el-descriptions
+          style="float: right;margin-right: 5vw;margin-bottom: 20px"
+          :title="util.formateDate(new Date(item.loginTime))"
+          border
+        >
           <el-descriptions-item label="浏览器">
             <el-tag>
               {{ item.loginBrowser }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="浏览器版本">
-            <el-tag>
-              {{ item.loginBrowserVersion }}
             </el-tag>
           </el-descriptions-item>
           <el-descriptions-item label="操作系统">
@@ -30,8 +18,13 @@
               {{ item.loginOs }}
             </el-tag>
           </el-descriptions-item>
+          <el-descriptions-item label="浏览器版本">
+            <el-tag>
+              {{ item.loginBrowserVersion }}
+            </el-tag>
+          </el-descriptions-item>
           <el-descriptions-item label="登录地址">
-            {{ item.loginAddress.city }}({{ item.loginIp }})
+            {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp }})
           </el-descriptions-item>
         </el-descriptions>
       </el-card>
@@ -46,6 +39,7 @@
 import { onMounted, reactive } from 'vue'
 import store from '../store'
 import { checkHistoryApi, getHistoryApi } from '@/api/history'
+import util from '@/util/utils'
 
 const userId = store.state.userInfo.userId
 const BASE_CLIENT_URL = `${store.state.BASE_CDN_URL}img/client/`
@@ -67,17 +61,17 @@ onMounted(() => {
     box-sizing: border-box;
     height: 100vh;
     .history-card{
-      width: 48vw;
+      width: 60vw;
       margin: 0 auto;
       border-radius: 30px;
       margin-bottom: 10px;
       .browser-img{
-        // width: 50px;
-        // height: 50px;
         width: 80px;
         height: 80px;
         // float: left;
-        margin-left: 5vw;
+        margin-left: 10vw;
+        display: inline-block;
+        margin-top: 15px;
       }
       .facility-content{
         position: relative;
