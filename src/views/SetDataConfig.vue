@@ -40,26 +40,29 @@
 
 <script setup>
 import { onMounted, reactive } from 'vue'
-import { requestDataApi } from '../api'
+import { readConfigApi, requestDataApi, writeConfigApi } from '../api'
 
-defineProps({
-})
-
-const dataConfig = reactive({
-  targetUrl: 'http://www.weather.com.cn/textFC/',
-  method: 'python',
-  time: '08:00',
-})
+const dataConfig = reactive({})
 const onSubmit = () => {
-  console.log('submit')
+  writeConfig()
 }
 const getDataAtNow = async() => {
-  await requestDataApi(dataConfig.value)
+  await requestDataApi()
+}
+const readConfig = async() => {
+  const res = await readConfigApi()
+  dataConfig.targetUrl = res.targetUrl
+  dataConfig.method = res.method
+  dataConfig.time = res.time
+}
+const writeConfig = async() => {
+  const res = await writeConfigApi(dataConfig)
 }
 const resetForm = () => {
-  console.log('resetForm')
+  readConfig()
 }
 onMounted(() => {
+  readConfig()
 })
 </script>
 

@@ -163,6 +163,13 @@ export const requestDataApi = (data = {}) => {
   return request.get('/data/request', data, { mock: false })
 }
 
+export const readConfigApi = (data = {}) => {
+  return request.get('/data/readConfig', data, { mock: false })
+}
+export const writeConfigApi = (data = {}) => {
+  return request.post('/data/writeConfig', data, { mock: false })
+}
+
 export const getAllDataListApi = (data = {}) => {
   return request.get('/data/getDataByIp', data, { mock: false })
 }
