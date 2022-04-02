@@ -21,13 +21,13 @@ export default defineComponent({
       const realTime = JSON.parse(window.localStorage.getItem('weatherData')).realTime
       console.log('radar realTime', realTime)
       const indicator = [
-        { name: '风力', max: 10 },
+        { name: '能见度', max: 20 },
         { name: 'AQI', max: 300 },
         { name: '温度', max: 40 },
         { name: '湿度', max: 100 },
         { name: '降雨量', max: 100 },
         { name: '风速', max: 50 },
-        { name: '能见度', max: 20 },
+        { name: '风力', max: 10 },
       ]
       const option = {
         title: {
@@ -47,13 +47,13 @@ export default defineComponent({
             data: [
               {
                 value: [
-                  realTime.wtWinp < indicator[0].max ? realTime.wtWinp : indicator[0].max,
+                  realTime.wtVisibility < indicator[0].max ? realTime.wtVisibility : indicator[0].max,
                   realTime.wtAqi < indicator[1].max ? realTime.wtAqi : indicator[1].max,
                   realTime.wtTemp < indicator[2].max ? realTime.wtTemp : indicator[2].max,
                   realTime.wtHumi < indicator[3].max ? realTime.wtHumi : indicator[3].max,
                   realTime.wtRainfall < indicator[4].max ? realTime.wtRainfall : indicator[4].max,
                   realTime.wtWins < indicator[5].max ? realTime.wtWins : indicator[5].max,
-                  realTime.wtVisibility < indicator[6].max ? realTime.wtVisibility : indicator[6].max,
+                  realTime.wtWinp < indicator[6].max ? realTime.wtWinp : indicator[6].max,
                 ],
                 // name: 'Allocated Budget',
               },
