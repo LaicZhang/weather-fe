@@ -135,10 +135,10 @@
         />
       </el-form-item>
       <el-form-item label="是否发送邮件">
-        <el-radio v-model="replyForm.isEmail" label="1">
+        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="1">
           是
         </el-radio>
-        <el-radio v-model="replyForm.isEmail" label="2">
+        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="2">
           否
         </el-radio>
       </el-form-item>
@@ -146,7 +146,7 @@
     <template #footer>
       <span class="dialog-footer">
         <el-button @click="replyDialog = false">取消</el-button>
-        <el-button type="primary" @click="okToReply">确定</el-button>
+        <el-button type="primary" @click="okToReply">已处理</el-button>
       </span>
     </template>
   </el-dialog>
