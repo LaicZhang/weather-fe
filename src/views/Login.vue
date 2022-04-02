@@ -1,5 +1,5 @@
 <template>
-  <div class="right-con" :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImgUrl) + ')', backgroundSize:'contain'}">
+  <div class="right-con" :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImgUrl) + ')', backgroundSize:'cover'}">
     <div class="login-page">
       <el-form ref="userFormRef" class="login-form" :model="userForm" :rules="userRules" status-icon>
         <div class="login-title">
