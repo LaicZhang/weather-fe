@@ -20,6 +20,15 @@ export default defineComponent({
       const myChart = echarts.init(document.getElementById('radar'))
       const realTime = JSON.parse(window.localStorage.getItem('weatherData')).realTime
       console.log('radar realTime', realTime)
+      const indicator = [
+        { name: '风力', max: 10 },
+        { name: 'AQI', max: 300 },
+        { name: '温度', max: 40 },
+        { name: '湿度', max: 100 },
+        { name: '降雨量', max: 100 },
+        { name: '风速', max: 50 },
+        { name: '能见度', max: 20 },
+      ]
       const option = {
         title: {
           text: '实时天气指数',
@@ -29,15 +38,7 @@ export default defineComponent({
         // },
         radar: {
           // shape: 'circle',
-          indicator: [
-            { name: '风力', max: 10 },
-            { name: 'AQI', max: 300 },
-            { name: '温度', max: 40 },
-            { name: '湿度', max: 100 },
-            { name: '降雨量', max: 100 },
-            { name: '风速', max: 80 },
-            { name: '能见度', max: 10 },
-          ],
+          indicator,
         },
         series: [
           {
@@ -46,13 +47,13 @@ export default defineComponent({
             data: [
               {
                 value: [
-                  realTime.wtWinp,
-                  realTime.wtAqi,
-                  realTime.wtTemp,
-                  realTime.wtHumi,
-                  realTime.wtRainfall,
-                  realTime.wtWins,
-                  realTime.wtVisibility,
+                  realTime.wtWinp < indicator[0].max ? realTime.wtWinp : indicator[0].max,
+                  realTime.wtAqi < indicator[1].max ? realTime.wtAqi : indicator[1].max,
+                  realTime.wtTemp < indicator[2].max ? realTime.wtTemp : indicator[2].max,
+                  realTime.wtHumi < indicator[3].max ? realTime.wtHumi : indicator[3].max,
+                  realTime.wtRainfall < indicator[4].max ? realTime.wtRainfall : indicator[4].max,
+                  realTime.wtWins < indicator[5].max ? realTime.wtWins : indicator[5].max,
+                  realTime.wtVisibility < indicator[6].max ? realTime.wtVisibility : indicator[6].max,
                 ],
                 // name: 'Allocated Budget',
               },
