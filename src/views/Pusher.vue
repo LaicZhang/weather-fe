@@ -81,8 +81,13 @@
             <!-- <el-button size="default" type="text" @click="watchMore(scope.row)">
               查看
             </el-button> -->
-            <el-button v-if="scope.row.state !== 2" size="default" type="text" @click="openImmediatelyPushDialog(scope.row)">
-              立即推送
+            <el-button
+              v-if="scope.row.state !== 2"
+              size="default"
+              type="text"
+              @click="openImmediatelyPushDialog(scope.row)"
+            >
+              推送
             </el-button>
             <el-button
               v-if="scope.row.state !== 2"
@@ -92,6 +97,16 @@
               @click="onEditPusher(scope.row)"
             >
               编辑
+            </el-button>
+            <el-button
+              v-if="scope.row.state !== 2"
+              v-has="'pusher-create'"
+              size="default"
+              type="text"
+              style="color:#F56C6C"
+              @click="cancelPush(scope.row.pusherId)"
+            >
+              取消
             </el-button>
             <el-button
               v-has="'pusher-create'"
@@ -179,7 +194,7 @@
             type="textarea"
           ></el-input>
         </el-form-item> -->
-        <el-form-item label="推送类型" prop="pusherCategory">
+        <el-form-item label="推送类型" prop="pusherCategoryOptions">
           <el-select v-model="addPusherFrom.pusherCategoryOptions" placeholder="请输入推送类型">
             <el-option
               v-for="item in pusherCategoryOptions"
@@ -234,6 +249,7 @@ import {
 } from 'vue'
 import {
   addPusherApi,
+  cancelPushApi,
   deletePusherApi,
   editPusherApi,
   getIpApi,
@@ -312,7 +328,7 @@ const pusherColumns = [
     prop: 'pusherCategory',
     label: '推送类型',
     formatter(row, column, cellValue) {
-      return { 0: '普通天气预报', 1: '降雨提醒', 2: '晴天提醒', 3: '穿衣指数提醒' }[cellValue]
+      return { 0: '普通天气预报', 1: '温度提醒', 2: '天气提醒', 3: 'AQI提醒' }[cellValue]
     },
   },
   {
@@ -374,7 +390,7 @@ const addPusherFromRules = {
   //   message: '必须填写推送标题',
   //   trigger: 'blur',
   // },
-  pusherCategory: {
+  pusherCategoryOptions: {
     required: true,
     message: '必须选择推送类型',
     trigger: 'blur',
@@ -399,15 +415,17 @@ const getAllPushersList = async() => {
   pager.total = page.total
   pusherList.value = list
 }
+const cancelPush = async(pusherId) => {
+  await cancelPushApi({ pusherId })
+  await getPusherList()
+}
 const pusherCategoryOptions = ref([])
 const getPusherCategoryOptions = async() => {
   pusherCategoryOptions.value = await getDictApi('pusher_category')
-  console.log('pusherCategoryOptions.value=>', pusherCategoryOptions.value)
 }
 const pushLifetimeOptions = ref([])
 const getPushLifetimeOptions = async() => {
   pushLifetimeOptions.value = await getDictApi('pusher_lifetime')
-  console.log('pushLifetimeOptions.value=>', pushLifetimeOptions.value)
 }
 const deletePusher = async() => {
   if (pusherSelects.value.length > 0)
@@ -422,7 +440,6 @@ const getRoleList = async() => {
 }
 const addPusher = async() => {
   const pusherFormRaw = toRaw(addPusherFrom)
-  console.log('pusherFormRaw', pusherFormRaw)
   return addPusherApi(pusherFormRaw)
 }
 const editPusher = async() => {
@@ -463,13 +480,11 @@ const onAddPusherBtn = async() => {
     const { location } = await getLocationApi()
     addPusherFrom.pushLocation = location.province + location.city
   }
-  console.log('addPusherFrom=>', addPusherFrom)
   isEdit.value = false
   addDialog.value = true
 }
 const onAddDeleteList = (pusher) => {
   pusherSelects.value = [pusher._id]
-  console.log('pusherSelects.value=>', pusherSelects.value)
   deleteDialog.value = true
 }
 const onDeletePusherSelects = async() => {

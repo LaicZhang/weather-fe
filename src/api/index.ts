@@ -84,6 +84,9 @@ export const pusherListApi = (data = {}) => {
 export const immediatelyPushApi = (data = {}) => {
   return request.post('/pushers/immediatelyPush', data, { mock: false })
 }
+export const cancelPushApi = (data = {}) => {
+  return request.get('/pushers/cancel', data, { mock: false })
+}
 // 推送设置管理
 export const getPusherSettingsApi = (data = {}) => {
   return request.get('/pushers/getPusherSettings', data, { mock: false })
