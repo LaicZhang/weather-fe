@@ -510,6 +510,8 @@ const watchMore = (val) => {
 }
 // let pushTime = ref('2022-03-20 9:51:00');
 let pusherLifeTime = ''
+let _id = ''
+let pusherId = ''
 const openImmediatelyPushDialog = (val) => {
   // console.info('immediatelyPush', val)
   _id = val._id
