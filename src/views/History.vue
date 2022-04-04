@@ -2,38 +2,38 @@
   <div class="history-page">
     <el-card>
       <el-card v-for="item in historyList" :key="item.loginId" class="history-card">
-        <el-image class="browser-img" :src="`${BASE_CLIENT_URL}${item.loginBrowser}.png`" />
-        <el-descriptions
-          style="float: right;margin-right: 5vw;margin-bottom: 20px"
-          :title="util.formateDate(new Date(item.loginTime))"
-          border
-        >
-          <el-descriptions-item label="浏览器">
-            <el-tag>
-              {{ item.loginBrowser }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="操作系统">
-            <el-tag>
-              {{ item.loginOs }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="浏览器版本">
-            <el-tag>
-              {{ item.loginBrowserVersion }}
-            </el-tag>
-          </el-descriptions-item>
-          <el-descriptions-item label="登录地址">
-            {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp }})
-          </el-descriptions-item>
-        </el-descriptions>
+        <div class="history-item">
+          <el-image class="browser-img" :src="`${BASE_CLIENT_URL}${item.loginBrowser}.png`" />
+          <el-descriptions
+            style="margin-bottom: 20px;float: left;"
+            column="2"
+            :title="util.formateDate(new Date(item.loginTime))"
+            border
+          >
+            <el-descriptions-item label="浏览器">
+              <el-tag>
+                {{ item.loginBrowser }}
+              </el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="操作系统">
+              <el-tag>
+                {{ item.loginOs }}
+              </el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="浏览器版本">
+              <el-tag>
+                {{ item.loginBrowserVersion }}
+              </el-tag>
+            </el-descriptions-item>
+            <el-descriptions-item label="登录地址">
+              {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp }})
+            </el-descriptions-item>
+          </el-descriptions>
+        </div>
       </el-card>
     </el-card>
   </div>
 </template>
-
-<script>
-</script>
 
 <script setup>
 import { onMounted, reactive } from 'vue'
@@ -61,7 +61,7 @@ onMounted(() => {
     box-sizing: border-box;
     height: 100vh;
     .history-card{
-      width: 60vw;
+      width: 48vw;
       margin: 0 auto;
       border-radius: 30px;
       margin-bottom: 10px;
@@ -69,8 +69,8 @@ onMounted(() => {
         width: 80px;
         height: 80px;
         // float: left;
-        margin-left: 10vw;
-        display: inline-block;
+        // margin-left: 10vw;
+        float: left;
         margin-top: 15px;
       }
       .facility-content{
