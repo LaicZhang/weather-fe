@@ -109,7 +109,7 @@
       </el-form>
       <template #footer>
         <span class="dialog-footer">
-          <el-button @click="resetPassword">重置密码</el-button>
+          <el-button v-if="isEdit" @click="resetPassword">重置密码</el-button>
           <el-button @click="onCancel">取消</el-button>
           <el-button type="primary" @click="onSummit">确定</el-button>
         </span>
