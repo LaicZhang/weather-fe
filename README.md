@@ -2,6 +2,8 @@
 
 ![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220206202800.png)
 
+- 推荐使用EDGE或非最新版Chrome浏览器进行查看。
+
 ## 技术栈
 
 ### 前端
