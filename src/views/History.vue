@@ -26,7 +26,7 @@
               </el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="登录地址">
-              {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp }})
+              {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp.substr(0, item.loginIp.length-1)+'*' }})
             </el-descriptions-item>
           </el-descriptions>
         </div>
