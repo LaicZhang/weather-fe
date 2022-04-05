@@ -4,7 +4,7 @@
       <span>个人信息</span>
       <el-upload
         class="avatar-uploader"
-        action="https://weather-api.zyha.cn/api/upload"
+        action="/api/upload"
         :data="uploadData"
         :limit="1"
         :show-file-list="false"
@@ -90,10 +90,11 @@
           />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useEmail" label="电子邮箱">
-          <el-input v-model="pusherConfigForm.userEmail" />
+          <el-input v-model="pusherConfigForm.userEmail" disabled />
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.useSms" label="电话号码">
-          <el-input v-model="pusherConfigForm.mobile" placeholder="暂不支持国内号码" />
+          <el-input v-model="pusherConfigForm.mobile" placeholder="国内号码暂不支持" />
+          国内短信推送仅支持审核成功的正文模版，暂不支持推送自定义天气信息，此处设置仅实现在企业微信中推送时@此手机号码账号功能
         </el-form-item>
         <el-form-item v-if="pusherConfigForm.usePushDeer">
           <el-button type="text" @click="pushDeerDialogVisible=true">
@@ -313,6 +314,7 @@ const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 let sexDict = {}
 
 // settings dialog
+const configRef = ref(null)
 const wecomDialogVisible = ref(false)
 const dingtalkDialogVisible = ref(false)
 const feishuDialogVisible = ref(false)
