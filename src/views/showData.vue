@@ -89,8 +89,9 @@ const dataColumns = [
   { prop: 'nighttime__wind', label: '夜晚风力风向' },
 ]
 const weatherData = store.state.weatherData
+const userInfo = store.state.userInfo
 const currentLocation = ref('')
-currentLocation.value = weatherData.area_1 + weatherData.area_2 + weatherData.area_3 || '四川省成都市'
+currentLocation.value = userInfo.location.province + userInfo.location.city
 
 let cityNm = '成都'
 const locationKey = ref(1)
@@ -105,20 +106,19 @@ const changeCity = (cityInfo) => {
   cityNm = cityNm.substring(0, cityNm.length - 1)
   currentLocation.value = cityInfo.fullLocation
 }
-const getWeatherList = async() => {
-  const { list, page } = await getWeatherListApi({ pager })
-  console.log('getWeatherListApi onMounted', list)
+const setValue = (list, page) => {
   pager.pageNum = page.pageNum
   pager.total = page.total
   dataList.value = list
 }
+const getWeatherList = async() => {
+  const { list, page } = await getWeatherListApi({ pager })
+  setValue(list, page)
+}
 const onChangeCurrentPage = async(currentPage) => {
   pager.pageNum = currentPage
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
-  console.log('getWeatherListApi onChangeCurrentPage', list)
-  pager.pageNum = page.pageNum
-  pager.total = page.total
-  dataList.value = list
+  setValue(list, page)
 }
 const onSubmit = async(action) => {
   if (store.state.location !== '')
@@ -127,20 +127,15 @@ const onSubmit = async(action) => {
     store.dispatch('setLocation', cityNm)
 
   const { list, page } = await getWeatherListApi({ pager, city: cityNm, action })
-  console.log('getWeatherListApi onSubmit', list)
-  pager.pageNum = page.pageNum
-  pager.total = page.total
-  dataList.value = list
+  setValue(list, page)
 }
 const resetForm = () => {
   locationKey.value++
 }
+
 onMounted(async() => {
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
-  console.log('getWeatherListApi onMounted', list)
-  pager.pageNum = page.pageNum
-  pager.total = page.total
-  dataList.value = list
+  setValue(list, page)
 })
 </script>
 <style lang="scss" scoped>
