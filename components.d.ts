@@ -55,6 +55,7 @@ declare module 'vue' {
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     NoticesCount: typeof import('./src/components/notices-count/index.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
+    PushdeerAlert: typeof import('./src/components/info/pushdeer-alert.vue')['default']
   }
 }
 
