@@ -4,7 +4,7 @@
       <span>个人信息</span>
       <el-upload
         class="avatar-uploader"
-        action="/api/upload"
+        action="https://weather-api.zyha.cn/api/upload"
         :data="uploadData"
         :limit="1"
         :show-file-list="false"
@@ -462,8 +462,9 @@ const init = async() => {
 const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
 const handleAvatarSuccess = (res, file) => {
   imageUrl.value = URL.createObjectURL(file.raw)
-  refreshInfo()
-  console.log('handleAvatarSuccess', res, file, imageUrl.value)
+  // refreshInfo()
+  // console.log('handleAvatarSuccess', res, file)
+  // imageUrl.value = res.data.path
 }
 const beforeAvatarUpload = (file) => {
   const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
