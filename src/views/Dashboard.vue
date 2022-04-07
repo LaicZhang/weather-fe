@@ -26,9 +26,12 @@ export default {
     return {
       text: '前往登陆',
       isLoaded: false,
+      currentRoute: {},
+      ip: '',
     }
   },
   async created() {
+    this.getUrlIp()
     await this.getAllDataList()
   },
   mounted() {
@@ -36,8 +39,11 @@ export default {
       this.text = '前往后台'
   },
   methods: {
+    getUrlIp() {
+      this.currentRoute = router.currentRoute.value
+      this.ip = this.currentRoute.query.ip
+    },
     toPageHome() {
-      console.log('dashboard router=>', router)
       router.push('/')
     },
     today(date) {
@@ -50,7 +56,7 @@ export default {
       let res = {}
       let weatherData
       if (window.localStorage.getItem('weatherData') === undefined) {
-        res = await getAllDataListApi()
+        res = await getAllDataListApi({ ip: this.ip })
         const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
         store.commit('setWeatherData', data)
         console.log('newWeatherData', res)
@@ -68,7 +74,7 @@ export default {
         this.isLoaded = true
       }
       else {
-        res = await getAllDataListApi()
+        res = await getAllDataListApi({ ip: this.ip })
         const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
         store.commit('setWeatherData', data)
         console.log('newWeatherData', res)

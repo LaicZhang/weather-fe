@@ -6,13 +6,14 @@
 import * as echarts from 'echarts'
 import { defineComponent, onMounted, ref } from 'vue'
 import { getStackdataApi } from '@/api'
+import router from '@/router'
 
 const myRef = ref(null)
 const init = async() => {
   const myChart = echarts.init(document.getElementById('area-stack'))
-  const stackData = await getStackdataApi()
-  console.log('init stackData', stackData)
-  console.log('init arr', stackData.arr)
+  const currentRoute = router.currentRoute.value
+  const ip = currentRoute.query.ip
+  const stackData = await getStackdataApi({ ip })
   const option = {
     title: {
       text: '历史温度变化',
