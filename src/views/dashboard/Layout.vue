@@ -36,6 +36,8 @@ import Bar1 from '../echarts/Bar1.vue'
 import LineMarker from '@/views/echarts/LineMarker.vue'
 import AreaStack from '@/views/echarts/AreaStack.vue'
 import { getIpInfoApi } from '@/api'
+import router from '@/router'
+
 // import WeatherInfo from '../echarts/weatherInfo.vue';
 export default {
   components: {
@@ -55,7 +57,9 @@ export default {
   },
   methods: {
     async getLocationByIp() {
-      const { result } = await getIpInfoApi()
+      const currentRoute = router.currentRoute.value
+      const ip = currentRoute.query.ip
+      const { result } = await getIpInfoApi({ ip })
       this.city = (`${result.att}天气可视化`).replace(/,/g, '')
       // this.city = this.$store.state.weatherData
     },
