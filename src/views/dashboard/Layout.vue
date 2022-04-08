@@ -45,7 +45,6 @@ import { addShareApi } from '@/api/share'
 import router from '@/router'
 import store from '@/store'
 
-const { text, copy } = useClipboard()
 const city = ref('')
 const currentRoute = window.location.href
 const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
@@ -60,6 +59,7 @@ const shareCurrentWeather = async() => {
     userId: store.state.userInfo.userId,
   })
   if (data) {
+    const { text, copy } = useClipboard()
     copy(`${shareForeUrl}?shareId=${data.shareId}`)
     ElMessage.success('分享链接已复制到剪切板，快去分享吧')
   }
