@@ -11,7 +11,7 @@ const baseURL = config.baseURL
 
 const service = axios.create({
   baseURL,
-  timeout: 3000,
+  timeout: 10000,
 })
 
 // 请求拦截

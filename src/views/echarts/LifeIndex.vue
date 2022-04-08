@@ -33,6 +33,7 @@
 </template>
 
 <script>
+import store from '@/store'
 export default {
   name: 'LifeIndex',
   data() {
@@ -47,12 +48,10 @@ export default {
   },
   mounted() {
     this.getLifeIndex()
-    console.log('life-index mounted')
   },
   methods: {
     getLifeIndex() {
-      const { today } = JSON.parse(window.localStorage.getItem('weatherData'))
-      console.log('today=>', today)
+      const today = store.state.weatherData.today
       this.clothesIndex = today.lifeIndex.ct
       this.rayIndex = today.lifeIndex.uv
       this.carIndex = today.lifeIndex.xc

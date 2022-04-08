@@ -5,14 +5,15 @@
 <script>
 import * as echarts from 'echarts'
 import { defineComponent, onMounted, ref } from 'vue'
+import store from '@/store'
+
 export default defineComponent({
   name: 'Bar1',
   setup() {
     const myRef = ref(null)
     const init = () => {
       const myChart = echarts.init(document.getElementById('bar1'))
-      const futureDay = JSON.parse(window.localStorage.getItem('weatherData')).futureDay
-      console.log('futureDay', futureDay)
+      const futureDay = store.state.weatherData.futureDay
       const week = []
       const wtTemp1List = []
       const wtTemp2List = []

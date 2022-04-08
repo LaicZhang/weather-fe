@@ -13,7 +13,8 @@ import storage from '../util/storage'
 import store from '../store'
 import router from '../router'
 import Layout from './dashboard/Layout.vue'
-import backToSvg from '@/components/backTo/backToSvg'
+import backToSvg from '@/components/backTo/backToSvg.vue'
+// import PlLazy from '@/components/lazyload/index.vue'
 export default {
   name: 'Dashboard',
   components: {
@@ -30,9 +31,9 @@ export default {
       ip: '',
     }
   },
-  async created() {
+  created() {
     this.getUrlIp()
-    await this.getAllDataList()
+    this.getAllDataList()
   },
   mounted() {
     if (storage.getItem('userInfo'))
@@ -53,33 +54,11 @@ export default {
       return week[day]
     },
     async getAllDataList() {
-      let res = {}
-      let weatherData
-      if (window.localStorage.getItem('weatherData') === undefined) {
-        res = await getAllDataListApi({ ip: this.ip })
-        const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
-        store.commit('setWeatherData', data)
-        console.log('newWeatherData', res)
-        this.isLoaded = true
-        return
-      }
-      if (
-        weatherData
-        && weatherData.queryTime !== null && weatherData.queryTime !== undefined
-          && weatherData.realTime.week === this.today(new Date())
-          && (new Date() - new Date(weatherData?.queryTime)) < 600000
-      ) {
-        store.commit('setWeatherData', weatherData)
-        console.log('localWeatherData', weatherData)
-        this.isLoaded = true
-      }
-      else {
-        res = await getAllDataListApi({ ip: this.ip })
-        const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
-        store.commit('setWeatherData', data)
-        console.log('newWeatherData', res)
-        this.isLoaded = true
-      }
+      const res = await getAllDataListApi({ ip: this.ip })
+      // const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
+      store.commit('setWeatherData', res.result)
+      console.log('WeatherData', store.state.weatherData)
+      this.isLoaded = true
     },
   },
 }

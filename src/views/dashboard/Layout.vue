@@ -4,6 +4,9 @@
       <div class="header">
         <div class="city-name">
           {{ city }}
+          <el-icon :size="20" style="cursor: pointer;" color="#409EFC" @click="shareCurrentWeather">
+            <share />
+          </el-icon>
         </div>
       </div>
       <div class="content">
@@ -29,42 +32,49 @@
   </div>
 </template>
 
-<script>
-// import LifeIndex from '../echarts/LifeIndex.vue'
+<script setup>
+import { onMounted, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useClipboard } from '@vueuse/core'
 import Radar from '../echarts/Radar.vue'
 import Bar1 from '../echarts/Bar1.vue'
 import LineMarker from '@/views/echarts/LineMarker.vue'
 import AreaStack from '@/views/echarts/AreaStack.vue'
-import { getIpInfoApi } from '@/api'
+import { getIpApi, getIpInfoApi } from '@/api'
+import { addShareApi } from '@/api/share'
 import router from '@/router'
+import store from '@/store'
 
-// import WeatherInfo from '../echarts/weatherInfo.vue';
-export default {
-  components: {
-    LineMarker,
-    Radar,
-    Bar1,
-    AreaStack,
-    // WeatherInfo
-  },
-  data() {
-    return {
-      city: '',
-    }
-  },
-  mounted() {
-    this.getLocationByIp()
-  },
-  methods: {
-    async getLocationByIp() {
-      const currentRoute = router.currentRoute.value
-      const ip = currentRoute.query.ip
-      const { result } = await getIpInfoApi({ ip })
-      this.city = (`${result.att}天气可视化`).replace(/,/g, '')
-      // this.city = this.$store.state.weatherData
-    },
-  },
+const { text, copy } = useClipboard()
+const city = ref('')
+
+const getIp = async() => {
+  const { ip } = await getIpApi()
+  store.commit('setIp', ip)
 }
+const shareCurrentWeather = async() => {
+  const { shareLink } = await addShareApi({
+    ip: store.state.ip,
+    userId: store.state.userInfo.userId,
+  })
+  if (shareLink) {
+    copy(shareLink)
+    ElMessage.success('分享链接已复制到剪切板，快去分享吧')
+  }
+  else {
+    ElMessage.error('分享失败，请稍后再试')
+  }
+}
+const getLocationByIp = async() => {
+  const currentRoute = router.currentRoute.value
+  const ip = currentRoute.query.ip
+  const { result } = await getIpInfoApi({ ip })
+  city.value = (`${result.att}天气可视化`).replace(/,/g, '')
+}
+onMounted(() => {
+  getIp()
+  getLocationByIp()
+})
 </script>
 
 <style lang="less" scoped>

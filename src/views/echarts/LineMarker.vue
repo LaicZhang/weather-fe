@@ -5,23 +5,17 @@
 <script>
 import * as echarts from 'echarts'
 import { defineComponent, onMounted, ref } from 'vue'
+import store from '@/store'
+
 export default defineComponent({
   name: 'LinkMarker',
   setup() {
     const myRef = ref(null)
     const initT = () => {
       const myChart = echarts.init(document.getElementById('link-marker'))
-      const futureHour = JSON.parse(window.localStorage.getItem('weatherData')).futureHour
-      console.log('futureHour', futureHour)
+      const futureHour = store.state.weatherData.futureHour
       const xAxisData = []
       const wtTempList = []
-      // wtTemp1List = [],
-      // wtTemp2List = []
-      // futureDay.forEach(item =>{
-      //   // xAxisData.push(item.week)
-      //   wtTemp1List.push(item.wtTemp1)
-      //   wtTemp2List.push(item.wtTemp2)
-      // })
       futureHour.forEach((item) => {
         const datedh = item.dateYmdh.substring(5).slice(0, -3)
         xAxisData.push(datedh)

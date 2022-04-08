@@ -52,6 +52,7 @@ declare module 'vue' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     GithubCorner: typeof import('./src/components/corner/github-corner.vue')['default']
     IsOnline: typeof import('./src/components/is-online/index.vue')['default']
+    Lazyload: typeof import('./src/components/lazyload/index.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
     NoticesCount: typeof import('./src/components/notices-count/index.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']

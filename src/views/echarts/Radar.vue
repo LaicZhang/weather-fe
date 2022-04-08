@@ -9,6 +9,8 @@
 import * as echarts from 'echarts'
 import { defineComponent, onMounted, ref } from 'vue'
 import LifeIndex from './LifeIndex.vue'
+import store from '@/store'
+
 export default defineComponent({
   name: 'Radar',
   components: {
@@ -18,8 +20,7 @@ export default defineComponent({
     const myRef = ref(null)
     const init = () => {
       const myChart = echarts.init(document.getElementById('radar'))
-      const realTime = JSON.parse(window.localStorage.getItem('weatherData')).realTime
-      console.log('radar realTime', realTime)
+      const realTime = store.state.weatherData.realTime
       const indicator = [
         { name: '能见度', max: 20 },
         { name: 'AQI', max: 300 },
