@@ -106,7 +106,7 @@ const shareColumns = [
   },
   {
     prop: 'state',
-    label: '状态',
+    label: '生成状态',
     formatter(row, column, cellValue) {
       return { 0: '生成失败', 1: '生成成功' }[cellValue]
     },
@@ -121,6 +121,13 @@ const shareColumns = [
   {
     prop: 'shareIp',
     label: '分享ip',
+  },
+  {
+    prop: 'isOpened',
+    label: '打开状态',
+    formatter(row, column, cellValue) {
+      return { false: '未打开过', true: '已打开过' }[cellValue]
+    },
   },
   {
     prop: 'shareLocation',

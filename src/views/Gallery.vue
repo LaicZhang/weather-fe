@@ -18,7 +18,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import store from '@/store'
 import router from '@/router'
-import { getShareInfoApi } from '@/api/share'
+import { getShareInfoApi, openShareApi } from '@/api/share'
 import backToSvgVue from '@/components/backTo/backToSvg.vue'
 
 const text = '了解更多'
@@ -41,10 +41,16 @@ const getShareInfo = async() => {
     location.value = data.shareLocation.city
   }
 }
+const openShare = async() => {
+  const data = await openShareApi({
+    shareId,
+  })
+}
 const toRegister = () => {
   router.push('/register')
 }
 onMounted(() => {
+  openShare()
   getShareInfo()
 })
 </script>
