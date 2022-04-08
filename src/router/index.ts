@@ -16,6 +16,7 @@ import SetDataConfig from '@/views/SetDataConfig.vue'
 import Pusher from '@/views/Pusher.vue'
 import FeedBack from '@/views/FeedBack.vue'
 import History from '@/views/History.vue'
+import Share from '@/views/Share.vue'
 
 const routes = [
   {
@@ -65,6 +66,13 @@ const routes = [
         meta: { title: '反馈管理' },
         // component: () => import('@/views/Pusher.vue'),
         component: FeedBack,
+      },
+      {
+        name: 'share',
+        path: '/system/share',
+        meta: { title: '分享管理' },
+        // component: () => import('@/views/Pusher.vue'),
+        component: Share,
       },
       {
         name: 'history',
