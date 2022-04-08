@@ -15,3 +15,7 @@ export const deleteShareApi = (data = {}) => {
 export const getShareInfoApi = (data = {}) => {
   return request.get('/share/info', data, { mock: false })
 }
+
+export const openShareApi = (data = {}) => {
+  return request.post('/share/open', data, { mock: false })
+}
