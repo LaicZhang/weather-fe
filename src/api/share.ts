@@ -9,5 +9,9 @@ export const addShareApi = (data = {}) => {
 }
 
 export const deleteShareApi = (data = {}) => {
-  return request.get('/share/delete', data, { mock: false })
+  return request.post('/share/delete', data, { mock: false })
+}
+
+export const getShareInfoApi = (data = {}) => {
+  return request.get('/share/info', data, { mock: false })
 }

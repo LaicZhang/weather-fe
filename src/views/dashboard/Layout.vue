@@ -47,18 +47,20 @@ import store from '@/store'
 
 const { text, copy } = useClipboard()
 const city = ref('')
+const currentRoute = window.location.href
+const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
 
 const getIp = async() => {
   const { ip } = await getIpApi()
   store.commit('setIp', ip)
 }
 const shareCurrentWeather = async() => {
-  const { shareLink } = await addShareApi({
+  const data = await addShareApi({
     ip: store.state.ip,
     userId: store.state.userInfo.userId,
   })
-  if (shareLink) {
-    copy(shareLink)
+  if (data) {
+    copy(`${shareForeUrl}?shareId=${data.shareId}`)
     ElMessage.success('分享链接已复制到剪切板，快去分享吧')
   }
   else {

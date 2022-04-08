@@ -1,64 +1,12 @@
 <template>
   <div class="share-page">
-    <div v-if="role > 0" class="apply">
-      <el-card class="share-card">
-        <el-form v-if="!isSubmit" ref="shareFormRef" :model="shareForm" :rules="shareFormRules">
-          <el-form-item prop="summary">
-            <el-input
-              v-model="shareForm.summary"
-              placeholder="请输入标题"
-              clearable
-              size="large"
-              autocomplete
-              maxlength="50"
-            />
-          </el-form-item>
-          <el-form-item prop="content">
-            <el-input
-              v-model="shareForm.content"
-              placeholder="请输入内容"
-              clearable
-              rows="6"
-              size="large"
-              autocomplete
-              type="textarea"
-              maxlength="500"
-            />
-          </el-form-item>
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit">
-              提交
-            </el-button>
-            <el-button type="text" @click="resetForm">
-              撤销
-            </el-button>
-          </el-form-item>
-        </el-form>
-        <div v-if="isSubmit" class="after-submit">
-          <el-result
-            icon="success"
-            title="Success Tip"
-            sub-title="反馈成功"
-          >
-            <template #extra>
-              <el-button type="primary" @click="continueApply">
-                继续反馈
-              </el-button>
-            </template>
-          </el-result>
-        </div>
-      </el-card>
-    </div>
     <div v-if="role === 0" class="reply">
       <el-form inline :model="queryForm">
         <el-form-item label="用户ID">
           <el-input v-model="queryForm.userId" />
         </el-form-item>
-        <el-form-item label="标题">
-          <el-input v-model="queryForm.summary" />
-        </el-form-item>
         <el-form-item label="状态">
-          <el-select v-model="queryForm.status" placeholder="处理状态">
+          <el-select v-model="queryForm.status" placeholder="生成状态">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -92,8 +40,8 @@
         />
         <el-table-column sortable label="Operations">
           <template #default="scope">
-            <el-button v-show="scope.row.status===0" size="default" type="text" @click="onReply(scope.row)">
-              处理
+            <el-button v-show="scope.row.state===1" size="default" type="text" @click="onCopy(scope.row)">
+              复制链接
             </el-button>
             <el-button size="default" style="color:#F56C6C" type="text" @click="onDelete(scope.row)">
               删除
@@ -122,38 +70,12 @@
       </span>
     </template>
   </el-dialog>
-  <!-- 回复弹窗 -->
-  <el-dialog v-model="replyDialog" title="操作" width="30%">
-    <el-form>
-      <el-form-item>
-        <el-input
-          v-model="replyForm.reply"
-          placeholder="请输入回复内容"
-          clearable
-          type="textarea"
-          maxlength="500"
-        />
-      </el-form-item>
-      <el-form-item label="是否发送邮件">
-        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="1">
-          是
-        </el-radio>
-        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="2">
-          否
-        </el-radio>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="replyDialog = false">取消</el-button>
-        <el-button type="primary" @click="okToReply">已处理</el-button>
-      </span>
-    </template>
-  </el-dialog>
 </template>
 
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
+import { useClipboard } from '@vueuse/core'
+import { ElMessage } from 'element-plus'
 import { addShareApi, deleteShareApi, getShareListApi } from '../api/share'
 import store from '../store'
 import util from '../util/utils'
@@ -168,16 +90,25 @@ const queryForm = reactive({
   summary: '',
   status: '',
 })
+const currentRoute = window.location.href
+const shareForeUrl = currentRoute.replace('system/share', 'gallery')
+
 const shareList = ref([])
 const shareColumns = [
   { prop: 'shareId', label: '分享ID' },
   { prop: 'userId', label: '用户ID' },
-  { prop: 'link', label: '链接' },
   {
-    prop: 'status',
+    prop: 'shareLink',
+    label: '链接',
+    formatter(row, column, cellValue) {
+      return `${shareForeUrl}?shareId=${cellValue}`
+    },
+  },
+  {
+    prop: 'state',
     label: '状态',
     formatter(row, column, cellValue) {
-      return { 0: '未处理', 1: '已处理' }[cellValue]
+      return { 0: '生成失败', 1: '生成成功' }[cellValue]
     },
   },
   {
@@ -190,30 +121,19 @@ const shareColumns = [
   {
     prop: 'shareIp',
     label: '分享ip',
-    formatter(row, column, cellValue) {
-      if (cellValue)
-        return util.formateDate(new Date(cellValue))
-    },
   },
   {
     prop: 'shareLocation',
     label: '分享地址',
     formatter(row, column, cellValue) {
-
+      if (cellValue.province === cellValue.city)
+        return cellValue.province
+      return cellValue.province + cellValue.city
     },
   },
 ]
 const shareFormRef = ref(null)
-const shareFormRules = {
-  summary: [
-    { required: true, message: '请输入标题', trigger: 'blur' },
-    { min: 6, max: 50, message: '长度在 6 到 50 个字符', trigger: 'blur' },
-  ],
-  content: [
-    { required: true, message: '请输入内容', trigger: 'blur' },
-    { min: 10, max: 500, message: '长度在 10 到 500 个字符', trigger: 'blur' },
-  ],
-}
+const shareFormRules = {}
 const shareForm = reactive({
   userId,
   summary: '',
@@ -273,15 +193,14 @@ const okToDelete = async() => {
   await getShareList()
   deleteDialog.value = false
 }
-const onReply = (data) => {
-  replyDialog.value = true
-  Object.assign(replyForm, data)
-  console.log('onReply', replyForm)
+const onCopy = (data) => {
+  const { copy } = useClipboard()
+  copy(`${shareForeUrl}?shareId=${data.shareId}`)
+  ElMessage.success('复制成功，快去分享吧')
 }
 const onDelete = (data) => {
   deleteDialog.value = true
   Object.assign(replyForm, data)
-  console.log('onDelete', replyForm)
 }
 const okToReply = async() => {
   await getShareList()

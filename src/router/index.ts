@@ -17,6 +17,7 @@ import Pusher from '@/views/Pusher.vue'
 import FeedBack from '@/views/FeedBack.vue'
 import History from '@/views/History.vue'
 import Share from '@/views/Share.vue'
+import Gallery from '@/views/Gallery.vue'
 
 const routes = [
   {
@@ -101,8 +102,8 @@ const routes = [
     name: 'login',
     path: '/login',
     meta: { title: '登录页' },
-    // component: () => import('@/views/Login.vue'),
-    component: Login,
+    component: () => import('@/views/Login.vue'),
+    // component: Login,
   },
   {
     name: 'register',
@@ -129,8 +130,15 @@ const routes = [
     name: 'dashboard',
     path: '/dashboard',
     meta: { title: '数据展示页' },
-    // component: () => import('@/views/Dashboard.vue'),
-    component: Dashboard,
+    component: () => import('@/views/Dashboard.vue'),
+    // component: Dashboard,
+  },
+  {
+    name: 'gallery',
+    path: '/gallery',
+    meta: { title: '分享展示页' },
+    component: () => import('@/views/Gallery.vue'),
+    // component: Gallery,
   },
   {
     name: '404',
