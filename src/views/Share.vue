@@ -146,11 +146,9 @@ const shareForm = reactive({
   summary: '',
   content: '',
 })
-const replyForm = reactive({
+const deleteInfo = reactive({
   userId,
   shareId: 0,
-  reply: '',
-  isEmail: false,
 })
 const pager = reactive({
   pageNum: 1,
@@ -196,7 +194,7 @@ const continueApply = () => {
   isSubmit.value = false
 }
 const okToDelete = async() => {
-  await deleteShareApi(replyForm.shareId)
+  await deleteShareApi({ shareId: deleteInfo.shareId })
   await getShareList()
   deleteDialog.value = false
 }
@@ -207,11 +205,7 @@ const onCopy = (data) => {
 }
 const onDelete = (data) => {
   deleteDialog.value = true
-  Object.assign(replyForm, data)
-}
-const okToReply = async() => {
-  await getShareList()
-  replyDialog.value = false
+  Object.assign(deleteInfo, data)
 }
 const onChangeCurrentPage = async(pageNum) => {
   pager.pageNum = pageNum
