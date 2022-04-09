@@ -9,7 +9,7 @@
       </div>
     </div>
   </div>
-  <div @click="toRegister">
+  <div @click="toPageHome">
     <backToSvgVue :text="text" />
   </div>
 </template>
@@ -45,9 +45,6 @@ const openShare = async() => {
   const data = await openShareApi({
     shareId,
   })
-}
-const toRegister = () => {
-  router.push('/register')
 }
 onMounted(() => {
   openShare()
