@@ -19,3 +19,7 @@ export const getShareInfoApi = (data = {}) => {
 export const openShareApi = (data = {}) => {
   return request.post('/share/open', data, { mock: false })
 }
+
+export const getShareListWithParamsApi = (data = {}) => {
+  return request.get('/share/list', data, { mock: false })
+}

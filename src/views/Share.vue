@@ -1,12 +1,9 @@
 <template>
   <div class="share-page">
-    <div v-if="role === 0" class="reply">
+    <div class="reply">
       <el-form inline :model="queryForm">
-        <el-form-item label="用户ID">
-          <el-input v-model="queryForm.userId" />
-        </el-form-item>
-        <el-form-item label="状态">
-          <el-select v-model="queryForm.status" placeholder="生成状态">
+        <el-form-item label="打开状态">
+          <el-select v-model="queryForm.isOpened" placeholder="打开状态">
             <el-option
               v-for="item in options"
               :key="item.value"
@@ -76,19 +73,16 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
-import { addShareApi, deleteShareApi, getShareListApi } from '../api/share'
+import { addShareApi, deleteShareApi, getShareListApi, getShareListWithParamsApi } from '../api/share'
 import store from '../store'
 import util from '../util/utils'
 
 const userId = store.state.userInfo.userId
 const role = store.state.userInfo.role
-const isSubmit = ref(false)
 const deleteDialog = ref(false)
 const replyDialog = ref(false)
 const queryForm = reactive({
-  userId: '',
-  summary: '',
-  status: '',
+  userId,
 })
 const currentRoute = window.location.href
 const shareForeUrl = currentRoute.replace('system/share', 'gallery')
@@ -143,8 +137,6 @@ const shareFormRef = ref(null)
 const shareFormRules = {}
 const shareForm = reactive({
   userId,
-  summary: '',
-  content: '',
 })
 const deleteInfo = reactive({
   userId,
@@ -156,27 +148,18 @@ const pager = reactive({
   total: 0,
 })
 const options = [
-  { label: '未处理', value: 0 },
-  { label: '已处理', value: 1 },
+  { label: '未打开过', value: false },
+  { label: '已打开过', value: true },
 ]
 const queryShareList = async() => {
   const params = {
     ...queryForm,
     ...pager,
   }
-  const { list, page } = await getQueryListApi(params)
+  const { list, page } = await getShareListWithParamsApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   shareList.value = list
-}
-const onSubmit = () => {
-  shareFormRef.value.validate(async(valid) => {
-    if (valid) {
-      const res = await addShareApi(shareForm)
-      if (res)
-        isSubmit.value = true
-    }
-  })
 }
 const resetForm = () => {
   shareForm.summary = ''
@@ -188,10 +171,6 @@ const getShareList = async() => {
   pager.pageNum = page.pageNum
   pager.total = page.total
   shareList.value = list
-}
-const continueApply = () => {
-  resetForm()
-  isSubmit.value = false
 }
 const okToDelete = async() => {
   await deleteShareApi({ shareId: deleteInfo.shareId })
