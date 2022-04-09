@@ -97,6 +97,17 @@
         <el-form-item label="邮箱" prop="userEmail">
           <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" />
         </el-form-item>
+        <el-form-item label="角色" prop="role">
+          <el-radio v-model="addUserFrom.role" label="0">
+            管理员
+          </el-radio>
+          <el-radio v-model="addUserFrom.role" label="1">
+            普通用户
+          </el-radio>
+          <el-radio v-model="addUserFrom.role" label="2">
+            游客
+          </el-radio>
+        </el-form-item>
         <el-form-item label="手机号" prop="mobile">
           <el-input v-model="addUserFrom.mobile" placeholder="请输入手机号" />
         </el-form-item>
@@ -203,7 +214,9 @@ const userList = ref([])
 const userSelects = ref([])
 const addDialog = ref(false)
 const deleteDialog = ref(false)
-const addUserFrom = reactive({})
+const addUserFrom = reactive({
+  role: '1',
+})
 const roleList = ref([])
 const deptList = ref([])
 
@@ -261,6 +274,11 @@ const addUserFromRules = {
   },
   { validator: checkRepeatUserEmail, trigger: 'blur' },
   ],
+  role:{
+    required: true,
+    message: '必须选择角色',
+    trigger: 'blur',
+  },
   mobile: [{
     pattern: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
     message: '手机号格式错误',
