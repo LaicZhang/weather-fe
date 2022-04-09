@@ -8,7 +8,7 @@
     text-color="#ffffff"
     active-text-color="#409eff"
     router
-    default-openeds="['/system/userInfo', '/system/user', '/system/notice', '/system/pusher', '/data/showData', '/data/SetDataConfig']"
+    :default-openeds="defaultOpenedsArr"
   >
     <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
       <div class="menu-logo-img" />
@@ -39,6 +39,11 @@ export default defineComponent({
     return {
       isCollapse: false,
       activePath: '',
+      defaultOpenedsArr: [
+        '/system/userInfo', '/system/user', '/system/notice',
+        '/system/pusher', '/system/feedback', 'system/share',
+        '/data/showData', '/data/SetDataConfig',
+      ],
     }
   },
   computed: {
