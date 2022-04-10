@@ -106,6 +106,10 @@ const shareColumns = [
     },
   },
   {
+    prop: 'openCount',
+    label: '打开次数',
+  },
+  {
     prop: 'shareTime',
     label: '分享时间',
     formatter(row, column, cellValue) {
