@@ -3,6 +3,19 @@
     <div v-if="role > 0" class="apply">
       <el-card class="feedback-card">
         <el-form v-if="!isSubmit" ref="feedbackFormRef" :model="feedbackForm" :rules="feedbackFormRules">
+          <el-form-item prop="category">
+            <el-radio-group v-model="feedbackForm.feedbackCategory" size="large">
+              <el-radio-button label="1">
+                建议
+              </el-radio-button>
+              <el-radio-button label="2">
+                bug
+              </el-radio-button>
+              <el-radio-button label="3">
+                其他
+              </el-radio-button>
+            </el-radio-group>
+          </el-form-item>
           <el-form-item prop="summary">
             <el-input
               v-model="feedbackForm.summary"
@@ -172,6 +185,13 @@ const feedbackList = ref([])
 const feedbackColumns = [
   { prop: 'feedbackId', label: '反馈ID' },
   { prop: 'userId', label: '用户ID' },
+  {
+    prop: 'feedbackCategory',
+    label: '反馈类型',
+    formatter(row, column, cellValue) {
+      return { 1: '建议', 2: '投诉', 3: '其他' }[cellValue]
+    },
+  },
   { prop: 'summary', label: '标题' },
   { prop: 'content', label: '内容' },
   {
