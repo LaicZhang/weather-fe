@@ -6,18 +6,18 @@ import Welcome from '@/views/Welcome.vue'
 import User from '@/views/User.vue'
 import MineInfo from '@/views/MineInfo.vue'
 import Notice from '@/views/Notice.vue'
-import Login from '@/views/Login.vue'
+// import Login from '@/views/Login.vue'
 import Register from '@/views/Register.vue'
 import Forget from '@/views/Forget.vue'
-import Sign from '@/views/Sign.vue'
-import Dashboard from '@/views/Dashboard.vue'
+// import Sign from '@/views/Sign.vue'
+// import Dashboard from '@/views/Dashboard.vue'
 import showData from '@/views/showData.vue'
 import SetDataConfig from '@/views/SetDataConfig.vue'
 import Pusher from '@/views/Pusher.vue'
 import FeedBack from '@/views/FeedBack.vue'
 import History from '@/views/History.vue'
 import Share from '@/views/Share.vue'
-import Gallery from '@/views/Gallery.vue'
+// import Gallery from '@/views/Gallery.vue'
 
 const routes = [
   {
@@ -123,8 +123,8 @@ const routes = [
     name: 'sign',
     path: '/sign',
     meta: { title: '登陆注册页' },
-    // component: () => import('@/views/Sign.vue'),
-    component: Sign,
+    component: () => import('@/views/Sign.vue'),
+    // component: Sign,
   },
   {
     name: 'dashboard',
