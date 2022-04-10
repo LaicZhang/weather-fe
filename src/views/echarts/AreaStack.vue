@@ -153,7 +153,6 @@ const init = async() => {
     ],
   }
   myChart.setOption(option)
-  console.log('area stack=>', myChart)
 }
 onMounted(() => {
   init()

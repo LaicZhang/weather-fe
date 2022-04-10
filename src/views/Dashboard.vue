@@ -57,7 +57,6 @@ export default {
       const res = await getAllDataListApi({ ip: this.ip })
       // const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
       store.commit('setWeatherData', res.result)
-      console.log('WeatherData', store.state.weatherData)
       this.isLoaded = true
     },
   },

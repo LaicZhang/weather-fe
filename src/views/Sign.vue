@@ -69,7 +69,6 @@ export default {
   },
   methods: {
     toPageHome() {
-      console.log('toPageHome')
       router.push('/')
     },
     init() {
@@ -85,7 +84,7 @@ export default {
 
       // 隐藏text block，显示password block
       function hideShowPsw() {
-        if (demoInput.type == 'password') {
+        if (demoInput.type === 'password') {
           demoInput.type = 'text'
           demo_img.src = 'invisible.png'
         }
@@ -190,7 +189,7 @@ a{
 }
 
 button{
-	cursor: pointer;
+    cursor: pointer;
     border-radius: 20px;
     border: 1px solid #ff4b2b;
     background: #ff4b2b;

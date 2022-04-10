@@ -16,24 +16,24 @@ export default {
   components: {},
   props: ['pwdee'],
   data() {
-    return { msgText: '', pwdee: '' }
+    return { msgText: '' }
   },
   watch: {
     pwdee(newname, oldname) {
       this.msgText = this.checkStrong(newname)
-      if (this.msgText > 1 || this.msgText == 1)
+      if (this.msgText > 1 || this.msgText === 1)
         document.getElementById('one').style.background = 'red'
 
       else
         document.getElementById('one').style.background = '#eee'
 
-      if (this.msgText > 2 || this.msgText == 2)
+      if (this.msgText > 2 || this.msgText === 2)
         document.getElementById('two').style.background = 'orange'
 
       else
         document.getElementById('two').style.background = '#eee'
 
-      if (this.msgText == 4)
+      if (this.msgText === 4)
         document.getElementById('three').style.background = '#00D1B2'
 
       else
@@ -54,14 +54,11 @@ export default {
       switch (modes) {
         case 1:
           return 1
-          break
         case 2:
           return 2
-          break
         case 3:
         case 4:
           return sValue.length < 4 ? 3 : 4
-          break
       }
       return modes
     },

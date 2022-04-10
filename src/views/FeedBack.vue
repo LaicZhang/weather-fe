@@ -290,12 +290,10 @@ const okToDelete = async() => {
 const onReply = (data) => {
   replyDialog.value = true
   Object.assign(replyForm, data)
-  console.log('onReply', replyForm)
 }
 const onDelete = (data) => {
   deleteDialog.value = true
   Object.assign(replyForm, data)
-  console.log('onDelete', replyForm)
 }
 const okToReply = async() => {
   await replyApi({ ...replyForm })

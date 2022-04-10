@@ -87,7 +87,6 @@ export default defineComponent({
         ],
       }
       myChart.setOption(option)
-      console.log('bar1=>', myChart)
     }
     onMounted(() => {
       init()

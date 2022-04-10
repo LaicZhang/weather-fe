@@ -25,19 +25,6 @@
 <script>
 export default {
   props: ['text'],
-  mounted() {
-    console.log('backToSvg mounted')
-  },
-  // data() {
-  //     return {
-  //         text: ''
-  //     }
-  // },
-  methods: {
-    // toPageHome() {
-    //     this.$router.push('/');
-    // }
-  },
 }
 </script>
 

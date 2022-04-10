@@ -16,7 +16,7 @@ export default {
   },
   mounted() {
     const time = setInterval(() => {
-      if (this.flag == true)
+      if (this.flag === true)
         clearInterval(time)
 
       this.timeDown()

@@ -248,7 +248,6 @@ export default defineComponent({
     }
     const addNotice = async() => {
       const noticeFormRaw = toRaw(addNoticeFrom)
-      console.log('noticeFormRaw', noticeFormRaw)
       return addNoticeApi(noticeFormRaw)
     }
     const editNotice = async() => {
@@ -293,7 +292,6 @@ export default defineComponent({
     }
     const onAddDeleteList = (notice) => {
       noticeSelects.value = [notice._id]
-      console.log('noticeSelects.value=>', noticeSelects.value)
       deleteDialog.value = true
     }
     const onDeleteNoticeSelects = async() => {
@@ -316,7 +314,6 @@ export default defineComponent({
     }
     const watchMore = (val) => {
       selectedRow.value = val
-      console.log('selectedRow', selectedRow.value)
       moreDialog.value = true
     }
     const onSummit = () => {
@@ -324,7 +321,6 @@ export default defineComponent({
         if (valid) {
           try {
             let res
-            console.log('isEdit.value=>', isEdit.value)
             if (isEdit.value)
               res = await editNotice()
             else

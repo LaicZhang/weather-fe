@@ -91,7 +91,6 @@ export default {
       if (time < 0)
         return
 
-      // eslint-disable-next-line object-curly-newline
       const { dd, hh, mm, ss } = this.durationFormatter(time)
       this.days = dd || 0
       // this.hours = `00${hh || ''}`.slice(-2);

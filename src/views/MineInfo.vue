@@ -419,20 +419,16 @@ const isVisitorFn = () => {
 }
 const updatePusherSettings = async() => {
   const data = await updatePusherSettingsApi(pusherConfigForm)
-  console.log('updatePusherSettings=>', data)
 }
 const getPusherSettings = async() => {
   const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
   pusherConfigForm = Object.assign(pusherConfigForm, list)
-  console.log('getPusherSettings=>', pusherConfigForm)
 }
 const onSubmit = async(data) => {
-  console.log('userForm', data)
   await changeInfoApi(data)
 }
 const refreshInfo = async() => {
   const data = await refreshApi({ userId: userInfo.userId })
-  console.log('refreshInfo=>', data)
   store.commit('setUserInfo', data)
 }
 const getUserInfo = async() => {
@@ -450,7 +446,6 @@ const resetForm = () => {
   getUserInfo()
 }
 const onSubmitPusherConfigForm = () => {
-  console.log('pusherConfigForm', pusherConfigForm)
   updatePusherSettings()
 }
 const resetPusherConfigForm = () => {

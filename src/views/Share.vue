@@ -91,13 +91,13 @@ const shareList = ref([])
 const shareColumns = [
   { prop: 'shareId', label: '分享ID' },
   { prop: 'userId', label: '用户ID' },
-  {
-    prop: 'shareLink',
-    label: '链接',
-    formatter(row, column, cellValue) {
-      return `${shareForeUrl}?shareId=${cellValue}`
-    },
-  },
+  // {
+  //   prop: 'shareLink',
+  //   label: '链接',
+  //   formatter(row, column, cellValue) {
+  //     return `${shareForeUrl}?shareId=${cellValue}`
+  //   },
+  // },
   {
     prop: 'state',
     label: '生成状态',

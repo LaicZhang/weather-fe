@@ -63,7 +63,6 @@ export default defineComponent({
         ],
       }
       myChart.setOption(option)
-      console.log('barYCategory=>', myChart)
     }
     onMounted(() => {
       init()

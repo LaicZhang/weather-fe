@@ -274,7 +274,7 @@ const addUserFromRules = {
   },
   { validator: checkRepeatUserEmail, trigger: 'blur' },
   ],
-  role:{
+  role: {
     required: true,
     message: '必须选择角色',
     trigger: 'blur',
@@ -304,7 +304,6 @@ const getAllUsersList = async() => {
   pager.pageNum = page.pageNum
   pager.total = page.total
   userList.value = list
-  console.log(userList.value)
 }
 const deleteUser = async() => {
   if (userSelects.value.length > 0)
@@ -355,7 +354,6 @@ const onAddUserBtn = () => {
 }
 const onAddDeleteList = (user) => {
   userSelects.value = [user.userId]
-  console.log('userSelects.value=>', userSelects.value)
   deleteDialog.value = true
 }
 const onDeleteUserSelects = async() => {
@@ -379,7 +377,6 @@ const onCancel = () => {
   addDialog.value = false
 }
 const resetPassword = () => {
-  console.log('addUserFrom=>', addUserFrom)
   ElMessageBox.confirm('确认重置密码?', 'Warning', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',

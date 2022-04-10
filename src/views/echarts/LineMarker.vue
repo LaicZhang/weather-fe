@@ -99,7 +99,6 @@ export default defineComponent({
         ],
       }
       myChart.setOption(option)
-      console.log('line-marker=>', myChart)
     }
     onMounted(() => {
       initT()

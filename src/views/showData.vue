@@ -101,7 +101,6 @@ const changeCity = (cityInfo) => {
   cityCode.value = cityInfo.cityCode
   countyCode.value = cityInfo.countyCode
   fullLocation.value = cityInfo.fullLocation
-  console.log('changeCity', cityInfo)
   cityNm = cityInfo.cityName
   cityNm = cityNm.substring(0, cityNm.length - 1)
   currentLocation.value = cityInfo.fullLocation

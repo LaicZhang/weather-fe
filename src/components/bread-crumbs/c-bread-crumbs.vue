@@ -5,12 +5,12 @@
     </div>
     <el-breadcrumb>
       <template v-for="(match, index) in matched">
-        <el-breadcrumb-item v-if="index === 0" :to="{ path: '/' }">
+        <el-breadcrumb-item v-if="index === 0" :key="match.meta.title" :to="{ path: '/' }">
           {{
             match.meta.title
           }}
         </el-breadcrumb-item>
-        <el-breadcrumb-item v-else>
+        <el-breadcrumb-item v-else :key="index">
           {{ match.meta.title }}
         </el-breadcrumb-item>
       </template>

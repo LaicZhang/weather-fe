@@ -53,7 +53,6 @@ import { getIpApi, getWeatherLikeApi, loginApi, menuPermissionApi } from '@/api'
 
 const { router, store } = useVuexWithRouter()
 const toPageHome = () => {
-  console.log('toPageHome')
   router.push('/')
 }
 const BASE_CDN_URL = store.state.BASE_CDN_URL

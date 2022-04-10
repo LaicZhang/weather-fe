@@ -104,14 +104,12 @@ const userForm = reactive({
 
 const sendCaptchaCode = async() => {
   let data
-  if (methodsRadio.value === '邮件') {
+  if (methodsRadio.value === '邮件')
     data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
-    console.log('sendCaptchaCode emial', data)
-  }
-  else {
+
+  else
     await sendCaptchaSmsApi({ mobile: userForm.mobile })
-    console.log('sendCaptchaCode sms', data)
-  }
+
   const clock = window.setInterval(() => {
     content.value = `${totalTime.value}s后重新发送`
     totalTime.value--
