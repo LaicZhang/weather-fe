@@ -4,7 +4,7 @@
       <span>个人信息</span>
       <el-upload
         class="avatar-uploader"
-        action="https://weather-api.zyha.cn/api/upload"
+        :action="UPLOAD_URL"
         :data="uploadData"
         :limit="1"
         :show-file-list="false"
@@ -289,7 +289,8 @@ const pushDeerDialogVisible = ref(false)
 // info dialog
 const changeEmailDialogVisible = ref(false)
 const changeMobileDialogVisible = ref(false)
-
+const BE_URL = import.meta.env.VITE_BE_URL
+const UPLOAD_URL = `${BE_URL}upload`
 const changeEmailForm = reactive({
   userEmail: '',
   captcha: '',
