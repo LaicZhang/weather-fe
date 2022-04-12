@@ -2,10 +2,11 @@
   <div class="showData-page">
     <div class="home-banner">
       <el-form>
-        <el-form-item>
-          <p>当前地址：{{ currentLocation }}</p>
-          <div>修改地址：<city :key="locationKey" :full-location="fullLocation" @change-city="changeCity" /></div>
-        </el-form-item>
+        <p>当前地址：{{ currentLocation }}</p>
+        <p style="line-height: 8vh;">
+          修改地址：
+          <city :key="locationKey" :full-location="fullLocation" @change-city="changeCity" />
+        </p>
         <el-col :span="24">
           <el-form-item>
             <el-button type="primary" @click="onSubmit('permanent')">
@@ -69,7 +70,6 @@ import { getWeatherListApi } from '@/api'
 const provinceCode = ref('110000')
 const cityCode = ref('119900')
 const countyCode = ref('110101')
-// const fullLocation = ref('北京市 市辖区 东城区')
 const fullLocation = ref('')
 const pager = reactive({
   pageNum: 1,

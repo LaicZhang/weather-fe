@@ -62,7 +62,7 @@
         </div>
       </el-card>
     </div>
-    <div v-if="role === 0" class="reply">
+    <div v-if="role === 0" style="margin: 15px;">
       <el-form inline :model="queryForm">
         <el-form-item label="用户ID">
           <el-input v-model="queryForm.userId" />
