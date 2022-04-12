@@ -1,6 +1,6 @@
 <template>
   <div class="share-page">
-    <div class="reply">
+    <div class="share-content" style="margin: 15px;">
       <el-form inline :model="queryForm">
         <el-form-item label="打开状态">
           <el-select v-model="queryForm.isOpened" placeholder="打开状态">

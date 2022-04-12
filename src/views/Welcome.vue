@@ -22,29 +22,16 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue'
-import { useRouter } from 'vue-router'
-import store from '../store'
-import GithubCorner from '@/components/corner/github-corner'
+import store from '@/store'
+import router from '@/router'
+import GithubCorner from '@/components/github/corner.vue'
 
-export default defineComponent({
-  name: 'Welcome',
-  setup() {
-    const router = useRouter()
-    const baseCdnUrl = store.state.BASE_CDN_URL
-    const toPageLogin = () => {
-      router.push({ name: 'login' })
-    }
-    return {
-      defineComponent,
-      useRouter,
-      router,
-      baseCdnUrl,
-      toPageLogin,
-    }
-  },
-})
+const baseCdnUrl = store.state.BASE_CDN_URL
+const toPageLogin = () => {
+  router.push({ name: 'login' })
+}
 </script>
 <style lang="scss" scoped>
 .welcome-page {
