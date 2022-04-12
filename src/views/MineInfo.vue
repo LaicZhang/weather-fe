@@ -457,6 +457,9 @@ const init = async() => {
 }
 const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
 const handleAvatarSuccess = (res, file) => {
+  const filename = res.data.filename
+  userInfo.avatar = filename
+  store.commit('setUserInfo', userInfo)
   imageUrl.value = URL.createObjectURL(file.raw)
   // refreshInfo()
   // console.log('handleAvatarSuccess', res, file)
