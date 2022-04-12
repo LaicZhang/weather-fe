@@ -85,8 +85,13 @@ export default defineComponent({
     async getMenuPermission() {
       if (window.localStorage.getItem('userInfo')) {
         const { menuList, actionList } = await menuPermissionApi()
-        this.$store.commit('setMenuList', menuList)
-        this.$store.commit('setActionList', actionList)
+        if (menuList && actionList) {
+          this.$store.commit('setMenuList', menuList)
+          this.$store.commit('setActionList', actionList)
+        }
+        else {
+          router.push('/login')
+        }
       }
       // const { menuList, actionList } = await menuPermissionApi()
       // this.$store.commit('setActionList', actionList)
