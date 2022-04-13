@@ -29,6 +29,7 @@ const toPageHome = () => {
 }
 const userName = ref('')
 const location = ref('')
+const BE_URL = import.meta.env.VITE_BE_URL.replace('/api/', '')
 const BASE_CDN_URL = store.state.BASE_CDN_URL
 const imgUrl = ref('https://img.yzcdn.cn/vant/cat.jpeg')
 const getShareInfo = async() => {
@@ -36,7 +37,7 @@ const getShareInfo = async() => {
     shareId,
   })
   if (data) {
-    imgUrl.value = `http://localhost:9000${data.shareLink}`
+    imgUrl.value = `${BE_URL}${data.shareLink}`
     userName.value = data.userName
     location.value = data.shareLocation.city
   }
