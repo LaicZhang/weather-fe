@@ -10,6 +10,7 @@
     "incremental": false,
     "skipLibCheck": true,
     "moduleResolution": "node",
+    "jsx": "preserve",
     "resolveJsonModule": true,
     "noUnusedLocals": true,
     "strictNullChecks": true,
