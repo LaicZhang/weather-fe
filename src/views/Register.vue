@@ -49,7 +49,7 @@
           prefix-icon="el-icon-lock"
         />
         <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
-        <password-meter :password="userForm.userPwd" />
+        <PasswordMeter :password="userForm.userPwd" />
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input
@@ -145,7 +145,6 @@ const userRules = {
       message: '请填写密码',
       trigger: 'blur',
     },
-    { pattern: /^(?=.*[a-zA-Z])(?=.*\d)[^]{8,16}$/, message: '密码必须包含字母和数字', trigger: 'blur' },
     { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' },
   ],
   userConfirmPwd: [
@@ -195,6 +194,9 @@ const handleSelect = (item) => {
 const encodedUserPwd = (userPwd) => {
   return btoa(userPwd)
 }
+const decodedUserPwd = (userPwd) => {
+  return atob(userPwd)
+}
 const userFromCommit = () => {
   userFormRef.value.validate(async(valid) => {
     if (valid) {
@@ -210,7 +212,9 @@ const userFromCommit = () => {
       toPageHome()
     }
     else {
-      return false
+      userForm.userPwd = decodedUserPwd(userForm.userPwd)
+      userForm.userConfirmPwd = decodedUserPwd(userForm.userConfirmPwd)
+      return ElMessage.error('请检查表单')
     }
   })
 }

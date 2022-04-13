@@ -32,7 +32,7 @@ specifiers:
   vitest: ^0.9.2
   vue: ^3.2.32
   vue-router: ^4.0.14
-  vue-simple-password-meter: ^0.1.0
+  vue-simple-password-meter: ^1.1.0
   vuex: ^4.0.2
 
 dependencies:
@@ -48,7 +48,7 @@ dependencies:
   vite-plugin-chunk-split: 0.2.1_vite@2.9.1
   vue: 3.2.32
   vue-router: 4.0.14_vue@3.2.32
-  vue-simple-password-meter: 0.1.0
+  vue-simple-password-meter: 1.1.0
   vuex: 4.0.2_vue@3.2.32
 
 devDependencies:
@@ -3828,8 +3828,8 @@ packages:
       vue: 3.2.32
     dev: false
 
-  /vue-simple-password-meter/0.1.0:
-    resolution: {integrity: sha512-5ZlI4AebAhoETMjUzdTZd8FcpUB0ecWGZ2cBggydJc70EBqEUPye6LI56anDlS+KSHQEAv7r9PdvQk8Ndt7WjQ==}
+  /vue-simple-password-meter/1.1.0:
+    resolution: {integrity: sha512-gLtbE7oXvGiDrPMWp/sENCzFkyTFVENN8RN1+kANC0erJDaoMJt0q343ELR9aZOqLnoGxG1BL3ESInR/CeCYJA==}
     dev: false
 
   /vue/3.2.32:

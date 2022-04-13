@@ -23,7 +23,7 @@
     "vite-plugin-chunk-split": "^0.2.1",
     "vue": "^3.2.32",
     "vue-router": "^4.0.14",
-    "vue-simple-password-meter": "^0.1.0",
+    "vue-simple-password-meter": "^1.1.0",
     "vuex": "^4.0.2"
   },
   "devDependencies": {
