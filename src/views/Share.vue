@@ -35,7 +35,7 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <el-table-column sortable label="Operations">
+        <el-table-column sortable label="Operations" width="140px">
           <template #default="scope">
             <el-button v-show="scope.row.state===1" size="default" type="text" @click="onCopy(scope.row)">
               复制链接
