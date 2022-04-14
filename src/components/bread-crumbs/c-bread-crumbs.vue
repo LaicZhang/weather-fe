@@ -18,19 +18,14 @@
   </div>
 </template>
 
-<script  >
+<script setup>
 import { defineComponent, reactive, ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
-export default defineComponent({
-  name: 'CBreadCrumbs',
-  setup() {
-    const route = useRoute()
-    const matched = ref([])
-    watchEffect(() => {
-      matched.value = route.matched
-    })
-    return { matched }
-  },
+
+const route = useRoute()
+const matched = ref([])
+watchEffect(() => {
+  matched.value = route.matched
 })
 </script>
 <style lang="scss" scoped>
