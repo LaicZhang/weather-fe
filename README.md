@@ -1,6 +1,6 @@
 ## 项目功能架构
 
-![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220206202800.png)
+![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220415134342.png)
 
 - 推荐使用EDGE或非最新版Chrome浏览器进行查看。
 
