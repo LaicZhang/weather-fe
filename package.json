@@ -19,7 +19,7 @@
     "element-plus": "^2.1.9",
     "rollup": "2.70.1",
     "ts-node": "^10.7.0",
-    "vite": "^2.9.1",
+    "vite": "^2.9.5",
     "vite-plugin-chunk-split": "^0.2.1",
     "vue": "^3.2.32",
     "vue-router": "^4.0.14",
