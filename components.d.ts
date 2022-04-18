@@ -26,6 +26,7 @@ declare module 'vue' {
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -38,6 +39,7 @@ declare module 'vue' {
     ElMenuItem: typeof import('element-plus/es')['ElMenuItem']
     ElOption: typeof import('element-plus/es')['ElOption']
     ElPagination: typeof import('element-plus/es')['ElPagination']
+    ElPopover: typeof import('element-plus/es')['ElPopover']
     ElRadio: typeof import('element-plus/es')['ElRadio']
     ElRadioButton: typeof import('element-plus/es')['ElRadioButton']
     ElRadioGroup: typeof import('element-plus/es')['ElRadioGroup']
@@ -49,14 +51,14 @@ declare module 'vue' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
-    GithubCorner: typeof import('./src/components/github/github-corner.vue')['default']
     IsOnline: typeof import('./src/components/is-online/index.vue')['default']
     Lazyload: typeof import('./src/components/lazyload/index.vue')['default']
+    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     NoticesCount: typeof import('./src/components/notices-count/index.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
     PushdeerAlert: typeof import('./src/components/info/pushdeer-alert.vue')['default']
-    UploadAvatar: typeof import('./src/components/info/upload-avatar.vue')['default']
   }
 }
 
