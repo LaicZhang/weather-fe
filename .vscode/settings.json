@@ -7,13 +7,14 @@
     "editor.fontSize": 14,
     "editor.glyphMargin": true,
     "editor.guides.bracketPairs": "active",
+    "editor.unicodeHighlight.invisibleCharacters": false,
     "editor.inlineSuggest.enabled": true,
     "editor.lineNumbers": "interval",
     "editor.multiCursorModifier": "ctrlCmd",
     "editor.renderWhitespace": "boundary",
     "editor.suggestSelection": "first",
     "editor.tabSize": 2,
-    "editor.unicodeHighlight.invisibleCharacters": false,
+    "editor.bracketPairColorization.enabled": true,
     "editor.codeActionsOnSave": {
       "source.fixAll": false,
       "source.fixAll.eslint": true, // this allows ESLint to auto fix on save
