@@ -3,7 +3,7 @@
  */
 export default {
   formateDate(date: any, rule: string): string {
-    let fmt = rule || 'yyyy-MM-dd hh:mm:ss'
+    let fmt: string = rule || 'yyyy-MM-dd hh:mm:ss'
     if (/(y+)/.test(fmt))
       fmt = fmt.replace(RegExp.$1, date.getFullYear())
 

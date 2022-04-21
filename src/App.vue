@@ -1,13 +1,5 @@
-<script>
-// import * as echarts from 'echarts'
-// import { provide } from 'vue'
-export default {
-  name: 'App',
-  components: {},
-  setup() {
-    // provide('echarts', echarts)
-  },
-}
+
+<script setup>
 </script>
 
 <template>

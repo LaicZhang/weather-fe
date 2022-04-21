@@ -1,5 +1,6 @@
-const env = import.meta.env.MODE || 'production'
-const EnvConfig: any = {
+const env: string = import.meta.env.MODE || 'production'
+type ConfigInterface = Record<string, any>
+const EnvConfig: ConfigInterface = {
   development: {
     baseApi: '/api',
     mockApi: 'https://www.fastmock.site/mock/c1c302e8baed9894c48c17e4738c092e/api',
