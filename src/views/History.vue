@@ -6,7 +6,7 @@
           <el-image class="browser-img" :src="`${BASE_CLIENT_URL}${item.loginBrowser}.png`" />
           <el-descriptions
             style="margin-bottom: 20px;float: left;"
-            column="2"
+            :column="2"
             :title="util.formateDate(new Date(item.loginTime))"
             border
           >
