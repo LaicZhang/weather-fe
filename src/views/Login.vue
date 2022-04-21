@@ -146,7 +146,7 @@ onMounted(() => {
       border-radius: 10px;
       @extend .center-all;
       text-align: center;
-      background-color: white;
+      background-color: #ffffff;
       .login-title {
         height: 60px;
         font-size: $font-size-large;

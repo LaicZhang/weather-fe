@@ -433,7 +433,7 @@ onMounted(() => {
     box-sizing: border-box;
     height: 100vh;
     .user-from-wrap {
-      background: white;
+      background: #ffffff;
       margin-bottom: 18px;
       .el-form {
         padding: 18px;

@@ -157,7 +157,7 @@ export default defineComponent({
 
       .manager-top-nav {
         height: 50px;
-        background: white;
+        background: #ffffff;
         box-shadow: $shadow-light;
         display: flex;
         padding: 0 30px;

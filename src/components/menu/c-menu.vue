@@ -94,7 +94,7 @@ export default defineComponent({
       .menu-logo-title {
         font-size: 20px;
         margin-left: 10px;
-        color: white;
+        color: #ffffff;
       }
     }
   }

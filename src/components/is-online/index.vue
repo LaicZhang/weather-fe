@@ -31,14 +31,14 @@ const { isOnline, offlineAt, saveData, downlink, rtt, effectiveType, type } = us
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: green;
+  background: #008000;
   margin-right: 10px;
 }
 .is-offline-user{
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  background: red;
+  background: #ff0000;
   margin-right: 10px;
 }
 </style>

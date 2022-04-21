@@ -565,7 +565,7 @@ onMounted(() => {
     box-sizing: border-box;
     height: 100vh;
     .pusher-from-wrap {
-      background: white;
+      background: #ffffff;
       margin-bottom: 18px;
       .el-form {
         padding: 18px;

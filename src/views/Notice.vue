@@ -384,7 +384,7 @@ export default defineComponent({
     box-sizing: border-box;
     height: 100vh;
     .notice-from-wrap {
-      background: white;
+      background: #ffffff;
       margin-bottom: 18px;
       .el-form {
         padding: 18px;

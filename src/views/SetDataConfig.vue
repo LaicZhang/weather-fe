@@ -142,7 +142,7 @@ onMounted(() => {
     width: 30vw;
   }
   .search-from-wrap {
-    background: white;
+    background: #ffffff;
     margin-bottom: 18px;
   }
 </style>

@@ -35,7 +35,7 @@ const toPageLogin = () => {
 </script>
 <style lang="scss" scoped>
 .welcome-page {
-  background: white;
+  background: #ffffff;
   position: relative;
   height: 100vh;
   .welcome-img{

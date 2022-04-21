@@ -103,11 +103,11 @@ export default {
   margin-left: -5px;
 }
 #font span:nth-child(1) {
-  color: red;
+  color: #ff0000;
   margin-left: 80px;
 }
 #font span:nth-child(2) {
-  color: orange;
+  color: #ffa500;
   margin: 0 60px;
 }
 #font span:nth-child(3) {
