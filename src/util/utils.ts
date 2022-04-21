@@ -2,8 +2,8 @@
  * 工具函数封装
  */
 export default {
-  formateDate(date: any, rule: string): string {
-    let fmt: string = rule || 'yyyy-MM-dd hh:mm:ss'
+  formateDate(date: any, rule = 'yyyy-MM-dd hh:mm:ss'): string {
+    let fmt: string = rule
     if (/(y+)/.test(fmt))
       fmt = fmt.replace(RegExp.$1, date.getFullYear())
 
