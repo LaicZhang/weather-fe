@@ -14,9 +14,8 @@
   </div>
 </template>
 
-<script setup>
-import { defineComponent, onMounted, reactive, ref } from 'vue'
-import store from '@/store'
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
 import router from '@/router'
 import { getShareInfoApi, openShareApi } from '@/api/share'
 import backToSvgVue from '@/components/backTo/backToSvg.vue'
@@ -29,8 +28,7 @@ const toPageHome = () => {
 }
 const userName = ref('')
 const location = ref('')
-const BE_URL = import.meta.env.VITE_BE_URL.replace('/api/', '')
-const BASE_CDN_URL = store.state.BASE_CDN_URL
+const BE_URL: string = import.meta.env.VITE_BE_URL.replace('/api/', '')
 const imgUrl = ref('https://img.yzcdn.cn/vant/cat.jpeg')
 const getShareInfo = async() => {
   const data = await getShareInfoApi({
@@ -43,9 +41,7 @@ const getShareInfo = async() => {
   }
 }
 const openShare = async() => {
-  const data = await openShareApi({
-    shareId,
-  })
+  await openShareApi({ shareId })
 }
 onMounted(() => {
   openShare()
