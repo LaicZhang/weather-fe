@@ -7,7 +7,7 @@
           <el-descriptions
             style="margin-bottom: 20px;float: left;"
             :column="2"
-            :title="util.formateDate(new Date(item.loginTime))"
+            :title="util.formateDate(new Date(item.loginTime),'yyyy-MM-dd hh:mm:ss')"
             border
           >
             <el-descriptions-item label="浏览器">
@@ -35,15 +35,15 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, reactive } from 'vue'
 import store from '../store'
-import { checkHistoryApi, getHistoryApi } from '@/api/history'
+import { getHistoryApi } from '@/api/history'
 import util from '@/util/utils'
 
 const userId = store.state.userInfo.userId
 const BASE_CLIENT_URL = `${store.state.BASE_CDN_URL}img/client/`
-const historyList = reactive([])
+const historyList: any = reactive([])
 
 const getHistory = async() => {
   const data = await getHistoryApi({ userId })
