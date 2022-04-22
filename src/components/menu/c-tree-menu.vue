@@ -29,18 +29,14 @@
   <!-- </div> -->
 </template>
 
-<script>
+<script setup>
 import { defineComponent } from 'vue'
 
-export default defineComponent({
-  name: 'CTreeMenu',
-  components: {},
-  props: {
-    menus: {
-      type: Array,
-      default: () => {
-        return []
-      },
+defineProps({
+  menus: {
+    type: Array,
+    default: () => {
+      return []
     },
   },
 })

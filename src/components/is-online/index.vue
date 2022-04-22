@@ -21,10 +21,10 @@
     </template>
   </el-popover>
 </template>
-<script setup>
+<script setup lang="ts">
 import { useNetwork } from '@vueuse/core'
 
-const { isOnline, offlineAt, saveData, downlink, rtt, effectiveType, type } = useNetwork()
+const { isOnline, offlineAt, saveData, downlink, rtt, effectiveType } = useNetwork()
 </script>
 <style lang="scss" scoped>
 .is-online-user {

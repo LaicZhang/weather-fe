@@ -22,10 +22,8 @@
   </div>
 </template>
 
-<script>
-export default {
-  props: ['text'],
-}
+<script setup>
+defineProps(['text'])
 </script>
 
 <style lang="scss" scoped>
@@ -37,7 +35,6 @@ export default {
     width: 50px;
     cursor:pointer;
     margin-right: -100px;
-
   }
 .svg-icon {
   width: 50px;
