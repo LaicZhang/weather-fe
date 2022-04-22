@@ -5,13 +5,8 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import LifeIndex from './LifeIndex.vue'
-export default {
-  components: {
-    LifeIndex,
-  },
-}
 </script>
 
 <style lang="less" scoped>

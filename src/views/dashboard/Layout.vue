@@ -32,7 +32,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 import { useClipboard } from '@vueuse/core'
@@ -59,7 +59,7 @@ const shareCurrentWeather = async() => {
     userId: store.state.userInfo.userId,
   })
   if (data) {
-    const { text, copy } = useClipboard()
+    const { copy } = useClipboard()
     copy(`${shareForeUrl}?shareId=${data.shareId}`)
     ElMessage.success('分享链接已复制到剪切板，快去分享吧')
   }

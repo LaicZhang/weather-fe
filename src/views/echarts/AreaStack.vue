@@ -2,15 +2,16 @@
   <div id="area-stack" ref="myRef" />
 </template>
 
-<script setup>
+<script setup lang="ts">
 import * as echarts from 'echarts'
-import { defineComponent, onMounted, ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import { getStackdataApi } from '@/api'
 import router from '@/router'
 
 const myRef = ref(null)
 const init = async() => {
-  const myChart = echarts.init(document.getElementById('area-stack'))
+  const element = document.getElementById('area-stack') as HTMLElement
+  const myChart = echarts.init(element)
   const currentRoute = router.currentRoute.value
   const ip = currentRoute.query.ip
   const stackData = await getStackdataApi({ ip })
@@ -28,7 +29,7 @@ const init = async() => {
       bottom: '10%',
     },
     xAxis: {
-      data: stackData.arr.map((item) => {
+      data: stackData.arr.map((item: any) => {
         return item[0]
       }),
     },
@@ -93,7 +94,7 @@ const init = async() => {
       {
         name: '最高温度',
         type: 'line',
-        data: stackData.arr.map((item) => {
+        data: stackData.arr.map((item: any) => {
           return item[1]
         }),
         markLine: {
@@ -123,7 +124,7 @@ const init = async() => {
       {
         name: '最低温度',
         type: 'line',
-        data: stackData.arr.map((item) => {
+        data: stackData.arr.map((item: any) => {
           return item[2]
         }),
         markLine: {
