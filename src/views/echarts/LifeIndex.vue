@@ -32,35 +32,18 @@
   </div>
 </template>
 
-<script>
+<script setup lang="ts">
+import { reactive } from 'vue'
 import store from '@/store'
-export default {
-  name: 'LifeIndex',
-  data() {
-    return {
-      clothesIndex: {},
-      rayIndex: {},
-      carIndex: {},
-      clothesIndexText: '',
-      rayIndexText: '',
-      carIndexText: '',
-    }
-  },
-  mounted() {
-    this.getLifeIndex()
-  },
-  methods: {
-    getLifeIndex() {
-      const today = store.state.weatherData.today
-      this.clothesIndex = today.lifeIndex.ct
-      this.rayIndex = today.lifeIndex.uv
-      this.carIndex = today.lifeIndex.xc
-      this.clothesIndexText = `${this.clothesIndex.liNm}:${this.clothesIndex.liAttr},${this.clothesIndex.liDese}`
-      this.rayIndexText = `${this.rayIndex.liNm}:${this.rayIndex.liAttr},${this.rayIndex.liDese}`
-      this.carIndexText = `${this.carIndex.liNm}:${this.carIndex.liAttr},${this.carIndex.liDese}`
-    },
-  },
-}
+
+const today = store.state.weatherData.today.lifeIndex
+const clothesIndex = reactive(today.ct)
+const rayIndex = reactive(today.uv)
+const carIndex = reactive(today.xc)
+const clothesIndexText = `${clothesIndex.liNm}:${clothesIndex.liAttr},${clothesIndex.liDese}`
+const rayIndexText = `${rayIndex.liNm}:${rayIndex.liAttr},${rayIndex.liDese}`
+const carIndexText = `${carIndex.liNm}:${carIndex.liAttr},${carIndex.liDese}`
+
 </script>
 
 <style>

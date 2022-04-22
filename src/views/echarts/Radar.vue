@@ -15,7 +15,8 @@ const myRef = ref(null)
 const init = () => {
   const myChart = echarts.init(document.getElementById('radar') as HTMLElement)
   const realTime = store.state.weatherData.realTime
-  const indicator = [
+  type IndicatorInterface = Record<string, any>
+  const indicator: IndicatorInterface = [
     { name: '能见度', max: 20 },
     { name: 'AQI', max: 300 },
     { name: '温度', max: 40 },
