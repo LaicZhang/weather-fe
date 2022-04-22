@@ -41,10 +41,10 @@
   <!-- <p>https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容</p> -->
 </template>
 
-<script setup>
+<script setup lang="ts">
 import store from '@/store'
 
-const baseCdnUrl = store.state.BASE_CDN_URL
+const baseCdnUrl: string = store.state.BASE_CDN_URL
 
 </script>
 

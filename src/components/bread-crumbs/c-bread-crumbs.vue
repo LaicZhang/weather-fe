@@ -18,12 +18,12 @@
   </div>
 </template>
 
-<script setup>
-import { defineComponent, reactive, ref, watchEffect } from 'vue'
+<script setup lang="ts">
+import { ref, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 
 const route = useRoute()
-const matched = ref([])
+const matched: any = ref([])
 watchEffect(() => {
   matched.value = route.matched
 })
