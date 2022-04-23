@@ -53,6 +53,7 @@ declare module 'vue' {
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
     ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
+    InfoCard: typeof import('./src/components/info/info-card.vue')['default']
     IsOnline: typeof import('./src/components/is-online/index.vue')['default']
     Lazyload: typeof import('./src/components/lazyload/index.vue')['default']
     Loading: typeof import('element-plus/es')['ElLoadingDirective']
