@@ -46,8 +46,8 @@
 <script>
 </script>
 
-<script setup>
-import { defineComponent, onBeforeMount, onMounted, reactive, ref } from 'vue'
+<script setup lang="ts">
+import { onMounted, reactive, ref } from 'vue'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { getIpApi, getWeatherLikeApi, loginApi, menuPermissionApi } from '@/api'
 
@@ -58,8 +58,8 @@ const toPageHome = () => {
 const BASE_CDN_URL = store.state.BASE_CDN_URL
 const baseImgUrl = ref(`${BASE_CDN_URL}/img/bg-default.png`)
 const coverImgUrl = ref('')
-const captchaRef = ref('')
-const userFormRef = ref(null)
+// const captchaRef = ref('')
+const userFormRef: any = ref(null)
 const userForm = reactive({
   userName: '',
   userPwd: '',
@@ -94,12 +94,12 @@ const getMenuPermission = async() => {
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
 }
-const encodedUserPwd = (userPwd) => {
+const encodedUserPwd = (userPwd: string) => {
   userForm.userPwd = btoa(userPwd)
   return userForm.userPwd
 }
 const userFromCommit = () => {
-  userFormRef.value.validate(async(valid) => {
+  userFormRef.value.validate(async(valid: any) => {
     if (valid) {
       encodedUserPwd(userForm.userPwd)
       const loginInfo = await loginApi(userForm)
@@ -125,7 +125,7 @@ const toForget = () => {
 const toHomeAsVisitor = () => {
   userForm.userName = 'visitor'
   userForm.userPwd = '123456'
-  userForm.captchaCode = '123456'
+  // userForm.captchaCode = '123456'
   userFromCommit()
 }
 onMounted(() => {
