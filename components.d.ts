@@ -4,6 +4,8 @@
 
 declare module 'vue' {
   export interface GlobalComponents {
+    Avatar: typeof import('./src/components/info/avatar.vue')['default']
+    AvatarUpload: typeof import('./src/components/info/avatar-upload.vue')['default']
     BackToSvg: typeof import('./src/components/backTo/backToSvg.vue')['default']
     BaseCountDown: typeof import('./src/components/countDown/baseCountDown.vue')['default']
     CalendarGraph: typeof import('./src/components/github/calendar-graph.vue')['default']

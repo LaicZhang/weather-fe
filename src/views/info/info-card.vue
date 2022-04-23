@@ -1,20 +1,7 @@
 <template>
   <el-card class="mine-info-left">
     <span>个人信息</span>
-    <el-upload
-      class="avatar-uploader"
-      :action="UPLOAD_URL"
-      :data="uploadData"
-      :limit="1"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-    >
-      <el-image v-if="imageUrl" alt="user avatar" lazy class="avatar" :src="imageUrl" />
-      <!-- <el-icon class="avatar-uploader-icon">
-          <Plus />
-        </el-icon> -->
-    </el-upload>
+    <AvatarUpload />
     <el-form ref="formRef" :model="userForm" label-width="60px" label-position="left">
       <el-form-item label="用户ID">
         <el-input v-model="userForm.userId" disabled />
@@ -149,14 +136,11 @@ const userForm = reactive({
   lastLoginTime: '',
 })
 const userInfo = store.state.userInfo
-const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 // let sexDict = {}
 
 // info dialog
 const changeEmailDialogVisible = ref(false)
 const changeMobileDialogVisible = ref(false)
-const BE_URL = import.meta.env.VITE_BE_URL
-const UPLOAD_URL = `${BE_URL}upload`
 const changeEmailForm = reactive({
   userEmail: '',
   captcha: '',
@@ -209,9 +193,6 @@ const changeMobileRules: any = {
 }
 
 const isVisitor = ref(true)
-const uploadData = ref({
-  userId: userInfo.userId,
-})
 
 const getChangeEmailCaptcha = async() => {
   const res = await getCaptchaEmailApi({
@@ -289,34 +270,8 @@ const getUserInfo = async() => {
 const resetForm = () => {
   getUserInfo()
 }
-// const init = async() => {
-//   sexDict = await getDictApi('sex')
-// }
-const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
-const handleAvatarSuccess = (res: any, file: any) => {
-  const filename = res.data.filename
-  userInfo.avatar = filename
-  store.commit('setUserInfo', userInfo)
-  imageUrl.value = URL.createObjectURL(file.raw)
-  // refreshInfo()
-  // console.log('handleAvatarSuccess', res, file)
-  // imageUrl.value = res.data.path
-}
-const beforeAvatarUpload = (file: any) => {
-  const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
-  const isLt5M = file.size / 1024 / 1024 < 2
-
-  if (!isImage)
-    ElMessage.error('Avatar picture must be JPG/PNG format!')
-
-  if (!isLt5M)
-    ElMessage.error('Avatar picture size can not exceed 2MB!')
-
-  return isImage && isLt5M
-}
 
 onMounted(() => {
-  // init()
   isVisitorFn()
   getUserInfo()
 })
