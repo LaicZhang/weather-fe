@@ -71,126 +71,7 @@
         </el-col>
       </el-form>
     </el-card>
-    <el-card v-show="isVisitor" class="mine-info-right">
-      <span>推送配置</span>
-      <el-form ref="configRef" :model="pusherConfigForm" label-position="left">
-        <el-form-item>
-          <el-checkbox v-model="pusherConfigForm.useEmail" label="邮箱" border />
-          <el-checkbox v-model="pusherConfigForm.useSms" label="短信" border />
-          <el-checkbox v-model="pusherConfigForm.usePushDeer" label="PushDeer" border />
-        </el-form-item>
-        <el-form-item>
-          <el-checkbox v-model="pusherConfigForm.useFeiShu" label="飞书" border />
-          <el-checkbox v-model="pusherConfigForm.useDingTalk" label="钉钉" border />
-          <el-checkbox v-model="pusherConfigForm.useWeCom" label="企业微信" border />
-          <el-checkbox
-            v-model="pusherConfigForm.useServerChan"
-            label="Server酱"
-            border
-          />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useEmail" label="电子邮箱">
-          <el-input v-model="pusherConfigForm.userEmail" disabled />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useSms" label="电话号码">
-          <el-input v-model="pusherConfigForm.mobile" placeholder="国内号码暂不支持" />
-          国内短信推送仅支持审核成功的正文模版，暂不支持推送自定义天气信息，此处设置仅实现在企业微信中推送时@此手机号码账号功能
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.usePushDeer">
-          <el-button type="text" @click="pushDeerDialogVisible=true">
-            pushkey获取方法
-          </el-button>
-          <el-input v-model="pusherConfigForm.pushkey" placeholder="" />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useFeiShu">
-          <el-button type="text" @click="feishuDialogVisible=true">
-            飞书群消息机器人网址获取方法
-          </el-button>
-          <el-input v-model="pusherConfigForm.feishuUrl" placeholder="飞书群消息机器人网址" />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useWeCom">
-          <el-button type="text" @click="wecomDialogVisible=true">
-            企业微信群消息机器人网址获取方法
-          </el-button>
-          <el-input v-model="pusherConfigForm.wecomUrl" placeholder="企业微信群消息机器人网址" />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useDingTalk">
-          <el-button type="text" @click="dingtalkDialogVisible=true">
-            钉钉群消息机器人网址获取方法
-          </el-button>
-          <el-input v-model="pusherConfigForm.dingtalkUrl" placeholder="钉钉群消息机器人网址" />
-        </el-form-item>
-        <el-form-item v-if="pusherConfigForm.useServerChan">
-          <el-button type="text" @click="serverchanDialogVisible=true">
-            server酱key获取方法
-          </el-button>
-          <el-input v-model="pusherConfigForm.serverChanKey" placeholder="server酱key" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSubmitPusherConfigForm">
-            提交
-          </el-button>
-          <el-button @click="resetPusherConfigForm">
-            撤销修改
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </el-card>
-  </div>
-  <div class="settings-dialog">
-    <el-dialog v-model="wecomDialogVisible" title="Tips" width="30%">
-      <span>
-        开启企业微信内部群群机器人方法：
-        手机端开启入口，进入企业微信内部群聊，点击右上角的群组，在群聊信息页面中群成员就可以看到添加群机器人按钮了，并添加群机器人了。
-        电脑端开启入口，在PC端选中群聊点击鼠标右键即可发现添加机器人按钮.
-      </span>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="wecomDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="wecomDialogVisible = false">Confirm</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="dingtalkDialogVisible" title="Tips" width="30%">
-      <span>在群设置->群助理里添加自定义机器人后获得，添加中的"自定义关键字"请设置为：LAICWEATHER
-      </span>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="dingtalkDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="dingtalkDialogVisible = false">Confirm</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="feishuDialogVisible" title="Tips" width="30%">
-      <span>在群设置添加自定义机器人后获得的网址
-      </span>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="feishuDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="feishuDialogVisible = false">Confirm</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="serverchanDialogVisible" title="Tips" width="30%">
-      <span>
-        <a href="https://sct.ftqq.com/sendkey" style="color:blue" target="view_window">点击此处</a> 获取SCKEY
-      </span>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="serverchanDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="serverchanDialogVisible = false">Confirm</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <el-dialog v-model="pushDeerDialogVisible" title="Tips" width="40%">
-      <pusherdeerAlert />
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="pushDeerDialogVisible = false">Cancel</el-button>
-          <el-button type="primary" @click="pushDeerDialogVisible = false">Confirm</el-button>
-        </span>
-      </template>
-    </el-dialog>
+    <settingCard />
   </div>
   <div class="info-dialog">
     <el-dialog v-model="changeEmailDialogVisible" title="修改邮箱" width="30%">
@@ -244,7 +125,7 @@
   </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
 // import { Plus } from '@element-plus/icons-vue'
@@ -254,16 +135,13 @@ import {
   checkRepeatApi,
   getCaptchaEmailApi,
   getCaptchaSmsApi,
-  getPusherSettingsApi,
   getUserInfoApi,
-  refreshApi,
-  updatePusherSettingsApi,
+  // refreshApi,
 } from '../api'
 import { getDictApi } from '../api/dict'
 import util from '../util/utils'
 import store from '@/store'
-import pusherdeerAlert from '@/components/info/pushdeer-alert.vue'
-
+import settingCard from '@/components/info/setting-card.vue'
 const userForm = reactive({
   userId: 0,
   userName: '',
@@ -278,14 +156,6 @@ const userInfo = store.state.userInfo
 const uploadCdnUrl = store.state.UPLOAD_CDN_URL
 let sexDict = {}
 
-// settings dialog
-const configRef = ref(null)
-const wecomDialogVisible = ref(false)
-const dingtalkDialogVisible = ref(false)
-const feishuDialogVisible = ref(false)
-const serverchanDialogVisible = ref(false)
-const pushDeerDialogVisible = ref(false)
-
 // info dialog
 const changeEmailDialogVisible = ref(false)
 const changeMobileDialogVisible = ref(false)
@@ -295,7 +165,7 @@ const changeEmailForm = reactive({
   userEmail: '',
   captcha: '',
 })
-const checkRepeatUserEmail = async(rule, value, callback) => {
+const checkRepeatUserEmail = async(callback: any) => {
   const { userEmail } = changeEmailForm
   if (!userEmail)
     return
@@ -305,7 +175,7 @@ const checkRepeatUserEmail = async(rule, value, callback) => {
     return callback(new Error('邮箱已存在'))
   return callback()
 }
-const changeEmailRules = {
+const changeEmailRules: any = {
   userEmail: [
     { required: true, message: '请输入邮箱', trigger: 'blur' },
     { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' },
@@ -320,7 +190,7 @@ const changeMobileForm = reactive({
   mobile: '',
   captcha: '',
 })
-const checkRepeatMobile = async(rule, value, callback) => {
+const checkRepeatMobile = async(callback: any) => {
   const { mobile } = changeMobileForm
   if (!mobile)
     return
@@ -330,7 +200,7 @@ const checkRepeatMobile = async(rule, value, callback) => {
     return callback(new Error('手机号已存在'))
   return callback()
 }
-const changeMobileRules = {
+const changeMobileRules: any = {
   mobile: [
     { required: true, message: '请输入手机号', trigger: 'blur' },
     { min: 11, max: 11, message: '手机号长度为11位', trigger: 'blur' },
@@ -346,22 +216,6 @@ const isVisitor = ref(true)
 const uploadData = ref({
   userId: userInfo.userId,
 })
-let pusherConfigForm = reactive({
-  useEmail: true,
-  useSms: false,
-  useFeiShu: false,
-  useWeCom: false,
-  useDingTalk: false,
-  useServerChan: false,
-  usePushDeer: false,
-  userEmail: '',
-  mobile: '',
-  pushkey: '',
-  feishuUrl: '',
-  wecomUrl: '',
-  dingtalkUrl: '',
-  serverChanKey: '',
-})
 
 const getChangeEmailCaptcha = async() => {
   const res = await getCaptchaEmailApi({
@@ -374,18 +228,18 @@ const getChangeEmailCaptcha = async() => {
     ElMessage.error(res.msg)
 }
 const changeEmailSubmit = async() => {
-  const { state } = await checkCaptchaApi({
+  const data = await checkCaptchaApi({
     userId: userForm.userId,
     userEmail: changeEmailForm.userEmail,
     captcha: changeEmailForm.captcha,
   })
-  if (state === 1) {
+  if (data.state === 1) {
     ElMessage.success('验证成功，请保存本次修改')
     userForm.userEmail = changeEmailForm.userEmail
     changeEmailDialogVisible.value = false
   }
   else {
-    ElMessage.error(res.msg)
+    ElMessage.error(data)
   }
 }
 const getChangeMobileCaptcha = async() => {
@@ -399,18 +253,18 @@ const getChangeMobileCaptcha = async() => {
     ElMessage.error(res.msg)
 }
 const changeMobileSubmit = async() => {
-  const { state } = await checkCaptchaApi({
+  const data = await checkCaptchaApi({
     userId: userForm.userId,
     mobile: changeMobileForm.mobile,
     captcha: changeMobileForm.captcha,
   })
-  if (state === 1) {
+  if (data.state === 1) {
     ElMessage.success('验证成功，请保存本次修改')
     userForm.mobile = changeMobileForm.mobile
     changeMobileDialogVisible.value = false
   }
   else {
-    ElMessage.error(res.msg)
+    ElMessage.error(data)
   }
 }
 
@@ -418,20 +272,13 @@ const isVisitorFn = () => {
   if (userInfo.role === 2)
     isVisitor.value = false
 }
-const updatePusherSettings = async() => {
-  const data = await updatePusherSettingsApi(pusherConfigForm)
-}
-const getPusherSettings = async() => {
-  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
-  pusherConfigForm = Object.assign(pusherConfigForm, list)
-}
-const onSubmit = async(data) => {
+const onSubmit = async(data: any) => {
   await changeInfoApi(data)
 }
-const refreshInfo = async() => {
-  const data = await refreshApi({ userId: userInfo.userId })
-  store.commit('setUserInfo', data)
-}
+// const refreshInfo = async() => {
+//   const data = await refreshApi({ userId: userInfo.userId })
+//   store.commit('setUserInfo', data)
+// }
 const getUserInfo = async() => {
   const data = await getUserInfoApi({ userId: userInfo.userId })
   Object.assign(userForm, data)
@@ -446,17 +293,11 @@ const getUserInfo = async() => {
 const resetForm = () => {
   getUserInfo()
 }
-const onSubmitPusherConfigForm = () => {
-  updatePusherSettings()
-}
-const resetPusherConfigForm = () => {
-  getPusherSettings()
-}
 const init = async() => {
   sexDict = await getDictApi('sex')
 }
 const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
-const handleAvatarSuccess = (res, file) => {
+const handleAvatarSuccess = (res: any, file: any) => {
   const filename = res.data.filename
   userInfo.avatar = filename
   store.commit('setUserInfo', userInfo)
@@ -465,7 +306,7 @@ const handleAvatarSuccess = (res, file) => {
   // console.log('handleAvatarSuccess', res, file)
   // imageUrl.value = res.data.path
 }
-const beforeAvatarUpload = (file) => {
+const beforeAvatarUpload = (file: any) => {
   const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
   const isLt5M = file.size / 1024 / 1024 < 2
 
@@ -482,7 +323,6 @@ onMounted(() => {
   init()
   isVisitorFn()
   getUserInfo()
-  getPusherSettings()
 })
 </script>
 
