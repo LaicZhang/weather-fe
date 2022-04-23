@@ -61,7 +61,7 @@
   </div>
 </template>
 
-<script  setup>
+<script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import store from '@/store'
 import city from '@/components/city.vue'
@@ -77,7 +77,7 @@ const pager = reactive({
   total: 0,
 })
 const dataList = ref([])
-const dataColumns = [
+const dataColumns: Record<string, any> = [
   { prop: 'time', label: '爬取日期' },
   { prop: 'province', label: '省份' },
   { prop: 'city', label: '城市' },
@@ -88,7 +88,7 @@ const dataColumns = [
   { prop: 'daytime_wind', label: '白天风力风向' },
   { prop: 'nighttime__wind', label: '夜晚风力风向' },
 ]
-const weatherData = store.state.weatherData
+// const weatherData: any = store.state.weatherData
 const userInfo = store.state.userInfo
 const currentLocation = ref('')
 currentLocation.value = userInfo.location.province + userInfo.location.city
@@ -96,7 +96,7 @@ currentLocation.value = userInfo.location.province + userInfo.location.city
 let cityNm = '成都'
 const locationKey = ref(1)
 // 更新选中的省市区数据
-const changeCity = (cityInfo) => {
+const changeCity = (cityInfo: any) => {
   provinceCode.value = cityInfo.provinceCode
   cityCode.value = cityInfo.cityCode
   countyCode.value = cityInfo.countyCode
@@ -105,21 +105,21 @@ const changeCity = (cityInfo) => {
   cityNm = cityNm.substring(0, cityNm.length - 1)
   currentLocation.value = cityInfo.fullLocation
 }
-const setValue = (list, page) => {
+const setValue = (list: any, page: any) => {
   pager.pageNum = page.pageNum
   pager.total = page.total
   dataList.value = list
 }
-const getWeatherList = async() => {
-  const { list, page } = await getWeatherListApi({ pager })
-  setValue(list, page)
-}
-const onChangeCurrentPage = async(currentPage) => {
+// const getWeatherList = async() => {
+//   const { list, page } = await getWeatherListApi({ pager })
+//   setValue(list, page)
+// }
+const onChangeCurrentPage = async(currentPage: number) => {
   pager.pageNum = currentPage
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
   setValue(list, page)
 }
-const onSubmit = async(action) => {
+const onSubmit = async(action: string) => {
   if (store.state.location !== '')
     cityNm = store.state.location
   if (action === 'permanent')
