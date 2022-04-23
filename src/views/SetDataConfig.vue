@@ -48,7 +48,7 @@
 <script>
 </script>
 
-<script setup>
+<script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { readConfigApi, requestDataApi, writeConfigApi } from '../api'
 
@@ -90,9 +90,9 @@ const options = [
     value: 'http://www.weather.com.cn/textFC/gat.shtml',
   },
 ]
-const savedConfig = {}
+const savedConfig: any = {}
 const dataFormRef = ref(null)
-const dataConfig = reactive({})
+const dataConfig: any = reactive({})
 const onSubmit = () => {
   writeConfig()
 }
@@ -124,7 +124,7 @@ const readConfig = async() => {
 const writeConfig = async() => {
   if (dataConfig === {})
     return
-  const res = await writeConfigApi(dataConfig)
+  await writeConfigApi(dataConfig)
 }
 const resetForm = () => {
   readConfig()
