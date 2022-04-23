@@ -67,7 +67,7 @@
     </el-form>
   </div>
 </template>
-<script setup>
+<script setup lang="ts">
 import { reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import { ElMessage } from 'element-plus'
@@ -77,8 +77,8 @@ import { changePasswordApi, sendCaptchaEmailApi, sendCaptchaSmsApi } from '@/api
 const methodsRadio = ref('邮件')
 const content = ref('发送验证码')
 const totalTime = ref(60)
-const userFormRef = ref(null)
-const { router, store } = useVuexWithRouter()
+const userFormRef: any = ref(null)
+const { router } = useVuexWithRouter()
 const userRules = {
   userName: [
     {
@@ -95,7 +95,7 @@ const userRules = {
     },
   ],
 }
-const userForm = reactive({
+const userForm: any = reactive({
   userName: '',
   userEmail: '',
   captchaCode: '',
@@ -124,7 +124,7 @@ const toPageLogin = () => {
   router.push('/login')
 }
 const userFromCommit = () => {
-  userFormRef.value.validate(async(valid) => {
+  userFormRef.value.validate(async(valid: any) => {
     if (valid) {
       const data = await changePasswordApi(userForm)
       if (data) {
