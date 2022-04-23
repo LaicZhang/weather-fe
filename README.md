@@ -3,6 +3,7 @@
 ![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220415134342.png)
 
 - 推荐使用EDGE或非最新版Chrome浏览器进行查看。
+- 通过MacBook Air开发，其他分辨率屏幕可能出现样式问题。
 
 ## 技术栈
 
