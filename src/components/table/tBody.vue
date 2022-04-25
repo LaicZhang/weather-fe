@@ -7,6 +7,12 @@
     style="width: 100%"
   >
     <el-table-column
+      type="index"
+      width="50"
+      align="center"
+      v-if="isShowIndex"
+    />
+    <el-table-column
       v-for="column in (dataColumns as any)"
       :key="column.prop"
       sortable
@@ -29,6 +35,10 @@ defineProps({
   dataList: {
     type: Array,
     required: true,
+  },
+  isShowIndex: {
+    type: Boolean,
+    default: false,
   },
 })
 </script>
