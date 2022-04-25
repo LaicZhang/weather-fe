@@ -3,10 +3,48 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import type {
+  GridComponentOption,
+  LegendComponentOption,
+  TitleComponentOption,
+  ToolboxComponentOption,
+  TooltipComponentOption,
+} from 'echarts/components'
+import {
+  GridComponent,
+  LegendComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+} from 'echarts/components'
+import type { LineSeriesOption } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
+import { UniversalTransition } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, ref } from 'vue'
 import { getStackdataApi } from '@/api'
 import router from '@/router'
+
+echarts.use([
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  LineChart,
+  CanvasRenderer,
+  UniversalTransition,
+])
+
+type EChartsOption = echarts.ComposeOption<
+| TitleComponentOption
+| ToolboxComponentOption
+| TooltipComponentOption
+| GridComponentOption
+| LegendComponentOption
+| LineSeriesOption
+>
 
 const myRef = ref(null)
 const init = async() => {
@@ -15,7 +53,7 @@ const init = async() => {
   const currentRoute = router.currentRoute.value
   const ip = currentRoute.query.ip
   const stackData = await getStackdataApi({ ip })
-  const option = {
+  const option: EChartsOption = {
     title: {
       text: '历史温度变化',
       left: '1%',

@@ -3,10 +3,54 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import type {
+  DataZoomComponentOption,
+  GridComponentOption,
+  MarkLineComponentOption,
+  TitleComponentOption,
+  ToolboxComponentOption,
+  TooltipComponentOption,
+  VisualMapComponentOption,
+} from 'echarts/components'
+import {
+  DataZoomComponent,
+  GridComponent,
+  MarkLineComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  VisualMapComponent,
+} from 'echarts/components'
+import type { LineSeriesOption } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
+import { UniversalTransition } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, ref } from 'vue'
 import store from '@/store'
 
+echarts.use([
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  GridComponent,
+  VisualMapComponent,
+  DataZoomComponent,
+  MarkLineComponent,
+  LineChart,
+  CanvasRenderer,
+  UniversalTransition,
+])
+type EChartsOption = echarts.ComposeOption<
+| TitleComponentOption
+| ToolboxComponentOption
+| TooltipComponentOption
+| GridComponentOption
+| VisualMapComponentOption
+| DataZoomComponentOption
+| MarkLineComponentOption
+| LineSeriesOption
+>
 const myRef = ref(null)
 const initT = () => {
   const element = document.getElementById('link-marker') as HTMLElement
@@ -19,7 +63,7 @@ const initT = () => {
     xAxisData.push(datedh)
     wtTempList.push(item.wtTemp)
   })
-  const option = {
+  const option: EChartsOption = {
     title: {
       text: '未来24小时温度变化',
     },
