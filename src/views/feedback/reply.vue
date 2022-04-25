@@ -1,35 +1,36 @@
 <template>
-  <el-form inline :model="queryForm">
-    <el-form-item label="用户ID">
-      <el-input v-model="queryForm.userId" />
-    </el-form-item>
-    <el-form-item label="标题">
-      <el-input v-model="queryForm.summary" />
-    </el-form-item>
-    <el-form-item label="状态">
-      <el-select v-model="queryForm.status" placeholder="处理状态">
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        />
-      </el-select>
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="queryFeedbackList">
-        查询
-      </el-button>
-    </el-form-item>
-  </el-form>
-  <el-table
+  <div class="reply-page">
+    <el-form inline :model="queryForm">
+      <el-form-item label="用户ID">
+        <el-input v-model="queryForm.userId" />
+      </el-form-item>
+      <el-form-item label="标题">
+        <el-input v-model="queryForm.summary" />
+      </el-form-item>
+      <el-form-item label="状态">
+        <el-select v-model="queryForm.status" placeholder="处理状态">
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="queryFeedbackList">
+          查询
+        </el-button>
+      </el-form-item>
+    </el-form>
+    <!-- <el-table
     class="base-table"
     :data="feedbackList"
     size="default"
     stripe
     style="width: 100%"
-  >
-    <el-table-column
+  > -->
+    <!-- <el-table-column
       v-for="column in feedbackColumns"
       :key="column.prop"
       sortable
@@ -38,28 +39,30 @@
       :width="column.width"
       :formatter="column.formatter"
       show-overflow-tooltip
+    /> -->
+    <TBody :data-columns="feedbackColumns" :data-list="feedbackList">
+      <el-table-column sortable label="Operations">
+        <template #default="scope">
+          <el-button v-show="scope.row.status===0" size="default" type="text" @click="onReply(scope.row)">
+            处理
+          </el-button>
+          <el-button size="default" style="color:#F56C6C" type="text" @click="onDelete(scope.row)">
+            删除
+          </el-button>
+        </template>
+      </el-table-column>
+    </TBody>
+    <!-- </el-table> -->
+    <el-pagination
+      class="text-right"
+      background
+      layout="prev, pager, next"
+      :current-page="pager.pageNum"
+      :page-size="pager.pageSize"
+      :total="pager.total"
+      @current-change="onChangeCurrentPage"
     />
-    <el-table-column sortable label="Operations">
-      <template #default="scope">
-        <el-button v-show="scope.row.status===0" size="default" type="text" @click="onReply(scope.row)">
-          处理
-        </el-button>
-        <el-button size="default" style="color:#F56C6C" type="text" @click="onDelete(scope.row)">
-          删除
-        </el-button>
-      </template>
-    </el-table-column>
-  </el-table>
-  <el-pagination
-    class="text-right"
-    background
-    layout="prev, pager, next"
-    :current-page="pager.pageNum"
-    :page-size="pager.pageSize"
-    :total="pager.total"
-    @current-change="onChangeCurrentPage"
-  />
-  <!-- 删除弹窗 -->
+    <!-- 删除弹窗 -->
   <el-dialog v-model="deleteDialog" title="操作" width="30%">
     <span>确定删除?</span>
     <template #footer>
@@ -69,34 +72,35 @@
       </span>
     </template>
   </el-dialog>
-  <!-- 回复弹窗 -->
-  <el-dialog v-model="replyDialog" title="操作" width="30%">
-    <el-form>
-      <el-form-item>
-        <el-input
-          v-model="replyForm.reply"
-          placeholder="请输入回复内容"
-          clearable
-          type="textarea"
-          maxlength="500"
-        />
-      </el-form-item>
-      <el-form-item label="是否发送邮件">
-        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="1">
-          是
-        </el-radio>
-        <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="2">
-          否
-        </el-radio>
-      </el-form-item>
-    </el-form>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="replyDialog = false">取消</el-button>
-        <el-button type="primary" @click="okToReply">已处理</el-button>
-      </span>
-    </template>
-  </el-dialog>
+    <!-- 回复弹窗 -->
+    <el-dialog v-model="replyDialog" title="操作" width="30%">
+      <el-form>
+        <el-form-item>
+          <el-input
+            v-model="replyForm.reply"
+            placeholder="请输入回复内容"
+            clearable
+            type="textarea"
+            maxlength="500"
+          />
+        </el-form-item>
+        <el-form-item label="是否发送邮件">
+          <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="1">
+            是
+          </el-radio>
+          <el-radio v-model="replyForm.isEmail" :disabled="!replyForm.reply" label="0">
+            否
+          </el-radio>
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="replyDialog = false">取消</el-button>
+          <el-button type="primary" @click="okToReply">已处理</el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
@@ -104,6 +108,7 @@ import { onMounted, reactive, ref } from 'vue'
 import { deleteFeedbackApi, getFeedbackListApi, getQueryListApi, replyApi } from '@/api/feedback'
 import store from '@/store'
 import util from '@/util/utils'
+import TBody from '@/components/table/tBody.vue'
 
 const userId = store.state.userInfo.userId
 const deleteDialog = ref(false)
@@ -155,7 +160,7 @@ const replyForm = reactive({
   userId,
   feedbackId: 0,
   reply: '',
-  isEmail: false,
+  isEmail: '',
 })
 const pager = reactive({
   pageNum: 1,
@@ -211,18 +216,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-  .feedback-page {
-    padding: 30px;
-    box-sizing: border-box;
-    height: 100vh;
-    .feedback-card{
-      width: 40vw;
-      margin: 0 auto;
-      margin-top: 20vh;
-    }
-  }
-  .search-from-wrap {
-    background: #ffffff;
-    margin-bottom: 18px;
-  }
+.reply-page {
+  margin: 15px;
+}
 </style>
