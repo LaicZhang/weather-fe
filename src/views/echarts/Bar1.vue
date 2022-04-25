@@ -101,28 +101,28 @@ const init = () => {
     series: [
       {
         name: '白天',
-        type: 'bar',
+        type: 'line',
         data: wtTemp1List,
-        //   markPoint: {
-        //     data: [
-        //       { type: 'max', name: 'Max' },
-        //       { type: 'min', name: 'Min' },
-        //     ],
-        //   },
+        markPoint: {
+          data: [
+            { type: 'max', name: 'Max', symbolSize: 25 },
+            { type: 'min', name: 'Min', symbolSize: 25 },
+          ],
+        },
         markLine: {
           data: [{ type: 'average', name: 'Avg' }],
         },
       },
       {
         name: '夜间',
-        type: 'bar',
+        type: 'line',
         data: wtTemp2List,
-        //   markPoint: {
-        //     data: [
-        //       { name: 'Max', value: 182.2, xAxis: 7, yAxis: 183 },
-        //       { name: 'Min', value: 2.3, xAxis: 11, yAxis: 3 },
-        //     ],
-        //   },
+        markPoint: {
+          data: [
+            { type: 'max', name: 'Max', symbolSize: 25 },
+            { type: 'min', name: 'Min', symbolSize: 25 },
+          ],
+        },
         markLine: {
           data: [{ type: 'average', name: 'Avg' }],
         },
