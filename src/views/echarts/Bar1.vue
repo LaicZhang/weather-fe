@@ -3,10 +3,55 @@
 </template>
 
 <script setup lang="ts">
-import * as echarts from 'echarts'
+import * as echarts from 'echarts/core'
+import type {
+  GridComponentOption,
+  LegendComponentOption,
+  MarkLineComponentOption,
+  MarkPointComponentOption,
+  TitleComponentOption,
+  ToolboxComponentOption,
+  TooltipComponentOption,
+} from 'echarts/components'
+import {
+  GridComponent,
+  LegendComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+} from 'echarts/components'
+import type { LineSeriesOption } from 'echarts/charts'
+import { LineChart } from 'echarts/charts'
+import { UniversalTransition } from 'echarts/features'
+import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, ref } from 'vue'
 import store from '@/store'
 
+echarts.use([
+  TitleComponent,
+  ToolboxComponent,
+  TooltipComponent,
+  GridComponent,
+  LegendComponent,
+  MarkLineComponent,
+  MarkPointComponent,
+  LineChart,
+  CanvasRenderer,
+  UniversalTransition,
+])
+
+type EChartsOption = echarts.ComposeOption<
+| TitleComponentOption
+| ToolboxComponentOption
+| TooltipComponentOption
+| GridComponentOption
+| LegendComponentOption
+| MarkLineComponentOption
+| MarkPointComponentOption
+| LineSeriesOption
+>
 const myRef = ref(null)
 const init = () => {
   const element = document.getElementById('bar1') as HTMLElement
@@ -20,7 +65,7 @@ const init = () => {
     wtTemp1List.push(item.wtTemp1)
     wtTemp2List.push(item.wtTemp2)
   })
-  const option = {
+  const option: EChartsOption = {
     title: {
       text: '一周昼夜温差',
       // subtext: 'Fake Data',
