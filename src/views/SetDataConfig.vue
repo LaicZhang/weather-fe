@@ -23,11 +23,11 @@
       <el-form-item label="爬取时间">
         <el-time-select
           v-model="dataConfig.time"
-          start="06:00"
-          step="01:00"
-          end="12:00"
+          start="08:30"
+          step="00:15"
+          end="15:30"
           size="small"
-          placeholder="Select time"
+          placeholder="选择时间"
         />
       </el-form-item>
       <el-form-item>
@@ -50,7 +50,7 @@
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-import { readConfigApi, requestDataApi, writeConfigApi } from '../api'
+import { readConfigApi, requestDataApi, writeConfigApi } from '@/api'
 
 const options = [
   {
@@ -140,9 +140,5 @@ onMounted(() => {
     box-sizing: border-box;
     height: 100vh;
     width: 30vw;
-  }
-  .search-from-wrap {
-    background: #ffffff;
-    margin-bottom: 18px;
   }
 </style>
