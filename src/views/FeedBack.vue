@@ -1,7 +1,7 @@
 <template>
   <div class="feedback-page">
     <Request v-if="role > 0" />
-    <Reply v-if="role === 0" style="margin: 15px;" />
+    <Reply v-if="role === 0" />
   </div>
 </template>
 

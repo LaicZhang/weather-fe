@@ -64,6 +64,7 @@ declare module 'vue' {
     PushdeerAlert: typeof import('./src/components/info/pushdeer-alert.vue')['default']
     Setting: typeof import('./src/components/info/setting.vue')['default']
     SettingCard: typeof import('./src/components/info/setting-card.vue')['default']
+    TBody: typeof import('./src/components/table/tBody.vue')['default']
   }
 }
 
