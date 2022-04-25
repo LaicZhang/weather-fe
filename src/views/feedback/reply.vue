@@ -23,23 +23,6 @@
         </el-button>
       </el-form-item>
     </el-form>
-    <!-- <el-table
-    class="base-table"
-    :data="feedbackList"
-    size="default"
-    stripe
-    style="width: 100%"
-  > -->
-    <!-- <el-table-column
-      v-for="column in feedbackColumns"
-      :key="column.prop"
-      sortable
-      :prop="column.prop"
-      :label="column.label"
-      :width="column.width"
-      :formatter="column.formatter"
-      show-overflow-tooltip
-    /> -->
     <TBody :data-columns="feedbackColumns" :data-list="feedbackList">
       <el-table-column sortable label="Operations">
         <template #default="scope">
@@ -52,7 +35,6 @@
         </template>
       </el-table-column>
     </TBody>
-    <!-- </el-table> -->
     <el-pagination
       class="text-right"
       background
@@ -62,16 +44,17 @@
       :total="pager.total"
       @current-change="onChangeCurrentPage"
     />
+    <!-- <TPagination :pager="pager" /> -->
     <!-- 删除弹窗 -->
-  <el-dialog v-model="deleteDialog" title="操作" width="30%">
-    <span>确定删除?</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="deleteDialog = false">取消</el-button>
-        <el-button type="primary" @click="okToDelete">确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
+    <el-dialog v-model="deleteDialog" title="操作" width="30%">
+      <span>确定删除?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="deleteDialog = false">取消</el-button>
+          <el-button type="primary" @click="okToDelete">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
     <!-- 回复弹窗 -->
     <el-dialog v-model="replyDialog" title="操作" width="30%">
       <el-form>
@@ -109,6 +92,7 @@ import { deleteFeedbackApi, getFeedbackListApi, getQueryListApi, replyApi } from
 import store from '@/store'
 import util from '@/util/utils'
 import TBody from '@/components/table/tBody.vue'
+import TPagination from '@/components/table/tPagination.vue'
 
 const userId = store.state.userInfo.userId
 const deleteDialog = ref(false)

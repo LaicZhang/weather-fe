@@ -23,31 +23,7 @@
       </el-form>
     </div>
     <div class="data-table">
-      <el-table
-        class="base-table"
-        :data="dataList"
-        size="default"
-        stripe
-        style="width: 100%"
-      >
-        <!-- <el-table-column sortable type="index" width="55" /> -->
-        <el-table-column
-          v-for="column in dataColumns"
-          :key="column.prop"
-          sortable
-          :prop="column.prop"
-          :label="column.label"
-          :width="column.width"
-          :formatter="column.formatter"
-          show-overflow-tooltip
-        />
-        <!--        <el-table-column sortable label="Operations">-->
-        <!--          <template #default="scope">-->
-        <!--            <el-button size="default" type="text" @click="onEditUser(scope.row)">编辑</el-button>-->
-        <!--            <el-button size="default" type="text" @click="onAddDeleteList(scope.row)">删除</el-button>-->
-        <!--          </template>-->
-        <!--        </el-table-column>-->
-      </el-table>
+      <TBody :data-columns="dataColumns" :data-list="dataList" />
       <el-pagination
         class="text-right"
         background
@@ -66,6 +42,7 @@ import { onMounted, reactive, ref } from 'vue'
 import store from '@/store'
 import city from '@/components/city.vue'
 import { getWeatherListApi } from '@/api'
+import TBody from '@/components/table/tBody.vue'
 
 const provinceCode = ref('110000')
 const cityCode = ref('119900')
@@ -77,7 +54,7 @@ const pager = reactive({
   total: 0,
 })
 const dataList = ref([])
-const dataColumns: Record<string, any> = [
+const dataColumns: Array<object> = [
   { prop: 'time', label: '爬取日期' },
   { prop: 'province', label: '省份' },
   { prop: 'city', label: '城市' },
