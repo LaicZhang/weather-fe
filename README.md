@@ -3,7 +3,7 @@
 ![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220415134342.png)
 
 - 推荐使用EDGE或非最新版Chrome浏览器进行查看。
-- 通过MacBook Air开发，其他分辨率屏幕可能出现样式问题。
+- 基于M1 MacBook Air开发，其他设备屏幕可能出现样式问题（待解决）。
 
 ## 技术栈
 
@@ -13,6 +13,7 @@
 - Vite2
 - Vue Router
 - Vuex
+- VueUse
 - Element-plus
 - Echarts5
 - Axios
@@ -31,3 +32,7 @@
 ### 代码规范
 - ESlint
 - ESLint config by antfu
+
+## 部署
+- Vercel
+- OSS
