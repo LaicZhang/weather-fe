@@ -92,7 +92,7 @@ import { deleteFeedbackApi, getFeedbackListApi, getQueryListApi, replyApi } from
 import store from '@/store'
 import util from '@/util/utils'
 import TBody from '@/components/table/tBody.vue'
-import TPagination from '@/components/table/tPagination.vue'
+// import TPagination from '@/components/table/tPagination.vue'
 
 const userId = store.state.userInfo.userId
 const deleteDialog = ref(false)
