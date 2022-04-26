@@ -22,6 +22,9 @@
       <el-button v-has="'notice-create'" type="primary" @click="onAddNoticeBtn">
         新增
       </el-button>
+      <el-button type="primary" @click="onReadAll">
+        全部已读
+      </el-button>
       <!-- <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
         >批量删除</el-button
       > -->
@@ -136,7 +139,7 @@
   </div>
 </template>
 
-<script>
+<script setup>
 import {
   defineComponent,
   getCurrentInstance,
@@ -151,232 +154,207 @@ import {
   deleteNoticeApi,
   editNoticeApi,
   noticeAllListApi,
+  noticeAllReadApi,
   noticeHaveReadApi,
   noticeListApi,
   rolesAllListApi,
 } from '../api'
 import util from '../util/utils'
 import store from '../store'
-export default defineComponent({
-  name: 'Notice',
-  components: {},
-  setup() {
-    const { proxy } = getCurrentInstance()
-    // 属性
-    const noticeFrom = reactive({
-      _id: '',
-      noticeTitle: '',
-    })
-    const pager = reactive({
-      pageNum: 1,
-      pageSize: 10,
-      total: 0,
-    })
-    const noticeColumns = [
-      { prop: '_id', label: '公告ID' },
-      { prop: 'noticeTitle', label: '公告标题' },
-      {
-        prop: 'noticeContent',
-        label: '公告内容',
-      },
-      {
-        prop: 'haveReadCount',
-        label: '已读次数',
-      },
-      {
-        prop: 'createTime',
-        label: '创建时间',
-        formatter(row, column, cellValue) {
-          return util.formateDate(new Date(cellValue))
-        },
-      },
-      {
-        prop: 'updateTime',
-        label: '更新时间',
-        formatter(row, column, cellValue) {
-          return util.formateDate(new Date(cellValue))
-        },
-      },
-    ]
-    const isEdit = ref(false)
-    const noticeList = ref([])
-    const noticeSelects = ref([])
-    const addDialog = ref(false)
-    const deleteDialog = ref(false)
-    const moreDialog = ref(false)
-    const addNoticeFrom = reactive({})
-    const roleList = ref([])
-    const deptList = ref([])
-    const selectedRow = reactive({})
 
-    const addNoticeFromRules = {
-      noticeTitle: {
-        required: true,
-        message: '必须填写公告标题',
-        trigger: 'blur',
-      },
-      noticeContent: {
-        required: true,
-        message: '必须填写公告内容',
-        trigger: 'blur',
-      },
-    }
-    // api
-    const getNoticeList = async() => {
-      const params = { ...noticeFrom, ...pager }
-      const { list, page } = await noticeListApi(params)
-      pager.pageNum = page.pageNum
-      pager.total = page.total
-      noticeList.value = list
-    }
-    const getAllNoticesList = async() => {
-      const { list, page } = await noticeAllListApi({})
-      pager.pageNum = page.pageNum
-      pager.total = page.total
-      noticeList.value = list
-    }
-    const deleteNotice = async() => {
-      if (noticeSelects.value.length > 0)
-        return deleteNoticeApi({ _ids: noticeSelects.value })
-      else
-        proxy.$message.error('请选择删除项')
+const { proxy } = getCurrentInstance()
+// 属性
+const noticeFrom = reactive({
+  _id: '',
+  noticeTitle: '',
+})
+const pager = reactive({
+  pageNum: 1,
+  pageSize: 10,
+  total: 0,
+})
+const noticeColumns = [
+  { prop: '_id', label: '公告ID' },
+  { prop: 'noticeTitle', label: '公告标题' },
+  {
+    prop: 'noticeContent',
+    label: '公告内容',
+  },
+  {
+    prop: 'haveReadCount',
+    label: '已读次数',
+  },
+  {
+    prop: 'createTime',
+    label: '创建时间',
+    formatter(row, column, cellValue) {
+      return util.formateDate(new Date(cellValue))
+    },
+  },
+  {
+    prop: 'updateTime',
+    label: '更新时间',
+    formatter(row, column, cellValue) {
+      return util.formateDate(new Date(cellValue))
+    },
+  },
+]
+const isEdit = ref(false)
+const noticeList = ref([])
+const noticeSelects = ref([])
+const addDialog = ref(false)
+const deleteDialog = ref(false)
+const moreDialog = ref(false)
+const addNoticeFrom = reactive({})
+const roleList = ref([])
+const deptList = ref([])
+const selectedRow = reactive({})
+const userInfo = store.state.userInfo
 
-      noticeAllListApi()
+const addNoticeFromRules = {
+  noticeTitle: {
+    required: true,
+    message: '必须填写公告标题',
+    trigger: 'blur',
+  },
+  noticeContent: {
+    required: true,
+    message: '必须填写公告内容',
+    trigger: 'blur',
+  },
+}
+// api
+const getNoticeList = async() => {
+  const params = { ...noticeFrom, ...pager }
+  const { list, page } = await noticeListApi(params)
+  pager.pageNum = page.pageNum
+  pager.total = page.total
+  noticeList.value = list
+}
+const getAllNoticesList = async() => {
+  const { list, page } = await noticeAllListApi({})
+  pager.pageNum = page.pageNum
+  pager.total = page.total
+  noticeList.value = list
+}
+const onReadAll = async() => {
+  await noticeAllReadApi({ userId: userInfo.userId })
+  getAllNoticesList()
+  store.dispatch('getNoticeCount')
+}
+const deleteNotice = async() => {
+  if (noticeSelects.value.length > 0)
+    return deleteNoticeApi({ _ids: noticeSelects.value })
+  else
+    proxy.$message.error('请选择删除项')
+
+  noticeAllListApi()
+}
+const getRoleList = async() => {
+  roleList.value = await rolesAllListApi()
+}
+const addNotice = async() => {
+  const noticeFormRaw = toRaw(addNoticeFrom)
+  return addNoticeApi(noticeFormRaw)
+}
+const editNotice = async() => {
+  const noticeFormRaw = toRaw(addNoticeFrom)
+  return editNoticeApi(noticeFormRaw)
+}
+const haveReadCount = async() => {
+  await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
+  moreDialog.value = false
+  getAllNoticesList()
+}
+// 通用方法
+const resetFields = (refName) => {
+  proxy.$refs[refName].resetFields()
+}
+// 事件方法: 多选时存入选中列表中
+const onChangeNoticeSelects = (list) => {
+  noticeSelects.value = list.map(notice => notice._id)
+}
+const onChangeCurrentPage = (currentPage) => {
+  pager.pageNum = currentPage
+  getNoticeList()
+}
+const onSearchNoticeFrom = () => {
+  getNoticeList()
+}
+const onResetNoticeFrom = () => {
+  proxy.$refs.formRef.resetFields()
+  getAllNoticesList()
+}
+const onEditNotice = async(notice) => {
+  addDialog.value = true
+  isEdit.value = true
+  nextTick(() => {
+    Object.assign(addNoticeFrom, notice)
+  })
+}
+const onAddNoticeBtn = () => {
+  isEdit.value = false
+  addDialog.value = true
+}
+const onAddDeleteList = (notice) => {
+  noticeSelects.value = [notice._id]
+  deleteDialog.value = true
+}
+const onDeleteNoticeSelects = async() => {
+  try {
+    const { nModified } = await deleteNotice()
+    if (nModified > 0) {
+      noticeSelects.value = []
+      proxy.$message.success('删除成功')
     }
-    const getRoleList = async() => {
-      roleList.value = await rolesAllListApi()
-    }
-    const addNotice = async() => {
-      const noticeFormRaw = toRaw(addNoticeFrom)
-      return addNoticeApi(noticeFormRaw)
-    }
-    const editNotice = async() => {
-      const noticeFormRaw = toRaw(addNoticeFrom)
-      return editNoticeApi(noticeFormRaw)
-    }
-    const haveReadCount = async() => {
-      const userInfo = store.state.userInfo
-      await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
-      moreDialog.value = false
-      getAllNoticesList()
-    }
-    // 通用方法
-    const resetFields = (refName) => {
-      proxy.$refs[refName].resetFields()
-    }
-    // 事件方法: 多选时存入选中列表中
-    const onChangeNoticeSelects = (list) => {
-      noticeSelects.value = list.map(notice => notice._id)
-    }
-    const onChangeCurrentPage = (currentPage) => {
-      pager.pageNum = currentPage
-      getNoticeList()
-    }
-    const onSearchNoticeFrom = () => {
-      getNoticeList()
-    }
-    const onResetNoticeFrom = () => {
-      proxy.$refs.formRef.resetFields()
-      getAllNoticesList()
-    }
-    const onEditNotice = async(notice) => {
-      addDialog.value = true
-      isEdit.value = true
-      nextTick(() => {
-        Object.assign(addNoticeFrom, notice)
-      })
-    }
-    const onAddNoticeBtn = () => {
-      isEdit.value = false
-      addDialog.value = true
-    }
-    const onAddDeleteList = (notice) => {
-      noticeSelects.value = [notice._id]
-      deleteDialog.value = true
-    }
-    const onDeleteNoticeSelects = async() => {
+  }
+  catch (error) {}
+  deleteDialog.value = false
+  getAllNoticesList()
+}
+const onCancel = () => {
+  isEdit.value = false
+  resetFields('addFromRef')
+  // addNoticeFrom.state = 3;
+  addDialog.value = false
+}
+const watchMore = (val) => {
+  selectedRow.value = val
+  moreDialog.value = true
+}
+const onSummit = () => {
+  proxy.$refs.addFromRef.validate(async(valid) => {
+    if (valid) {
       try {
-        const { nModified } = await deleteNotice()
-        if (nModified > 0) {
-          noticeSelects.value = []
-          proxy.$message.success('删除成功')
-        }
+        let res
+        if (isEdit.value)
+          res = await editNotice()
+        else
+          res = await addNotice()
+
+        if (res)
+          proxy.$message.success('公告操作成功')
+        else
+          proxy.$message.error('公告添加失败')
+
+        resetFields('addFromRef')
       }
-      catch (error) {}
-      deleteDialog.value = false
+      catch (error) {
+        proxy.$message.error('公告添加失败')
+      }
+      // getNoticeList();
+      store.dispatch('getNoticeCount')
       getAllNoticesList()
-    }
-    const onCancel = () => {
-      isEdit.value = false
-      resetFields('addFromRef')
-      // addNoticeFrom.state = 3;
       addDialog.value = false
     }
-    const watchMore = (val) => {
-      selectedRow.value = val
-      moreDialog.value = true
-    }
-    const onSummit = () => {
-      proxy.$refs.addFromRef.validate(async(valid) => {
-        if (valid) {
-          try {
-            let res
-            if (isEdit.value)
-              res = await editNotice()
-            else
-              res = await addNotice()
-
-            if (res)
-              proxy.$message.success('公告操作成功')
-            else
-              proxy.$message.error('公告添加失败')
-
-            resetFields('addFromRef')
-          }
-          catch (error) {
-            proxy.$message.error('公告添加失败')
-          }
-          // getNoticeList();
-          getAllNoticesList()
-          addDialog.value = false
-        }
-      })
-    }
-    // 生命周期
-    onMounted(() => {
-      getRoleList()
-      getAllNoticesList()
-    })
-    //
-    return {
-      noticeFrom,
-      noticeColumns,
-      noticeList,
-      onChangeNoticeSelects,
-      pager,
-      isEdit,
-      selectedRow,
-      addNoticeFrom,
-      addNoticeFromRules,
-      roleList,
-      deptList,
-      addDialog,
-      deleteDialog,
-      moreDialog,
-      onChangeCurrentPage,
-      onSearchNoticeFrom,
-      onResetNoticeFrom,
-      onEditNotice,
-      onAddNoticeBtn,
-      onAddDeleteList,
-      onDeleteNoticeSelects,
-      watchMore,
-      onSummit,
-      onCancel,
-      haveReadCount,
-    }
-  },
+  })
+}
+// 生命周期
+onMounted(() => {
+  getRoleList()
+  getAllNoticesList()
 })
+//
 </script>
 <style lang="scss" scoped>
   .notice-page {

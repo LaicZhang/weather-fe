@@ -61,6 +61,9 @@ export const noticeListApi = (data = {}) => {
 export const noticeHaveReadApi = (data = {}) => {
   return request.post('/notices/haveRead', data, { mock: false })
 }
+export const noticeAllReadApi = (data = {}) => {
+  return request.post('/notices/allRead', data, { mock: false })
+}
 export const noticeCountApi = (data = {}) => {
   return request.get('/notices/count', data, { mock: false })
 }
@@ -191,14 +194,14 @@ export const getIpInfoApi = (data = {}) => {
 // 3. 怎么使用数据？定义计算属性，根据点击的省份城市展示
 export const getCityList = async() => {
   // 添加缓存，防止频繁加载列表数据
-  if (window.cityList) {
+  if ((window as any).cityList) {
     // 缓存中已经存在数据了
-    return window.cityList
+    return (window as any).cityList
   }
   const ret = await axios.get('https://cdn.zyha.cn/area.json')
   // 给window对象添加了一个属性cityList
   if (ret.data)
-    window.cityList = ret.data
+    (window as any).cityList = ret.data
 
   // 把数据返回
   return ret.data

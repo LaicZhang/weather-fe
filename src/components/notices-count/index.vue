@@ -10,7 +10,8 @@
     </el-icon>
   </el-badge>
 </template>
-<script>import { defineComponent } from 'vue'
+<script>
+import { defineComponent } from 'vue'
 
 export default defineComponent({
   computed: {
