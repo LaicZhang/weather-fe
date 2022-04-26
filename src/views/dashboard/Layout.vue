@@ -40,14 +40,16 @@ import Radar from '../echarts/Radar.vue'
 import Bar1 from '../echarts/Bar1.vue'
 import LineMarker from '@/views/echarts/LineMarker.vue'
 import AreaStack from '@/views/echarts/AreaStack.vue'
-import { getIpApi, getIpInfoApi } from '@/api'
+import { getIpApi } from '@/api'
 import { addShareApi } from '@/api/share'
-import router from '@/router'
+// import router from '@/router'
 import store from '@/store'
 
 const city = ref('')
 const currentRoute = window.location.href
 const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
+const area = store.state.weatherData
+city.value = `${area.area_1 + area.area_2 + area.area_3}天气可视化`
 
 const getIp = async() => {
   const { ip } = await getIpApi()
@@ -67,15 +69,16 @@ const shareCurrentWeather = async() => {
     ElMessage.error('分享失败，请稍后再试')
   }
 }
-const getLocationByIp = async() => {
-  const currentRoute = router.currentRoute.value
-  const ip = currentRoute.query.ip
-  const { result } = await getIpInfoApi({ ip })
-  city.value = (`${result.att}天气可视化`).replace(/,/g, '')
-}
+// const getLocationByIp = async() => {
+// const currentRoute = router.currentRoute.value
+// const ip = currentRoute.query.ip
+// const { result } = await getIpInfoApi({ ip })
+// const area = result.area_1 + result.area_2 + result.area_3
+// city.value = (`${result.att}天气可视化`).replace(/,/g, '')
+// }
 onMounted(() => {
   getIp()
-  getLocationByIp()
+  // getLocationByIp()
 })
 </script>
 
