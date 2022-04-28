@@ -1,5 +1,5 @@
 <template>
-  <template v-for="(menu, index) in menus">
+  <template v-for="(menu, index) in (menus as any)">
     <el-sub-menu
       v-if="
         menu.children &&
@@ -29,9 +29,7 @@
   <!-- </div> -->
 </template>
 
-<script setup>
-import { defineComponent } from 'vue'
-
+<script setup lang="ts">
 defineProps({
   menus: {
     type: Array,

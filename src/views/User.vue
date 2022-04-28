@@ -98,14 +98,8 @@
           <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" />
         </el-form-item>
         <el-form-item label="角色" prop="role">
-          <el-radio v-model="addUserFrom.role" label="0">
-            管理员
-          </el-radio>
-          <el-radio v-model="addUserFrom.role" label="1">
-            普通用户
-          </el-radio>
-          <el-radio v-model="addUserFrom.role" label="2">
-            游客
+          <el-radio v-if="item in addUserFromRoleOptions" v-model="addUserFrom.role" :label="item.value">
+            {{ item.label }}
           </el-radio>
         </el-form-item>
         <el-form-item label="手机号" prop="mobile">
@@ -131,7 +125,6 @@
 
 <script setup>
 import {
-  defineComponent,
   getCurrentInstance,
   nextTick,
   onMounted,
@@ -219,7 +212,20 @@ const addUserFrom = reactive({
 })
 const roleList = ref([])
 const deptList = ref([])
-
+const addUserFromRoleOptions = ref([
+  {
+    label: '管理员',
+    value: '0',
+  },
+  {
+    label: '普通用户',
+    value: '1',
+  },
+  {
+    label: '游客',
+    value: '2',
+  },
+])
 const checkRepeatUserName = async(rule, value, callback) => {
   const userName = addUserFrom.userName
   if (!userName)

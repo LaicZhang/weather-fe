@@ -66,16 +66,6 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <!-- <el-table-column sortable label="倒计时">
-          <template #default="scope">
-            <baseCountDown v-slot="timeObj" :time="scope.row.pushTime" style="color:black">
-            <div class="count-down">
-              <div class="icon" ></div>
-              {{ timeObj.d }}天{{ timeObj.hh }}小时{{ timeObj.mm }}分钟{{ timeObj.ss }}秒
-            </div>
-          </baseCountDown>
-          </template>
-        </el-table-column> -->
         <el-table-column sortable label="Operations" width="180px">
           <template #default="scope">
             <!-- <el-button size="default" type="text" @click="watchMore(scope.row)">
@@ -239,7 +229,6 @@
 
 <script setup>
 import {
-  defineComponent,
   getCurrentInstance,
   nextTick,
   onMounted,
@@ -378,7 +367,6 @@ const addPusherFrom = reactive({})
 addPusherFrom.userId = userInfo.userId
 addPusherFrom.userName = userInfo.userName
 const roleList = ref([])
-const deptList = ref([])
 const pickerOptions = {
   disabledDate(time) {
     return time.getTime() < Date.now() - 3600 * 1000 * 24

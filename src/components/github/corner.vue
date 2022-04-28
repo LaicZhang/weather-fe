@@ -1,13 +1,15 @@
 <template>
   <!-- begin github animated corner https://github.com/eugena/github-animated-corners/ -->
   <a
-    href="https://github.com/LaicZhang/weather-visualization-front-2"
-    target="_blank" aria-label="View source on Github"
+    :href="repoUrl"
+    target="_blank"
+    :aria-label="label"
     class="github-corner"
   >
     <svg
       width="80" height="80"
-      viewBox="0 0 250 250" aria-hidden="true"
+      viewBox="0 0 250 250"
+      aria-hidden="true"
       class="github-color"
     >
       <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z" />
@@ -26,6 +28,11 @@
   </a>
   <!-- end github animated corner -->
 </template>
+
+<script setup lang="ts">
+const repoUrl = 'https://github.com/LaicZhang/weather-visualization-front-2'
+const label = 'View source on Github'
+</script>
 
 <style lang="scss" scoped>
 .github-corner{
