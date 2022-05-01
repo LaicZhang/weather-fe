@@ -6,6 +6,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 // import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 import Icons from 'unplugin-icons/vite'
+import viteStylelint from '@amatlash/vite-plugin-stylelint'
 
 let server = {}
 const env = 'development' // 设置环境 development production
@@ -131,6 +132,10 @@ export default defineConfig({
     }),
     Components({
       resolvers: [ElementPlusResolver()],
+    }),
+    viteStylelint({
+      // 对某些文件排除检查
+      exclude: /windicss|node_modules/,
     }),
   ],
   // base:'/weather-visualization-front-2/'
