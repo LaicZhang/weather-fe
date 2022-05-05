@@ -19,9 +19,9 @@ const copy = {
       document.body.appendChild(textarea)
       // 选中值并复制
       textarea.select()
-      const result = document.execCommand('Copy')
-      if (result)
-        console.log('复制成功') // 可根据项目UI仔细设计
+      document.execCommand('Copy')
+      // if (result)
+      //   console.log('复制成功') // 可根据项目UI仔细设计
 
       document.body.removeChild(textarea)
     }

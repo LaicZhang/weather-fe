@@ -1,5 +1,5 @@
 <template>
-  <div class="right-con" :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImgUrl) + ')', backgroundSize:'cover'}">
+  <div class="bg" :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImgUrl) + ')', backgroundSize:'cover'}">
     <div class="login-page">
       <el-form ref="userFormRef" class="login-form" :model="userForm" :rules="userRules" status-icon>
         <div class="login-title">
@@ -43,9 +43,6 @@
   </div>
 </template>
 
-<script>
-</script>
-
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
@@ -55,7 +52,7 @@ const { router, store } = useVuexWithRouter()
 const toPageHome = () => {
   router.push('/')
 }
-const BASE_CDN_URL = store.state.BASE_CDN_URL
+const BASE_CDN_URL: string = store.state.BASE_CDN_URL
 const baseImgUrl = ref(`${BASE_CDN_URL}/img/bg-default.png`)
 const coverImgUrl = ref('')
 // const captchaRef = ref('')

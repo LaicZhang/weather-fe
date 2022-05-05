@@ -29,6 +29,6 @@ app.use(router)
 app.use(store)
 app.use(Directives)
 
-console.log('env', import.meta.env)
+// console.log('env', import.meta.env)
 
 app.mount('#app')
