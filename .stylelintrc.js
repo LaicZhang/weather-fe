@@ -9,7 +9,7 @@ module.exports = {
       // 接入 Prettier 规则
       'stylelint-config-prettier',
       'stylelint-prettier/recommended'
-      "stylelint-config-recommended-vue/scss",
+    //   "stylelint-config-recommended-vue/scss",
   ],
   // 注册 stylelint 的 prettier 插件
   plugins: ['stylelint-prettier'],
