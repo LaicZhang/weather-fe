@@ -17,13 +17,16 @@ specifiers:
   echarts: ^5.3.2
   element-plus: ^2.1.11
   eslint: ^8.11.0
+  eslint-config-prettier: ^8.5.0
+  eslint-plugin-prettier: ^4.0.0
   husky: ^7.0.4
   jsdom: ^19.0.0
   less: ^3.0.4
   lint-staged: ^12.4.1
-  postcss: ^8.4.6
-  postcss-html: ^1.3.0
+  postcss: ^8.4.13
+  postcss-html: ^1.4.1
   postcss-import: 14.0.0
+  postcss-less: ^6.0.0
   postcss-scss: ^4.0.3
   prettier: ^2.6.2
   rollup: 2.72.0
@@ -57,6 +60,7 @@ dependencies:
   echarts: 5.3.2
   element-plus: 2.1.11_vue@3.2.33
   rollup: 2.72.0
+  stylelint-prettier: 2.0.0_u37kaoleqzy5tbrvs4lmyp47ni
   ts-node: 10.7.0_l47be6km5p57gglrggidw5gsgm
   vite: 2.9.8_less@3.13.1+sass@1.51.0
   vite-plugin-chunk-split: 0.2.2_vite@2.9.8
@@ -76,6 +80,8 @@ devDependencies:
   autoprefixer: 10.4.7_postcss@8.4.13
   commitlint: 16.2.4
   eslint: 8.14.0
+  eslint-config-prettier: 8.5.0_eslint@8.14.0
+  eslint-plugin-prettier: 4.0.0_mzpligoj26dazigcet37nxg2zy
   husky: 7.0.4
   jsdom: 19.0.0
   less: 3.13.1
@@ -83,6 +89,7 @@ devDependencies:
   postcss: 8.4.13
   postcss-html: 1.4.1
   postcss-import: 14.0.0_postcss@8.4.13
+  postcss-less: 6.0.0_postcss@8.4.13
   postcss-scss: 4.0.4_postcss@8.4.13
   prettier: 2.6.2
   rollup-plugin-visualizer: 5.6.0_rollup@2.72.0
@@ -93,7 +100,6 @@ devDependencies:
   stylelint-config-recommended-vue: 1.4.0_2s5dtqwmensqyzsegqcg7mtyoi
   stylelint-config-standard: 25.0.0_stylelint@13.13.1
   stylelint-config-standard-scss: 3.0.0_lz6hqxa27dzz2qrqr6o5tbw22q
-  stylelint-prettier: 2.0.0_u37kaoleqzy5tbrvs4lmyp47ni
   typescript: 4.6.4
   unplugin-auto-import: 0.7.1_5fgsmjua75zcepeczegr3pveve
   unplugin-icons: 0.14.3_rollup@2.72.0+vite@2.9.8
@@ -2228,6 +2234,15 @@ packages:
       source-map: 0.6.1
     dev: true
 
+  /eslint-config-prettier/8.5.0_eslint@8.14.0:
+    resolution: {integrity: sha512-obmWKLUNCnhtQRKc+tmnYuQl0pFU1ibYJQ5BGhTVB08bHe9wC8qUeG7c08dj9XX+AuPj1YSGSQIHl1pnDHZR0Q==}
+    hasBin: true
+    peerDependencies:
+      eslint: '>=7.0.0'
+    dependencies:
+      eslint: 8.14.0
+    dev: true
+
   /eslint-config-standard/17.0.0-1_csxqpghp2u36zpehgl7g6fmctq:
     resolution: {integrity: sha512-aqRG58dqoBNfOLN+PsitasxmW+W9Os4oQrx081B16T4E4WogsSbpUL6hnKSnyv35sSRYA2XjBtKMOrUboL6jgw==}
     peerDependencies:
@@ -2346,6 +2361,23 @@ packages:
       minimatch: 3.1.2
       resolve: 1.22.0
       semver: 6.3.0
+    dev: true
+
+  /eslint-plugin-prettier/4.0.0_mzpligoj26dazigcet37nxg2zy:
+    resolution: {integrity: sha512-98MqmCJ7vJodoQK359bqQWaxOE0CS8paAz/GgjaZLyex4TTk3g9HugoO89EqWCrFiOqn9EVvcoo7gZzONCWVwQ==}
+    engines: {node: '>=6.0.0'}
+    peerDependencies:
+      eslint: '>=7.28.0'
+      eslint-config-prettier: '*'
+      prettier: '>=2.0.0'
+    peerDependenciesMeta:
+      eslint-config-prettier:
+        optional: true
+    dependencies:
+      eslint: 8.14.0
+      eslint-config-prettier: 8.5.0_eslint@8.14.0
+      prettier: 2.6.2
+      prettier-linter-helpers: 1.0.0
     dev: true
 
   /eslint-plugin-promise/6.0.0_eslint@8.14.0:
@@ -2606,7 +2638,6 @@ packages:
 
   /fast-diff/1.2.0:
     resolution: {integrity: sha512-xJuoT5+L99XlZ8twedaRf6Ax2TgQVxvgZOYoPKqZufmJib0tL2tegPBOZb1pVNgIhlqDlA0eO0c3wBvQcmzx4w==}
-    dev: true
 
   /fast-glob/3.2.11:
     resolution: {integrity: sha512-xrO3+1bxSo3ZVHAnqzyuewYT6aMFHRAd4Kcs92MAonjwQZLsK9d0SF1IyQ3k5PoirxTW0Oe/RqFgMQ6TcNE5Ew==}
@@ -4190,6 +4221,15 @@ packages:
       postcss: 7.0.39
     dev: true
 
+  /postcss-less/6.0.0_postcss@8.4.13:
+    resolution: {integrity: sha512-FPX16mQLyEjLzEuuJtxA8X3ejDLNGGEG503d2YGZR5Ask1SpDN8KmZUMpzCvyalWRywAn1n1VOA5dcqfCLo5rg==}
+    engines: {node: '>=12'}
+    peerDependencies:
+      postcss: ^8.3.5
+    dependencies:
+      postcss: 8.4.13
+    dev: true
+
   /postcss-media-query-parser/0.2.3:
     resolution: {integrity: sha1-J7Ocb02U+Bsac7j3Y1HGCeXO8kQ=}
     dev: true
@@ -4296,7 +4336,6 @@ packages:
     engines: {node: '>=6.0.0'}
     dependencies:
       fast-diff: 1.2.0
-    dev: true
 
   /prettier/2.6.2:
     resolution: {integrity: sha512-PkUpF+qoXTqhOeWL9fu7As8LXsIUZ1WYaJiY/a7McAQzxjk82OF0tibkFXVCDImZtWxbvojFjerkiLb0/q8mew==}
@@ -4918,7 +4957,7 @@ packages:
       prettier: 2.6.2
       prettier-linter-helpers: 1.0.0
       stylelint: 13.13.1
-    dev: true
+    dev: false
 
   /stylelint-scss/4.2.0_stylelint@13.13.1:
     resolution: {integrity: sha512-HHHMVKJJ5RM9pPIbgJ/XA67h9H0407G68Rm69H4fzFbFkyDMcTV1Byep3qdze5+fJ3c0U7mJrbj6S0Fg072uZA==}
