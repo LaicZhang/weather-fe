@@ -1,82 +1,101 @@
-html, body {
-  height: 100%;
+html,
+body {
   width: 100%;
+  height: 100%;
 }
+
 *:not([class^='el-']) {
   box-sizing: border-box;
 }
-.white{
-  background-color: #ffffff;
+
+.white {
+  background-color: #fff;
 }
-a{
+
+a {
   text-decoration: none;
 }
-.gray{
+
+.gray {
   background-color: #eef0f3;
 }
-.mr10{
+
+.mr10 {
   margin-right: 10px;
 }
-.mr20{
+
+.mr20 {
   margin-right: 20px;
 }
-.mb20{
+
+.mb20 {
   margin-bottom: 20px;
 }
-.m-lr10{
-  margin-left: 10px;
+
+.m-lr10 {
   margin-right: 10px;
+  margin-left: 10px;
 }
-.p20{
+
+.p20 {
   padding: 20px;
 }
-.pl20{
+
+.pl20 {
   padding-left: 20px;
 }
-.text-right{
+
+.text-right {
   text-align: right;
 }
-.fr{
+
+.fr {
   float: right;
 }
-.flex{
+
+.flex {
   display: flex;
 }
-.flex-between{
+
+.flex-between {
   display: flex;
   justify-content: space-between;
 }
-.flex-center{
+
+.flex-center {
   display: flex;
   justify-content: center;
 }
-.tips{
+
+.tips {
   margin-left: 15px;
   color: #787878;
 }
-
 
 /*
 * 公共样式
 */
 .query-form {
-  background-color: #ffffff;
   padding: 22px 20px 0;
+  background-color: #fff;
   border-radius: 5px;
 }
+
 .base-table {
-  border-radius: 5px;
-  background: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
+  background: #fff;
+  border-radius: 5px;
+
   .action {
-    border-radius: 5px 5px 0px 0px;
-    background: #ffffff;
     padding: 20px;
+    background: #fff;
     border-bottom: 1px solid #ece8e8;
+    border-radius: 5px 5px 0 0;
   }
+
   .pagination {
-    text-align: right;
     padding: 10px;
+    text-align: right;
   }
 }

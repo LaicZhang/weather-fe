@@ -1,4 +1,4 @@
-@import "mixin.scss";
+@import 'mixin.scss';
 
 .center-h {
   @include center-translate(h);
@@ -23,8 +23,8 @@
 }
 
 .container {
-  padding: 0 32px;
   box-sizing: border-box;
+  padding: 0 32px;
 }
 
 .global-bg {
@@ -46,6 +46,7 @@
     animation-play-state: paused;
   }
 }
+
 .g-relative {
   position: relative;
 }
@@ -53,6 +54,7 @@
   0% {
     transform: translate3d(100%, 0, 0);
   }
+
   100% {
     transform: translate3d(0, 0, 0);
   }
@@ -62,109 +64,135 @@
   0% {
     transform: rotate(0);
   }
+
   100% {
     transform: rotate(360deg);
   }
 }
 
 //
-*:not([class^="el-"]) {
+*:not([class^='el-']) {
   box-sizing: border-box;
 }
+
 .white {
-  background-color: #ffffff;
+  background-color: #fff;
 }
+
 a {
   text-decoration: none;
 }
+
 .gray {
   background-color: #eef0f3;
 }
+
 .mr10 {
   margin-right: 10px;
 }
+
 .mr20 {
   margin-right: 20px;
 }
+
 .mb20 {
   margin-bottom: 20px;
 }
+
 .m-lr10 {
-  margin-left: 10px;
   margin-right: 10px;
+  margin-left: 10px;
 }
+
 .p20 {
   padding: 20px;
 }
+
 .pl20 {
   padding-left: 20px;
 }
+
 .text-right {
   text-align: right;
 }
+
 .fr {
   float: right;
 }
+
 .flex {
   display: flex;
 }
+
 .flex-between {
   display: flex;
   justify-content: space-between;
 }
+
 .flex-center {
   display: flex;
   justify-content: center;
 }
+
 .tips {
   margin-left: 15px;
   color: #787878;
 }
+
 .radius {
   border-radius: 5px;
 }
+
 .radius-hide {
-  border-radius: 5px;
   overflow: hidden;
+  border-radius: 5px;
 }
-.w-100{
+
+.w-100 {
   width: 100%;
 }
+
 /*
 * 公共样式
 */
 .query-form {
-  background-color: #ffffff;
   padding: 22px 20px 0;
+  background-color: #fff;
   border-radius: 5px;
 }
+
 .base-table {
-  border-radius: 5px;
-  background: #ffffff;
   margin-top: 20px;
   margin-bottom: 20px;
+  background: #fff;
+  border-radius: 5px;
+
   .action {
-    border-radius: 5px 5px 0px 0px;
-    background: #ffffff;
     padding: 20px;
+    background: #fff;
     border-bottom: 1px solid #ece8e8;
+    border-radius: 5px 5px 0 0;
   }
+
   .pagination {
-    text-align: right;
     padding: 10px;
+    text-align: right;
   }
 }
 
-.p-search-wrap{
+.p-search-wrap {
   padding: 30px 30px 15px;
 }
-.p-btn-wrap{
-  padding: 0 30px 30px 30px;
+
+.p-btn-wrap {
+  padding: 0 30px 30px;
 }
-.p-table-wrap{
-   padding: 0 30px 30px 30px;
+
+.p-table-wrap {
+  padding: 0 30px 30px;
 }
-.p-pagination{
+
+.p-pagination {
+  padding: 0 30px 30px;
   text-align: right;
-  padding: 0 30px 30px 30px;
 }
