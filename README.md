@@ -9,7 +9,7 @@
 
 ### 前端
 
-- Vue3
+- Vue3.2
 - Vite2
 - Vue Router
 - Vuex
@@ -33,7 +33,10 @@
 - ESlint
 - StyleLint
 - ESLint config by antfu
+- husky
 
 ## 部署
 - Vercel
 - OSS
+- Tencent Cloud
+- Tencent Webify
