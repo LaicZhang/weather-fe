@@ -31,6 +31,7 @@
 
 ### 代码规范
 - ESlint
+- StyleLint
 - ESLint config by antfu
 
 ## 部署
