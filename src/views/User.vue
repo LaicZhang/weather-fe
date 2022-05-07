@@ -61,12 +61,12 @@
         <el-table-column sortable label="操作">
           <template #default="scope">
             <div align="left" style="float:left">
-              <el-button type="text" @click="onEditUser(scope.row)">
+              <el-button size="default" type="text" @click="onEditUser(scope.row)">
                 编辑
               </el-button>
             </div>
             <div align="left" style="float:left">
-              <el-button style="color:#F56C6C" type="text" @click="onAddDeleteList(scope.row)">
+              <el-button size="default" style="color:#F56C6C" type="text" @click="onAddDeleteList(scope.row)">
                 删除
               </el-button>
             </div>
@@ -448,7 +448,7 @@ onMounted(() => {
   .user-page {
     padding: 30px;
     box-sizing: border-box;
-    height: 100vh;
+    height: 110vh;
     .user-from-wrap {
       background: #ffffff;
       margin-bottom: 18px;
