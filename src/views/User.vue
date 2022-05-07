@@ -58,14 +58,18 @@
           :formatter="column.formatter"
           show-overflow-tooltip
         />
-        <el-table-column sortable label="Operations">
+        <el-table-column sortable label="操作">
           <template #default="scope">
-            <el-button size="default" type="text" @click="onEditUser(scope.row)">
-              编辑
-            </el-button>
-            <el-button size="default" style="color:#F56C6C" type="text" @click="onAddDeleteList(scope.row)">
-              删除
-            </el-button>
+            <div align="left" style="float:left">
+              <el-button type="text" @click="onEditUser(scope.row)">
+                编辑
+              </el-button>
+            </div>
+            <div align="left" style="float:left">
+              <el-button style="color:#F56C6C" type="text" @click="onAddDeleteList(scope.row)">
+                删除
+              </el-button>
+            </div>
           </template>
         </el-table-column>
       </el-table>

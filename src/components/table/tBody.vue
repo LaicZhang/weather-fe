@@ -6,11 +6,12 @@
     stripe
     style="width: 100%"
   >
+    <el-table-column v-if="isShowSelection" sortable type="selection" width="55" />
     <el-table-column
+      v-if="isShowIndex"
       type="index"
       width="50"
       align="center"
-      v-if="isShowIndex"
     />
     <el-table-column
       v-for="column in (dataColumns as any)"
@@ -22,7 +23,7 @@
       :formatter="column.formatter"
       show-overflow-tooltip
     />
-    <slot></slot>
+    <slot />
   </el-table>
 </template>
 
@@ -37,6 +38,10 @@ defineProps({
     required: true,
   },
   isShowIndex: {
+    type: Boolean,
+    default: false,
+  },
+  isShowSelection: {
     type: Boolean,
     default: false,
   },
