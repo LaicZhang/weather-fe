@@ -43,6 +43,11 @@
         @selection-change="onChangeUserSelects"
       >
         <el-table-column sortable type="selection" width="55" />
+        <el-table-column label="头像">
+          <template #default="scope">
+            <el-avatar :size="50" :src="UPLOAD_CDN_URL+scope.row.avatar" />
+          </template>
+        </el-table-column>
         <el-table-column
           v-for="column in userColumns"
           :key="column.prop"
@@ -144,8 +149,10 @@ import {
   userListApi,
 } from '../api'
 import util from '../util/utils'
+import store from '../store'
 
 const { proxy } = getCurrentInstance()
+const UPLOAD_CDN_URL = store.state.UPLOAD_CDN_URL
 // 属性
 const userFrom = reactive({
   userId: '',
