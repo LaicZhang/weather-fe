@@ -45,7 +45,7 @@
         <el-table-column sortable type="selection" width="55" />
         <el-table-column label="头像">
           <template #default="scope">
-            <el-avatar :size="50" :src="UPLOAD_CDN_URL+scope.row.avatar" />
+            <el-avatar :size="30" :src="UPLOAD_CDN_URL+scope.row.avatar" />
           </template>
         </el-table-column>
         <el-table-column
