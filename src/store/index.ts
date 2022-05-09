@@ -11,6 +11,7 @@ const state = {
   theme: 'chalk',
   BASE_CDN_URL: 'https://cdn.zyha.cn/',
   UPLOAD_CDN_URL: 'https://cdn.zyha.cn/public/upload/',
+  SVG_CDN_URL: 'https://cdn.zyha.cn/svg/',
   ip: '',
   location: '',
   condition: '',

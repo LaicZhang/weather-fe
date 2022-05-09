@@ -110,7 +110,9 @@
       </template>
     </el-dialog>
     <el-dialog v-model="pushDeerDialogVisible" title="Tips" width="40%">
-      <pusherdeerAlert />
+      <template #default>
+        <pusherdeerAlert />
+      </template>
       <template #footer>
         <span class="dialog-footer">
           <el-button @click="pushDeerDialogVisible = false">Cancel</el-button>
