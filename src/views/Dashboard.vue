@@ -45,7 +45,8 @@ export default {
       this.ip = this.currentRoute.query.ip
     },
     toPageHome() {
-      router.push('/')
+      // router.push('/')
+      router.go(-1)
     },
     today(date) {
       // 判断今天是星期几
