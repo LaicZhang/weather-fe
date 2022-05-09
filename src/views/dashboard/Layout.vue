@@ -3,10 +3,27 @@
     <div class="grid-container">
       <div class="header">
         <div class="city-name">
-          {{ city }}
-          <el-icon :size="20" style="cursor: pointer;" color="#409EFC" @click="shareCurrentWeather">
-            <share />
-          </el-icon>
+          <span>
+            {{ city }}
+            <el-icon :size="20" style="cursor: pointer;" color="#409EFC" @click="shareCurrentWeather">
+              <share />
+            </el-icon>
+          </span>
+          <div
+            v-if="userId"
+            class="avatar-item"
+            @click="$router.push('/system/userInfo')"
+          >
+            <UserAvatar />
+          </div>
+          <div v-else style="float: right;">
+            <el-button size="default" type="primary" @click="$router.push('/login')">
+              登录
+            </el-button>
+            <el-button size="default" type="primary" @click="$router.push('/register')">
+              注册
+            </el-button>
+          </div>
         </div>
       </div>
       <div class="content">
@@ -44,7 +61,10 @@ import { getIpApi } from '@/api'
 import { addShareApi } from '@/api/share'
 // import router from '@/router'
 import store from '@/store'
+import UserAvatar from '@/components/info/user-avatar.vue'
 
+const userId = ref('')
+userId.value = store.state.userInfo.userId
 const city = ref('')
 const currentRoute = window.location.href
 const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
@@ -83,11 +103,6 @@ onMounted(() => {
 </script>
 
 <style lang="less" scoped>
-.city-name {
-  font-size: 25px;
-  line-height: 50px;
-  color: #303133;
-}
   .grid-container {
     height: 100vh;
     text-align: center;
@@ -108,6 +123,16 @@ onMounted(() => {
     grid-area: header;
     background: #EBEEF5;
     border-radius: 10px;
+    font-size: 25px;
+    line-height: 50px;
+    color: #303133;
+    .city-name span{
+    }
+    .avatar-item{
+      float: right;
+      margin: 5px;
+      cursor: pointer;
+    }
   }
   .content {
     grid-area: content;
