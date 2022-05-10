@@ -8,15 +8,17 @@ import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
 import viteStylelint from '@amatlash/vite-plugin-stylelint'
 
+const environment = process.env.NODE_ENV || 'development'
+
 let server = {}
-const env = 'development' // 设置环境 development production
-if (env === 'production') {
+if (environment === 'development') {
   server = {
     cors: true,
     host: '0.0.0.0',
+    port: 8000,
     proxy: {
       '/api': {
-        target: 'https://weather-api.zyha.cn',
+        target: 'http://localhost:9000',
         changeOrigin: true,
         // secure: true
       },
@@ -27,10 +29,9 @@ else {
   server = {
     cors: true,
     host: '0.0.0.0',
-    port: 8000,
     proxy: {
       '/api': {
-        target: 'http://localhost:9000',
+        target: 'https://weather-api.zyha.cn',
         changeOrigin: true,
         // secure: true
       },

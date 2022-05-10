@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "module": "ESNext",
-    "target": "es2016",
+    "target": "ESNext",
     "lib": ["DOM", "ESNext"],
     "strict": true,
     "esModuleInterop": true,
@@ -15,12 +15,15 @@
     "strictNullChecks": true,
     "allowJs": true,
     "checkJs": false,
+    "noEmit": true,
     "forceConsistentCasingInFileNames": true,
     "allowSyntheticDefaultImports": true,
     "types": [
       "vite/client",
       "vue/ref-macros",
-      "element-plus/global"
+      "element-plus/global",
+      "vite-plugin-svgr/client",
+      "vitest/globals"
     ],
     "paths": {
       "@/*": ["src/*"],
