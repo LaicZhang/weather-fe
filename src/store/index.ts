@@ -7,7 +7,7 @@ const state = {
   menuList: storage.getItem('menuList') || [],
   actionList: storage.getItem('actionList') || [],
   weatherData: storage.getItem('weatherData') || {},
-  noticeCount: 0,
+  noticeCount: '0',
   theme: 'chalk',
   BASE_CDN_URL: 'https://cdn.zyha.cn/',
   UPLOAD_CDN_URL: 'https://cdn.zyha.cn/public/upload/',

@@ -1,7 +1,7 @@
 
 <template>
   <el-badge
-    :is-dot="noticeCount > 0"
+    :value="noticeCount==0?'':noticeCount"
     class="manager-user-badge"
     @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
   >
