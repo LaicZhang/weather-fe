@@ -1,6 +1,6 @@
 {
   "name": "weather-visualization-front-2",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "scripts": {
     "dev": "vite --host --open",
     "build": "vite build --mode production",
