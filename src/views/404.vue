@@ -1,6 +1,10 @@
+<script setup>
+
+</script>
+
 <template>
   <div class="page-404">
-    <!--    <el-image id="not-found-img" alt="404.jpeg" src="'./../public/img/404.jpeg" />-->
+    <!--    <el-image id="not-found-img" alt="404.jpeg" src="'./../public/img/404.jpeg" /> -->
     <div style="text-align: center;font-size: 50px;">
       <h1>404 not found</h1>
       <h2>it seems you're in the wrong page</h2>
@@ -10,10 +14,6 @@
     </el-button>
   </div>
 </template>
-
-<script setup>
-
-</script>
 
 <style scoped lang="scss">
 .page-404{

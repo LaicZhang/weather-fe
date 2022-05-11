@@ -1,7 +1,3 @@
-<template>
-  <el-avatar :src="avatar" />
-</template>
-
 <script lang="ts" setup>
 import { ref } from 'vue'
 import store from '@/store'
@@ -12,6 +8,10 @@ if (store.state.userInfo.userId)
 else
   avatar.value = `${store.state.UPLOAD_CDN_URL}default-avatar.png`
 </script>
+
+<template>
+  <el-avatar :src="avatar" />
+</template>
 
 <style lang="scss" scoped>
 

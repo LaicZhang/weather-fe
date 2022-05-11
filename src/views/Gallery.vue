@@ -1,19 +1,3 @@
-<template>
-  <div class="right-con">
-    <div class="gallery-page">
-      <div class="gallery-form" status-icon>
-        <div class="gallery-title">
-          来自{{ userName }}分享的{{ location }}天气预报
-        </div>
-        <el-image style="border-radius: 10px;" :src="imgUrl" />
-      </div>
-    </div>
-  </div>
-  <div @click="toPageHome">
-    <backToSvgVue :text="text" />
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import router from '@/router'
@@ -30,7 +14,7 @@ const userName = ref('')
 const location = ref('')
 const BE_URL: string = import.meta.env.VITE_BE_URL.replace('/api/', '')
 const imgUrl = ref('https://img.yzcdn.cn/vant/cat.jpeg')
-const getShareInfo = async() => {
+const getShareInfo = async () => {
   const data = await getShareInfoApi({
     shareId,
   })
@@ -40,7 +24,7 @@ const getShareInfo = async() => {
     location.value = data.shareLocation.city
   }
 }
-const openShare = async() => {
+const openShare = async () => {
   await openShareApi({ shareId })
 }
 onMounted(() => {
@@ -48,6 +32,22 @@ onMounted(() => {
   getShareInfo()
 })
 </script>
+
+<template>
+  <div class="right-con">
+    <div class="gallery-page">
+      <div class="gallery-form" status-icon>
+        <div class="gallery-title">
+          来自{{ userName }}分享的{{ location }}天气预报
+        </div>
+        <el-image style="border-radius: 10px;" :src="imgUrl" />
+      </div>
+    </div>
+  </div>
+  <div @click="toPageHome">
+    <backToSvgVue :text="text" />
+  </div>
+</template>
 
 <style lang="scss" scoped>
   .gallery-page {

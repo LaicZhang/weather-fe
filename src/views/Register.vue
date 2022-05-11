@@ -1,89 +1,3 @@
-
-<template>
-  <div class="register-page">
-    <el-form
-      ref="userFormRef"
-      class="register-form"
-      :model="userForm"
-      :rules="userRules"
-      status-icon
-    >
-      <div class="register-title">
-        注册
-      </div>
-      <el-form-item prop="userName">
-        <el-input
-          v-model="userForm.userName"
-          type="text"
-          clearable
-          placeholder="请输入用户名"
-          prefix-icon="el-icon-user"
-          @change="checkRepeatUserName"
-        />
-      </el-form-item>
-      <el-form-item prop="userEmail">
-        <el-autocomplete
-          v-model="userForm.userEmail"
-          type="text"
-          style="width: 28vw;"
-          placeholder="请输入邮箱"
-          prefix-icon="el-icon-email"
-          clearable
-          :fetch-suggestions="querySearch"
-          :trigger-on-focus="false"
-          @select="handleSelect"
-        >
-          <template #default="{ item }">
-            <div class="user-email-value">
-              {{ item }}
-            </div>
-          </template>
-        </el-autocomplete>
-      </el-form-item>
-      <el-form-item prop="userPwd">
-        <el-input
-          v-model="userForm.userPwd"
-          type="password"
-          clearable
-          placeholder="请输入密码"
-          prefix-icon="el-icon-lock"
-        />
-        <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
-        <PasswordMeter :password="userForm.userPwd" />
-      </el-form-item>
-      <el-form-item prop="userPwd">
-        <el-input
-          v-model="userForm.userConfirmPwd"
-          type="password"
-          clearable
-          placeholder="请确认密码"
-          prefix-icon="el-icon-lock"
-        />
-      </el-form-item>
-      <el-form-item v-if="userForm.userConfirmPwd">
-        <el-input
-          v-model="userForm.captcha"
-          type="text"
-          clearable
-          placeholder="请输入验证码"
-          style="width: 20vw;"
-        />
-        <el-button @click="sendCaptchaEmail">
-          发送邮件验证码
-        </el-button>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="text" @click="toLogin">
-          已有账号？点击登陆
-        </el-button>
-        <el-button type="primary" class="register-submit" @click="userFromCommit">
-          注册
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
-</template>
-
 <script setup>
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
@@ -102,7 +16,7 @@ const userForm = reactive({
   userPwd: '',
 })
 
-const checkRepeatUserName = async(rule, value, callback) => {
+const checkRepeatUserName = async (rule, value, callback) => {
   const { userName } = userForm
   if (!userName)
     return
@@ -111,7 +25,7 @@ const checkRepeatUserName = async(rule, value, callback) => {
   if (isRepeat)
     return callback(new Error('用户名已存在'))
 }
-const checkRepeatUserEmail = async(rule, value, callback) => {
+const checkRepeatUserEmail = async (rule, value, callback) => {
   const { userEmail } = userForm
   if (!userEmail)
     return
@@ -162,7 +76,7 @@ const userRules = {
     },
   ],
 }
-const getMenuPermission = async() => {
+const getMenuPermission = async () => {
   const { menuList, actionList } = await menuPermissionApi()
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
@@ -198,7 +112,7 @@ const decodedUserPwd = (userPwd) => {
   return atob(userPwd)
 }
 const userFromCommit = () => {
-  userFormRef.value.validate(async(valid) => {
+  userFormRef.value.validate(async (valid) => {
     if (valid) {
       if (userForm.userPwd !== userForm.userConfirmPwd) {
         ElMessage.error('两次密码不一致')
@@ -218,7 +132,7 @@ const userFromCommit = () => {
     }
   })
 }
-const sendCaptchaEmail = async() => {
+const sendCaptchaEmail = async () => {
   const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
 }
 const toLogin = () => {
@@ -226,6 +140,88 @@ const toLogin = () => {
   // router.back()
 }
 </script>
+
+<template>
+  <div class="register-page">
+    <el-form
+      ref="userFormRef"
+      class="register-form"
+      :model="userForm"
+      :rules="userRules"
+      status-icon
+    >
+      <div class="register-title">
+        注册
+      </div>
+      <el-form-item prop="userName">
+        <el-input
+          v-model="userForm.userName"
+          clearable
+          placeholder="请输入用户名"
+          prefix-icon="el-icon-user"
+          @change="checkRepeatUserName"
+        />
+      </el-form-item>
+      <el-form-item prop="userEmail">
+        <el-autocomplete
+          v-model="userForm.userEmail"
+          style="width: 28vw;"
+          placeholder="请输入邮箱"
+          prefix-icon="el-icon-email"
+          clearable
+          :fetch-suggestions="querySearch"
+          :trigger-on-focus="false"
+          @select="handleSelect"
+        >
+          <template #default="{ item }">
+            <div class="user-email-value">
+              {{ item }}
+            </div>
+          </template>
+        </el-autocomplete>
+      </el-form-item>
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userPwd"
+          type="password"
+          clearable
+          placeholder="请输入密码"
+          prefix-icon="el-icon-lock"
+        />
+        <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
+        <PasswordMeter :password="userForm.userPwd" />
+      </el-form-item>
+      <el-form-item prop="userPwd">
+        <el-input
+          v-model="userForm.userConfirmPwd"
+          type="password"
+          clearable
+          placeholder="请确认密码"
+          prefix-icon="el-icon-lock"
+        />
+      </el-form-item>
+      <el-form-item v-if="userForm.userConfirmPwd">
+        <el-input
+          v-model="userForm.captcha"
+          clearable
+          placeholder="请输入验证码"
+          style="width: 20vw;"
+        />
+        <el-button @click="sendCaptchaEmail">
+          发送邮件验证码
+        </el-button>
+      </el-form-item>
+      <el-form-item>
+        <el-button text size="small" @click="toLogin">
+          已有账号？点击登陆
+        </el-button>
+        <el-button type="primary" class="register-submit" @click="userFromCommit">
+          注册
+        </el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
 
 <style lang="scss"  scoped >
 .register-page {

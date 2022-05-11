@@ -1,35 +1,3 @@
-<template>
-  <div class="manager-wrap" :class="[wrapClass]">
-    <div class="manager-left">
-      <c-menu ref="menuRef" :menus="menus" />
-    </div>
-    <div class="manager-right">
-      <div class="manager-top-nav">
-        <div class="manager-bread">
-          <c-bread-crumbs>
-            <template #left>
-              <em class="menu-icon-fold" :class="[menuIconClass]" @click="toggleMenu" />
-            </template>
-          </c-bread-crumbs>
-        </div>
-        <div class="manager-user">
-          <is-online />
-          <notices-count />
-          <c-user-dropdown :user-info="userInfo" />
-        </div>
-      </div>
-      <div class="manager-main">
-        <div class="manager-main-box">
-          <router-view />
-        </div>
-      </div>
-    </div>
-  </div>
-  <div @click="toPageDashboard">
-    <back-to-svg :text="text" />
-  </div>
-</template>
-
 <script>
 import { defineComponent } from 'vue'
 import CMenu from '../components/menu/c-menu.vue'
@@ -43,7 +11,7 @@ import router from '@/router'
 
 export default defineComponent({
   name: 'HOME',
-  components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg, isOnline, noticesCount },
+  components: { CMenu, CBreadCrumbs, CUserDropdown, BackToSvg, IsOnline: isOnline, NoticesCount: noticesCount },
   data() {
     return {
       menus: [],
@@ -104,11 +72,45 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <div class="manager-wrap" :class="[wrapClass]">
+    <div class="manager-left">
+      <CMenu ref="menuRef" :menus="menus" />
+    </div>
+    <div class="manager-right">
+      <div class="manager-top-nav">
+        <div class="manager-bread">
+          <CBreadCrumbs>
+            <template #left>
+              <em class="menu-icon-fold" :class="[menuIconClass]" @click="toggleMenu" />
+            </template>
+          </CBreadCrumbs>
+        </div>
+        <div class="manager-user">
+          <IsOnline />
+          <NoticesCount />
+          <CUserDropdown :user-info="userInfo" />
+        </div>
+      </div>
+      <div class="manager-main">
+        <div class="manager-main-box">
+          <router-view />
+        </div>
+      </div>
+    </div>
+  </div>
+  <div @click="toPageDashboard">
+    <BackToSvg :text="text" />
+  </div>
+</template>
+
 <style>
   @import '@/assets/scss/reset.scss';
   @import '@/assets/scss/base.scss';
   @import '@/assets/scss/comm.scss';
 </style>
+
 <style lang="scss" scoped>
   .manager-wrap {
     position: fixed;

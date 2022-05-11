@@ -1,26 +1,17 @@
-<template>
-  <div v-loading="!isLoaded" class="dashboard-page">
-    <Layout v-if="isLoaded" />
-  </div>
-  <div @click="toPageHome">
-    <backToSvg :text="text" />
-  </div>
-</template>
-
 <script>
 import { getAllDataListApi } from '../api'
 import storage from '../util/storage'
 import store from '../store'
 import router from '../router'
 import Layout from './dashboard/Layout.vue'
-import backToSvg from '@/components/backTo/backToSvg.vue'
+import BackToSvg from '@/components/backTo/backToSvg.vue'
 // import PlLazy from '@/components/lazyload/index.vue'
 export default {
   name: 'Dashboard',
   components: {
     // Test,
     // ScreenPage,
-    backToSvg,
+    BackToSvg,
     Layout,
   },
   data() {
@@ -63,6 +54,15 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div v-loading="!isLoaded" class="dashboard-page">
+    <Layout v-if="isLoaded" />
+  </div>
+  <div @click="toPageHome">
+    <BackToSvg :text="text" />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .dashboard-page {

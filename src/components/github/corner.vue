@@ -1,3 +1,8 @@
+<script setup lang="ts">
+const repoUrl = 'https://github.com/LaicZhang/weather-visualization-front-2'
+const label = 'View source on Github'
+</script>
+
 <template>
   <!-- begin github animated corner https://github.com/eugena/github-animated-corners/ -->
   <a
@@ -28,11 +33,6 @@
   </a>
   <!-- end github animated corner -->
 </template>
-
-<script setup lang="ts">
-const repoUrl = 'https://github.com/LaicZhang/weather-visualization-front-2'
-const label = 'View source on Github'
-</script>
 
 <style lang="scss" scoped>
 .github-corner{

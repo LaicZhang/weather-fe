@@ -1,10 +1,21 @@
+<script setup lang="ts">
+defineProps({
+  menus: {
+    type: Array,
+    default: () => {
+      return []
+    },
+  },
+})
+</script>
+
 <template>
   <template v-for="(menu, index) in (menus as any)">
     <el-sub-menu
       v-if="
-        menu.children &&
-          menu.children.length > 0 &&
-          menu.children[0].menuType == '1'
+        menu.children
+          && menu.children.length > 0
+          && menu.children[0].menuType == '1'
       "
       :key="index"
       :index="menu.path"
@@ -29,15 +40,5 @@
   <!-- </div> -->
 </template>
 
-<script setup lang="ts">
-defineProps({
-  menus: {
-    type: Array,
-    default: () => {
-      return []
-    },
-  },
-})
-</script>
 <style lang="scss" scoped>
 </style>

@@ -1,50 +1,3 @@
-<template>
-  <div class="SetDataConfig-page">
-    <el-form ref="dataFormRef" :model="dataConfig" :rules="dataFormRules">
-      <el-form-item label="目标地址">
-        <el-select
-          v-model="dataConfig.targetUrl"
-          placeholder="选择地域"
-        >
-          <el-option
-            v-for="item in options"
-            :key="item.value"
-            :label="item.label"
-            :value="item.value"
-          />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="爬取方式">
-        <el-select v-model="dataConfig.method">
-          <el-option label="python" value="python" />
-          <el-option label="node" value="node" />
-        </el-select>
-      </el-form-item>
-      <el-form-item label="爬取时间">
-        <el-time-select
-          v-model="dataConfig.time"
-          start="08:30"
-          step="00:15"
-          end="15:30"
-          size="small"
-          placeholder="选择时间"
-        />
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" @click="getDataAtNow">
-          立刻爬取
-        </el-button>
-        <el-button type="primary" @click="onSubmit">
-          提交
-        </el-button>
-        <el-button @click="resetForm">
-          撤销修改
-        </el-button>
-      </el-form-item>
-    </el-form>
-  </div>
-</template>
-
 <script>
 </script>
 
@@ -107,10 +60,10 @@ const dataFormRules = {
     { required: true, message: '请选择爬取时间', trigger: 'blur' },
   ],
 }
-const getDataAtNow = async() => {
+const getDataAtNow = async () => {
   await requestDataApi()
 }
-const readConfig = async() => {
+const readConfig = async () => {
   const res = await readConfigApi()
   dataConfig.targetUrl = res.targetUrl
   dataConfig.method = res.method
@@ -121,7 +74,7 @@ const readConfig = async() => {
     savedConfig.time = res.time
   }
 }
-const writeConfig = async() => {
+const writeConfig = async () => {
   if (dataConfig === {})
     return
   await writeConfigApi(dataConfig)
@@ -133,6 +86,53 @@ onMounted(() => {
   readConfig()
 })
 </script>
+
+<template>
+  <div class="SetDataConfig-page">
+    <el-form ref="dataFormRef" :model="dataConfig" :rules="dataFormRules">
+      <el-form-item label="目标地址">
+        <el-select
+          v-model="dataConfig.targetUrl"
+          placeholder="选择地域"
+        >
+          <el-option
+            v-for="item in options"
+            :key="item.value"
+            :label="item.label"
+            :value="item.value"
+          />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="爬取方式">
+        <el-select v-model="dataConfig.method">
+          <el-option label="python" value="python" />
+          <el-option label="node" value="node" />
+        </el-select>
+      </el-form-item>
+      <el-form-item label="爬取时间">
+        <el-time-select
+          v-model="dataConfig.time"
+          start="08:30"
+          step="00:15"
+          end="15:30"
+          size="small"
+          placeholder="选择时间"
+        />
+      </el-form-item>
+      <el-form-item>
+        <el-button type="primary" @click="getDataAtNow">
+          立刻爬取
+        </el-button>
+        <el-button type="primary" @click="onSubmit">
+          提交
+        </el-button>
+        <el-button @click="resetForm">
+          撤销修改
+        </el-button>
+      </el-form-item>
+    </el-form>
+  </div>
+</template>
 
 <style lang="scss" scoped>
   .SetDataConfig-page {

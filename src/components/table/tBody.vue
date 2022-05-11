@@ -1,8 +1,29 @@
+<script setup lang="ts">
+defineProps({
+  dataColumns: {
+    type: Array,
+    required: true,
+  },
+  dataList: {
+    type: Array,
+    required: true,
+  },
+  isShowIndex: {
+    type: Boolean,
+    default: false,
+  },
+  isShowSelection: {
+    type: Boolean,
+    default: false,
+  },
+})
+</script>
+
 <template>
   <el-table
     class="base-table"
     :data="dataList"
-    size="default"
+
     stripe
     style="width: 100%"
   >
@@ -26,24 +47,3 @@
     <slot />
   </el-table>
 </template>
-
-<script setup lang="ts">
-defineProps({
-  dataColumns: {
-    type: Array,
-    required: true,
-  },
-  dataList: {
-    type: Array,
-    required: true,
-  },
-  isShowIndex: {
-    type: Boolean,
-    default: false,
-  },
-  isShowSelection: {
-    type: Boolean,
-    default: false,
-  },
-})
-</script>

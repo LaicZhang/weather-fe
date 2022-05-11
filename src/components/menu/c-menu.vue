@@ -1,25 +1,3 @@
-<template>
-  <el-menu
-    ref="menuRef"
-    :default-active="activePath"
-    class="menu-wrap"
-    :collapse="isCollapse"
-    background-color="#071321"
-    text-color="#ffffff"
-    active-text-color="#409eff"
-    router
-    :default-openeds="defaultOpenedsArr"
-  >
-    <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
-      <div class="menu-logo-img" />
-      <div class="menu-logo-title">
-        Manager
-      </div>
-    </div>
-    <c-tree-menu :menus="menus" />
-  </el-menu>
-</template>
-
 <script>
 import { defineComponent, onMounted } from 'vue'
 import CTreeMenu from './c-tree-menu.vue'
@@ -69,6 +47,29 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <el-menu
+    ref="menuRef"
+    :default-active="activePath"
+    class="menu-wrap"
+    :collapse="isCollapse"
+    background-color="#071321"
+    text-color="#ffffff"
+    active-text-color="#409eff"
+    router
+    :default-openeds="defaultOpenedsArr"
+  >
+    <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
+      <div class="menu-logo-img" />
+      <div class="menu-logo-title">
+        Manager
+      </div>
+    </div>
+    <CTreeMenu :menus="menus" />
+  </el-menu>
+</template>
+
 <style lang="scss" scoped>
   .menu-wrap {
     height: 100%;

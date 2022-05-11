@@ -1,7 +1,3 @@
-<template>
-  <div id="link-marker" ref="myRef" />
-</template>
-
 <script setup lang="ts">
 import * as echarts from 'echarts/core'
 import type {
@@ -146,6 +142,10 @@ onMounted(() => {
   initT()
 })
 </script>
+
+<template>
+  <div id="link-marker" ref="myRef" />
+</template>
 
 <style lang="scss" scoped>
 #link-marker {

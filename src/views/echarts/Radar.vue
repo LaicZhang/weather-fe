@@ -1,10 +1,3 @@
-<template>
-  <div id="radar" ref="myRef" />
-  <div>
-    <life-index />
-  </div>
-</template>
-
 <script setup lang="ts">
 import * as echarts from 'echarts/core'
 import type {
@@ -78,6 +71,13 @@ onMounted(() => {
   init()
 })
 </script>
+
+<template>
+  <div id="radar" ref="myRef" />
+  <div>
+    <life-index />
+  </div>
+</template>
 
 <style lang="scss" scoped>
   #radar {

@@ -1,3 +1,15 @@
+<script setup lang="ts">
+// import { defineComponent } from 'vue'
+import store from '@/store'
+// import router from '@/router'
+import GithubCorner from '@/components/github/corner.vue'
+
+const baseCdnUrl = store.state.BASE_CDN_URL
+// const toPageLogin = () => {
+//   router.push({ name: 'login' })
+// }
+</script>
+
 <template>
   <div class="welcome-page">
     <GithubCorner />
@@ -22,17 +34,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { defineComponent } from 'vue'
-import store from '@/store'
-// import router from '@/router'
-import GithubCorner from '@/components/github/corner.vue'
-
-const baseCdnUrl = store.state.BASE_CDN_URL
-// const toPageLogin = () => {
-//   router.push({ name: 'login' })
-// }
-</script>
 <style lang="scss" scoped>
 .welcome-page {
   background: #ffffff;

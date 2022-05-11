@@ -1,3 +1,16 @@
+<script setup lang="ts">
+import { reactive } from 'vue'
+import store from '@/store'
+
+const today = store.state.weatherData.today.lifeIndex
+const clothesIndex = reactive(today.ct)
+const rayIndex = reactive(today.uv)
+const carIndex = reactive(today.xc)
+const clothesIndexText = `${clothesIndex.liNm}:${clothesIndex.liAttr},${clothesIndex.liDese}`
+const rayIndexText = `${rayIndex.liNm}:${rayIndex.liAttr},${rayIndex.liDese}`
+const carIndexText = `${carIndex.liNm}:${carIndex.liAttr},${carIndex.liDese}`
+</script>
+
 <template>
   <div class="life-index">
     <div>今日生活指数</div>
@@ -31,20 +44,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { reactive } from 'vue'
-import store from '@/store'
-
-const today = store.state.weatherData.today.lifeIndex
-const clothesIndex = reactive(today.ct)
-const rayIndex = reactive(today.uv)
-const carIndex = reactive(today.xc)
-const clothesIndexText = `${clothesIndex.liNm}:${clothesIndex.liAttr},${clothesIndex.liDese}`
-const rayIndexText = `${rayIndex.liNm}:${rayIndex.liAttr},${rayIndex.liDese}`
-const carIndexText = `${carIndex.liNm}:${carIndex.liAttr},${carIndex.liDese}`
-
-</script>
 
 <style>
   .life-index {

@@ -1,6 +1,7 @@
 const directive = {
   bind(el: any, binding: any) {
-    if (!el) return
+    if (!el)
+      return
     // 加载中旋转 icon
     const loadingIcon = document.createElement('i')
     loadingIcon.className = 'el-icon-loading'

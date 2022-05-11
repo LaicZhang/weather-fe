@@ -1,17 +1,3 @@
-<template>
-  <div class="_base-count-down no-rtl">
-    <div class="content">
-      <slot
-        v-bind="{
-          d: days, h: hours, m: mins, s: seconds,
-          hh: `00${hours}`.slice(-2),
-          mm: `00${mins}`.slice(-2),
-          ss: `00${seconds}`.slice(-2),
-        }"
-      />
-    </div>
-  </div>
-</template>
 <script>
 /* eslint-disable object-curly-newline */
 
@@ -66,17 +52,21 @@ export default {
   },
   methods: {
     durationFormatter(time) {
-      if (!time) return { ss: 0 }
+      if (!time)
+        return { ss: 0 }
       let t = time
       const ss = t % 60
       t = (t - ss) / 60
-      if (t < 1) return { ss }
+      if (t < 1)
+        return { ss }
       const mm = t % 60
       t = (t - mm) / 60
-      if (t < 1) return { mm, ss }
+      if (t < 1)
+        return { mm, ss }
       const hh = t % 24
       t = (t - hh) / 24
-      if (t < 1) return { hh, mm, ss }
+      if (t < 1)
+        return { hh, mm, ss }
       const dd = t
       return { dd, hh, mm, ss }
     },
@@ -110,6 +100,25 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="_base-count-down no-rtl">
+    <div class="content">
+      <slot
+        v-bind="{
+          d: days,
+          h: hours,
+          m: mins,
+          s: seconds,
+          hh: `00${hours}`.slice(-2),
+          mm: `00${mins}`.slice(-2),
+          ss: `00${seconds}`.slice(-2),
+        }"
+      />
+    </div>
+  </div>
+</template>
+
 <style lang='scss' scoped>
 // @import '~@assets/css/common.scss';
 

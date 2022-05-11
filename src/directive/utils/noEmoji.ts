@@ -14,7 +14,7 @@ const emoji = {
     const regRule = /[^u4E00-u9FA5|d|a-zA-Z|rns,.?!，。？！…—&$=()-+/*{}[]]|s/g
     const $inp = findEle(el, 'input')
     el.$inp = $inp
-    $inp.handle = function() {
+    $inp.handle = function () {
       const val = $inp.value
       $inp.value = val.replace(regRule, '')
 

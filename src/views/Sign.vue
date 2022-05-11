@@ -1,59 +1,3 @@
-<template>
-  <div id="container" class="container">
-    <div class="form-container sign-up-container">
-      <form action="#">
-        <h1>注 册</h1>
-        <!-- <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-qq" /></a>
-          <a href="#" class="social"><i class="fab fa-weixin" /></a>
-          <a href="#" class="social"><i class="fab fa-weibo" /></a>
-          <a href="#" class="social"><i class="fab fa-github" /></a>
-        </div> -->
-        <!-- <span>选择以上方式注册您的账号</span> -->
-        <input type="text" placeholder="手机号">
-        <input type="text" placeholder="用户名">
-        <input type="email" placeholder="邮箱">
-        <input type="password" placeholder="密码">
-        <button>注册</button>
-      </form>
-    </div>
-    <div class="form-container sign-in-container">
-      <form action="#">
-        <h1>登 录</h1>
-        <!-- <div class="social-container">
-          <a href="#" class="social"><i class="fab fa-qq" /></a>
-          <a href="#" class="social"><i class="fab fa-weixin" /></a>
-          <a href="#" class="social"><i class="fab fa-weibo" /></a>
-          <a href="#" class="social"><i class="fab fa-github" /></a>
-        </div> -->
-        <!-- <span>选择以上方式登录或使用您的账号</span> -->
-        <input type="email" placeholder="邮箱">
-        <input type="password" placeholder="密码">
-        <a href="#">忘记密码？</a>
-        <button>登录</button>
-      </form>
-    </div>
-    <div class="overlay-container">
-      <div class="overlay">
-        <div class="overlay-panel overlay-left">
-          <h1>已有账号？</h1>
-          <p>请使用您的账号进行登录</p>
-          <button id="signIn" class="ghost">
-            登录
-          </button>
-        </div>
-        <div class="overlay-panel overlay-right">
-          <h1>没有账号？</h1>
-          <p>立即注册加入我们</p>
-          <button id="signUp" class="ghost">
-            注册
-          </button>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
-
 <script>
 export default {
   name: 'Sign',
@@ -97,6 +41,62 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div id="container" class="container">
+    <div class="form-container sign-up-container">
+      <form action="#">
+        <h1>注 册</h1>
+        <!-- <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-qq" /></a>
+          <a href="#" class="social"><i class="fab fa-weixin" /></a>
+          <a href="#" class="social"><i class="fab fa-weibo" /></a>
+          <a href="#" class="social"><i class="fab fa-github" /></a>
+        </div> -->
+        <!-- <span>选择以上方式注册您的账号</span> -->
+        <el-input placeholder="手机号" />
+        <el-input placeholder="用户名" />
+        <input type="email" placeholder="邮箱">
+        <input type="password" placeholder="密码">
+        <button>注册</button>
+      </form>
+    </div>
+    <div class="form-container sign-in-container">
+      <form action="#">
+        <h1>登 录</h1>
+        <!-- <div class="social-container">
+          <a href="#" class="social"><i class="fab fa-qq" /></a>
+          <a href="#" class="social"><i class="fab fa-weixin" /></a>
+          <a href="#" class="social"><i class="fab fa-weibo" /></a>
+          <a href="#" class="social"><i class="fab fa-github" /></a>
+        </div> -->
+        <!-- <span>选择以上方式登录或使用您的账号</span> -->
+        <input type="email" placeholder="邮箱">
+        <input type="password" placeholder="密码">
+        <a href="#">忘记密码？</a>
+        <button>登录</button>
+      </form>
+    </div>
+    <div class="overlay-container">
+      <div class="overlay">
+        <div class="overlay-panel overlay-left">
+          <h1>已有账号？</h1>
+          <p>请使用您的账号进行登录</p>
+          <button id="signIn" class="ghost">
+            登录
+          </button>
+        </div>
+        <div class="overlay-panel overlay-right">
+          <h1>没有账号？</h1>
+          <p>立即注册加入我们</p>
+          <button id="signUp" class="ghost">
+            注册
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
 
 <style scoped>
 /* reset */

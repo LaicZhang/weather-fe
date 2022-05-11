@@ -1,42 +1,3 @@
-<template>
-  <div class="showData-page">
-    <div class="home-banner">
-      <el-form>
-        <p>当前地址：{{ currentLocation }}</p>
-        <p style="line-height: 8vh;">
-          修改地址：
-          <city :key="locationKey" :full-location="fullLocation" @change-city="changeCity" />
-        </p>
-        <el-col :span="24">
-          <el-form-item>
-            <el-button type="primary" @click="onSubmit('permanent')">
-              设为默认地址
-            </el-button>
-            <el-button type="primary" @click="onSubmit('temporary')">
-              临时查看
-            </el-button>
-            <el-button @click="resetForm">
-              撤销修改
-            </el-button>
-          </el-form-item>
-        </el-col>
-      </el-form>
-    </div>
-    <div class="data-table">
-      <TBody :data-columns="dataColumns" :data-list="dataList" />
-      <el-pagination
-        class="text-right"
-        background
-        layout="prev, pager, next"
-        :current-page="pager.pageNum"
-        :page-size="pager.pageSize"
-        :total="pager.total"
-        @current-change="onChangeCurrentPage"
-      />
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import store from '@/store'
@@ -91,12 +52,12 @@ const setValue = (list: any, page: any) => {
 //   const { list, page } = await getWeatherListApi({ pager })
 //   setValue(list, page)
 // }
-const onChangeCurrentPage = async(currentPage: number) => {
+const onChangeCurrentPage = async (currentPage: number) => {
   pager.pageNum = currentPage
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
   setValue(list, page)
 }
-const onSubmit = async(action: string) => {
+const onSubmit = async (action: string) => {
   if (store.state.location !== '')
     cityNm = store.state.location
   if (action === 'permanent')
@@ -109,11 +70,51 @@ const resetForm = () => {
   locationKey.value++
 }
 
-onMounted(async() => {
+onMounted(async () => {
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
   setValue(list, page)
 })
 </script>
+
+<template>
+  <div class="showData-page">
+    <div class="home-banner">
+      <el-form>
+        <p>当前地址：{{ currentLocation }}</p>
+        <p style="line-height: 8vh;">
+          修改地址：
+          <city :key="locationKey" :full-location="fullLocation" @change-city="changeCity" />
+        </p>
+        <el-col :span="24">
+          <el-form-item>
+            <el-button type="primary" @click="onSubmit('permanent')">
+              设为默认地址
+            </el-button>
+            <el-button type="primary" @click="onSubmit('temporary')">
+              临时查看
+            </el-button>
+            <el-button @click="resetForm">
+              撤销修改
+            </el-button>
+          </el-form-item>
+        </el-col>
+      </el-form>
+    </div>
+    <div class="data-table">
+      <TBody :data-columns="dataColumns" :data-list="dataList" />
+      <el-pagination
+        class="text-right"
+        background
+        layout="prev, pager, next"
+        :current-page="pager.pageNum"
+        :page-size="pager.pageSize"
+        :total="pager.total"
+        @current-change="onChangeCurrentPage"
+      />
+    </div>
+  </div>
+</template>
+
 <style lang="scss" scoped>
 .showData-page {
   padding: 30px;

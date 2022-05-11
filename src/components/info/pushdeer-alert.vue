@@ -1,3 +1,18 @@
+<script setup lang="ts">
+import { ref } from 'vue'
+import store from '@/store'
+
+const imgVisible = ref(false)
+const GH_URL = 'https://github.com'
+const GE_URL = 'https://gitee.com'
+const releasesPath = '/easychen/pushdeer/releases'
+const baseCdnUrl: string = store.state.BASE_CDN_URL
+const SVG_CDN_URL: string = store.state.SVG_CDN_URL
+const toDownload = () => {
+  window.open('https://apps.apple.com/us/app/pushdeer/id1596771139', 'target')
+}
+</script>
+
 <template>
   <p class="device-name">
     获取key
@@ -24,8 +39,8 @@
   <p class="device-name">
     iOS 14+
   </p>
-  <el-image class="svg-img" :src="SVG_CDN_URL+'download/appstore.svg'" @click="toDownload" />
-  <el-image class="svg-img" :src="SVG_CDN_URL+'download/made-for-iphone.svg'" @click="imgVisible=true" />
+  <el-image class="svg-img" :src="`${SVG_CDN_URL}download/appstore.svg`" @click="toDownload" />
+  <el-image class="svg-img" :src="`${SVG_CDN_URL}download/made-for-iphone.svg`" @click="imgVisible = true" />
   <el-dialog v-model="imgVisible" title="快应用版" width="20vw">
     <el-image
       alt="the ios pusherdeer install image"
@@ -42,32 +57,18 @@
   <p class="device-name">
     MacOS 11+
   </p>
-  <el-image class="svg-img" :src="SVG_CDN_URL+'download/appstore.svg'" @click="toDownload" />
+  <el-image class="svg-img" :src="`${SVG_CDN_URL}download/appstore.svg`" @click="toDownload" />
   <p class="device-name">
     Android
   </p>
   <p>
     快应用尚在开发，可下载并安装Android测试版APP(
-    <a style="color:blue" :href="GH_URL+releasesPath">GitHub</a>
-    | <a style="color:blue" :href="GE_URL+releasesPath">Gitee</a>)。
+    <a style="color:blue" :href="GH_URL + releasesPath">GitHub</a>
+    | <a style="color:blue" :href="GE_URL + releasesPath">Gitee</a>)。
   </p>
   <!-- 通过访问后边的URL即可推送内容： -->
   <!-- <p>https://api2.pushdeer.com/message/push?pushkey=key&text=要发送的内容</p> -->
 </template>
-<script setup lang="ts">
-import { ref } from 'vue'
-import store from '@/store'
-
-const imgVisible = ref(false)
-const GH_URL = 'https://github.com'
-const GE_URL = 'https://gitee.com'
-const releasesPath = '/easychen/pushdeer/releases'
-const baseCdnUrl: string = store.state.BASE_CDN_URL
-const SVG_CDN_URL: string = store.state.SVG_CDN_URL
-const toDownload = () => {
-  window.open('https://apps.apple.com/us/app/pushdeer/id1596771139', 'target')
-}
-</script>
 
 <style lang="scss" scoped>
 .pusherdeer-img{

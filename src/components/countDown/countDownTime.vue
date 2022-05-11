@@ -1,6 +1,3 @@
-<template>
-  <span>{{ time }}</span>
-</template>
 <script>
 export default {
   props: {
@@ -46,6 +43,10 @@ export default {
   },
 }
 </script>
+
+<template>
+  <span>{{ time }}</span>
+</template>
 
 <style scoped>
 </style>

@@ -1,3 +1,12 @@
+<script setup lang="ts">
+defineProps({
+  pager: {
+    type: Object,
+    required: true,
+  },
+})
+</script>
+
 <template>
   <el-pagination
     class="text-right"
@@ -9,13 +18,3 @@
     @current-change="onChangeCurrentPage"
   />
 </template>
-<script setup lang="ts">
-
-defineProps({
-  pager: {
-    type: Object,
-    required: true,
-  },
-})
-
-</script>

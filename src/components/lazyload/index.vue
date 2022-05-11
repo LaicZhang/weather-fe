@@ -1,9 +1,3 @@
-<template>
-  <span>
-    <slot v-if="initSuccess" />
-  </span>
-</template>
-
 <script>
 export default {
   name: 'PlLazy',
@@ -31,3 +25,9 @@ export default {
   },
 }
 </script>
+
+<template>
+  <span>
+    <slot v-if="initSuccess" />
+  </span>
+</template>

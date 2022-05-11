@@ -1,150 +1,3 @@
-<template>
-  <div class="notice-page">
-    <div v-has="'notice-query'" class="notice-from-wrap radius-hide">
-      <el-form ref="formRef" inline :model="noticeFrom">
-        <el-form-item label="公告ID" prop="_id">
-          <el-input v-model="noticeFrom._id" />
-        </el-form-item>
-        <el-form-item label="公告标题" prop="noticeTitle">
-          <el-input v-model="noticeFrom.noticeTitle" />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="onSearchNoticeFrom">
-            查询
-          </el-button>
-          <el-button type="danger" @click="onResetNoticeFrom">
-            重置
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-    <div>
-      <el-button v-has="'notice-create'" type="primary" @click="onAddNoticeBtn">
-        新增
-      </el-button>
-      <el-button type="primary" @click="onReadAll">
-        全部已读
-      </el-button>
-      <!-- <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
-        >批量删除</el-button
-      > -->
-      <el-table
-        class="base-table"
-        :data="noticeList"
-        size="medium"
-        stripe
-        style="width: 100%"
-        @selection-change="onChangeNoticeSelects"
-      >
-        <!-- <el-table-column sortable type="selection" width="55" /> -->
-        <el-table-column
-          v-for="column in noticeColumns"
-          :key="column.prop"
-          sortable
-          :prop="column.prop"
-          :label="column.label"
-          :width="column.width"
-          :formatter="column.formatter"
-          show-overflow-tooltip
-        />
-        <el-table-column sortable label="Operations">
-          <template #default="scope">
-            <el-button size="default" type="text" @click="watchMore(scope.row)">
-              查看
-            </el-button>
-            <el-button v-has="'notice-create'" size="default" type="text" @click="onEditNotice(scope.row)">
-              编辑
-            </el-button>
-            <el-button
-              v-has="'notice-create'"
-              style="color:#F56C6C"
-              size="default"
-              type="text"
-              @click="onAddDeleteList(scope.row)"
-            >
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        class="text-right"
-        background
-        layout="prev, pager, next"
-        :current-page="pager.pageNum"
-        :page-size="pager.pageSize"
-        :total="pager.total"
-        @current-change="onChangeCurrentPage"
-      />
-    </div>
-    <!-- 详情弹窗-->
-    <el-dialog v-if="selectedRow" v-model="moreDialog" title="公告详情" width="35%">
-      <el-descriptions direction="vertical" border :title="selectedRow.value.noticeTitle">
-        <el-descriptions-item label="公告ID">
-          {{ selectedRow.value._id }}
-        </el-descriptions-item>
-        <el-descriptions-item label="公告标题">
-          {{ selectedRow.value.noticeTitle }}
-        </el-descriptions-item>
-        <el-descriptions-item label="公告内容">
-          {{ selectedRow.value.noticeContent }}
-        </el-descriptions-item>
-        <el-descriptions-item label="已读次数">
-          {{ selectedRow.value.haveReadCount }}
-        </el-descriptions-item>
-        <el-descriptions-item label="发布时间">
-          {{ selectedRow.value.createTime }}
-        </el-descriptions-item>
-      </el-descriptions>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button type="primary" @click="haveReadCount">确定</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <!-- 删除弹窗 -->
-    <el-dialog v-model="deleteDialog" title="操作" width="30%">
-      <span>确定删除?</span>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="deleteDialog = false">取消</el-button>
-          <el-button type="primary" @click="onDeleteNoticeSelects">确定</el-button>
-        </span>
-      </template>
-    </el-dialog>
-    <!-- 新增弹窗 -->
-    <el-dialog v-model="addDialog" title="操作" width="30%">
-      <el-form
-        ref="addFromRef"
-        :model="addNoticeFrom"
-        label-width="90px"
-        :rules="addNoticeFromRules"
-      >
-        <el-form-item label="公告标题" prop="noticeTitle">
-          <el-input
-            v-model="addNoticeFrom.noticeTitle"
-            placeholder="请输入公告标题"
-          />
-        </el-form-item>
-        <el-form-item label="公告内容" prop="noticeContent">
-          <el-input
-            v-model="addNoticeFrom.noticeContent"
-            placeholder="请输入公告内容"
-            :rows="4"
-            type="textarea"
-          />
-        </el-form-item>
-      </el-form>
-      <template #footer>
-        <span class="dialog-footer">
-          <el-button @click="onCancel">取消</el-button>
-          <el-button type="primary" @click="onSummit">发布</el-button>
-        </span>
-      </template>
-    </el-dialog>
-  </div>
-</template>
-
 <script setup>
 import {
   defineComponent,
@@ -241,25 +94,25 @@ const addNoticeFromRules = {
   }],
 }
 // api
-const getNoticeList = async() => {
+const getNoticeList = async () => {
   const params = { ...noticeFrom, ...pager }
   const { list, page } = await noticeListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   noticeList.value = list
 }
-const getAllNoticesList = async() => {
+const getAllNoticesList = async () => {
   const { list, page } = await noticeAllListApi({})
   pager.pageNum = page.pageNum
   pager.total = page.total
   noticeList.value = list
 }
-const onReadAll = async() => {
+const onReadAll = async () => {
   await noticeAllReadApi({ userId: userInfo.userId })
   getAllNoticesList()
   store.dispatch('getNoticeCount')
 }
-const deleteNotice = async() => {
+const deleteNotice = async () => {
   if (noticeSelects.value.length > 0)
     return deleteNoticeApi({ _ids: noticeSelects.value })
   else
@@ -267,18 +120,18 @@ const deleteNotice = async() => {
 
   noticeAllListApi()
 }
-const getRoleList = async() => {
+const getRoleList = async () => {
   roleList.value = await rolesAllListApi()
 }
-const addNotice = async() => {
+const addNotice = async () => {
   const noticeFormRaw = toRaw(addNoticeFrom)
   return addNoticeApi(noticeFormRaw)
 }
-const editNotice = async() => {
+const editNotice = async () => {
   const noticeFormRaw = toRaw(addNoticeFrom)
   return editNoticeApi(noticeFormRaw)
 }
-const haveReadCount = async() => {
+const haveReadCount = async () => {
   await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
   moreDialog.value = false
   store.dispatch('getNoticeCount')
@@ -303,7 +156,7 @@ const onResetNoticeFrom = () => {
   proxy.$refs.formRef.resetFields()
   getAllNoticesList()
 }
-const onEditNotice = async(notice) => {
+const onEditNotice = async (notice) => {
   addDialog.value = true
   isEdit.value = true
   nextTick(() => {
@@ -319,7 +172,7 @@ const onAddDeleteList = (notice) => {
   deleteDialog.value = true
   store.dispatch('getNoticeCount')
 }
-const onDeleteNoticeSelects = async() => {
+const onDeleteNoticeSelects = async () => {
   try {
     const { nModified } = await deleteNotice()
     if (nModified > 0) {
@@ -343,7 +196,7 @@ const watchMore = (val) => {
   moreDialog.value = true
 }
 const onSummit = () => {
-  proxy.$refs.addFromRef.validate(async(valid) => {
+  proxy.$refs.addFromRef.validate(async (valid) => {
     if (valid) {
       try {
         let res
@@ -376,6 +229,154 @@ onMounted(() => {
 })
 //
 </script>
+
+<template>
+  <div class="notice-page">
+    <div v-has="'notice-query'" class="notice-from-wrap radius-hide">
+      <el-form ref="formRef" inline :model="noticeFrom">
+        <el-form-item label="公告ID" prop="_id">
+          <el-input v-model="noticeFrom._id" />
+        </el-form-item>
+        <el-form-item label="公告标题" prop="noticeTitle">
+          <el-input v-model="noticeFrom.noticeTitle" />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="onSearchNoticeFrom">
+            查询
+          </el-button>
+          <el-button type="danger" @click="onResetNoticeFrom">
+            重置
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+    <div>
+      <el-button v-has="'notice-create'" type="primary" @click="onAddNoticeBtn">
+        新增
+      </el-button>
+      <el-button type="primary" @click="onReadAll">
+        全部已读
+      </el-button>
+      <!-- <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"
+        >批量删除</el-button
+      > -->
+      <el-table
+        class="base-table"
+        :data="noticeList"
+        size="medium"
+        stripe
+        style="width: 100%"
+        @selection-change="onChangeNoticeSelects"
+      >
+        <!-- <el-table-column sortable type="selection" width="55" /> -->
+        <el-table-column
+          v-for="column in noticeColumns"
+          :key="column.prop"
+          sortable
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+          :formatter="column.formatter"
+          show-overflow-tooltip
+        />
+        <el-table-column sortable label="Operations">
+          <template #default="scope">
+            <el-button text size="small" @click="watchMore(scope.row)">
+              查看
+            </el-button>
+            <el-button v-has="'notice-create'" text size="small" @click="onEditNotice(scope.row)">
+              编辑
+            </el-button>
+            <el-button
+              v-has="'notice-create'"
+              style="color:#F56C6C"
+
+              text size="small"
+              @click="onAddDeleteList(scope.row)"
+            >
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="text-right"
+        background
+        layout="prev, pager, next"
+        :current-page="pager.pageNum"
+        :page-size="pager.pageSize"
+        :total="pager.total"
+        @current-change="onChangeCurrentPage"
+      />
+    </div>
+    <!-- 详情弹窗 -->
+    <el-dialog v-if="selectedRow" v-model="moreDialog" title="公告详情" width="35%">
+      <el-descriptions direction="vertical" border :title="selectedRow.value.noticeTitle">
+        <el-descriptions-item label="公告ID">
+          {{ selectedRow.value._id }}
+        </el-descriptions-item>
+        <el-descriptions-item label="公告标题">
+          {{ selectedRow.value.noticeTitle }}
+        </el-descriptions-item>
+        <el-descriptions-item label="公告内容">
+          {{ selectedRow.value.noticeContent }}
+        </el-descriptions-item>
+        <el-descriptions-item label="已读次数">
+          {{ selectedRow.value.haveReadCount }}
+        </el-descriptions-item>
+        <el-descriptions-item label="发布时间">
+          {{ selectedRow.value.createTime }}
+        </el-descriptions-item>
+      </el-descriptions>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button type="primary" @click="haveReadCount">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <!-- 删除弹窗 -->
+    <el-dialog v-model="deleteDialog" title="操作" width="30%">
+      <span>确定删除?</span>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="deleteDialog = false">取消</el-button>
+          <el-button type="primary" @click="onDeleteNoticeSelects">确定</el-button>
+        </span>
+      </template>
+    </el-dialog>
+    <!-- 新增弹窗 -->
+    <el-dialog v-model="addDialog" title="操作" width="30%">
+      <el-form
+        ref="addFromRef"
+        :model="addNoticeFrom"
+        label-width="90px"
+        :rules="addNoticeFromRules"
+      >
+        <el-form-item label="公告标题" prop="noticeTitle">
+          <el-input
+            v-model="addNoticeFrom.noticeTitle"
+            placeholder="请输入公告标题"
+          />
+        </el-form-item>
+        <el-form-item label="公告内容" prop="noticeContent">
+          <el-input
+            v-model="addNoticeFrom.noticeContent"
+            placeholder="请输入公告内容"
+            :rows="4"
+            type="textarea"
+          />
+        </el-form-item>
+      </el-form>
+      <template #footer>
+        <span class="dialog-footer">
+          <el-button @click="onCancel">取消</el-button>
+          <el-button type="primary" @click="onSummit">发布</el-button>
+        </span>
+      </template>
+    </el-dialog>
+  </div>
+</template>
+
 <style lang="scss" scoped>
   .notice-page {
     padding: 30px;
