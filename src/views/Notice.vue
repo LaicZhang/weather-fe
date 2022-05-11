@@ -55,7 +55,13 @@
             <el-button v-has="'notice-create'" size="default" type="text" @click="onEditNotice(scope.row)">
               编辑
             </el-button>
-            <el-button v-has="'notice-create'" style="color:#F56C6C" size="default" type="text" @click="onAddDeleteList(scope.row)">
+            <el-button
+              v-has="'notice-create'"
+              style="color:#F56C6C"
+              size="default"
+              type="text"
+              @click="onAddDeleteList(scope.row)"
+            >
               删除
             </el-button>
           </template>
@@ -212,16 +218,27 @@ const selectedRow = reactive({})
 const userInfo = store.state.userInfo
 
 const addNoticeFromRules = {
-  noticeTitle: {
+  noticeTitle: [{
     required: true,
     message: '必须填写公告标题',
     trigger: 'blur',
   },
-  noticeContent: {
+  {
+    min: 5,
+    max: 50,
+    message: '公告标题最少5个，最多50个字符',
+    trigger: 'blur',
+  }],
+  noticeContent: [{
     required: true,
     message: '必须填写公告内容',
     trigger: 'blur',
-  },
+  }, {
+    min: 10,
+    max: 100,
+    message: '公告内容最少10个，最多100个字符',
+    trigger: 'blur',
+  }],
 }
 // api
 const getNoticeList = async() => {
@@ -264,6 +281,7 @@ const editNotice = async() => {
 const haveReadCount = async() => {
   await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
   moreDialog.value = false
+  store.dispatch('getNoticeCount')
   getAllNoticesList()
 }
 // 通用方法
@@ -299,6 +317,7 @@ const onAddNoticeBtn = () => {
 const onAddDeleteList = (notice) => {
   noticeSelects.value = [notice._id]
   deleteDialog.value = true
+  store.dispatch('getNoticeCount')
 }
 const onDeleteNoticeSelects = async() => {
   try {
@@ -307,6 +326,7 @@ const onDeleteNoticeSelects = async() => {
       noticeSelects.value = []
       proxy.$message.success('删除成功')
     }
+    store.dispatch('getNoticeCount')
   }
   catch (error) {}
   deleteDialog.value = false
