@@ -107,7 +107,7 @@
           <el-input v-model="addUserFrom.userEmail" placeholder="请输入用户邮箱" />
         </el-form-item>
         <el-form-item label="角色" prop="role">
-          <el-radio v-if="item in addUserFromRoleOptions" v-model="addUserFrom.role" :label="item.value">
+          <el-radio v-for="item in addUserFromRoleOptions" :key="item.label" v-model="addUserFrom.role" :label="item.value">
             {{ item.label }}
           </el-radio>
         </el-form-item>
