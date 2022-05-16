@@ -30,6 +30,7 @@ declare module '@vue/runtime-core' {
     ElDescriptions: typeof import('element-plus/es')['ElDescriptions']
     ElDescriptionsItem: typeof import('element-plus/es')['ElDescriptionsItem']
     ElDialog: typeof import('element-plus/es')['ElDialog']
+    ElDivider: typeof import('element-plus/es')['ElDivider']
     ElDropdown: typeof import('element-plus/es')['ElDropdown']
     ElDropdownItem: typeof import('element-plus/es')['ElDropdownItem']
     ElDropdownMenu: typeof import('element-plus/es')['ElDropdownMenu']
@@ -54,6 +55,7 @@ declare module '@vue/runtime-core' {
     ElTag: typeof import('element-plus/es')['ElTag']
     ElTimePicker: typeof import('element-plus/es')['ElTimePicker']
     ElTimeSelect: typeof import('element-plus/es')['ElTimeSelect']
+    ElTooltip: typeof import('element-plus/es')['ElTooltip']
     ElUpload: typeof import('element-plus/es')['ElUpload']
     IsOnline: typeof import('./src/components/is-online/index.vue')['default']
     Lazyload: typeof import('./src/components/lazyload/index.vue')['default']
@@ -65,6 +67,7 @@ declare module '@vue/runtime-core' {
     RouterView: typeof import('vue-router')['RouterView']
     TBody: typeof import('./src/components/table/tBody.vue')['default']
     TPagination: typeof import('./src/components/table/tPagination.vue')['default']
+    UserAvatar: typeof import('./src/components/info/user-avatar.vue')['default']
   }
 }
 
