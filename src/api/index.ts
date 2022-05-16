@@ -67,7 +67,9 @@ export const noticeAllReadApi = (data = {}) => {
 export const noticeCountApi = (data = {}) => {
   return request.get('/notices/count', data, { mock: false })
 }
-
+export const checkRepeatNoticeApi = (data = {}) => {
+  return request.get('/notices/checkRepeat', data, { mock: false })
+}
 // 推送管理
 export const addPusherApi = (data = {}) => {
   return request.post('/pushers/add', data, { mock: false })

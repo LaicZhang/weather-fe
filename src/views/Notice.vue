@@ -157,6 +157,7 @@ import {
 } from 'vue'
 import {
   addNoticeApi,
+  checkRepeatNoticeApi,
   deleteNoticeApi,
   editNoticeApi,
   noticeAllListApi,
@@ -217,12 +218,22 @@ const deptList = ref([])
 const selectedRow = reactive({})
 const userInfo = store.state.userInfo
 
+const checkRepeatNoticeTitle = async(rule, value, callback) => {
+  const noticeTitle = addNoticeFrom.noticeTitle
+  if (!noticeTitle)
+    return
+  const { isRepeat } = await checkRepeatNoticeApi({ noticeTitle })
+  if (isRepeat)
+    return callback(new Error('公告标题已存在'))
+  return callback()
+}
 const addNoticeFromRules = {
   noticeTitle: [{
     required: true,
     message: '必须填写公告标题',
     trigger: 'blur',
   },
+  { validator: checkRepeatNoticeTitle, trigger: 'blur' },
   {
     min: 5,
     max: 50,
