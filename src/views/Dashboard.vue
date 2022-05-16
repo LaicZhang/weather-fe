@@ -8,18 +8,15 @@
 </template>
 
 <script>
+import { defineComponent } from 'vue'
 import { getAllDataListApi } from '../api'
-import storage from '../util/storage'
 import store from '../store'
 import router from '../router'
 import Layout from './dashboard/Layout.vue'
 import backToSvg from '@/components/backTo/backToSvg.vue'
-// import PlLazy from '@/components/lazyload/index.vue'
-export default {
+export default defineComponent({
   name: 'Dashboard',
   components: {
-    // Test,
-    // ScreenPage,
     backToSvg,
     Layout,
   },
@@ -36,7 +33,7 @@ export default {
     this.getAllDataList()
   },
   mounted() {
-    if (storage.getItem('userInfo'))
+    if (store.state.userInfo.userId)
       this.text = '前往后台'
   },
   methods: {
@@ -48,20 +45,13 @@ export default {
       // router.push('/')
       router.go(-1)
     },
-    today(date) {
-      // 判断今天是星期几
-      const day = date.getDay()
-      const week = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六']
-      return week[day]
-    },
     async getAllDataList() {
       const res = await getAllDataListApi({ ip: this.ip })
-      // const data = window.localStorage.setItem('weatherData', JSON.stringify(res.result))
       store.commit('setWeatherData', res.result)
       this.isLoaded = true
     },
   },
-}
+})
 </script>
 
 <style lang="scss" scoped>
