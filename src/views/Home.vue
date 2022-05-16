@@ -40,6 +40,7 @@ import BackToSvg from '../components/backTo/backToSvg.vue'
 import isOnline from '@/components/is-online/index.vue'
 import noticesCount from '@/components/notices-count/index.vue'
 import router from '@/router'
+import store from '@/store'
 
 export default defineComponent({
   name: 'HOME',
@@ -98,7 +99,7 @@ export default defineComponent({
       // this.$store.commit('setMenuList', menuList)
     },
     judgeUserInfo() {
-      if (window.localStorage.getItem('userInfo') === null || window.localStorage.getItem('userInfo') === '')
+      if (!store.state.userInfo.userId)
         router.push('/login')
     },
   },
