@@ -11,6 +11,7 @@
     default-openeds="[
         '/system/userInfo', '/system/user', '/system/notice',
         '/system/pusher', '/system/feedback', 'system/share',
+        'data/showData','/data/SetDataConfig'
       ]"
   >
     <div class="menu-logo" :class="[calcLogoClass ? 'fold' : '']" @click="toIndexPage">
@@ -24,7 +25,7 @@
 </template>
 
 <script>
-import { defineComponent, onMounted } from 'vue'
+import { defineComponent } from 'vue'
 import CTreeMenu from './c-tree-menu.vue'
 
 export default defineComponent({
