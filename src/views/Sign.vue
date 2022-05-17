@@ -1,3 +1,47 @@
+<script>
+export default {
+  name: 'Sign',
+  components: {},
+  data() {
+    return {
+      time: '',
+      flag: false,
+    }
+  },
+  mounted() {
+    this.init()
+  },
+  methods: {
+    toPageHome() {
+      router.push('/')
+    },
+    init() {
+      const signUpButton = document.getElementById('signUp')
+      const signInButton = document.getElementById('signIn')
+      const container = document.getElementById('container')
+
+      signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'))
+      signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'))
+
+      const demoImg = document.getElementById('demo_img')
+      const demoInput = document.getElementById('demo_input')
+
+      // 隐藏text block，显示password block
+      function hideShowPsw() {
+        if (demoInput.type === 'password') {
+          demoInput.type = 'text'
+          demo_img.src = 'invisible.png'
+        }
+        else {
+          demoInput.type = 'password'
+          demo_img.src = 'visible.png'
+        }
+      }
+    },
+  },
+}
+</script>
+
 <template>
   <div id="container" class="container">
     <div class="form-container sign-up-container">
@@ -53,50 +97,6 @@
     </div>
   </div>
 </template>
-
-<script>
-export default {
-  name: 'Sign',
-  components: {},
-  data() {
-    return {
-      time: '',
-      flag: false,
-    }
-  },
-  mounted() {
-    this.init()
-  },
-  methods: {
-    toPageHome() {
-      router.push('/')
-    },
-    init() {
-      const signUpButton = document.getElementById('signUp')
-      const signInButton = document.getElementById('signIn')
-      const container = document.getElementById('container')
-
-      signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'))
-      signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'))
-
-      const demoImg = document.getElementById('demo_img')
-      const demoInput = document.getElementById('demo_input')
-
-      // 隐藏text block，显示password block
-      function hideShowPsw() {
-        if (demoInput.type === 'password') {
-          demoInput.type = 'text'
-          demo_img.src = 'invisible.png'
-        }
-        else {
-          demoInput.type = 'password'
-          demo_img.src = 'visible.png'
-        }
-      }
-    },
-  },
-}
-</script>
 
 <style scoped>
 /* reset */

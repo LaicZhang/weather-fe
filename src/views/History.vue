@@ -1,3 +1,23 @@
+<script setup lang="ts">
+import { onMounted, reactive } from 'vue'
+import store from '../store'
+import { getHistoryApi } from '@/api/history'
+import util from '@/util/utils'
+
+const userId = store.state.userInfo.userId
+const BASE_CLIENT_URL = `${store.state.BASE_CDN_URL}img/client/`
+const historyList: any = reactive([])
+
+const getHistory = async () => {
+  const data = await getHistoryApi({ userId })
+  Object.assign(historyList, data)
+}
+
+onMounted(() => {
+  getHistory()
+})
+</script>
+
 <template>
   <div class="history-page">
     <el-card>
@@ -7,7 +27,7 @@
           <el-descriptions
             style="margin-bottom: 20px;float: left;"
             :column="2"
-            :title="util.formateDate(new Date(item.loginTime),'yyyy-MM-dd hh:mm:ss')"
+            :title="util.formateDate(new Date(item.loginTime), 'yyyy-MM-dd hh:mm:ss')"
             border
           >
             <el-descriptions-item label="浏览器">
@@ -26,7 +46,7 @@
               </el-tag>
             </el-descriptions-item>
             <el-descriptions-item label="登录地址">
-              {{ item.loginAddress.province + item.loginAddress.city }}({{ item.loginIp.substr(0, item.loginIp.length-1)+'*' }})
+              {{ item.loginAddress.province + item.loginAddress.city }}({{ `${item.loginIp.substr(0, item.loginIp.length - 1)}*` }})
             </el-descriptions-item>
           </el-descriptions>
         </div>
@@ -34,26 +54,6 @@
     </el-card>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, reactive } from 'vue'
-import store from '../store'
-import { getHistoryApi } from '@/api/history'
-import util from '@/util/utils'
-
-const userId = store.state.userInfo.userId
-const BASE_CLIENT_URL = `${store.state.BASE_CDN_URL}img/client/`
-const historyList: any = reactive([])
-
-const getHistory = async() => {
-  const data = await getHistoryApi({ userId })
-  Object.assign(historyList, data)
-}
-
-onMounted(() => {
-  getHistory()
-})
-</script>
 
 <style lang="scss" scoped>
   .history-page {

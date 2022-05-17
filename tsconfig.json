@@ -27,8 +27,8 @@
     ],
     "paths": {
       "@/*": ["src/*"],
-      "@components/*": ["src/components/*"],
+      "@components/*": ["src/components/*"]
     }
   },
-  "exclude": ["dist", "node_modules", "cypress"],
+  "exclude": ["dist", "node_modules", "cypress"]
 }

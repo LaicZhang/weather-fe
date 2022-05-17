@@ -1,12 +1,3 @@
-<template>
-  <div v-loading="!isLoaded" class="dashboard-page">
-    <Layout v-if="isLoaded" />
-  </div>
-  <div @click="toPageHome">
-    <backToSvg :text="text" />
-  </div>
-</template>
-
 <script>
 import { defineComponent } from 'vue'
 import { getAllDataListApi } from '../api'
@@ -17,7 +8,7 @@ import backToSvg from '@/components/backTo/backToSvg.vue'
 export default defineComponent({
   name: 'Dashboard',
   components: {
-    backToSvg,
+    BackToSvg: backToSvg,
     Layout,
   },
   data() {
@@ -53,6 +44,15 @@ export default defineComponent({
   },
 })
 </script>
+
+<template>
+  <div v-loading="!isLoaded" class="dashboard-page">
+    <Layout v-if="isLoaded" />
+  </div>
+  <div @click="toPageHome">
+    <BackToSvg :text="text" />
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .dashboard-page {

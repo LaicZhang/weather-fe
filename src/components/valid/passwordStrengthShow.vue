@@ -1,16 +1,3 @@
-<template>
-  <div class="input_span">
-    <span id="one" />
-    <span id="two" />
-    <span id="three" />
-  </div>
-  <div id="font">
-    <span>弱</span>
-    <span>中</span>
-    <span>强</span>
-  </div>
-</template>
-
 <script>
 export default {
   components: {},
@@ -44,11 +31,16 @@ export default {
     checkStrong(sValue) {
       let modes = 0
       // 正则表达式验证符合要求的
-      if (sValue.length < 1) return modes
-      if (/\d/.test(sValue)) modes++ // 数字
-      if (/[a-z]/.test(sValue)) modes++ // 小写
-      if (/[A-Z]/.test(sValue)) modes++ // 大写
-      if (/\W/.test(sValue)) modes++ // 特殊字符
+      if (sValue.length < 1)
+        return modes
+      if (/\d/.test(sValue))
+        modes++ // 数字
+      if (/[a-z]/.test(sValue))
+        modes++ // 小写
+      if (/[A-Z]/.test(sValue))
+        modes++ // 大写
+      if (/\W/.test(sValue))
+        modes++ // 特殊字符
 
       // 逻辑处理
       switch (modes) {
@@ -65,6 +57,19 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div class="input_span">
+    <span id="one" />
+    <span id="two" />
+    <span id="three" />
+  </div>
+  <div id="font">
+    <span>弱</span>
+    <span>中</span>
+    <span>强</span>
+  </div>
+</template>
 
 <style scoped>
 #inputValue {

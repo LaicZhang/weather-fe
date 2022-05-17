@@ -1,7 +1,3 @@
-<template>
-  <div id="bar1" ref="myRef" />
-</template>
-
 <script setup lang="ts">
 import * as echarts from 'echarts/core'
 import type {
@@ -135,6 +131,10 @@ onMounted(() => {
   init()
 })
 </script>
+
+<template>
+  <div id="bar1" ref="myRef" />
+</template>
 
 <style lang="scss" scoped>
   #bar1 {

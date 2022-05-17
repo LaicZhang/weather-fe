@@ -1,74 +1,3 @@
-<template>
-  <div class="share-page">
-    <div class="share-content" style="margin: 15px;">
-      <el-form inline :model="queryForm">
-        <el-form-item label="打开状态">
-          <el-select v-model="queryForm.isOpened" placeholder="打开状态">
-            <el-option
-              v-for="item in options"
-              :key="item.value"
-              :label="item.label"
-              :value="item.value"
-            />
-          </el-select>
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" @click="queryShareList">
-            查询
-          </el-button>
-        </el-form-item>
-      </el-form>
-      <el-table
-        class="base-table"
-        :data="shareList"
-        size="default"
-        stripe
-        style="width: 100%"
-      >
-        <el-table-column
-          v-for="column in shareColumns"
-          :key="column.prop"
-          sortable
-          :prop="column.prop"
-          :label="column.label"
-          :width="column.width"
-          :formatter="column.formatter"
-          show-overflow-tooltip
-        />
-        <el-table-column sortable label="Operations" width="140px">
-          <template #default="scope">
-            <el-button v-show="scope.row.state===1" size="default" type="text" @click="onCopy(scope.row)">
-              复制链接
-            </el-button>
-            <el-button size="default" style="color:#F56C6C" type="text" @click="onDelete(scope.row)">
-              删除
-            </el-button>
-          </template>
-        </el-table-column>
-      </el-table>
-      <el-pagination
-        class="text-right"
-        background
-        layout="prev, pager, next"
-        :current-page="pager.pageNum"
-        :page-size="pager.pageSize"
-        :total="pager.total"
-        @current-change="onChangeCurrentPage"
-      />
-    </div>
-  </div>
-  <!-- 删除弹窗 -->
-  <el-dialog v-model="deleteDialog" title="操作" width="30%">
-    <span>确定删除?</span>
-    <template #footer>
-      <span class="dialog-footer">
-        <el-button @click="deleteDialog = false">取消</el-button>
-        <el-button type="primary" @click="okToDelete">确定</el-button>
-      </span>
-    </template>
-  </el-dialog>
-</template>
-
 <script setup>
 import { onMounted, reactive, ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
@@ -155,7 +84,7 @@ const options = [
   { label: '未打开过', value: false },
   { label: '已打开过', value: true },
 ]
-const queryShareList = async() => {
+const queryShareList = async () => {
   const params = {
     ...queryForm,
     ...pager,
@@ -169,14 +98,14 @@ const resetForm = () => {
   shareForm.summary = ''
   shareForm.content = ''
 }
-const getShareList = async() => {
+const getShareList = async () => {
   const params = { userId, ...pager }
   const { list, page } = await getShareListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   shareList.value = list
 }
-const okToDelete = async() => {
+const okToDelete = async () => {
   await deleteShareApi({ shareId: deleteInfo.shareId })
   await getShareList()
   deleteDialog.value = false
@@ -190,7 +119,7 @@ const onDelete = (data) => {
   deleteDialog.value = true
   Object.assign(deleteInfo, data)
 }
-const onChangeCurrentPage = async(pageNum) => {
+const onChangeCurrentPage = async (pageNum) => {
   pager.pageNum = pageNum
   await getShareList()
 }
@@ -198,6 +127,77 @@ onMounted(() => {
   getShareList()
 })
 </script>
+
+<template>
+  <div class="share-page">
+    <div class="share-content" style="margin: 15px;">
+      <el-form inline :model="queryForm">
+        <el-form-item label="打开状态">
+          <el-select v-model="queryForm.isOpened" placeholder="打开状态">
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            />
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="queryShareList">
+            查询
+          </el-button>
+        </el-form-item>
+      </el-form>
+      <el-table
+        class="base-table"
+        :data="shareList"
+        size="default"
+        stripe
+        style="width: 100%"
+      >
+        <el-table-column
+          v-for="column in shareColumns"
+          :key="column.prop"
+          sortable
+          :prop="column.prop"
+          :label="column.label"
+          :width="column.width"
+          :formatter="column.formatter"
+          show-overflow-tooltip
+        />
+        <el-table-column sortable label="Operations" width="140px">
+          <template #default="scope">
+            <el-button v-show="scope.row.state === 1" size="default" type="text" @click="onCopy(scope.row)">
+              复制链接
+            </el-button>
+            <el-button size="default" style="color:#F56C6C" type="text" @click="onDelete(scope.row)">
+              删除
+            </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-pagination
+        class="text-right"
+        background
+        layout="prev, pager, next"
+        :current-page="pager.pageNum"
+        :page-size="pager.pageSize"
+        :total="pager.total"
+        @current-change="onChangeCurrentPage"
+      />
+    </div>
+  </div>
+  <!-- 删除弹窗 -->
+  <el-dialog v-model="deleteDialog" title="操作" width="30%">
+    <span>确定删除?</span>
+    <template #footer>
+      <span class="dialog-footer">
+        <el-button @click="deleteDialog = false">取消</el-button>
+        <el-button type="primary" @click="okToDelete">确定</el-button>
+      </span>
+    </template>
+  </el-dialog>
+</template>
 
 <style lang="scss" scoped>
   .share-page {

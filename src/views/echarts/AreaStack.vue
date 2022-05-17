@@ -1,7 +1,3 @@
-<template>
-  <div id="area-stack" ref="myRef" />
-</template>
-
 <script setup lang="ts">
 import * as echarts from 'echarts/core'
 import type {
@@ -47,7 +43,7 @@ type EChartsOption = echarts.ComposeOption<
 >
 
 const myRef = ref(null)
-const init = async() => {
+const init = async () => {
   const element = document.getElementById('area-stack') as HTMLElement
   const myChart = echarts.init(element)
   const currentRoute = router.currentRoute.value
@@ -197,6 +193,10 @@ onMounted(() => {
   init()
 })
 </script>
+
+<template>
+  <div id="area-stack" ref="myRef" />
+</template>
 
 <style lang="scss" scoped>
   #area-stack {

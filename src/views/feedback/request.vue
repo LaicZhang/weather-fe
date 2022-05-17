@@ -1,3 +1,81 @@
+<script setup lang="ts">
+import { onMounted, reactive, ref } from 'vue'
+import store from '@/store'
+import { addFeedbackApi, deleteFeedbackApi, getFeedbackListApi, replyApi } from '@/api/feedback'
+
+const userId = store.state.userInfo.userId
+const isSubmit = ref(false)
+const deleteDialog = ref(false)
+const replyDialog = ref(false)
+const feedbackList = ref([])
+const feedbackFormRef: any = ref(null)
+const feedbackFormRules = {
+  summary: [
+    { required: true, message: '请输入标题', trigger: 'blur' },
+    { min: 6, max: 50, message: '长度在 6 到 50 个字符', trigger: 'blur' },
+  ],
+  content: [
+    { required: true, message: '请输入内容', trigger: 'blur' },
+    { min: 10, max: 500, message: '长度在 10 到 500 个字符', trigger: 'blur' },
+  ],
+}
+const feedbackForm = reactive({
+  userId,
+  summary: '',
+  content: '',
+  feedbackCategory: '',
+})
+const replyForm = reactive({
+  userId,
+  feedbackId: 0,
+  reply: '',
+  isEmail: false,
+})
+const pager = reactive({
+  pageNum: 1,
+  pageSize: 10,
+  total: 0,
+})
+
+const onSubmit = () => {
+  feedbackFormRef.value.validate(async (valid: any) => {
+    if (valid) {
+      const res = await addFeedbackApi(feedbackForm)
+      if (res)
+        isSubmit.value = true
+    }
+  })
+}
+const resetForm = () => {
+  feedbackForm.summary = ''
+  feedbackForm.content = ''
+}
+const getFeedbackList = async () => {
+  const params = { userId, ...pager }
+  const { list, page } = await getFeedbackListApi(params)
+  pager.pageNum = page.pageNum
+  pager.total = page.total
+  feedbackList.value = list
+}
+const continueApply = () => {
+  resetForm()
+  isSubmit.value = false
+}
+const okToDelete = async () => {
+  await deleteFeedbackApi(replyForm.feedbackId)
+  await getFeedbackList()
+  deleteDialog.value = false
+}
+const okToReply = async () => {
+  await replyApi({ ...replyForm })
+  await getFeedbackList()
+  replyDialog.value = false
+}
+onMounted(() => {
+  getFeedbackList()
+})
+</script>
+
 <template>
   <el-card class="feedback-card">
     <el-form v-if="!isSubmit" ref="feedbackFormRef" :model="feedbackForm" :rules="feedbackFormRules">
@@ -96,84 +174,6 @@
     </template>
   </el-dialog>
 </template>
-
-<script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import store from '@/store'
-import { addFeedbackApi, deleteFeedbackApi, getFeedbackListApi, replyApi } from '@/api/feedback'
-
-const userId = store.state.userInfo.userId
-const isSubmit = ref(false)
-const deleteDialog = ref(false)
-const replyDialog = ref(false)
-const feedbackList = ref([])
-const feedbackFormRef: any = ref(null)
-const feedbackFormRules = {
-  summary: [
-    { required: true, message: '请输入标题', trigger: 'blur' },
-    { min: 6, max: 50, message: '长度在 6 到 50 个字符', trigger: 'blur' },
-  ],
-  content: [
-    { required: true, message: '请输入内容', trigger: 'blur' },
-    { min: 10, max: 500, message: '长度在 10 到 500 个字符', trigger: 'blur' },
-  ],
-}
-const feedbackForm = reactive({
-  userId,
-  summary: '',
-  content: '',
-  feedbackCategory: '',
-})
-const replyForm = reactive({
-  userId,
-  feedbackId: 0,
-  reply: '',
-  isEmail: false,
-})
-const pager = reactive({
-  pageNum: 1,
-  pageSize: 10,
-  total: 0,
-})
-
-const onSubmit = () => {
-  feedbackFormRef.value.validate(async(valid: any) => {
-    if (valid) {
-      const res = await addFeedbackApi(feedbackForm)
-      if (res)
-        isSubmit.value = true
-    }
-  })
-}
-const resetForm = () => {
-  feedbackForm.summary = ''
-  feedbackForm.content = ''
-}
-const getFeedbackList = async() => {
-  const params = { userId, ...pager }
-  const { list, page } = await getFeedbackListApi(params)
-  pager.pageNum = page.pageNum
-  pager.total = page.total
-  feedbackList.value = list
-}
-const continueApply = () => {
-  resetForm()
-  isSubmit.value = false
-}
-const okToDelete = async() => {
-  await deleteFeedbackApi(replyForm.feedbackId)
-  await getFeedbackList()
-  deleteDialog.value = false
-}
-const okToReply = async() => {
-  await replyApi({ ...replyForm })
-  await getFeedbackList()
-  replyDialog.value = false
-}
-onMounted(() => {
-  getFeedbackList()
-})
-</script>
 
 <style lang="scss" scoped>
 .feedback-card{

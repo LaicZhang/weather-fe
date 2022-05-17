@@ -1,3 +1,15 @@
+<script setup lang="ts">
+// import { defineComponent } from 'vue'
+import store from '@/store'
+// import router from '@/router'
+import GithubCorner from '@/components/github/corner.vue'
+
+const baseCdnUrl = store.state.BASE_CDN_URL
+// const toPageLogin = () => {
+//   router.push({ name: 'login' })
+// }
+</script>
+
 <template>
   <div class="welcome-page">
     <GithubCorner />
@@ -6,7 +18,7 @@
         欢迎体验
       </div>
       <div class="title-two">
-        天气大数据可视化后台管理系统
+        天气大数据可视化后台管理系统~
       </div>
       <div class="title-three">
         front-end by Vue3 + Vite2 + ElementPlus + Echarts5
@@ -22,17 +34,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-// import { defineComponent } from 'vue'
-import store from '@/store'
-// import router from '@/router'
-import GithubCorner from '@/components/github/corner.vue'
-
-const baseCdnUrl = store.state.BASE_CDN_URL
-// const toPageLogin = () => {
-//   router.push({ name: 'login' })
-// }
-</script>
 <style lang="scss" scoped>
 .welcome-page {
   background: #ffffff;

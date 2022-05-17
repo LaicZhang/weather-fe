@@ -194,7 +194,7 @@ export const getIpInfoApi = (data = {}) => {
 // 1. 数据在哪里？laic-cdn
 // 2. 何时获取？打开城市列表的时候，做个内存中缓存
 // 3. 怎么使用数据？定义计算属性，根据点击的省份城市展示
-export const getCityList = async() => {
+export const getCityList = async () => {
   // 添加缓存，防止频繁加载列表数据
   if ((window as any).cityList) {
     // 缓存中已经存在数据了

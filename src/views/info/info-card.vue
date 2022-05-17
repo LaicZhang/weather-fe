@@ -1,3 +1,218 @@
+<script setup lang="ts">
+import { onMounted, reactive, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+// import { getDictApi } from '@/api/dict'
+import type { FormInstance } from 'element-plus'
+import util from '@/util/utils'
+import {
+  changeInfoApi,
+  changePasswordApi,
+  checkCaptchaApi,
+  checkRepeatApi,
+  getCaptchaEmailApi,
+  getCaptchaSmsApi,
+  getUserInfoApi,
+} from '@/api'
+import store from '@/store'
+
+const userForm = reactive({
+  userId: 0,
+  userName: '',
+  sex: 1,
+  userEmail: '',
+  sexText: '',
+  mobile: '',
+  createTime: '',
+  lastLoginTime: '',
+})
+const userInfo = store.state.userInfo
+const userId = userInfo.userId
+// let sexDict = {}
+
+// info dialog
+const changePasswordRef = ref<FormInstance>()
+const changeEmailDialogVisible = ref<boolean>(false)
+const changeMobileDialogVisible = ref<boolean>(false)
+const changeEmailForm = reactive({
+  userEmail: '',
+  captcha: '',
+})
+const checkRepeatUserEmail = async (callback: any) => {
+  const { userEmail } = changeEmailForm
+  if (!userEmail)
+    return
+  const { isRepeat } = await checkRepeatApi({ userEmail })
+  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('邮箱已存在'))
+  return callback()
+}
+const changeEmailRules: any = {
+  userEmail: [
+    { required: true, message: '请输入邮箱', trigger: 'blur' },
+    { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' },
+    { validator: checkRepeatUserEmail, trigger: 'blur' },
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
+  ],
+}
+const changeMobileForm = reactive({
+  mobile: '',
+  captcha: '',
+})
+const checkRepeatMobile = async (callback: any) => {
+  const { mobile } = changeMobileForm
+  if (!mobile)
+    return
+  const { isRepeat } = await checkRepeatApi({ mobile })
+  // return isRepeat !== undefined ? callback(new Error('手机号已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('手机号已存在'))
+  return callback()
+}
+const changeMobileRules: any = {
+  mobile: [
+    { required: true, message: '请输入手机号', trigger: 'blur' },
+    { min: 11, max: 11, message: '手机号长度为11位', trigger: 'blur' },
+    { validator: checkRepeatMobile, trigger: 'blur' },
+  ],
+  captcha: [
+    { required: true, message: '请输入验证码', trigger: 'blur' },
+    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
+  ],
+}
+const changePasswordDialogVisible = ref(false)
+const changePasswordForm = reactive({
+  userId,
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
+const changePasswordRules: any = {
+  oldPassword: [
+    { required: true, message: '请输入旧密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+  ],
+  newPassword: [
+    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+  ],
+  confirmPassword: [
+    { required: true, message: '请再次输入新密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+    {
+      validator: (rule: any, value: any, callback: any) => {
+        if (value !== changePasswordForm.newPassword)
+          return callback(new Error('两次输入的密码不一致'))
+        return callback()
+      },
+      trigger: 'blur',
+    },
+  ],
+}
+const changePasswordSubmit = async (validForm: FormInstance | undefined) => {
+  if (!validForm)
+    return
+  validForm.validate(async (valid: any) => {
+    const data = await changePasswordApi(changePasswordForm)
+    if (data)
+      ElMessage.success('修改成功')
+    ElMessage.error('修改失败')
+  })
+}
+const resetChangePasswordForm = (validForm: FormInstance | undefined) => {
+  if (!validForm)
+    return
+  validForm.resetFields()
+}
+
+const isVisitor = ref(true)
+
+const getChangeEmailCaptcha = async () => {
+  const res = await getCaptchaEmailApi({
+    userEmail: changeEmailForm.userEmail,
+  })
+  if (res)
+    ElMessage.success('验证码已发送')
+
+  else
+    ElMessage.error(res.msg)
+}
+const changeEmailSubmit = async () => {
+  const data = await checkCaptchaApi({
+    userId: userForm.userId,
+    userEmail: changeEmailForm.userEmail,
+    captcha: changeEmailForm.captcha,
+  })
+  if (data.state === 1) {
+    ElMessage.success('验证成功，请保存本次修改')
+    userForm.userEmail = changeEmailForm.userEmail
+    changeEmailDialogVisible.value = false
+  }
+  else {
+    ElMessage.error(data)
+  }
+}
+const getChangeMobileCaptcha = async () => {
+  const res = await getCaptchaSmsApi({
+    mobile: changeMobileForm.mobile,
+  })
+  if (res)
+    ElMessage.success('验证码已发送')
+
+  else
+    ElMessage.error(res.msg)
+}
+const changeMobileSubmit = async () => {
+  const data = await checkCaptchaApi({
+    userId: userForm.userId,
+    mobile: changeMobileForm.mobile,
+    captcha: changeMobileForm.captcha,
+  })
+  if (data.state === 1) {
+    ElMessage.success('验证成功，请保存本次修改')
+    userForm.mobile = changeMobileForm.mobile
+    changeMobileDialogVisible.value = false
+  }
+  else {
+    ElMessage.error(data)
+  }
+}
+
+const isVisitorFn = () => {
+  if (userInfo.role === 2)
+    isVisitor.value = false
+}
+const onSubmit = async (data: any) => {
+  await changeInfoApi(data)
+}
+// const refreshInfo = async() => {
+//   const data = await refreshApi({ userId: userInfo.userId })
+//   store.commit('setUserInfo', data)
+// }
+const getUserInfo = async () => {
+  const data = await getUserInfoApi({ userId })
+  Object.assign(userForm, data)
+  if (userForm.sex === 1)
+    userForm.sexText = '男'
+  else
+    userForm.sexText = '女'
+
+  userForm.createTime = util.formateDate(new Date(userForm.createTime))
+  userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
+}
+const resetForm = () => {
+  getUserInfo()
+}
+
+onMounted(() => {
+  isVisitorFn()
+  getUserInfo()
+})
+</script>
+
 <template>
   <el-card class="mine-info-left">
     <span>个人信息</span>
@@ -149,221 +364,6 @@
     </el-dialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-import { ElMessage } from 'element-plus'
-// import { getDictApi } from '@/api/dict'
-import type { FormInstance } from 'element-plus'
-import util from '@/util/utils'
-import {
-  changeInfoApi,
-  changePasswordApi,
-  checkCaptchaApi,
-  checkRepeatApi,
-  getCaptchaEmailApi,
-  getCaptchaSmsApi,
-  getUserInfoApi,
-} from '@/api'
-import store from '@/store'
-
-const userForm = reactive({
-  userId: 0,
-  userName: '',
-  sex: 1,
-  userEmail: '',
-  sexText: '',
-  mobile: '',
-  createTime: '',
-  lastLoginTime: '',
-})
-const userInfo = store.state.userInfo
-const userId = userInfo.userId
-// let sexDict = {}
-
-// info dialog
-const changePasswordRef = ref<FormInstance>()
-const changeEmailDialogVisible = ref<boolean>(false)
-const changeMobileDialogVisible = ref<boolean>(false)
-const changeEmailForm = reactive({
-  userEmail: '',
-  captcha: '',
-})
-const checkRepeatUserEmail = async(callback: any) => {
-  const { userEmail } = changeEmailForm
-  if (!userEmail)
-    return
-  const { isRepeat } = await checkRepeatApi({ userEmail })
-  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
-  if (isRepeat)
-    return callback(new Error('邮箱已存在'))
-  return callback()
-}
-const changeEmailRules: any = {
-  userEmail: [
-    { required: true, message: '请输入邮箱', trigger: 'blur' },
-    { type: 'email', message: '请输入正确的邮箱', trigger: 'blur' },
-    { validator: checkRepeatUserEmail, trigger: 'blur' },
-  ],
-  captcha: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
-  ],
-}
-const changeMobileForm = reactive({
-  mobile: '',
-  captcha: '',
-})
-const checkRepeatMobile = async(callback: any) => {
-  const { mobile } = changeMobileForm
-  if (!mobile)
-    return
-  const { isRepeat } = await checkRepeatApi({ mobile })
-  // return isRepeat !== undefined ? callback(new Error('手机号已存在')) : callback()
-  if (isRepeat)
-    return callback(new Error('手机号已存在'))
-  return callback()
-}
-const changeMobileRules: any = {
-  mobile: [
-    { required: true, message: '请输入手机号', trigger: 'blur' },
-    { min: 11, max: 11, message: '手机号长度为11位', trigger: 'blur' },
-    { validator: checkRepeatMobile, trigger: 'blur' },
-  ],
-  captcha: [
-    { required: true, message: '请输入验证码', trigger: 'blur' },
-    { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
-  ],
-}
-const changePasswordDialogVisible = ref(false)
-const changePasswordForm = reactive({
-  userId,
-  oldPassword: '',
-  newPassword: '',
-  confirmPassword: '',
-})
-const changePasswordRules: any = {
-  oldPassword: [
-    { required: true, message: '请输入旧密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
-  ],
-  newPassword: [
-    { required: true, message: '请输入新密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
-  ],
-  confirmPassword: [
-    { required: true, message: '请再次输入新密码', trigger: 'blur' },
-    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
-    {
-      validator: (rule: any, value: any, callback: any) => {
-        if (value !== changePasswordForm.newPassword)
-          return callback(new Error('两次输入的密码不一致'))
-        return callback()
-      },
-      trigger: 'blur',
-    },
-  ],
-}
-const changePasswordSubmit = async(validForm: FormInstance | undefined) => {
-  if (!validForm)
-    return
-  validForm.validate(async(valid: any) => {
-    const data = await changePasswordApi(changePasswordForm)
-    if (data)
-      ElMessage.success('修改成功')
-    ElMessage.error('修改失败')
-  })
-}
-const resetChangePasswordForm = (validForm: FormInstance | undefined) => {
-  if (!validForm)
-    return
-  validForm.resetFields()
-}
-
-const isVisitor = ref(true)
-
-const getChangeEmailCaptcha = async() => {
-  const res = await getCaptchaEmailApi({
-    userEmail: changeEmailForm.userEmail,
-  })
-  if (res)
-    ElMessage.success('验证码已发送')
-
-  else
-    ElMessage.error(res.msg)
-}
-const changeEmailSubmit = async() => {
-  const data = await checkCaptchaApi({
-    userId: userForm.userId,
-    userEmail: changeEmailForm.userEmail,
-    captcha: changeEmailForm.captcha,
-  })
-  if (data.state === 1) {
-    ElMessage.success('验证成功，请保存本次修改')
-    userForm.userEmail = changeEmailForm.userEmail
-    changeEmailDialogVisible.value = false
-  }
-  else {
-    ElMessage.error(data)
-  }
-}
-const getChangeMobileCaptcha = async() => {
-  const res = await getCaptchaSmsApi({
-    mobile: changeMobileForm.mobile,
-  })
-  if (res)
-    ElMessage.success('验证码已发送')
-
-  else
-    ElMessage.error(res.msg)
-}
-const changeMobileSubmit = async() => {
-  const data = await checkCaptchaApi({
-    userId: userForm.userId,
-    mobile: changeMobileForm.mobile,
-    captcha: changeMobileForm.captcha,
-  })
-  if (data.state === 1) {
-    ElMessage.success('验证成功，请保存本次修改')
-    userForm.mobile = changeMobileForm.mobile
-    changeMobileDialogVisible.value = false
-  }
-  else {
-    ElMessage.error(data)
-  }
-}
-
-const isVisitorFn = () => {
-  if (userInfo.role === 2)
-    isVisitor.value = false
-}
-const onSubmit = async(data: any) => {
-  await changeInfoApi(data)
-}
-// const refreshInfo = async() => {
-//   const data = await refreshApi({ userId: userInfo.userId })
-//   store.commit('setUserInfo', data)
-// }
-const getUserInfo = async() => {
-  const data = await getUserInfoApi({ userId })
-  Object.assign(userForm, data)
-  if (userForm.sex === 1)
-    userForm.sexText = '男'
-  else
-    userForm.sexText = '女'
-
-  userForm.createTime = util.formateDate(new Date(userForm.createTime))
-  userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
-}
-const resetForm = () => {
-  getUserInfo()
-}
-
-onMounted(() => {
-  isVisitorFn()
-  getUserInfo()
-})
-</script>
 
 <style lang="scss" scoped>
   .mine-info-page {
