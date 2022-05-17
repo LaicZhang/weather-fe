@@ -265,7 +265,7 @@ onMounted(() => {
       <el-button v-has="'notice-create'" type="primary" @click="onAddNoticeBtn">
         新增
       </el-button>
-      <el-button type="primary" @click="onReadAll">
+      <el-button v-has="'notice-create'" type="primary" @click="onReadAll">
         全部已读
       </el-button>
       <!-- <el-button type="danger" v-has="'notice-delete'" @click="onDeleteNoticeSelects"

@@ -232,13 +232,13 @@ onMounted(() => {
       </el-form-item>
       <el-form-item label="邮箱">
         <el-input v-model="userForm.userEmail" disabled />
-        <el-button type="text" @click="changeEmailDialogVisible = true">
+        <el-button v-has="'notice-create'" type="text" @click="changeEmailDialogVisible = true">
           修改邮箱
         </el-button>
       </el-form-item>
       <el-form-item label="电话号码">
         <el-input v-model="userForm.mobile" disabled />
-        <el-button type="text" @click="changeMobileDialogVisible = true">
+        <el-button v-has="'notice-create'" type="text" @click="changeMobileDialogVisible = true">
           修改电话号码
         </el-button>
       </el-form-item>
@@ -261,7 +261,7 @@ onMounted(() => {
           <el-input v-model="userForm.code"></el-input>
         </el-form-item> -->
       <el-col :span="24">
-        <el-form-item>
+        <el-form-item v-has="'notice-create'">
           <el-button type="primary" @click="onSubmit(userForm)">
             保存修改
           </el-button>
