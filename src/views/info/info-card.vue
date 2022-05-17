@@ -53,6 +53,9 @@
           <el-button @click="resetForm">
             撤销修改
           </el-button>
+          <el-button type="primary" @click="changePasswordDialogVisible = true">
+            修改密码
+          </el-button>
         </el-form-item>
       </el-col>
     </el-form>
@@ -107,24 +110,63 @@
       </el-form>
     </el-dialog>
   </div>
+  <div class="change-password-dialog">
+    <el-dialog v-model="changePasswordDialogVisible" title="修改密码" width="30%">
+      <el-form ref="changePasswordRef" :model="changePasswordForm" :rules="changePasswordRules">
+        <el-form-item label="旧密码" prop="oldPassword">
+          <el-input
+            v-model="changePasswordForm.oldPassword"
+            type="password"
+            placeholder="请输入旧密码"
+          />
+        </el-form-item>
+        <el-form-item label="新密码" prop="newPassword">
+          <el-input
+            v-model="changePasswordForm.newPassword"
+            type="password"
+            placeholder="请输入新密码"
+          />
+        </el-form-item>
+        <el-form-item label="确认密码" prop="confirmPassword">
+          <el-input
+            v-model="changePasswordForm.confirmPassword"
+            type="password"
+            placeholder="请再次输入新密码"
+          />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="changePasswordSubmit(changePasswordRef)">
+            确定
+          </el-button>
+          <el-button type="primary" @click="resetChangePasswordForm(changePasswordRef)">
+            重置
+          </el-button>
+          <el-button @click="changePasswordDialogVisible = false">
+            取消
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+  </div>
 </template>
 
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-// import { Plus } from '@element-plus/icons-vue'
 // import { getDictApi } from '@/api/dict'
+import type { FormInstance } from 'element-plus'
 import util from '@/util/utils'
 import {
   changeInfoApi,
+  changePasswordApi,
   checkCaptchaApi,
   checkRepeatApi,
   getCaptchaEmailApi,
   getCaptchaSmsApi,
   getUserInfoApi,
-  // refreshApi,
 } from '@/api'
 import store from '@/store'
+
 const userForm = reactive({
   userId: 0,
   userName: '',
@@ -136,11 +178,13 @@ const userForm = reactive({
   lastLoginTime: '',
 })
 const userInfo = store.state.userInfo
+const userId = userInfo.userId
 // let sexDict = {}
 
 // info dialog
-const changeEmailDialogVisible = ref(false)
-const changeMobileDialogVisible = ref(false)
+const changePasswordRef = ref<FormInstance>()
+const changeEmailDialogVisible = ref<boolean>(false)
+const changeMobileDialogVisible = ref<boolean>(false)
 const changeEmailForm = reactive({
   userEmail: '',
   captcha: '',
@@ -190,6 +234,50 @@ const changeMobileRules: any = {
     { required: true, message: '请输入验证码', trigger: 'blur' },
     { min: 4, max: 6, message: '请输入正确验证码', trigger: 'blur' },
   ],
+}
+const changePasswordDialogVisible = ref(false)
+const changePasswordForm = reactive({
+  userId,
+  oldPassword: '',
+  newPassword: '',
+  confirmPassword: '',
+})
+const changePasswordRules: any = {
+  oldPassword: [
+    { required: true, message: '请输入旧密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+  ],
+  newPassword: [
+    { required: true, message: '请输入新密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+  ],
+  confirmPassword: [
+    { required: true, message: '请再次输入新密码', trigger: 'blur' },
+    { min: 6, max: 20, message: '密码长度为6-20位', trigger: 'blur' },
+    {
+      validator: (rule: any, value: any, callback: any) => {
+        if (value !== changePasswordForm.newPassword)
+          return callback(new Error('两次输入的密码不一致'))
+        return callback()
+      },
+      trigger: 'blur',
+    },
+  ],
+}
+const changePasswordSubmit = async(validForm: FormInstance | undefined) => {
+  if (!validForm)
+    return
+  validForm.validate(async(valid: any) => {
+    const data = await changePasswordApi(changePasswordForm)
+    if (data)
+      ElMessage.success('修改成功')
+    ElMessage.error('修改失败')
+  })
+}
+const resetChangePasswordForm = (validForm: FormInstance | undefined) => {
+  if (!validForm)
+    return
+  validForm.resetFields()
 }
 
 const isVisitor = ref(true)
@@ -257,7 +345,7 @@ const onSubmit = async(data: any) => {
 //   store.commit('setUserInfo', data)
 // }
 const getUserInfo = async() => {
-  const data = await getUserInfoApi({ userId: userInfo.userId })
+  const data = await getUserInfoApi({ userId })
   Object.assign(userForm, data)
   if (userForm.sex === 1)
     userForm.sexText = '男'
