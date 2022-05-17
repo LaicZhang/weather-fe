@@ -5,6 +5,7 @@ export default {
       type: String,
     },
   },
+  emits: ['timeEnd'],
   data() {
     return {
       time: '',

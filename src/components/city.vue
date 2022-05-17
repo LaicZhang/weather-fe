@@ -1,95 +1,90 @@
-<script>
+<script setup>
 import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { getCityList } from '@/api'
-export default {
-  name: 'City',
-  props: {
-    fullLocation: {
-      type: String,
-      default: '',
-    },
+const props = defineProps({
+  fullLocation: {
+    type: String,
+    default: '',
   },
-  setup(props, { emit }) {
-    const isShow = ref(false)
-    const loading = ref(false)
-    // 城市列表原始数据
-    const list = ref([])
+})
 
-    // 选中的省市区
-    const changeResult = reactive({
-      provinceCode: '',
-      provinceName: '',
-      cityCode: '',
-      cityName: '',
-      countyCode: '',
-      countyName: '',
-      fullLocation: '',
-    })
+const isShow = ref(false)
+const loading = ref(false)
+// 城市列表原始数据
+const list = ref([])
 
-    // 选择城市操作
-    const changeCity = (city) => {
-      if (city.level === 0) {
-        // 点击的省级单位
-        changeResult.provinceCode = city.code
-        changeResult.provinceName = city.name
-      }
-      else if (city.level === 1) {
-        // 点击的市级单位
-        changeResult.cityCode = city.code
-        changeResult.cityName = city.name
-      }
-      else if (city.level === 2) {
-        // 点击的县级单位:选中最终的省市区数据，并且传递给父组件
-        changeResult.countyCode = city.code
-        changeResult.countyName = city.name
-        // 组合完整的省市区名称
-        changeResult.fullLocation = `${changeResult.provinceName}${changeResult.cityName}${changeResult.countyName}`
-        // 关闭碳层
-        isShow.value = false
-        // 把选中的数据最终传递给父组件
-        emit('changeCity', changeResult)
-      }
-    }
+// 选中的省市区
+const changeResult = reactive({
+  provinceCode: '',
+  provinceName: '',
+  cityCode: '',
+  cityName: '',
+  countyCode: '',
+  countyName: '',
+  fullLocation: '',
+})
 
-    // 通过计算属性计算当前显示的列表数据：省级；市级；县级
-    const cityList = computed(() => {
-      let result = list.value
-      // 当前点击的是省，那么就计算市级列表
-      if (changeResult.provinceCode && changeResult.provinceName)
-        result = result.find(item => item.code === changeResult.provinceCode).areaList
-
-      if (changeResult.cityCode && changeResult.cityName)
-        result = result.find(item => item.code === changeResult.cityCode).areaList
-
-      // 当前点击的是市，那么就计算县级列表
-      return result
-    })
-
-    // 点击显示和隐藏弹层
-    const toggle = () => {
-      isShow.value = !isShow.value
-      if (isShow.value) {
-        loading.value = true
-        // 调用接口之前，把之前选中的数据置空
-        for (const key in changeResult)
-          changeResult[key] = ''
-
-        // 弹层显示了，调用接口
-        getCityList().then((ret) => {
-          list.value = ret
-          loading.value = false
-        })
-      }
-    }
-    // 控制点击区域外，隐藏弹层
-    const target = ref(null)
-    onClickOutside(target, () => {
-      isShow.value = false
-    })
-    return { isShow, toggle, target, cityList, loading, changeCity }
-  },
+// 选择城市操作
+const changeCity = (city) => {
+  if (city.level === 0) {
+    // 点击的省级单位
+    changeResult.provinceCode = city.code
+    changeResult.provinceName = city.name
+  }
+  else if (city.level === 1) {
+    // 点击的市级单位
+    changeResult.cityCode = city.code
+    changeResult.cityName = city.name
+  }
+  else if (city.level === 2) {
+    // 点击的县级单位:选中最终的省市区数据，并且传递给父组件
+    changeResult.countyCode = city.code
+    changeResult.countyName = city.name
+    // 组合完整的省市区名称
+    changeResult.fullLocation = `${changeResult.provinceName}${changeResult.cityName}${changeResult.countyName}`
+    // 关闭碳层
+    isShow.value = false
+    // 把选中的数据最终传递给父组件
+    emit('changeCity', changeResult)
+  }
 }
+
+// 通过计算属性计算当前显示的列表数据：省级；市级；县级
+const cityList = computed(() => {
+  let result = list.value
+  // 当前点击的是省，那么就计算市级列表
+  if (changeResult.provinceCode && changeResult.provinceName)
+    result = result.find(item => item.code === changeResult.provinceCode).areaList
+
+  if (changeResult.cityCode && changeResult.cityName)
+    result = result.find(item => item.code === changeResult.cityCode).areaList
+
+  // 当前点击的是市，那么就计算县级列表
+  return result
+})
+
+// 点击显示和隐藏弹层
+const toggle = () => {
+  isShow.value = !isShow.value
+  if (isShow.value) {
+    loading.value = true
+    // 调用接口之前，把之前选中的数据置空
+    for (const key in changeResult)
+      changeResult[key] = ''
+
+    // 弹层显示了，调用接口
+    getCityList().then((ret) => {
+      list.value = ret
+      loading.value = false
+    })
+  }
+}
+// 控制点击区域外，隐藏弹层
+const target = ref(null)
+onClickOutside(target, () => {
+  isShow.value = false
+})
 </script>
 
 <template>

@@ -525,7 +525,7 @@ onMounted(() => {
             />
           </el-select>
         </el-form-item>
-        <el-form-item v-if="addPusherFrom.pusherLifeTime == '1'" label="推送时间" prop="pushTime">
+        <el-form-item v-if="addPusherFrom.pusherLifeTime === '1'" label="推送时间" prop="pushTime">
           <el-date-picker
             v-model="addPusherFrom.pushTime"
             type="datetime"
@@ -534,7 +534,7 @@ onMounted(() => {
             :picker-options="pickerOptions"
           />
         </el-form-item>
-        <el-form-item v-if="addPusherFrom.pusherLifeTime == '0'" label="推送时间" prop="pushTime">
+        <el-form-item v-if="addPusherFrom.pusherLifeTime === '0'" label="推送时间" prop="pushTime">
           <el-time-picker v-model="addPusherFrom.pushTime" type="date" placeholder="请选择推送时间" />
         </el-form-item>
       </el-form>

@@ -15,9 +15,9 @@ export default defineComponent({
 
 <template>
   <el-badge
-    :value="noticeCount == 0 ? '' : noticeCount"
+    :value="noticeCount === '0' ? '' : noticeCount"
     class="manager-user-badge"
-    @click="noticeCount != 0 ? $router.push({ name: 'notice' }) : ''"
+    @click="noticeCount !== '0' ? $router.push({ name: 'notice' }) : ''"
   >
     <el-icon size="large">
       <bell-filled />
