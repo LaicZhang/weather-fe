@@ -1,21 +1,3 @@
-<template>
-  <div ref="target" class="city">
-    <div class="select" :class="{active:isShow}" @click="toggle">
-      <span v-if="!fullLocation" class="placeholder">请选择您的地址</span>
-      <span v-else class="value">{{ fullLocation }}</span>
-      <em class="iconfont icon-angle-down" />
-    </div>
-    <!-- 下拉弹层 -->
-    <div v-show="isShow" class="option">
-      <!-- 数据的加载过程进行提示 -->
-      <div v-if="loading" class="loading" />
-      <template v-else>
-        <span v-for="item in cityList" :key="item.code" class="ellipsis" @click="changeCity(item)">{{ item.name }}</span>
-      </template>
-    </div>
-  </div>
-</template>
-
 <script>
 import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
@@ -66,7 +48,7 @@ export default {
         // 关闭碳层
         isShow.value = false
         // 把选中的数据最终传递给父组件
-        emit('change-city', changeResult)
+        emit('changeCity', changeResult)
       }
     }
 
@@ -109,6 +91,24 @@ export default {
   },
 }
 </script>
+
+<template>
+  <div ref="target" class="city">
+    <div class="select" :class="{ active: isShow }" @click="toggle">
+      <span v-if="!fullLocation" class="placeholder">请选择您的地址</span>
+      <span v-else class="value">{{ fullLocation }}</span>
+      <em class="iconfont icon-angle-down" />
+    </div>
+    <!-- 下拉弹层 -->
+    <div v-show="isShow" class="option">
+      <!-- 数据的加载过程进行提示 -->
+      <div v-if="loading" class="loading" />
+      <template v-else>
+        <span v-for="item in cityList" :key="item.code" class="ellipsis" @click="changeCity(item)">{{ item.name }}</span>
+      </template>
+    </div>
+  </div>
+</template>
 
 <style scoped lang="less">
 .city {

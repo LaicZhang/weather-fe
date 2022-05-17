@@ -1,3 +1,145 @@
+<script setup>
+import { defineComponent, onMounted, reactive, ref } from 'vue'
+import PasswordMeter from 'vue-simple-password-meter'
+import { ElMessage } from 'element-plus'
+import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
+import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
+
+const { router, store } = useVuexWithRouter()
+const toPageHome = () => {
+  router.push('/')
+}
+const userFormRef = ref(null)
+const userForm = reactive({
+  userName: '',
+  userEmail: '',
+  userPwd: '',
+})
+
+const checkRepeatUserName = async (rule, value, callback) => {
+  const { userName } = userForm
+  if (!userName)
+    return
+  const { isRepeat } = await checkRepeatApi({ userName })
+  // return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('用户名已存在'))
+}
+const checkRepeatUserEmail = async (rule, value, callback) => {
+  const { userEmail } = userForm
+  if (!userEmail)
+    return
+  const { isRepeat } = await checkRepeatApi({ userEmail })
+  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
+  if (isRepeat)
+    return callback(new Error('邮箱已存在'))
+}
+const userRules = {
+  userName: [
+    {
+      required: true,
+      message: '请填写用户名',
+      trigger: 'blur',
+    },
+    { validator: checkRepeatUserName, trigger: 'blur' },
+    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
+    { pattern: /^[a-zA-Z]+$/, message: '只能是字母', trigger: 'blur' },
+  ],
+  userEmail: [
+    {
+      required: true,
+      message: '请填写邮箱',
+      trigger: 'blur',
+    },
+    { validator: checkRepeatUserEmail, trigger: 'blur' },
+  ],
+  userPwd: [
+    {
+      required: true,
+      message: '请填写密码',
+      trigger: 'blur',
+    },
+    { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' },
+  ],
+  userConfirmPwd: [
+    {
+      required: true,
+      message: '请确认密码',
+      trigger: 'blur',
+    },
+  ],
+  captcha: [
+    {
+      required: true,
+      message: '请填写验证码',
+      trigger: 'blur',
+    },
+  ],
+}
+const getMenuPermission = async () => {
+  const { menuList, actionList } = await menuPermissionApi()
+  store.commit('setActionList', actionList)
+  store.commit('setMenuList', menuList)
+}
+const arr = [
+  { value: '@qq.com' },
+  { value: '@gmail.com' },
+  { value: '@126.com' },
+  { value: '@163.com' },
+  { value: '@hotmail.com' },
+  { value: '@yahoo.com' },
+  { value: '@sohu.com' },
+  { value: '@sina.com' },
+  { value: '@139.com' },
+  { value: '@189.com' },
+]
+const querySearch = (queryString, callback) => {
+  const results = []
+  queryString = queryString.toLowerCase()
+
+  for (const item in arr)
+    results[item] = `${queryString}${arr[item].value}`
+
+  callback(results)
+}
+const handleSelect = (item) => {
+  userForm.userEmail = item
+}
+const encodedUserPwd = (userPwd) => {
+  return btoa(userPwd)
+}
+const decodedUserPwd = (userPwd) => {
+  return atob(userPwd)
+}
+const userFromCommit = () => {
+  userFormRef.value.validate(async (valid) => {
+    if (valid) {
+      if (userForm.userPwd !== userForm.userConfirmPwd) {
+        ElMessage.error('两次密码不一致')
+        return false
+      }
+      userForm.userPwd = encodedUserPwd(userForm.userPwd)
+      userForm.userConfirmPwd = encodedUserPwd(userForm.userConfirmPwd)
+      const registerInfo = await registerApi(userForm)
+      store.commit('setUserInfo', registerInfo)
+      await getMenuPermission()
+      toPageHome()
+    }
+    else {
+      userForm.userPwd = decodedUserPwd(userForm.userPwd)
+      userForm.userConfirmPwd = decodedUserPwd(userForm.userConfirmPwd)
+      return ElMessage.error('请检查表单')
+    }
+  })
+}
+const sendCaptchaEmail = async () => {
+  const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+}
+const toLogin = () => {
+  router.push('/login')
+  // router.back()
+}
+</script>
 
 <template>
   <div class="register-page">
@@ -83,149 +225,6 @@
     </el-form>
   </div>
 </template>
-
-<script setup>
-import { defineComponent, onMounted, reactive, ref } from 'vue'
-import PasswordMeter from 'vue-simple-password-meter'
-import { ElMessage } from 'element-plus'
-import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
-import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
-
-const { router, store } = useVuexWithRouter()
-const toPageHome = () => {
-  router.push('/')
-}
-const userFormRef = ref(null)
-const userForm = reactive({
-  userName: '',
-  userEmail: '',
-  userPwd: '',
-})
-
-const checkRepeatUserName = async(rule, value, callback) => {
-  const { userName } = userForm
-  if (!userName)
-    return
-  const { isRepeat } = await checkRepeatApi({ userName })
-  // return isRepeat !== undefined ? callback(new Error('用户名已存在')) : callback()
-  if (isRepeat)
-    return callback(new Error('用户名已存在'))
-}
-const checkRepeatUserEmail = async(rule, value, callback) => {
-  const { userEmail } = userForm
-  if (!userEmail)
-    return
-  const { isRepeat } = await checkRepeatApi({ userEmail })
-  // return isRepeat !== undefined ? callback(new Error('邮箱已存在')) : callback()
-  if (isRepeat)
-    return callback(new Error('邮箱已存在'))
-}
-const userRules = {
-  userName: [
-    {
-      required: true,
-      message: '请填写用户名',
-      trigger: 'blur',
-    },
-    { validator: checkRepeatUserName, trigger: 'blur' },
-    { min: 6, max: 20, message: '长度在 6 到 20 个字符', trigger: 'blur' },
-    { pattern: /^[a-zA-Z]+$/, message: '只能是字母', trigger: 'blur' },
-  ],
-  userEmail: [
-    {
-      required: true,
-      message: '请填写邮箱',
-      trigger: 'blur',
-    },
-    { validator: checkRepeatUserEmail, trigger: 'blur' },
-  ],
-  userPwd: [
-    {
-      required: true,
-      message: '请填写密码',
-      trigger: 'blur',
-    },
-    { min: 8, max: 16, message: '长度在 8 到 16 个字符', trigger: 'blur' },
-  ],
-  userConfirmPwd: [
-    {
-      required: true,
-      message: '请确认密码',
-      trigger: 'blur',
-    },
-  ],
-  captcha: [
-    {
-      required: true,
-      message: '请填写验证码',
-      trigger: 'blur',
-    },
-  ],
-}
-const getMenuPermission = async() => {
-  const { menuList, actionList } = await menuPermissionApi()
-  store.commit('setActionList', actionList)
-  store.commit('setMenuList', menuList)
-}
-const arr = [
-  { value: '@qq.com' },
-  { value: '@gmail.com' },
-  { value: '@126.com' },
-  { value: '@163.com' },
-  { value: '@hotmail.com' },
-  { value: '@yahoo.com' },
-  { value: '@sohu.com' },
-  { value: '@sina.com' },
-  { value: '@139.com' },
-  { value: '@189.com' },
-]
-const querySearch = (queryString, callback) => {
-  const results = []
-  queryString = queryString.toLowerCase()
-
-  for (const item in arr)
-    results[item] = `${queryString}${arr[item].value}`
-
-  callback(results)
-}
-const handleSelect = (item) => {
-  userForm.userEmail = item
-}
-const encodedUserPwd = (userPwd) => {
-  return btoa(userPwd)
-}
-const decodedUserPwd = (userPwd) => {
-  return atob(userPwd)
-}
-const userFromCommit = () => {
-  userFormRef.value.validate(async(valid) => {
-    if (valid) {
-      if (userForm.userPwd !== userForm.userConfirmPwd) {
-        ElMessage.error('两次密码不一致')
-        return false
-      }
-      userForm.userPwd = encodedUserPwd(userForm.userPwd)
-      userForm.userConfirmPwd = encodedUserPwd(userForm.userConfirmPwd)
-      const registerInfo = await registerApi(userForm)
-      store.commit('setUserInfo', registerInfo)
-      await getMenuPermission()
-      toPageHome()
-    }
-    else {
-      userForm.userPwd = decodedUserPwd(userForm.userPwd)
-      userForm.userConfirmPwd = decodedUserPwd(userForm.userConfirmPwd)
-      return ElMessage.error('请检查表单')
-    }
-  })
-}
-const sendCaptchaEmail = async() => {
-  const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
-}
-const toLogin = () => {
-  router.push('/login')
-  // router.back()
-}
-</script>
 
 <style lang="scss"  scoped >
 .register-page {

@@ -1,36 +1,3 @@
-<template>
-  <!-- <div class="banner-bell" @click="toPagenotice">
-    <el-badge :value="noticeCount" class="notice-count">
-      <el-icon size="large">
-        <bell-filled />
-      </el-icon>
-    </el-badge>
-  </div> -->
-  <el-dropdown @command="onLoginOut">
-    <span class="el-dropdown-link user-dropdown-title">
-      <el-image
-        lazy
-        alt="user picture"
-        class="user-img"
-        :src="imageUrl"
-      />
-      <em class="el-icon-arrow-down" />
-    </span>
-    <template #dropdown>
-      <el-dropdown-menu>
-        <el-dropdown-item command="info">
-          个人信息
-        </el-dropdown-item>
-        <el-dropdown-item command="history">
-          登录历史
-        </el-dropdown-item>
-        <el-dropdown-item command="out">
-          退出
-        </el-dropdown-item>
-      </el-dropdown-menu>
-    </template>
-  </el-dropdown>
-</template>
 <script>
 import store from '@/store'
 export default {
@@ -81,6 +48,41 @@ export default {
   },
 }
 </script>
+
+<template>
+  <!-- <div class="banner-bell" @click="toPagenotice">
+    <el-badge :value="noticeCount" class="notice-count">
+      <el-icon size="large">
+        <bell-filled />
+      </el-icon>
+    </el-badge>
+  </div> -->
+  <el-dropdown @command="onLoginOut">
+    <span class="el-dropdown-link user-dropdown-title">
+      <el-image
+        lazy
+        alt="user picture"
+        class="user-img"
+        :src="imageUrl"
+      />
+      <em class="el-icon-arrow-down" />
+    </span>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item command="info">
+          个人信息
+        </el-dropdown-item>
+        <el-dropdown-item command="history">
+          登录历史
+        </el-dropdown-item>
+        <el-dropdown-item command="out">
+          退出
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</template>
+
 <style scoped lang="scss">
   .user-dropdown-title {
     color: $color-active;

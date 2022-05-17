@@ -1,3 +1,91 @@
+<script setup lang="ts">
+import { onMounted, reactive, ref } from 'vue'
+// import { ElMessage } from 'element-plus'
+// import { Plus } from '@element-plus/icons-vue'
+import util from '@/util/utils'
+import {
+  getPusherSettingsApi,
+  getUserInfoApi,
+  // refreshApi,
+  updatePusherSettingsApi,
+} from '@/api'
+import store from '@/store'
+import pusherdeerAlert from '@/components/info/pushdeer-alert.vue'
+
+const userForm = reactive({
+  userId: 0,
+  userName: '',
+  sex: 1,
+  userEmail: '',
+  sexText: '',
+  mobile: '',
+  createTime: '',
+  lastLoginTime: '',
+})
+const userInfo = store.state.userInfo
+
+// settings dialog
+const configRef = ref(null)
+const wecomDialogVisible = ref(false)
+const dingtalkDialogVisible = ref(false)
+const feishuDialogVisible = ref(false)
+const serverchanDialogVisible = ref(false)
+const pushDeerDialogVisible = ref(false)
+
+const isVisitor = ref(true)
+let pusherConfigForm = reactive({
+  useEmail: true,
+  useSms: false,
+  useFeiShu: false,
+  useWeCom: false,
+  useDingTalk: false,
+  useServerChan: false,
+  usePushDeer: false,
+  userEmail: '',
+  mobile: '',
+  pushkey: '',
+  feishuUrl: '',
+  wecomUrl: '',
+  dingtalkUrl: '',
+  serverChanKey: '',
+})
+
+const isVisitorFn = () => {
+  if (userInfo.role === 2)
+    isVisitor.value = false
+}
+const updatePusherSettings = async () => {
+  await updatePusherSettingsApi(pusherConfigForm)
+}
+const getPusherSettings = async () => {
+  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
+  pusherConfigForm = Object.assign(pusherConfigForm, list)
+}
+const getUserInfo = async () => {
+  const data = await getUserInfoApi({ userId: userInfo.userId })
+  Object.assign(userForm, data)
+  if (userForm.sex === 1)
+    userForm.sexText = '男'
+  else
+    userForm.sexText = '女'
+
+  userForm.createTime = util.formateDate(new Date(userForm.createTime))
+  userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
+}
+const onSubmitPusherConfigForm = () => {
+  updatePusherSettings()
+}
+const resetPusherConfigForm = () => {
+  getPusherSettings()
+}
+
+onMounted(() => {
+  isVisitorFn()
+  getUserInfo()
+  getPusherSettings()
+})
+</script>
+
 <template>
   <el-card v-show="isVisitor" class="mine-info-right">
     <span>推送配置</span>
@@ -25,31 +113,31 @@
         国内短信推送仅支持审核成功的正文模版，暂不支持推送自定义天气信息，此处设置仅实现在企业微信中推送时@此手机号码账号功能
       </el-form-item>
       <el-form-item v-if="pusherConfigForm.usePushDeer">
-        <el-button type="text" @click="pushDeerDialogVisible=true">
+        <el-button type="text" @click="pushDeerDialogVisible = true">
           pushkey获取方法
         </el-button>
         <el-input v-model="pusherConfigForm.pushkey" placeholder="" />
       </el-form-item>
       <el-form-item v-if="pusherConfigForm.useFeiShu">
-        <el-button type="text" @click="feishuDialogVisible=true">
+        <el-button type="text" @click="feishuDialogVisible = true">
           飞书群消息机器人网址获取方法
         </el-button>
         <el-input v-model="pusherConfigForm.feishuUrl" placeholder="飞书群消息机器人网址" />
       </el-form-item>
       <el-form-item v-if="pusherConfigForm.useWeCom">
-        <el-button type="text" @click="wecomDialogVisible=true">
+        <el-button type="text" @click="wecomDialogVisible = true">
           企业微信群消息机器人网址获取方法
         </el-button>
         <el-input v-model="pusherConfigForm.wecomUrl" placeholder="企业微信群消息机器人网址" />
       </el-form-item>
       <el-form-item v-if="pusherConfigForm.useDingTalk">
-        <el-button type="text" @click="dingtalkDialogVisible=true">
+        <el-button type="text" @click="dingtalkDialogVisible = true">
           钉钉群消息机器人网址获取方法
         </el-button>
         <el-input v-model="pusherConfigForm.dingtalkUrl" placeholder="钉钉群消息机器人网址" />
       </el-form-item>
       <el-form-item v-if="pusherConfigForm.useServerChan">
-        <el-button type="text" @click="serverchanDialogVisible=true">
+        <el-button type="text" @click="serverchanDialogVisible = true">
           server酱key获取方法
         </el-button>
         <el-input v-model="pusherConfigForm.serverChanKey" placeholder="server酱key" />
@@ -122,94 +210,6 @@
     </el-dialog>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, reactive, ref } from 'vue'
-// import { ElMessage } from 'element-plus'
-// import { Plus } from '@element-plus/icons-vue'
-import util from '@/util/utils'
-import {
-  getPusherSettingsApi,
-  getUserInfoApi,
-  // refreshApi,
-  updatePusherSettingsApi,
-} from '@/api'
-import store from '@/store'
-import pusherdeerAlert from '@/components/info/pushdeer-alert.vue'
-
-const userForm = reactive({
-  userId: 0,
-  userName: '',
-  sex: 1,
-  userEmail: '',
-  sexText: '',
-  mobile: '',
-  createTime: '',
-  lastLoginTime: '',
-})
-const userInfo = store.state.userInfo
-
-// settings dialog
-const configRef = ref(null)
-const wecomDialogVisible = ref(false)
-const dingtalkDialogVisible = ref(false)
-const feishuDialogVisible = ref(false)
-const serverchanDialogVisible = ref(false)
-const pushDeerDialogVisible = ref(false)
-
-const isVisitor = ref(true)
-let pusherConfigForm = reactive({
-  useEmail: true,
-  useSms: false,
-  useFeiShu: false,
-  useWeCom: false,
-  useDingTalk: false,
-  useServerChan: false,
-  usePushDeer: false,
-  userEmail: '',
-  mobile: '',
-  pushkey: '',
-  feishuUrl: '',
-  wecomUrl: '',
-  dingtalkUrl: '',
-  serverChanKey: '',
-})
-
-const isVisitorFn = () => {
-  if (userInfo.role === 2)
-    isVisitor.value = false
-}
-const updatePusherSettings = async() => {
-  await updatePusherSettingsApi(pusherConfigForm)
-}
-const getPusherSettings = async() => {
-  const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
-  pusherConfigForm = Object.assign(pusherConfigForm, list)
-}
-const getUserInfo = async() => {
-  const data = await getUserInfoApi({ userId: userInfo.userId })
-  Object.assign(userForm, data)
-  if (userForm.sex === 1)
-    userForm.sexText = '男'
-  else
-    userForm.sexText = '女'
-
-  userForm.createTime = util.formateDate(new Date(userForm.createTime))
-  userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
-}
-const onSubmitPusherConfigForm = () => {
-  updatePusherSettings()
-}
-const resetPusherConfigForm = () => {
-  getPusherSettings()
-}
-
-onMounted(() => {
-  isVisitorFn()
-  getUserInfo()
-  getPusherSettings()
-})
-</script>
 
 <style lang="scss" scoped>
     .mine-info-right {

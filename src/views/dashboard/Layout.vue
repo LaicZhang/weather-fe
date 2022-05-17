@@ -1,3 +1,56 @@
+<script setup lang="ts">
+import { onMounted, ref } from 'vue'
+import { ElMessage } from 'element-plus'
+import { useClipboard } from '@vueuse/core'
+import Radar from '../echarts/Radar.vue'
+import Bar1 from '../echarts/Bar1.vue'
+import LineMarker from '@/views/echarts/LineMarker.vue'
+import AreaStack from '@/views/echarts/AreaStack.vue'
+import { getIpApi } from '@/api'
+import { addShareApi } from '@/api/share'
+// import router from '@/router'
+import store from '@/store'
+import UserAvatar from '@/components/info/user-avatar.vue'
+
+const userId = ref('')
+userId.value = store.state.userInfo.userId
+const city = ref('')
+const currentRoute = window.location.href
+const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
+const area = store.state.weatherData
+city.value = `${area.area_1 + area.area_2 + area.area_3}天气可视化`
+
+const getIp = async () => {
+  const { ip } = await getIpApi()
+  store.commit('setIp', ip)
+}
+const shareCurrentWeather = async () => {
+  const data = await addShareApi({
+    ip: store.state.ip,
+    userId: store.state.userInfo.userId,
+  })
+  if (data) {
+    const { copy } = useClipboard()
+    copy(`${shareForeUrl}?shareId=${data.shareId}`)
+    ElMessage.success('分享链接已复制到剪切板，快去分享吧')
+  }
+  else {
+    ElMessage.error('分享失败，请稍后再试')
+  }
+}
+// const getLocationByIp = async() => {
+// const currentRoute = router.currentRoute.value
+// const ip = currentRoute.query.ip
+// const { result } = await getIpInfoApi({ ip })
+// const area = result.area_1 + result.area_2 + result.area_3
+// city.value = (`${result.att}天气可视化`).replace(/,/g, '')
+// }
+onMounted(() => {
+  getIp()
+  // getLocationByIp()
+})
+</script>
+
 <template>
   <div class="layout-page">
     <div class="grid-container">
@@ -48,59 +101,6 @@
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import { ElMessage } from 'element-plus'
-import { useClipboard } from '@vueuse/core'
-import Radar from '../echarts/Radar.vue'
-import Bar1 from '../echarts/Bar1.vue'
-import LineMarker from '@/views/echarts/LineMarker.vue'
-import AreaStack from '@/views/echarts/AreaStack.vue'
-import { getIpApi } from '@/api'
-import { addShareApi } from '@/api/share'
-// import router from '@/router'
-import store from '@/store'
-import UserAvatar from '@/components/info/user-avatar.vue'
-
-const userId = ref('')
-userId.value = store.state.userInfo.userId
-const city = ref('')
-const currentRoute = window.location.href
-const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
-const area = store.state.weatherData
-city.value = `${area.area_1 + area.area_2 + area.area_3}天气可视化`
-
-const getIp = async() => {
-  const { ip } = await getIpApi()
-  store.commit('setIp', ip)
-}
-const shareCurrentWeather = async() => {
-  const data = await addShareApi({
-    ip: store.state.ip,
-    userId: store.state.userInfo.userId,
-  })
-  if (data) {
-    const { copy } = useClipboard()
-    copy(`${shareForeUrl}?shareId=${data.shareId}`)
-    ElMessage.success('分享链接已复制到剪切板，快去分享吧')
-  }
-  else {
-    ElMessage.error('分享失败，请稍后再试')
-  }
-}
-// const getLocationByIp = async() => {
-// const currentRoute = router.currentRoute.value
-// const ip = currentRoute.query.ip
-// const { result } = await getIpInfoApi({ ip })
-// const area = result.area_1 + result.area_2 + result.area_3
-// city.value = (`${result.att}天气可视化`).replace(/,/g, '')
-// }
-onMounted(() => {
-  getIp()
-  // getLocationByIp()
-})
-</script>
 
 <style lang="less" scoped>
   .grid-container {

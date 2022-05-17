@@ -1,20 +1,3 @@
-<template>
-  <el-upload
-    class="avatar-uploader"
-    :action="UPLOAD_URL"
-    :data="uploadData"
-    :limit="1"
-    :show-file-list="false"
-    :on-success="handleAvatarSuccess"
-    :before-upload="beforeAvatarUpload"
-  >
-    <el-image v-if="imageUrl" alt="user avatar" lazy class="avatar" :src="imageUrl" />
-    <!-- <el-icon class="avatar-uploader-icon">
-          <Plus />
-        </el-icon> -->
-  </el-upload>
-</template>
-
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
@@ -47,7 +30,7 @@ const uploadData = ref({
   userId: userInfo.userId,
 })
 
-const getUserInfo = async() => {
+const getUserInfo = async () => {
   const data = await getUserInfoApi({ userId: userInfo.userId })
   Object.assign(userForm, data)
   if (userForm.sex === 1)
@@ -86,6 +69,23 @@ onMounted(() => {
   getUserInfo()
 })
 </script>
+
+<template>
+  <el-upload
+    class="avatar-uploader"
+    :action="UPLOAD_URL"
+    :data="uploadData"
+    :limit="1"
+    :show-file-list="false"
+    :on-success="handleAvatarSuccess"
+    :before-upload="beforeAvatarUpload"
+  >
+    <el-image v-if="imageUrl" alt="user avatar" lazy class="avatar" :src="imageUrl" />
+    <!-- <el-icon class="avatar-uploader-icon">
+          <Plus />
+        </el-icon> -->
+  </el-upload>
+</template>
 
 <style lang="scss" scoped>
 .avatar{

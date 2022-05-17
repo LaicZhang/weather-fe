@@ -1,6 +1,3 @@
-<template>
-  <span>{{ time }}</span>
-</template>
 <script>
 export default {
   props: {
@@ -33,7 +30,7 @@ export default {
       const s = this.formate(parseInt(leftTime % 60))
       if (leftTime <= 0) {
         this.flag = true
-        this.$emit('time-end')
+        this.$emit('timeEnd')
       }
       this.time = `${h}:${m}:${s}` // 需要修改时间样式的话 ，比如需要什么30分钟倒计时，就只保留分和秒
     },
@@ -46,6 +43,10 @@ export default {
   },
 }
 </script>
+
+<template>
+  <span>{{ time }}</span>
+</template>
 
 <style scoped>
 </style>

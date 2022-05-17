@@ -1,3 +1,14 @@
+<script setup lang="ts">
+import { ref, watchEffect } from 'vue'
+import { useRoute } from 'vue-router'
+
+const route = useRoute()
+const matched: any = ref([])
+watchEffect(() => {
+  matched.value = route.matched
+})
+</script>
+
 <template>
   <div class="bread-crumbs">
     <div class="bread-crumbs-left">
@@ -18,16 +29,6 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, watchEffect } from 'vue'
-import { useRoute } from 'vue-router'
-
-const route = useRoute()
-const matched: any = ref([])
-watchEffect(() => {
-  matched.value = route.matched
-})
-</script>
 <style lang="scss" scoped>
 .bread-crumbs {
   display: flex;

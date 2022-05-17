@@ -1,3 +1,12 @@
+<script setup lang="ts">
+import { useNetwork } from '@vueuse/core'
+import { dayjs } from 'element-plus'
+import { ref } from 'vue'
+
+const { isOnline, saveData, offlineAt, downlink, rtt, effectiveType } = useNetwork()
+const offlineAtTimeWithFormat = ref(dayjs(offlineAt.value).format('MM-DD HH:mm:ss'))
+</script>
+
 <template>
   <el-popover
     placement="bottom-start"
@@ -15,21 +24,14 @@
           离线时间: {{ offlineAtTimeWithFormat }}
         </p>
         <p>数据保护: {{ saveData ? '开' : '关' }}</p>
-        <p>有效带宽: {{ downlink + 'Mbps' }}</p>
+        <p>有效带宽: {{ `${downlink}Mbps` }}</p>
         <p>网络类型: {{ effectiveType }}</p>
         <p>往返时延:  {{ rtt }}</p>
       </div>
     </template>
   </el-popover>
 </template>
-<script setup lang="ts">
-import { useNetwork } from '@vueuse/core'
-import { dayjs } from 'element-plus'
-import { ref } from 'vue'
 
-const { isOnline, saveData, offlineAt, downlink, rtt, effectiveType } = useNetwork()
-const offlineAtTimeWithFormat = ref(dayjs(offlineAt.value).format('MM-DD HH:mm:ss'))
-</script>
 <style lang="scss" scoped>
 .is-online-user {
   width: 10px;

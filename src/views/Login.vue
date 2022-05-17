@@ -1,48 +1,3 @@
-<template>
-  <div class="bg" :style="{backgroundImage: 'url(' + (coverImgUrl ? coverImgUrl : baseImgUrl) + ')', backgroundSize:'cover'}">
-    <div class="login-page">
-      <el-form ref="userFormRef" class="login-form" :model="userForm" :rules="userRules" status-icon>
-        <div class="login-title">
-          登陆
-        </div>
-        <el-form-item prop="userName">
-          <el-input v-model="userForm.userName" type="text" placeholder="请输入账号" />
-        </el-form-item>
-        <el-form-item prop="userPwd">
-          <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码" />
-        </el-form-item>
-        <!-- <el-form-item>
-        <el-image alt="Captcha image" :key="componentKey" @click="changeCaptcha" :src="captchaRef"></el-image>
-      </el-form-item> -->
-        <!-- <el-form-item prop="captchaCode">
-        <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
-      </el-form-item> -->
-        <el-form-item>
-          <el-button type="text" @click="toForget">
-            忘记密码？
-          </el-button>
-          <span>或</span>
-          <el-button type="text" @click="toRegister">
-            注册
-          </el-button>
-          <span>或</span>
-          <el-button type="text" @click="toHomeAsVisitor">
-            不想注册？一键游客登陆
-          </el-button>
-        </el-form-item>
-        <el-form-item>
-          <el-checkbox v-model="userForm.isRememberMe" label="记住我" border />
-        </el-form-item>
-        <el-form-item>
-          <el-button type="primary" class="login-submit" size="large" @click="userFromCommit">
-            登录
-          </el-button>
-        </el-form-item>
-      </el-form>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
@@ -86,7 +41,7 @@ const userRules = {
   ],
 }
 // const componentKey = ref(0)
-const getMenuPermission = async() => {
+const getMenuPermission = async () => {
   const { menuList, actionList } = await menuPermissionApi()
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
@@ -96,7 +51,7 @@ const encodedUserPwd = (userPwd: string) => {
   return userForm.userPwd
 }
 const userFromCommit = () => {
-  userFormRef.value.validate(async(valid: any) => {
+  userFormRef.value.validate(async (valid: any) => {
     if (valid) {
       encodedUserPwd(userForm.userPwd)
       const loginInfo = await loginApi(userForm)
@@ -109,7 +64,7 @@ const userFromCommit = () => {
     }
   })
 }
-const getWeatherLike = async() => {
+const getWeatherLike = async () => {
   const { condition } = await getWeatherLikeApi()
   coverImgUrl.value = `${BASE_CDN_URL}/img/bg-${condition}.png`
 }
@@ -130,6 +85,51 @@ onMounted(() => {
   getWeatherLike()
 })
 </script>
+
+<template>
+  <div class="bg" :style="{ backgroundImage: `url(${coverImgUrl ? coverImgUrl : baseImgUrl})`, backgroundSize: 'cover' }">
+    <div class="login-page">
+      <el-form ref="userFormRef" class="login-form" :model="userForm" :rules="userRules" status-icon>
+        <div class="login-title">
+          登陆
+        </div>
+        <el-form-item prop="userName">
+          <el-input v-model="userForm.userName" type="text" placeholder="请输入账号" />
+        </el-form-item>
+        <el-form-item prop="userPwd">
+          <el-input v-model="userForm.userPwd" type="password" placeholder="请输入密码" />
+        </el-form-item>
+        <!-- <el-form-item>
+        <el-image alt="Captcha image" :key="componentKey" @click="changeCaptcha" :src="captchaRef"></el-image>
+      </el-form-item> -->
+        <!-- <el-form-item prop="captchaCode">
+        <el-input v-model="userForm.captchaCode" type="text" placeholder="请输入验证码"></el-input>
+      </el-form-item> -->
+        <el-form-item>
+          <el-button type="text" @click="toForget">
+            忘记密码？
+          </el-button>
+          <span>或</span>
+          <el-button type="text" @click="toRegister">
+            注册
+          </el-button>
+          <span>或</span>
+          <el-button type="text" @click="toHomeAsVisitor">
+            不想注册？一键游客登陆
+          </el-button>
+        </el-form-item>
+        <el-form-item>
+          <el-checkbox v-model="userForm.isRememberMe" label="记住我" border />
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" class="login-submit" size="large" @click="userFromCommit">
+            登录
+          </el-button>
+        </el-form-item>
+      </el-form>
+    </div>
+  </div>
+</template>
 
 <style lang="scss" scoped>
   .login-page {

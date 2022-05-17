@@ -25,7 +25,7 @@ export default {
   },
   generateRoute(menuList: any) {
     const routes: any[] = []
-    interface ListItem{
+    interface ListItem {
       name?: string
       path?: string
       component?: string
