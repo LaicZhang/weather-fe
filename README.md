@@ -40,3 +40,6 @@
 - OSS
 - Tencent Cloud
 - Tencent Webify
+
+## LICENSE
+[MIT](https://github.com/LaicZhang/weather-visualization-front-2/blob/main/LICENSE)
