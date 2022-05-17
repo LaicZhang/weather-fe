@@ -222,7 +222,7 @@ const addUserFrom = reactive({
   role: '1',
 })
 const roleList = ref([])
-const deptList = ref([])
+// const deptList = ref([])
 const addUserFromRoleOptions = ref([
   {
     label: '管理员',
@@ -238,6 +238,8 @@ const addUserFromRoleOptions = ref([
   },
 ])
 const checkRepeatUserName = async(rule, value, callback) => {
+  if (isEdit.value)
+    return
   const userName = addUserFrom.userName
   if (!userName)
     return
@@ -248,6 +250,8 @@ const checkRepeatUserName = async(rule, value, callback) => {
   return callback()
 }
 const checkRepeatUserEmail = async(rule, value, callback) => {
+  if (isEdit.value)
+    return
   const userEmail = addUserFrom.userEmail
   if (!userEmail)
     return
@@ -414,15 +418,19 @@ const resetPassword = () => {
       })
     })
 }
-const onSummit = () => {
+const onSummit = async() => {
+  let res
+  if (isEdit.value) {
+    res = await editUser()
+    getAllUsersList()
+    addDialog.value = false
+    return res ? proxy.$message.success('修改成功') : proxy.$message.error('修改失败')
+  }
+
   proxy.$refs.addFromRef.validate(async(valid) => {
     if (valid) {
       try {
-        let res
-        if (isEdit.value)
-          res = await editUser()
-        else
-          res = await addUser()
+        res = await addUser()
 
         if (res)
           proxy.$message.success('用户添加成功')
