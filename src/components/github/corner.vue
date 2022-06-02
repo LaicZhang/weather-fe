@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const repoUrl = 'https://github.com/LaicZhang/weather-visualization-front-2'
+const repoUrl = 'https://github.com/LaicZhang/weather-fe'
 const label = 'View source on Github'
 </script>
 

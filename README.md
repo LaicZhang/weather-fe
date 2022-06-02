@@ -42,4 +42,4 @@
 - Tencent Webify
 
 ## LICENSE
-[MIT](https://github.com/LaicZhang/weather-visualization-front-2/blob/main/LICENSE)
+[MIT](https://github.com/LaicZhang/weather-fe/blob/main/LICENSE)

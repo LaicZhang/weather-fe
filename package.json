@@ -1,5 +1,5 @@
 {
-  "name": "weather-visualization-front-2",
+  "name": "weather-fe",
   "version": "1.0.0",
   "scripts": {
     "dev": "vite --host --open",

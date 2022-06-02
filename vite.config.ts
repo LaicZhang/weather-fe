@@ -139,6 +139,6 @@ export default defineConfig({
       exclude: /windicss|node_modules/,
     }),
   ],
-  // base:'/weather-visualization-front-2/'
+  // base:'/weather-fe/'
   // base: './'
 })
