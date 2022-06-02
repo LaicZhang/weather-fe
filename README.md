@@ -41,5 +41,9 @@
 - Tencent Cloud
 - Tencent Webify
 
+## 界面展示
+### 登录欢迎界面
+<img width="1440" alt="image" src="https://user-images.githubusercontent.com/51162216/171571377-d87d8ffe-0db1-4ef1-ac7b-ca8e635e395e.png">
+
 ## LICENSE
 [MIT](https://github.com/LaicZhang/weather-fe/blob/main/LICENSE)
