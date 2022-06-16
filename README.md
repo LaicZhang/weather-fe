@@ -7,7 +7,7 @@
 
 ## 技术栈
 
-### 前端
+### [前端](https://github.com/LaicZhang/weather-fe)
 
 - Vue3.2
 - Vite2
@@ -19,7 +19,7 @@
 - Axios
 - Typescript
 
-### 后端
+### [后端](https://github.com/LaicZhang/weather-be)
 - Koa2
 - Python3
 
