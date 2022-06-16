@@ -34,12 +34,8 @@
   "workbench.editor.highlightModifiedTabs": true,
   "workbench.editor.tabCloseButton": "left",
   "workbench.fontAliasing": "antialiased",
-  "workbench.iconTheme": "file-icons",
+  "workbench.iconTheme": "vscode-icons",
   "workbench.list.smoothScrolling": true,
-  "workbench.preferredDarkColorTheme": "Vitesse Dark",
-  "workbench.preferredLightColorTheme": "Vitesse Light",
-  "workbench.productIconTheme": "icons-carbon",
-  // "workbench.sideBar.location": "right",
   "workbench.startupEditor": "newUntitledFile",
   "workbench.tree.expandMode": "singleClick",
   "workbench.tree.indent": 10,
@@ -76,7 +72,8 @@
     "**/package-lock.json": true,
     "**/pnpm-lock.yaml": true,
     "**/tmp": true,
-    "**/yarn.lock": true
+    "**/yarn.lock": true,
+    "stats.html": true
   },
 
   // Extension configs
