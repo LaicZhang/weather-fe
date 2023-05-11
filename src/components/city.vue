@@ -2,6 +2,8 @@
 import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { getCityList } from '@/api'
+
+const emit = defineEmits(['changeCity'])
 const props = defineProps({
   fullLocation: {
     type: String,
