@@ -48,8 +48,8 @@ dependencies:
     specifier: ^1.1.0
     version: 1.1.0
   vuex:
-    specifier: ^4.0.2
-    version: 4.0.2(vue@3.2.36)
+    specifier: ^4.1.0
+    version: 4.1.0(vue@3.2.36)
 
 devDependencies:
   '@amatlash/vite-plugin-stylelint':
@@ -5591,10 +5591,10 @@ packages:
       '@vue/server-renderer': 3.2.36(vue@3.2.36)
       '@vue/shared': 3.2.36
 
-  /vuex@4.0.2(vue@3.2.36):
-    resolution: {integrity: sha512-M6r8uxELjZIK8kTKDGgZTYX/ahzblnzC4isU1tpmEuOIIKmV+TRdc+H4s8ds2NuZ7wpUTdGRzJRtoj+lI+pc0Q==}
+  /vuex@4.1.0(vue@3.2.36):
+    resolution: {integrity: sha512-hmV6UerDrPcgbSy9ORAtNXDr9M4wlNP4pEFKye4ujJF8oqgFFuxDCdOLS3eNoRTtq5O3hoBDh9Doj1bQMYHRbQ==}
     peerDependencies:
-      vue: ^3.0.2
+      vue: ^3.2.0
     dependencies:
       '@vue/devtools-api': 6.1.4
       vue: 3.2.36
