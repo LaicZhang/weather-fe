@@ -53,7 +53,7 @@
     "postcss-less": "^6.0.0",
     "postcss-scss": "^4.0.3",
     "prettier": "^3.0.0",
-    "rollup-plugin-visualizer": "^5.6.0",
+    "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.51.0",
     "stylelint": "^14.8.2",
     "stylelint-config-recommended-vue": "^1.4.0",
