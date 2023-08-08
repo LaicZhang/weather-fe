@@ -44,7 +44,7 @@
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "husky": "^8.0.3",
-    "jsdom": "^19.0.0",
+    "jsdom": "^22.1.0",
     "less": "^3.0.4",
     "lint-staged": "^12.4.1",
     "postcss": "^8.4.13",
