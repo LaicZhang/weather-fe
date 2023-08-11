@@ -128,8 +128,8 @@ devDependencies:
     specifier: ^14.8.2
     version: 14.8.2
   stylelint-config-recommended-vue:
-    specifier: ^1.4.0
-    version: 1.4.0(postcss-html@1.4.1)(stylelint@14.8.2)
+    specifier: ^1.5.0
+    version: 1.5.0(postcss-html@1.4.1)(stylelint@14.8.2)
   stylelint-config-standard:
     specifier: ^25.0.0
     version: 25.0.0(stylelint@14.8.2)
@@ -4509,8 +4509,8 @@ packages:
       stylelint: 14.8.2
     dev: true
 
-  /stylelint-config-recommended-vue@1.4.0(postcss-html@1.4.1)(stylelint@14.8.2):
-    resolution: {integrity: sha512-DVJqyX2KvMCn9U0+keL12r7xlsH26K4Vg8NrIZuq5MoF7g82DpMp326Om4E0Q+Il1o+bTHuUyejf2XAI0iD04Q==}
+  /stylelint-config-recommended-vue@1.5.0(postcss-html@1.4.1)(stylelint@14.8.2):
+    resolution: {integrity: sha512-65TAK/clUqkNtkZLcuytoxU0URQYlml+30Nhop7sRkCZ/mtWdXt7T+spPSB3KMKlb+82aEVJ4OrcstyDBdbosg==}
     engines: {node: ^12 || >=14}
     peerDependencies:
       postcss-html: ^1.0.0
