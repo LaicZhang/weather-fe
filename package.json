@@ -51,7 +51,7 @@
     "postcss-html": "^1.4.1",
     "postcss-import": "15.1.0",
     "postcss-less": "^6.0.0",
-    "postcss-scss": "^4.0.3",
+    "postcss-scss": "^4.0.5",
     "prettier": "^3.0.0",
     "rollup-plugin-visualizer": "^5.9.2",
     "sass": "^1.51.0",
