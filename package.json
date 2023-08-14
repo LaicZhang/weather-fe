@@ -36,7 +36,7 @@
     "@commitlint/cli": "^17.7.0",
     "@commitlint/config-conventional": "^17.6.7",
     "@iconify/json": "^2.1.20",
-    "@types/node": "^17.0.31",
+    "@types/node": "^20.5.0",
     "@vitejs/plugin-vue": "^2.3.2",
     "autoprefixer": "^10.4.2",
     "commitlint": "^17.4.4",
