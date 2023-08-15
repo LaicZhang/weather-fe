@@ -137,8 +137,8 @@ devDependencies:
     specifier: ^5.1.6
     version: 5.1.6
   unplugin-auto-import:
-    specifier: ^0.15.1
-    version: 0.15.3(@vueuse/core@8.6.0)(rollup@2.79.1)
+    specifier: ^0.16.6
+    version: 0.16.6(@vueuse/core@8.6.0)(rollup@2.79.1)
   unplugin-icons:
     specifier: ^0.16.5
     version: 0.16.5
@@ -4847,8 +4847,8 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unplugin-auto-import@0.15.3(@vueuse/core@8.6.0)(rollup@2.79.1):
-    resolution: {integrity: sha512-RLT8SqbPn4bT7yBshZId0uPSofKWnwr66RyDaxWaFb/+f7OTDOWAsVNz+hOQLBWSjvbekr2xZY9ccS8TDHJbCQ==}
+  /unplugin-auto-import@0.16.6(@vueuse/core@8.6.0)(rollup@2.79.1):
+    resolution: {integrity: sha512-M+YIITkx3C/Hg38hp8HmswP5mShUUyJOzpifv7RTlAbeFlO2Tyw0pwrogSSxnipHDPTtI8VHFBpkYkNKzYSuyA==}
     engines: {node: '>=14'}
     peerDependencies:
       '@nuxt/kit': ^3.2.2
@@ -4862,6 +4862,7 @@ packages:
       '@antfu/utils': 0.7.5
       '@rollup/pluginutils': 5.0.2(rollup@2.79.1)
       '@vueuse/core': 8.6.0(vue@3.3.4)
+      fast-glob: 3.3.0
       local-pkg: 0.4.3
       magic-string: 0.30.1
       minimatch: 9.0.3
