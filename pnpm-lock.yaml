@@ -77,8 +77,8 @@ devDependencies:
     specifier: ^10.4.2
     version: 10.4.7(postcss@8.4.27)
   commitlint:
-    specifier: ^17.4.4
-    version: 17.6.6
+    specifier: ^17.7.1
+    version: 17.7.1
   eslint:
     specifier: ^8.16.0
     version: 8.16.0
@@ -1731,8 +1731,8 @@ packages:
     engines: {node: '>= 12'}
     dev: true
 
-  /commitlint@17.6.6:
-    resolution: {integrity: sha512-Q5M+w1nqGQSEkEW43EtPNrU+uKL2pENrJl6QigFupZ0v4AfvI8k5Q6uFgWmxlEOrSkgCYaN436Q9c9pydqyJqg==}
+  /commitlint@17.7.1:
+    resolution: {integrity: sha512-DVsF4pNpcGfQPu8KOVohNJAHE6ZBT7qTo33yG2SYiojrMnUOjh3eUOjQSjn5sP60/w2UndZqpQNsfQJrXU1bFA==}
     engines: {node: '>=v14'}
     hasBin: true
     dependencies:
