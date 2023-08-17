@@ -9,8 +9,8 @@ dependencies:
     specifier: ^1.1.4
     version: 1.1.4(vue@3.3.4)
   '@types/lodash-es':
-    specifier: ^4.17.6
-    version: 4.17.6
+    specifier: ^4.17.8
+    version: 4.17.8
   '@vueuse/core':
     specifier: ^8.6.0
     version: 8.6.0(vue@3.3.4)
@@ -910,8 +910,8 @@ packages:
     resolution: {integrity: sha512-Hr5Jfhc9eYOQNPYO5WLDq/n4jqijdHNlDXjuAQkkt+mWdQR+XJToOHrsD4cPaMXpn6KO7y2+wM8AZEs8VpBLVA==}
     dev: true
 
-  /@types/lodash-es@4.17.6:
-    resolution: {integrity: sha512-R+zTeVUKDdfoRxpAryaQNRKk3105Rrgx2CFRClIgRGaqDTdjsm8h6IYA8ir584W3ePzkZfst5xIgDwYrlh9HLg==}
+  /@types/lodash-es@4.17.8:
+    resolution: {integrity: sha512-euY3XQcZmIzSy7YH5+Unb3b2X12Wtk54YWINBvvGQ5SmMvwb11JQskGsfkH/5HXK77Kr8GF0wkVDIxzAisWtog==}
     dependencies:
       '@types/lodash': 4.14.182
     dev: false
@@ -2067,14 +2067,14 @@ packages:
       '@floating-ui/dom': 0.4.5
       '@popperjs/core': /@sxzz/popperjs-es@2.11.7
       '@types/lodash': 4.14.182
-      '@types/lodash-es': 4.17.6
+      '@types/lodash-es': 4.17.8
       '@vueuse/core': 8.6.0(vue@3.3.4)
       async-validator: 4.1.1
       dayjs: 1.11.1
       escape-html: 1.0.3
       lodash: 4.17.21
       lodash-es: 4.17.21
-      lodash-unified: 1.0.2(@types/lodash-es@4.17.6)(lodash-es@4.17.21)(lodash@4.17.21)
+      lodash-unified: 1.0.2(@types/lodash-es@4.17.8)(lodash-es@4.17.21)(lodash@4.17.21)
       memoize-one: 6.0.0
       normalize-wheel-es: 1.1.2
       vue: 3.3.4
@@ -3536,14 +3536,14 @@ packages:
     resolution: {integrity: sha512-mKnC+QJ9pWVzv+C4/U3rRsHapFfHvQFoFB92e52xeyGMcX6/OlIl78je1u8vePzYZSkkogMPJ2yjxxsb89cxyw==}
     dev: false
 
-  /lodash-unified@1.0.2(@types/lodash-es@4.17.6)(lodash-es@4.17.21)(lodash@4.17.21):
+  /lodash-unified@1.0.2(@types/lodash-es@4.17.8)(lodash-es@4.17.21)(lodash@4.17.21):
     resolution: {integrity: sha512-OGbEy+1P+UT26CYi4opY4gebD8cWRDxAT6MAObIVQMiqYdxZr1g3QHWCToVsm31x2NkLS4K3+MC2qInaRMa39g==}
     peerDependencies:
       '@types/lodash-es': '*'
       lodash: '*'
       lodash-es: '*'
     dependencies:
-      '@types/lodash-es': 4.17.6
+      '@types/lodash-es': 4.17.8
       lodash: 4.17.21
       lodash-es: 4.17.21
     dev: false
