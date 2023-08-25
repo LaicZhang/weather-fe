@@ -27,8 +27,8 @@ dependencies:
     specifier: 2.79.1
     version: 2.79.1
   stylelint-prettier:
-    specifier: ^2.0.0
-    version: 2.0.0(prettier@3.0.0)(stylelint@14.8.2)
+    specifier: ^3.0.0
+    version: 3.0.0(prettier@3.0.0)(stylelint@14.8.2)
   ts-node:
     specifier: ^10.7.0
     version: 10.7.0(@types/node@20.5.6)(typescript@5.1.6)
@@ -4659,9 +4659,9 @@ packages:
       stylelint-config-recommended: 7.0.0(stylelint@14.8.2)
     dev: true
 
-  /stylelint-prettier@2.0.0(prettier@3.0.0)(stylelint@14.8.2):
-    resolution: {integrity: sha512-jvT3G+9lopkeB0ARmDPszyfaOnvnIF+30QCjZxyt7E6fynI1T9mOKgYDNb9bXX17M7PXMZaX3j/26wqakjp1tw==}
-    engines: {node: ^12.22.0 || ^14.17.0 || >=16.0.0}
+  /stylelint-prettier@3.0.0(prettier@3.0.0)(stylelint@14.8.2):
+    resolution: {integrity: sha512-kIks1xw6np0zElokMT2kP6ar3S4MBoj6vUtPJuND1pFELMpZxVS/0uHPR4HDAVn0WAD3I5oF0IA3qBFxBpMkLg==}
+    engines: {node: ^14.17.0 || >=16.0.0}
     peerDependencies:
       prettier: '>=2.0.0'
       stylelint: '>=14.0.0'
