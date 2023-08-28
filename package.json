@@ -60,7 +60,7 @@
     "stylelint-config-standard": "^25.0.0",
     "typescript": "^5.1.6",
     "unplugin-auto-import": "^0.16.6",
-    "unplugin-icons": "^0.16.5",
+    "unplugin-icons": "^0.16.6",
     "unplugin-vue-components": "^0.25.1",
     "vitest": "^0.34.1"
   },
