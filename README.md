@@ -1,6 +1,7 @@
 ## 项目功能架构
 
-![项目功能架构](https://cdn.jsdelivr.net/gh/LaicZhang/picture-bed/com/20220415134342.png)
+![项目功能架构](https://img.tucang.cc/api/image/show/a1713e7f218cedc9a1a512355f9fbbb2)
+
 
 - 推荐使用EDGE或非最新版Chrome浏览器进行查看。
 - 基于M1 MacBook Air开发，其他设备屏幕可能出现样式问题（待解决）。
