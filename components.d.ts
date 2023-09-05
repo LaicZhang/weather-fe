@@ -10,7 +10,6 @@ declare module 'vue' {
     AvatarUpload: typeof import('./src/components/info/avatar-upload.vue')['default']
     BackToSvg: typeof import('./src/components/backTo/backToSvg.vue')['default']
     BaseCountDown: typeof import('./src/components/countDown/baseCountDown.vue')['default']
-    BaseInlineForm: typeof import('./src/components/form/base-inline-form.vue')['default']
     CalendarGraph: typeof import('./src/components/github/calendar-graph.vue')['default']
     CBreadCrumbs: typeof import('./src/components/bread-crumbs/c-bread-crumbs.vue')['default']
     City: typeof import('./src/components/city.vue')['default']
@@ -61,7 +60,6 @@ declare module 'vue' {
     ElUpload: typeof import('element-plus/es')['ElUpload']
     IsOnline: typeof import('./src/components/is-online/index.vue')['default']
     Lazyload: typeof import('./src/components/lazyload/index.vue')['default']
-    Loading: typeof import('element-plus/es')['ElLoadingDirective']
     NoticesCount: typeof import('./src/components/notices-count/index.vue')['default']
     PasswordStrengthShow: typeof import('./src/components/valid/passwordStrengthShow.vue')['default']
     PushdeerAlert: typeof import('./src/components/info/pushdeer-alert.vue')['default']
@@ -70,5 +68,8 @@ declare module 'vue' {
     TBody: typeof import('./src/components/table/tBody.vue')['default']
     TPagination: typeof import('./src/components/table/tPagination.vue')['default']
     UserAvatar: typeof import('./src/components/info/user-avatar.vue')['default']
+  }
+  export interface ComponentCustomProperties {
+    vLoading: typeof import('element-plus/es')['ElLoadingDirective']
   }
 }
