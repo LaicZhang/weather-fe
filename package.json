@@ -23,7 +23,7 @@
     "rollup": "2.79.1",
     "stylelint-prettier": "^3.0.0",
     "ts-node": "^10.9.1",
-    "vite": "^2.9.16",
+    "vite": "^4.4.9",
     "vite-plugin-chunk-split": "^0.2.2",
     "vue": "^3.3.4",
     "vue-router": "^4.2.4",

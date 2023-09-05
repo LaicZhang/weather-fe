@@ -108,7 +108,6 @@ export default defineComponent({
 <style>
   @import '@/assets/scss/reset.scss';
   @import '@/assets/scss/base.scss';
-  @import '@/assets/scss/comm.scss';
 </style>
 
 <style lang="scss" scoped>

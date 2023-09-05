@@ -10,8 +10,8 @@
 
 ### [前端](https://github.com/LaicZhang/weather-fe)
 
-- Vue3.2
-- Vite2
+- Vue3
+- Vite4
 - Vue Router
 - Vuex
 - VueUse
