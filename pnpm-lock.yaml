@@ -131,8 +131,8 @@ devDependencies:
     specifier: ^1.5.0
     version: 1.5.0(postcss-html@1.4.1)(stylelint@14.16.1)
   stylelint-config-standard:
-    specifier: ^25.0.0
-    version: 25.0.0(stylelint@14.16.1)
+    specifier: ^29.0.0
+    version: 29.0.0(stylelint@14.16.1)
   typescript:
     specifier: ^5.1.6
     version: 5.1.6
@@ -4363,13 +4363,21 @@ packages:
       stylelint: 14.16.1
     dev: true
 
-  /stylelint-config-standard@25.0.0(stylelint@14.16.1):
-    resolution: {integrity: sha512-21HnP3VSpaT1wFjFvv9VjvOGDtAviv47uTp3uFmzcN+3Lt+RYRv6oAplLaV51Kf792JSxJ6svCJh/G18E9VnCA==}
+  /stylelint-config-recommended@9.0.0(stylelint@14.16.1):
+    resolution: {integrity: sha512-9YQSrJq4NvvRuTbzDsWX3rrFOzOlYBmZP+o513BJN/yfEmGSr0AxdvrWs0P/ilSpVV/wisamAHu5XSk8Rcf4CQ==}
     peerDependencies:
-      stylelint: ^14.4.0
+      stylelint: ^14.10.0
     dependencies:
       stylelint: 14.16.1
-      stylelint-config-recommended: 7.0.0(stylelint@14.16.1)
+    dev: true
+
+  /stylelint-config-standard@29.0.0(stylelint@14.16.1):
+    resolution: {integrity: sha512-uy8tZLbfq6ZrXy4JKu3W+7lYLgRQBxYTUUB88vPgQ+ZzAxdrvcaSUW9hOMNLYBnwH+9Kkj19M2DHdZ4gKwI7tg==}
+    peerDependencies:
+      stylelint: ^14.14.0
+    dependencies:
+      stylelint: 14.16.1
+      stylelint-config-recommended: 9.0.0(stylelint@14.16.1)
     dev: true
 
   /stylelint-prettier@3.0.0(prettier@3.0.2)(stylelint@14.16.1):
