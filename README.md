@@ -43,8 +43,10 @@
 - Tencent Webify
 
 ## 界面展示
+### 数据可视化
+<img width="1440" alt="数据可视化"  src="https://img.tucang.cc/api/image/show/a587c336a237e96620f4fdf2d1ffbc5a">
 ### 登录欢迎界面
-<img width="1440" alt="image" src="https://user-images.githubusercontent.com/51162216/171571377-d87d8ffe-0db1-4ef1-ac7b-ca8e635e395e.png">
+<img width="1440" alt="登录欢迎界面" src="https://user-images.githubusercontent.com/51162216/171571377-d87d8ffe-0db1-4ef1-ac7b-ca8e635e395e.png">
 
 ## LICENSE
 [MIT](https://github.com/LaicZhang/weather-fe/blob/main/LICENSE)
