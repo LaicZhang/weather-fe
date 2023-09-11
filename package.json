@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "@element-plus/icons-vue": "^1.1.4",
-    "@types/lodash-es": "^4.17.8",
+    "@types/lodash-es": "^4.17.9",
     "@vueuse/core": "^10.4.1",
     "axios": "^1.5.0",
     "echarts": "^5.4.3",
