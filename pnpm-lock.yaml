@@ -140,8 +140,8 @@ devDependencies:
     specifier: ^0.16.6
     version: 0.16.6(@vueuse/core@10.4.1)(rollup@3.29.1)
   unplugin-icons:
-    specifier: ^0.16.6
-    version: 0.16.6
+    specifier: ^0.17.0
+    version: 0.17.0
   unplugin-vue-components:
     specifier: ^0.25.2
     version: 0.25.2(rollup@3.29.1)(vue@3.3.4)
@@ -4985,8 +4985,8 @@ packages:
       - rollup
     dev: true
 
-  /unplugin-icons@0.16.6:
-    resolution: {integrity: sha512-jL70sAC7twp4hI/MTfm+vyvTRtHqiEIzf3XOjJz7yzhMEEQnk5Ey5YIXRAU03Mc4BF99ITvvnBzfyRZee86OeA==}
+  /unplugin-icons@0.17.0:
+    resolution: {integrity: sha512-gMv66eY/Hj64heM55XrfDH3LUCWI51mtkBVUPVl9VkpvLgAYhdVe9nRuzu6p+idmCLSQVq7xiPxQcD4aXCgW5A==}
     peerDependencies:
       '@svgr/core': '>=7.0.0'
       '@svgx/core': ^1.0.1
