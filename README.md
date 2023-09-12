@@ -49,5 +49,11 @@
 ### 登录欢迎界面
 <img width="1440" alt="登录欢迎界面" src="https://user-images.githubusercontent.com/51162216/171571377-d87d8ffe-0db1-4ef1-ac7b-ca8e635e395e.png">
 
+## TODO
+- 日志管理
+- 文件管理
+- 推送设置管理
+- 删除用户及相关数据
+
 ## LICENSE
 [MIT](https://github.com/LaicZhang/weather-fe/blob/main/LICENSE)
