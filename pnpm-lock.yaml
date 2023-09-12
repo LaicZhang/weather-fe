@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@element-plus/icons-vue':
-    specifier: ^1.1.4
-    version: 1.1.4(vue@3.3.4)
+    specifier: ^2.1.0
+    version: 2.1.0(vue@3.3.4)
   '@types/lodash-es':
     specifier: ^4.17.9
     version: 4.17.9
@@ -503,14 +503,6 @@ packages:
   /@ctrl/tinycolor@3.4.1:
     resolution: {integrity: sha512-ej5oVy6lykXsvieQtqZxCOaLT+xD4+QNarq78cIYISHmZXshCvROLudpQN3lfL8G0NL7plMSSK+zlyvCaIJ4Iw==}
     engines: {node: '>=10'}
-    dev: false
-
-  /@element-plus/icons-vue@1.1.4(vue@3.3.4):
-    resolution: {integrity: sha512-Iz/nHqdp1sFPmdzRwHkEQQA3lKvoObk8azgABZ81QUOpW9s/lUyQVUSh0tNtEPZXQlKwlSh7SPgoVxzrE0uuVQ==}
-    peerDependencies:
-      vue: ^3.2.0
-    dependencies:
-      vue: 3.3.4
     dev: false
 
   /@element-plus/icons-vue@2.1.0(vue@3.3.4):
