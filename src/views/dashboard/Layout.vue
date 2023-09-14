@@ -8,7 +8,6 @@ import LineMarker from '@/views/echarts/LineMarker.vue'
 import AreaStack from '@/views/echarts/AreaStack.vue'
 import { getIpApi } from '@/api'
 import { addShareApi } from '@/api/share'
-// import router from '@/router'
 import store from '@/store'
 import UserAvatar from '@/components/info/user-avatar.vue'
 
@@ -20,11 +19,11 @@ const shareForeUrl = currentRoute.replace('dashboard', 'gallery')
 const area = store.state.weatherData
 city.value = `${area.area_1 + area.area_2 + area.area_3}天气可视化`
 
-const getIp = async () => {
+async function getIp() {
   const { ip } = await getIpApi()
   store.commit('setIp', ip)
 }
-const shareCurrentWeather = async () => {
+async function shareCurrentWeather() {
   const data = await addShareApi({
     ip: store.state.ip,
     userId: store.state.userInfo.userId,
@@ -84,14 +83,14 @@ onMounted(() => {
           <div class="middle" />
         </div>
         <div class="left">
-          <line-marker />
+          <LineMarker />
         </div>
         <div class="right">
           <!-- <life-index /> -->
-          <bar1 />
+          <Bar1 />
         </div>
         <div class="bottom">
-          <area-stack />
+          <AreaStack />
         </div>
       </div>
       <div class="sidebar">

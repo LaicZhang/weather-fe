@@ -103,7 +103,7 @@ const addUserFromRoleOptions = ref([
     value: '2',
   },
 ])
-const checkRepeatUserName = async (rule, value, callback) => {
+async function checkRepeatUserName(rule, value, callback) {
   if (isEdit.value)
     return
   const userName = addUserFrom.userName
@@ -115,7 +115,7 @@ const checkRepeatUserName = async (rule, value, callback) => {
     return callback(new Error('用户名已存在'))
   return callback()
 }
-const checkRepeatUserEmail = async (rule, value, callback) => {
+async function checkRepeatUserEmail(rule, value, callback) {
   if (isEdit.value)
     return
   const userEmail = addUserFrom.userEmail
@@ -127,7 +127,7 @@ const checkRepeatUserEmail = async (rule, value, callback) => {
     return callback(new Error('邮箱已存在'))
   return callback()
 }
-const checkRepeatMobile = async (rule, value, callback) => {
+async function checkRepeatMobile(rule, value, callback) {
   const mobile = addUserFrom.mobile
   if (!mobile)
     return
@@ -178,72 +178,72 @@ const addUserFromRules = {
   }, { validator: checkRepeatMobile, trigger: 'blur' }],
 }
 
-const getUserList = async () => {
+async function getUserList() {
   const params = { ...userFrom, ...pager }
   const { list, page } = await userListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   userList.value = list
 }
-const getAllUsersList = async () => {
+async function getAllUsersList() {
   const params = { ...pager }
   const { list, page } = await userAllListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   userList.value = list
 }
-const deleteUser = async () => {
+async function deleteUser() {
   if (userSelects.value.length > 0)
     return deleteUserApi({ userIds: userSelects.value })
   else
     proxy.$message.error('请选择删除项')
 }
-const getRoleList = async () => {
+async function getRoleList() {
   roleList.value = await rolesAllListApi()
 }
-const addUser = async () => {
+async function addUser() {
   const userFormRaw = toRaw(addUserFrom)
   return addUserApi(userFormRaw)
 }
-const editUser = async () => {
+async function editUser() {
   const userFormRaw = toRaw(addUserFrom)
   return editUserApi(userFormRaw)
 }
 // 通用方法
-const resetFields = (refName) => {
+function resetFields(refName) {
   proxy.$refs[refName].resetFields()
 }
 // 事件方法: 多选时存入选中列表中
-const onChangeUserSelects = (list) => {
+function onChangeUserSelects(list) {
   userSelects.value = list.map(user => user.userId)
 }
-const onChangeCurrentPage = (currentPage) => {
+function onChangeCurrentPage(currentPage) {
   pager.pageNum = currentPage
   getUserList()
 }
-const onSearchUserFrom = () => {
+function onSearchUserFrom() {
   getUserList()
 }
-const onResetUserFrom = () => {
+function onResetUserFrom() {
   proxy.$refs.formRef.resetFields()
   getAllUsersList()
 }
-const onEditUser = async (user) => {
+async function onEditUser(user) {
   addDialog.value = true
   isEdit.value = true
   await nextTick(() => {
     Object.assign(addUserFrom, user)
   })
 }
-const onAddUserBtn = () => {
+function onAddUserBtn() {
   isEdit.value = false
   addDialog.value = true
 }
-const onAddDeleteList = (user) => {
+function onAddDeleteList(user) {
   userSelects.value = [user.userId]
   deleteDialog.value = true
 }
-const onDeleteUserSelects = async () => {
+async function onDeleteUserSelects() {
   try {
     const { nModified } = await deleteUser()
     if (nModified > 0) {
@@ -258,12 +258,12 @@ const onDeleteUserSelects = async () => {
   catch (error) {}
   deleteDialog.value = false
 }
-const onCancel = () => {
+function onCancel() {
   isEdit.value = false
   resetFields('addFromRef')
   addDialog.value = false
 }
-const resetPassword = () => {
+function resetPassword() {
   ElMessageBox.confirm('确认重置密码?', 'Warning', {
     confirmButtonText: '确定',
     cancelButtonText: '取消',
@@ -284,7 +284,7 @@ const resetPassword = () => {
       })
     })
 }
-const onSummit = async () => {
+async function onSummit() {
   let res
   if (isEdit.value) {
     res = await editUser()

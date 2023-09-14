@@ -34,7 +34,7 @@ currentLocation.value = userInfo.location.province + userInfo.location.city
 let cityNm = '成都'
 const locationKey = ref(1)
 // 更新选中的省市区数据
-const changeCity = (cityInfo: any) => {
+function changeCity(cityInfo: any) {
   provinceCode.value = cityInfo.provinceCode
   cityCode.value = cityInfo.cityCode
   countyCode.value = cityInfo.countyCode
@@ -43,7 +43,7 @@ const changeCity = (cityInfo: any) => {
   cityNm = cityNm.substring(0, cityNm.length - 1)
   currentLocation.value = cityInfo.fullLocation
 }
-const setValue = (list: any, page: any) => {
+function setValue(list: any, page: any) {
   pager.pageNum = page.pageNum
   pager.total = page.total
   dataList.value = list
@@ -52,12 +52,12 @@ const setValue = (list: any, page: any) => {
 //   const { list, page } = await getWeatherListApi({ pager })
 //   setValue(list, page)
 // }
-const onChangeCurrentPage = async (currentPage: number) => {
+async function onChangeCurrentPage(currentPage: number) {
   pager.pageNum = currentPage
   const { list, page } = await getWeatherListApi({ pager, city: cityNm })
   setValue(list, page)
 }
-const onSubmit = async (action: string) => {
+async function onSubmit(action: string) {
   if (store.state.location !== '')
     cityNm = store.state.location
   if (action === 'permanent')
@@ -66,7 +66,7 @@ const onSubmit = async (action: string) => {
   const { list, page } = await getWeatherListApi({ pager, city: cityNm, action })
   setValue(list, page)
 }
-const resetForm = () => {
+function resetForm() {
   locationKey.value++
 }
 

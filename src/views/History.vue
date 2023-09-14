@@ -8,7 +8,7 @@ const userId = store.state.userInfo.userId
 const BASE_CLIENT_URL = `${store.state.BASE_CDN_URL}img/client/`
 const historyList: any = reactive([])
 
-const getHistory = async () => {
+async function getHistory() {
   const data = await getHistoryApi({ userId })
   Object.assign(historyList, data)
 }

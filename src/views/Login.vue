@@ -4,7 +4,7 @@ import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { getIpApi, getWeatherLikeApi, loginApi, menuPermissionApi } from '@/api'
 
 const { router, store } = useVuexWithRouter()
-const toPageHome = () => {
+function toPageHome() {
   router.push('/')
 }
 const BASE_CDN_URL: string = store.state.BASE_CDN_URL
@@ -41,16 +41,16 @@ const userRules = {
   ],
 }
 // const componentKey = ref(0)
-const getMenuPermission = async () => {
+async function getMenuPermission() {
   const { menuList, actionList } = await menuPermissionApi()
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
 }
-const encodedUserPwd = (userPwd: string) => {
+function encodedUserPwd(userPwd: string) {
   userForm.userPwd = btoa(userPwd)
   return userForm.userPwd
 }
-const userFromCommit = () => {
+function userFromCommit() {
   userFormRef.value.validate(async (valid: any) => {
     if (valid) {
       encodedUserPwd(userForm.userPwd)
@@ -64,17 +64,17 @@ const userFromCommit = () => {
     }
   })
 }
-const getWeatherLike = async () => {
+async function getWeatherLike() {
   const { condition } = await getWeatherLikeApi()
   coverImgUrl.value = `${BASE_CDN_URL}/img/bg-${condition}.png`
 }
-const toRegister = () => {
+function toRegister() {
   router.push('/register')
 }
-const toForget = () => {
+function toForget() {
   router.push('/forget')
 }
-const toHomeAsVisitor = () => {
+function toHomeAsVisitor() {
   userForm.userName = 'visitor'
   userForm.userPwd = '123456'
   // userForm.captchaCode = '123456'

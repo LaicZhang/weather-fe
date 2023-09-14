@@ -5,7 +5,7 @@ import LifeIndex from './LifeIndex.vue'
 <template>
   <div class="weather-info" />
   <div>
-    <life-index />
+    <LifeIndex />
   </div>
 </template>
 

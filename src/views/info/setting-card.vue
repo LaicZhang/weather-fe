@@ -1,7 +1,5 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
-// import { ElMessage } from 'element-plus'
-// import { Plus } from '@element-plus/icons-vue'
 import util from '@/util/utils'
 import {
   getPusherSettingsApi,
@@ -50,18 +48,18 @@ let pusherConfigForm = reactive({
   serverChanKey: '',
 })
 
-const isVisitorFn = () => {
+function isVisitorFn() {
   if (userInfo.role === 2)
     isVisitor.value = false
 }
-const updatePusherSettings = async () => {
+async function updatePusherSettings() {
   await updatePusherSettingsApi(pusherConfigForm)
 }
-const getPusherSettings = async () => {
+async function getPusherSettings() {
   const { list } = await getPusherSettingsApi({ userId: userInfo.userId })
   pusherConfigForm = Object.assign(pusherConfigForm, list)
 }
-const getUserInfo = async () => {
+async function getUserInfo() {
   const data = await getUserInfoApi({ userId: userInfo.userId })
   Object.assign(userForm, data)
   if (userForm.sex === 1)
@@ -72,10 +70,10 @@ const getUserInfo = async () => {
   userForm.createTime = util.formateDate(new Date(userForm.createTime))
   userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
 }
-const onSubmitPusherConfigForm = () => {
+function onSubmitPusherConfigForm() {
   updatePusherSettings()
 }
-const resetPusherConfigForm = () => {
+function resetPusherConfigForm() {
   getPusherSettings()
 }
 

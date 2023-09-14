@@ -4,7 +4,6 @@ import { deleteFeedbackApi, getFeedbackListApi, getQueryListApi, replyApi } from
 import store from '@/store'
 import util from '@/util/utils'
 import TBody from '@/components/table/tBody.vue'
-// import TPagination from '@/components/table/tPagination.vue'
 
 const userId = store.state.userInfo.userId
 const deleteDialog = ref(false)
@@ -67,7 +66,7 @@ const options = [
   { label: '未处理', value: 0 },
   { label: '已处理', value: 1 },
 ]
-const queryFeedbackList = async () => {
+async function queryFeedbackList() {
   const params = {
     ...queryForm,
     ...pager,
@@ -77,32 +76,32 @@ const queryFeedbackList = async () => {
   pager.total = page.total
   feedbackList.value = list
 }
-const getFeedbackList = async () => {
+async function getFeedbackList() {
   const params = { userId, ...pager }
   const { list, page } = await getFeedbackListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   feedbackList.value = list
 }
-const okToDelete = async () => {
+async function okToDelete() {
   await deleteFeedbackApi(replyForm.feedbackId)
   await getFeedbackList()
   deleteDialog.value = false
 }
-const onReply = (data: any) => {
+function onReply(data: any) {
   replyDialog.value = true
   Object.assign(replyForm, data)
 }
-const onDelete = (data: any) => {
+function onDelete(data: any) {
   deleteDialog.value = true
   Object.assign(replyForm, data)
 }
-const okToReply = async () => {
+async function okToReply() {
   await replyApi({ ...replyForm })
   await getFeedbackList()
   replyDialog.value = false
 }
-const onChangeCurrentPage = async (pageNum: number) => {
+async function onChangeCurrentPage(pageNum: number) {
   pager.pageNum = pageNum
   await getFeedbackList()
 }

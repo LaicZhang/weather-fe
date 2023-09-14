@@ -43,7 +43,7 @@ type EChartsOption = echarts.ComposeOption<
 >
 
 const myRef = ref(null)
-const init = async () => {
+async function init() {
   const element = document.getElementById('area-stack') as HTMLElement
   const myChart = echarts.init(element)
   const currentRoute = router.currentRoute.value

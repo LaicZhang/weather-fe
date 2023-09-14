@@ -71,7 +71,7 @@ const deptList = ref([])
 const selectedRow = reactive({})
 const userInfo = store.state.userInfo
 
-const checkRepeatNoticeTitle = async (rule, value, callback) => {
+async function checkRepeatNoticeTitle(rule, value, callback) {
   const noticeTitle = addNoticeFrom.noticeTitle
   if (!noticeTitle)
     return
@@ -105,25 +105,25 @@ const addNoticeFromRules = {
   }],
 }
 // api
-const getNoticeList = async () => {
+async function getNoticeList() {
   const params = { ...noticeFrom, ...pager }
   const { list, page } = await noticeListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   noticeList.value = list
 }
-const getAllNoticesList = async () => {
+async function getAllNoticesList() {
   const { list, page } = await noticeAllListApi({})
   pager.pageNum = page.pageNum
   pager.total = page.total
   noticeList.value = list
 }
-const onReadAll = async () => {
+async function onReadAll() {
   await noticeAllReadApi({ userId: userInfo.userId })
   getAllNoticesList()
   store.dispatch('getNoticeCount')
 }
-const deleteNotice = async () => {
+async function deleteNotice() {
   if (noticeSelects.value.length > 0)
     return deleteNoticeApi({ _ids: noticeSelects.value })
   else
@@ -131,59 +131,59 @@ const deleteNotice = async () => {
 
   noticeAllListApi()
 }
-const getRoleList = async () => {
+async function getRoleList() {
   roleList.value = await rolesAllListApi()
 }
-const addNotice = async () => {
+async function addNotice() {
   const noticeFormRaw = toRaw(addNoticeFrom)
   return addNoticeApi(noticeFormRaw)
 }
-const editNotice = async () => {
+async function editNotice() {
   const noticeFormRaw = toRaw(addNoticeFrom)
   return editNoticeApi(noticeFormRaw)
 }
-const haveReadCount = async () => {
+async function haveReadCount() {
   await noticeHaveReadApi({ _id: selectedRow.value._id, userId: userInfo.userId })
   moreDialog.value = false
   store.dispatch('getNoticeCount')
   getAllNoticesList()
 }
 // 通用方法
-const resetFields = (refName) => {
+function resetFields(refName) {
   proxy.$refs[refName].resetFields()
 }
 // 事件方法: 多选时存入选中列表中
-const onChangeNoticeSelects = (list) => {
+function onChangeNoticeSelects(list) {
   noticeSelects.value = list.map(notice => notice._id)
 }
-const onChangeCurrentPage = (currentPage) => {
+function onChangeCurrentPage(currentPage) {
   pager.pageNum = currentPage
   getNoticeList()
 }
-const onSearchNoticeFrom = () => {
+function onSearchNoticeFrom() {
   getNoticeList()
 }
-const onResetNoticeFrom = () => {
+function onResetNoticeFrom() {
   proxy.$refs.formRef.resetFields()
   getAllNoticesList()
 }
-const onEditNotice = async (notice) => {
+async function onEditNotice(notice) {
   addDialog.value = true
   isEdit.value = true
   nextTick(() => {
     Object.assign(addNoticeFrom, notice)
   })
 }
-const onAddNoticeBtn = () => {
+function onAddNoticeBtn() {
   isEdit.value = false
   addDialog.value = true
 }
-const onAddDeleteList = (notice) => {
+function onAddDeleteList(notice) {
   noticeSelects.value = [notice._id]
   deleteDialog.value = true
   store.dispatch('getNoticeCount')
 }
-const onDeleteNoticeSelects = async () => {
+async function onDeleteNoticeSelects() {
   try {
     const { nModified } = await deleteNotice()
     if (nModified > 0) {
@@ -196,17 +196,17 @@ const onDeleteNoticeSelects = async () => {
   deleteDialog.value = false
   getAllNoticesList()
 }
-const onCancel = () => {
+function onCancel() {
   isEdit.value = false
   resetFields('addFromRef')
   // addNoticeFrom.state = 3;
   addDialog.value = false
 }
-const watchMore = (val) => {
+function watchMore(val) {
   selectedRow.value = val
   moreDialog.value = true
 }
-const onSummit = () => {
+function onSummit() {
   proxy.$refs.addFromRef.validate(async (valid) => {
     if (valid) {
       try {

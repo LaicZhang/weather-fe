@@ -7,14 +7,14 @@ import backToSvgVue from '@/components/backTo/backToSvg.vue'
 const text = '了解更多'
 const currentRoute = router.currentRoute.value
 const shareId = currentRoute.query.shareId
-const toPageHome = () => {
+function toPageHome() {
   router.push('/')
 }
 const userName = ref('')
 const location = ref('')
 const BE_URL: string = import.meta.env.VITE_BE_URL.replace('/api/', '')
 const imgUrl = ref('https://img.yzcdn.cn/vant/cat.jpeg')
-const getShareInfo = async () => {
+async function getShareInfo() {
   const data = await getShareInfoApi({
     shareId,
   })
@@ -24,7 +24,7 @@ const getShareInfo = async () => {
     location.value = data.shareLocation.city
   }
 }
-const openShare = async () => {
+async function openShare() {
   await openShareApi({ shareId })
 }
 onMounted(() => {

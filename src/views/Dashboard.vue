@@ -5,6 +5,7 @@ import store from '../store'
 import router from '../router'
 import Layout from './dashboard/Layout.vue'
 import backToSvg from '@/components/backTo/backToSvg.vue'
+
 export default defineComponent({
   name: 'Dashboard',
   components: {

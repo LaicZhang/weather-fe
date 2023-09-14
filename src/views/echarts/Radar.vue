@@ -14,13 +14,14 @@ import { CanvasRenderer } from 'echarts/renderers'
 import { onMounted, ref } from 'vue'
 import LifeIndex from './LifeIndex.vue'
 import store from '@/store'
+
 echarts.use([TitleComponent, LegendComponent, RadarChart, CanvasRenderer])
 
 type EChartsOption = echarts.ComposeOption<
 TitleComponentOption | LegendComponentOption | RadarSeriesOption
 >
 const myRef = ref(null)
-const init = () => {
+function init() {
   const myChart = echarts.init(document.getElementById('radar') as HTMLElement)
   const realTime = store.state.weatherData.realTime
   type IndicatorInterface = Record<string, any>
@@ -75,7 +76,7 @@ onMounted(() => {
 <template>
   <div id="radar" ref="myRef" />
   <div>
-    <life-index />
+    <LifeIndex />
   </div>
 </template>
 

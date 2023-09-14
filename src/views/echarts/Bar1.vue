@@ -49,7 +49,7 @@ type EChartsOption = echarts.ComposeOption<
 | LineSeriesOption
 >
 const myRef = ref(null)
-const init = () => {
+function init() {
   const element = document.getElementById('bar1') as HTMLElement
   const myChart = echarts.init(element)
   const futureDay = store.state.weatherData.futureDay

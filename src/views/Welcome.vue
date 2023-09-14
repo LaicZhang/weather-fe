@@ -1,7 +1,7 @@
 <script setup lang="ts">
 // import { defineComponent } from 'vue'
-import store from '@/store'
 // import router from '@/router'
+import store from '@/store'
 import GithubCorner from '@/components/github/corner.vue'
 
 const baseCdnUrl = store.state.BASE_CDN_URL

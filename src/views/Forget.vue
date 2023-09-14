@@ -33,10 +33,9 @@ const userForm: any = reactive({
   changeAction: 'forget',
 })
 
-const sendCaptchaCode = async () => {
-  let data
+async function sendCaptchaCode() {
   if (methodsRadio.value === '邮件')
-    data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+    await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
 
   else
     await sendCaptchaSmsApi({ mobile: userForm.mobile })
@@ -51,10 +50,10 @@ const sendCaptchaCode = async () => {
     }
   }, 1000)
 }
-const toPageLogin = () => {
+function toPageLogin() {
   router.push('/login')
 }
-const userFromCommit = () => {
+function userFromCommit() {
   userFormRef.value.validate(async (valid: any) => {
     if (valid) {
       const data = await changePasswordApi(userForm)
@@ -115,7 +114,7 @@ const userFromCommit = () => {
           placeholder="请输入密码"
         />
         <!-- <password-strength-show :pwdee="userForm.userPwd" /> -->
-        <password-meter :password="userForm.userPwd" />
+        <PasswordMeter :password="userForm.userPwd" />
       </el-form-item>
       <el-form-item prop="userPwd">
         <el-input

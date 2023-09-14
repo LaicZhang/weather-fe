@@ -84,7 +84,7 @@ const options = [
   { label: '未打开过', value: false },
   { label: '已打开过', value: true },
 ]
-const queryShareList = async () => {
+async function queryShareList() {
   const params = {
     ...queryForm,
     ...pager,
@@ -94,32 +94,32 @@ const queryShareList = async () => {
   pager.total = page.total
   shareList.value = list
 }
-const resetForm = () => {
+function resetForm() {
   shareForm.summary = ''
   shareForm.content = ''
 }
-const getShareList = async () => {
+async function getShareList() {
   const params = { userId, ...pager }
   const { list, page } = await getShareListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   shareList.value = list
 }
-const okToDelete = async () => {
+async function okToDelete() {
   await deleteShareApi({ shareId: deleteInfo.shareId })
   await getShareList()
   deleteDialog.value = false
 }
-const onCopy = (data) => {
+function onCopy(data) {
   const { copy } = useClipboard()
   copy(`${shareForeUrl}?shareId=${data.shareId}`)
   ElMessage.success('复制成功，快去分享吧')
 }
-const onDelete = (data) => {
+function onDelete(data) {
   deleteDialog.value = true
   Object.assign(deleteInfo, data)
 }
-const onChangeCurrentPage = async (pageNum) => {
+async function onChangeCurrentPage(pageNum) {
   pager.pageNum = pageNum
   await getShareList()
 }

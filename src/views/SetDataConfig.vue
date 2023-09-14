@@ -46,7 +46,7 @@ const options = [
 const savedConfig: any = {}
 const dataFormRef = ref(null)
 const dataConfig: any = reactive({})
-const onSubmit = () => {
+function onSubmit() {
   writeConfig()
 }
 const dataFormRules = {
@@ -60,10 +60,10 @@ const dataFormRules = {
     { required: true, message: '请选择爬取时间', trigger: 'blur' },
   ],
 }
-const getDataAtNow = async () => {
+async function getDataAtNow() {
   await requestDataApi()
 }
-const readConfig = async () => {
+async function readConfig() {
   const res = await readConfigApi()
   dataConfig.targetUrl = res.targetUrl
   dataConfig.method = res.method
@@ -74,12 +74,12 @@ const readConfig = async () => {
     savedConfig.time = res.time
   }
 }
-const writeConfig = async () => {
+async function writeConfig() {
   if (dataConfig === {})
     return
   await writeConfigApi(dataConfig)
 }
-const resetForm = () => {
+function resetForm() {
   readConfig()
 }
 onMounted(() => {

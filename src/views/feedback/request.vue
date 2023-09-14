@@ -37,7 +37,7 @@ const pager = reactive({
   total: 0,
 })
 
-const onSubmit = () => {
+function onSubmit() {
   feedbackFormRef.value.validate(async (valid: any) => {
     if (valid) {
       const res = await addFeedbackApi(feedbackForm)
@@ -46,27 +46,27 @@ const onSubmit = () => {
     }
   })
 }
-const resetForm = () => {
+function resetForm() {
   feedbackForm.summary = ''
   feedbackForm.content = ''
 }
-const getFeedbackList = async () => {
+async function getFeedbackList() {
   const params = { userId, ...pager }
   const { list, page } = await getFeedbackListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   feedbackList.value = list
 }
-const continueApply = () => {
+function continueApply() {
   resetForm()
   isSubmit.value = false
 }
-const okToDelete = async () => {
+async function okToDelete() {
   await deleteFeedbackApi(replyForm.feedbackId)
   await getFeedbackList()
   deleteDialog.value = false
 }
-const okToReply = async () => {
+async function okToReply() {
   await replyApi({ ...replyForm })
   await getFeedbackList()
   replyDialog.value = false

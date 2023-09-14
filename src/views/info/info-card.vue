@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
-// import { getDictApi } from '@/api/dict'
 import type { FormInstance } from 'element-plus'
 import util from '@/util/utils'
 import {
@@ -37,7 +36,7 @@ const changeEmailForm = reactive({
   userEmail: '',
   captcha: '',
 })
-const checkRepeatUserEmail = async (callback: any) => {
+async function checkRepeatUserEmail(callback: any) {
   const { userEmail } = changeEmailForm
   if (!userEmail)
     return
@@ -62,7 +61,7 @@ const changeMobileForm = reactive({
   mobile: '',
   captcha: '',
 })
-const checkRepeatMobile = async (callback: any) => {
+async function checkRepeatMobile(callback: any) {
   const { mobile } = changeMobileForm
   if (!mobile)
     return
@@ -112,7 +111,7 @@ const changePasswordRules: any = {
     },
   ],
 }
-const changePasswordSubmit = async (validForm: FormInstance | undefined) => {
+async function changePasswordSubmit(validForm: FormInstance | undefined) {
   if (!validForm)
     return
   validForm.validate(async (valid: any) => {
@@ -122,7 +121,7 @@ const changePasswordSubmit = async (validForm: FormInstance | undefined) => {
     ElMessage.error('修改失败')
   })
 }
-const resetChangePasswordForm = (validForm: FormInstance | undefined) => {
+function resetChangePasswordForm(validForm: FormInstance | undefined) {
   if (!validForm)
     return
   validForm.resetFields()
@@ -130,7 +129,7 @@ const resetChangePasswordForm = (validForm: FormInstance | undefined) => {
 
 const isVisitor = ref(true)
 
-const getChangeEmailCaptcha = async () => {
+async function getChangeEmailCaptcha() {
   const res = await getCaptchaEmailApi({
     userEmail: changeEmailForm.userEmail,
   })
@@ -140,7 +139,7 @@ const getChangeEmailCaptcha = async () => {
   else
     ElMessage.error(res.msg)
 }
-const changeEmailSubmit = async () => {
+async function changeEmailSubmit() {
   const data = await checkCaptchaApi({
     userId: userForm.userId,
     userEmail: changeEmailForm.userEmail,
@@ -155,7 +154,7 @@ const changeEmailSubmit = async () => {
     ElMessage.error(data)
   }
 }
-const getChangeMobileCaptcha = async () => {
+async function getChangeMobileCaptcha() {
   const res = await getCaptchaSmsApi({
     mobile: changeMobileForm.mobile,
   })
@@ -165,7 +164,7 @@ const getChangeMobileCaptcha = async () => {
   else
     ElMessage.error(res.msg)
 }
-const changeMobileSubmit = async () => {
+async function changeMobileSubmit() {
   const data = await checkCaptchaApi({
     userId: userForm.userId,
     mobile: changeMobileForm.mobile,
@@ -181,18 +180,18 @@ const changeMobileSubmit = async () => {
   }
 }
 
-const isVisitorFn = () => {
+function isVisitorFn() {
   if (userInfo.role === 2)
     isVisitor.value = false
 }
-const onSubmit = async (data: any) => {
+async function onSubmit(data: any) {
   await changeInfoApi(data)
 }
 // const refreshInfo = async() => {
 //   const data = await refreshApi({ userId: userInfo.userId })
 //   store.commit('setUserInfo', data)
 // }
-const getUserInfo = async () => {
+async function getUserInfo() {
   const data = await getUserInfoApi({ userId })
   Object.assign(userForm, data)
   if (userForm.sex === 1)
@@ -203,7 +202,7 @@ const getUserInfo = async () => {
   userForm.createTime = util.formateDate(new Date(userForm.createTime))
   userForm.lastLoginTime = util.formateDate(new Date(userForm.lastLoginTime))
 }
-const resetForm = () => {
+function resetForm() {
   getUserInfo()
 }
 

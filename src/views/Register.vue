@@ -6,7 +6,7 @@ import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
 import { checkRepeatApi, menuPermissionApi, registerApi, sendCaptchaEmailApi } from '@/api'
 
 const { router, store } = useVuexWithRouter()
-const toPageHome = () => {
+function toPageHome() {
   router.push('/')
 }
 const userFormRef = ref(null)
@@ -16,7 +16,7 @@ const userForm = reactive({
   userPwd: '',
 })
 
-const checkRepeatUserName = async (rule, value, callback) => {
+async function checkRepeatUserName(rule, value, callback) {
   const { userName } = userForm
   if (!userName)
     return
@@ -25,7 +25,7 @@ const checkRepeatUserName = async (rule, value, callback) => {
   if (isRepeat)
     return callback(new Error('用户名已存在'))
 }
-const checkRepeatUserEmail = async (rule, value, callback) => {
+async function checkRepeatUserEmail(rule, value, callback) {
   const { userEmail } = userForm
   if (!userEmail)
     return
@@ -76,7 +76,7 @@ const userRules = {
     },
   ],
 }
-const getMenuPermission = async () => {
+async function getMenuPermission() {
   const { menuList, actionList } = await menuPermissionApi()
   store.commit('setActionList', actionList)
   store.commit('setMenuList', menuList)
@@ -93,7 +93,7 @@ const arr = [
   { value: '@139.com' },
   { value: '@189.com' },
 ]
-const querySearch = (queryString, callback) => {
+function querySearch(queryString, callback) {
   const results = []
   queryString = queryString.toLowerCase()
 
@@ -102,16 +102,16 @@ const querySearch = (queryString, callback) => {
 
   callback(results)
 }
-const handleSelect = (item) => {
+function handleSelect(item) {
   userForm.userEmail = item
 }
-const encodedUserPwd = (userPwd) => {
+function encodedUserPwd(userPwd) {
   return btoa(userPwd)
 }
-const decodedUserPwd = (userPwd) => {
+function decodedUserPwd(userPwd) {
   return atob(userPwd)
 }
-const userFromCommit = () => {
+function userFromCommit() {
   userFormRef.value.validate(async (valid) => {
     if (valid) {
       if (userForm.userPwd !== userForm.userConfirmPwd) {
@@ -132,10 +132,10 @@ const userFromCommit = () => {
     }
   })
 }
-const sendCaptchaEmail = async () => {
+async function sendCaptchaEmail() {
   const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
 }
-const toLogin = () => {
+function toLogin() {
   router.push('/login')
   // router.back()
 }
@@ -226,7 +226,7 @@ const toLogin = () => {
   </div>
 </template>
 
-<style lang="scss"  scoped >
+<style lang="scss"  scoped>
 .register-page {
   width: 100vw;
   height: 100vh;

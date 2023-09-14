@@ -161,32 +161,32 @@ const addPusherFromRules = {
   },
 }
 // api
-const getPusherList = async () => {
+async function getPusherList() {
   const params = { ...pusherFrom, ...pager }
   const { list, page } = await pusherListApi(params)
   pager.pageNum = page.pageNum
   pager.total = page.total
   pusherList.value = list
 }
-const getAllPushersList = async () => {
+async function getAllPushersList() {
   const { list, page } = await pusherAllListApi({ userId: userInfo.userId })
   pager.pageNum = page.pageNum
   pager.total = page.total
   pusherList.value = list
 }
-const cancelPush = async (pusherId) => {
+async function cancelPush(pusherId) {
   await cancelPushApi({ pusherId })
   await getPusherList()
 }
 const pusherCategoryOptions = ref([])
-const getPusherCategoryOptions = async () => {
+async function getPusherCategoryOptions() {
   pusherCategoryOptions.value = await getDictApi('pusher_category')
 }
 const pushLifetimeOptions = ref([])
-const getPushLifetimeOptions = async () => {
+async function getPushLifetimeOptions() {
   pushLifetimeOptions.value = await getDictApi('pusher_lifetime')
 }
-const deletePusher = async () => {
+async function deletePusher() {
   if (pusherSelects.value.length > 0)
     return deletePusherApi({ _ids: pusherSelects.value })
   else
@@ -194,44 +194,44 @@ const deletePusher = async () => {
 
   pusherAllListApi()
 }
-const getRoleList = async () => {
+async function getRoleList() {
   roleList.value = await rolesAllListApi()
 }
-const addPusher = async () => {
+async function addPusher() {
   const pusherFormRaw = toRaw(addPusherFrom)
   return addPusherApi(pusherFormRaw)
 }
-const editPusher = async () => {
+async function editPusher() {
   const pusherFormRaw = toRaw(addPusherFrom)
   return editPusherApi(pusherFormRaw)
 }
 // 通用方法
-const resetFields = (refName) => {
+function resetFields(refName) {
   proxy.$refs[refName].resetFields()
 }
 // 事件方法: 多选时存入选中列表中
-const onChangePusherSelects = (list) => {
+function onChangePusherSelects(list) {
   pusherSelects.value = list.map(pusher => pusher._id)
 }
-const onChangeCurrentPage = (currentPage) => {
+function onChangeCurrentPage(currentPage) {
   pager.pageNum = currentPage
   getPusherList()
 }
-const onSearchPusherFrom = () => {
+function onSearchPusherFrom() {
   getPusherList()
 }
-const onResetPusherFrom = () => {
+function onResetPusherFrom() {
   proxy.$refs.formRef.resetFields()
   getAllPushersList()
 }
-const onEditPusher = async (pusher) => {
+async function onEditPusher(pusher) {
   addDialog.value = true
   isEdit.value = true
   await nextTick(() => {
     Object.assign(addPusherFrom, pusher)
   })
 }
-const onAddPusherBtn = async () => {
+async function onAddPusherBtn() {
   let ip = ''
   if (!ip) {
     ip = await getIpApi()
@@ -242,11 +242,11 @@ const onAddPusherBtn = async () => {
   isEdit.value = false
   addDialog.value = true
 }
-const onAddDeleteList = (pusher) => {
+function onAddDeleteList(pusher) {
   pusherSelects.value = [pusher._id]
   deleteDialog.value = true
 }
-const onDeletePusherSelects = async () => {
+async function onDeletePusherSelects() {
   try {
     const { nModified } = await deletePusher()
     if (nModified > 0) {
@@ -258,12 +258,12 @@ const onDeletePusherSelects = async () => {
   deleteDialog.value = false
   getAllPushersList()
 }
-const onCancel = () => {
+function onCancel() {
   isEdit.value = false
   resetFields('addFromRef')
   addDialog.value = false
 }
-const watchMore = (val) => {
+function watchMore(val) {
   // console.log('watchMore', val)
   moreDialog.value = true
 }
@@ -271,7 +271,7 @@ const watchMore = (val) => {
 let pusherLifeTime = ''
 let _id = ''
 let pusherId = ''
-const openImmediatelyPushDialog = (val) => {
+function openImmediatelyPushDialog(val) {
   // console.info('immediatelyPush', val)
   _id = val._id
   pusherId = val.pusherId
@@ -279,12 +279,12 @@ const openImmediatelyPushDialog = (val) => {
   pusherLifeTime = val.pusherLifeTime
   immediatelyPushDialog.value = true
 }
-const immediatelyPush = async () => {
+async function immediatelyPush() {
   await immediatelyPushApi({ _id, pusherId, userId: userInfo.userId, pusherLifeTime })
   await getAllPushersList()
   immediatelyPushDialog.value = false
 }
-const onSummit = () => {
+function onSummit() {
   proxy.$refs.addFromRef.validate(async (valid) => {
     if (valid) {
       try {

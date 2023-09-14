@@ -48,7 +48,7 @@ type EChartsOption = echarts.ComposeOption<
 | LineSeriesOption
 >
 const myRef = ref(null)
-const initT = () => {
+function initT() {
   const element = document.getElementById('link-marker') as HTMLElement
   const myChart = echarts.init(element)
   const futureHour = store.state.weatherData.futureHour
