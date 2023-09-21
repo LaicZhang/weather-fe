@@ -38,7 +38,7 @@
     "@iconify/json": "^2.2.117",
     "@types/node": "^20.6.3",
     "@vitejs/plugin-vue": "^4.3.4",
-    "autoprefixer": "^10.4.15",
+    "autoprefixer": "^10.4.16",
     "commitlint": "^17.7.1",
     "eslint": "^8.49.0",
     "eslint-config-prettier": "^9.0.0",
