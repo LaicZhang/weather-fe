@@ -24,8 +24,8 @@ dependencies:
     specifier: ~2.3.14
     version: 2.3.14(vue@3.3.4)
   rollup:
-    specifier: 3.29.3
-    version: 3.29.3
+    specifier: 3.29.4
+    version: 3.29.4
   stylelint-prettier:
     specifier: ^3.0.0
     version: 3.0.0(prettier@3.0.3)(stylelint@14.16.1)
@@ -54,7 +54,7 @@ dependencies:
 devDependencies:
   '@amatlash/vite-plugin-stylelint':
     specifier: ^1.2.0
-    version: 1.2.0(rollup@3.29.3)(vite@4.4.9)
+    version: 1.2.0(rollup@3.29.4)(vite@4.4.9)
   '@antfu/eslint-config':
     specifier: ^0.43.1
     version: 0.43.1(eslint@8.50.0)(typescript@5.2.2)
@@ -120,7 +120,7 @@ devDependencies:
     version: 3.0.3
   rollup-plugin-visualizer:
     specifier: ^5.9.2
-    version: 5.9.2(rollup@3.29.3)
+    version: 5.9.2(rollup@3.29.4)
   sass:
     specifier: ^1.68.0
     version: 1.68.0
@@ -138,13 +138,13 @@ devDependencies:
     version: 5.2.2
   unplugin-auto-import:
     specifier: ^0.16.6
-    version: 0.16.6(@vueuse/core@10.4.1)(rollup@3.29.3)
+    version: 0.16.6(@vueuse/core@10.4.1)(rollup@3.29.4)
   unplugin-icons:
     specifier: ^0.17.0
     version: 0.17.0
   unplugin-vue-components:
     specifier: ^0.25.2
-    version: 0.25.2(rollup@3.29.3)(vue@3.3.4)
+    version: 0.25.2(rollup@3.29.4)(vue@3.3.4)
   vitest:
     specifier: ^0.34.5
     version: 0.34.5(jsdom@22.1.0)(less@4.2.0)(sass@1.68.0)
@@ -156,14 +156,14 @@ packages:
     engines: {node: '>=0.10.0'}
     dev: true
 
-  /@amatlash/vite-plugin-stylelint@1.2.0(rollup@3.29.3)(vite@4.4.9):
+  /@amatlash/vite-plugin-stylelint@1.2.0(rollup@3.29.4)(vite@4.4.9):
     resolution: {integrity: sha512-Y5VqUOTJSAJnimaW69TDBaqVWSe8A7K6BCe6kIYRKm7OMbFGamiUJ30Vb7TJAj/ooghUoUAQzRqoMxlThZxu7g==}
     peerDependencies:
       rollup: ^2.60.0
       vite: ^2.6.14
     dependencies:
       '@rollup/pluginutils': 4.2.1
-      rollup: 3.29.3
+      rollup: 3.29.4
       stylelint: 14.16.1
       vite: 4.4.9(@types/node@20.7.1)(less@4.2.0)(sass@1.68.0)
     transitivePeerDependencies:
@@ -918,7 +918,7 @@ packages:
       picomatch: 2.3.1
     dev: true
 
-  /@rollup/pluginutils@5.0.2(rollup@3.29.3):
+  /@rollup/pluginutils@5.0.2(rollup@3.29.4):
     resolution: {integrity: sha512-pTd9rIsP92h+B6wWwFbW8RkZv4hiR/xKsqre4SIuAOaOEQRxi0lqLke9k2/7WegC85GgUs9pjmOjCUi3In4vwA==}
     engines: {node: '>=14.0.0'}
     peerDependencies:
@@ -930,7 +930,7 @@ packages:
       '@types/estree': 1.0.1
       estree-walker: 2.0.2
       picomatch: 2.3.1
-      rollup: 3.29.3
+      rollup: 3.29.4
     dev: true
 
   /@sinclair/typebox@0.27.8:
@@ -4416,7 +4416,7 @@ packages:
     dependencies:
       glob: 7.2.0
 
-  /rollup-plugin-visualizer@5.9.2(rollup@3.29.3):
+  /rollup-plugin-visualizer@5.9.2(rollup@3.29.4):
     resolution: {integrity: sha512-waHktD5mlWrYFrhOLbti4YgQCn1uR24nYsNuXxg7LkPH8KdTXVWR9DNY1WU0QqokyMixVXJS4J04HNrVTMP01A==}
     engines: {node: '>=14'}
     hasBin: true
@@ -4428,7 +4428,7 @@ packages:
     dependencies:
       open: 8.4.0
       picomatch: 2.3.1
-      rollup: 3.29.3
+      rollup: 3.29.4
       source-map: 0.7.4
       yargs: 17.7.2
     dev: true
@@ -4441,8 +4441,8 @@ packages:
       fsevents: 2.3.2
     dev: false
 
-  /rollup@3.29.3:
-    resolution: {integrity: sha512-T7du6Hum8jOkSWetjRgbwpM6Sy0nECYrYRSmZjayFcOddtKJWU4d17AC3HNUk7HRuqy4p+G7aEZclSHytqUmEg==}
+  /rollup@3.29.4:
+    resolution: {integrity: sha512-oWzmBZwvYrU0iJHtDmhsm662rC15FRXmcjCk1xD771dFDx5jJ02ufAQQTn0etB2emNk4J9EZg/yWKpsn9BWGRw==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
     hasBin: true
     optionalDependencies:
@@ -5065,10 +5065,10 @@ packages:
     resolution: {integrity: sha512-TrY6DsjTQQgyS3E3dBaOXf0TpPD8u9FVrVYmKVegJuFw51n/YB9XPt+U6ydzFG5ZIN7+DIjPbNmXoBj9esYhgQ==}
     dev: true
 
-  /unimport@3.0.14(rollup@3.29.3):
+  /unimport@3.0.14(rollup@3.29.4):
     resolution: {integrity: sha512-67Rh/sGpEuVqdHWkXaZ6NOq+I7sKt86o+DUtKeGB6dh4Hk1A8AQrzyVGg2+LaVEYotStH7HwvV9YSaRjyT7Uqg==}
     dependencies:
-      '@rollup/pluginutils': 5.0.2(rollup@3.29.3)
+      '@rollup/pluginutils': 5.0.2(rollup@3.29.4)
       escape-string-regexp: 5.0.0
       fast-glob: 3.3.0
       local-pkg: 0.4.3
@@ -5099,7 +5099,7 @@ packages:
     engines: {node: '>= 10.0.0'}
     dev: true
 
-  /unplugin-auto-import@0.16.6(@vueuse/core@10.4.1)(rollup@3.29.3):
+  /unplugin-auto-import@0.16.6(@vueuse/core@10.4.1)(rollup@3.29.4):
     resolution: {integrity: sha512-M+YIITkx3C/Hg38hp8HmswP5mShUUyJOzpifv7RTlAbeFlO2Tyw0pwrogSSxnipHDPTtI8VHFBpkYkNKzYSuyA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -5112,13 +5112,13 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.5
-      '@rollup/pluginutils': 5.0.2(rollup@3.29.3)
+      '@rollup/pluginutils': 5.0.2(rollup@3.29.4)
       '@vueuse/core': 10.4.1(vue@3.3.4)
       fast-glob: 3.3.0
       local-pkg: 0.4.3
       magic-string: 0.30.1
       minimatch: 9.0.3
-      unimport: 3.0.14(rollup@3.29.3)
+      unimport: 3.0.14(rollup@3.29.4)
       unplugin: 1.3.2
     transitivePeerDependencies:
       - rollup
@@ -5155,7 +5155,7 @@ packages:
       - supports-color
     dev: true
 
-  /unplugin-vue-components@0.25.2(rollup@3.29.3)(vue@3.3.4):
+  /unplugin-vue-components@0.25.2(rollup@3.29.4)(vue@3.3.4):
     resolution: {integrity: sha512-OVmLFqILH6w+eM8fyt/d/eoJT9A6WO51NZLf1vC5c1FZ4rmq2bbGxTy8WP2Jm7xwFdukaIdv819+UI7RClPyCA==}
     engines: {node: '>=14'}
     peerDependencies:
@@ -5169,7 +5169,7 @@ packages:
         optional: true
     dependencies:
       '@antfu/utils': 0.7.6
-      '@rollup/pluginutils': 5.0.2(rollup@3.29.3)
+      '@rollup/pluginutils': 5.0.2(rollup@3.29.4)
       chokidar: 3.5.3
       debug: 4.3.4
       fast-glob: 3.3.0
@@ -5341,7 +5341,7 @@ packages:
       esbuild: 0.18.11
       less: 4.2.0
       postcss: 8.4.30
-      rollup: 3.29.3
+      rollup: 3.29.4
       sass: 1.68.0
     optionalDependencies:
       fsevents: 2.3.2
