@@ -33,7 +33,7 @@
   "devDependencies": {
     "@amatlash/vite-plugin-stylelint": "^1.2.0",
     "@antfu/eslint-config": "^0.43.1",
-    "@commitlint/cli": "^17.7.2",
+    "@commitlint/cli": "^17.8.0",
     "@commitlint/config-conventional": "^17.8.0",
     "@iconify/json": "^2.2.128",
     "@types/node": "^20.8.6",
