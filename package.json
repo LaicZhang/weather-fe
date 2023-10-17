@@ -19,7 +19,7 @@
     "@vueuse/core": "^10.5.0",
     "axios": "^1.5.1",
     "echarts": "^5.4.3",
-    "element-plus": "~2.3.14",
+    "element-plus": "~2.4.0",
     "rollup": "3.29.4",
     "stylelint-prettier": "^3.0.0",
     "ts-node": "^10.9.1",
