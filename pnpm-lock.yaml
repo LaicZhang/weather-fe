@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^0.43.1
     version: 0.43.1(eslint@8.51.0)(typescript@5.2.2)
   '@commitlint/cli':
-    specifier: ^17.8.0
-    version: 17.8.0
+    specifier: ^18.0.0
+    version: 18.0.0
   '@commitlint/config-conventional':
     specifier: ^18.0.0
     version: 18.0.0
