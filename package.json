@@ -35,7 +35,7 @@
     "@antfu/eslint-config": "^0.43.1",
     "@commitlint/cli": "^18.2.0",
     "@commitlint/config-conventional": "^18.1.0",
-    "@iconify/json": "^2.2.134",
+    "@iconify/json": "^2.2.135",
     "@types/node": "^20.8.9",
     "@vitejs/plugin-vue": "^4.4.0",
     "autoprefixer": "^10.4.16",
