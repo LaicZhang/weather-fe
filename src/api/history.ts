@@ -1,9 +1,9 @@
 import request from '@/util/request'
 
-export const getHistoryApi = (data = {}) => {
+export function getHistoryApi(data = {}) {
   return request.get('/history/query', data, { mock: false })
 }
 
-export const checkHistoryApi = (data = {}) => {
+export function checkHistoryApi(data = {}) {
   return request.get('/history/check', data, { mock: false })
 }

@@ -1,6 +1,4 @@
 <script>
-/* eslint-disable object-curly-newline */
-
 export default {
   props: {
     time: {
@@ -71,12 +69,10 @@ export default {
       return { dd, hh, mm, ss }
     },
     countDown() {
-      // eslint-disable-next-line no-unused-expressions
       this.curTime = Date.now()
       this.getTime(this.duration)
     },
     getTime(time) {
-      // eslint-disable-next-line no-unused-expressions
       this.timer && clearTimeout(this.timer)
       if (time < 0)
         return

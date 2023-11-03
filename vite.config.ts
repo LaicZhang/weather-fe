@@ -6,8 +6,8 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import Icons from 'unplugin-icons/vite'
-import viteStylelint from '@amatlash/vite-plugin-stylelint'
 
+// import viteStylelint from '@amatlash/vite-plugin-stylelint'
 // import { chunkSplitPlugin } from 'vite-plugin-chunk-split'
 
 const environment = process.env.NODE_ENV || 'development'
@@ -136,10 +136,10 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
-    viteStylelint({
-      // 对某些文件排除检查
-      exclude: /windicss|node_modules/,
-    }),
+    // viteStylelint({
+    //   // 对某些文件排除检查
+    //   exclude: /windicss|node_modules/,
+    // }),
   ],
   // base:'/weather-fe/'
   // base: './'

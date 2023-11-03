@@ -1,4 +1,6 @@
 <script>
+import router from '@/router'
+
 export default {
   name: 'Sign',
   components: {},
@@ -23,20 +25,20 @@ export default {
       signUpButton.addEventListener('click', () => container.classList.add('right-panel-active'))
       signInButton.addEventListener('click', () => container.classList.remove('right-panel-active'))
 
-      const demoImg = document.getElementById('demo_img')
-      const demoInput = document.getElementById('demo_input')
+      // const demoImg = document.getElementById('demo_img')
+      // const demoInput = document.getElementById('demo_input')
 
       // 隐藏text block，显示password block
-      function hideShowPsw() {
-        if (demoInput.type === 'password') {
-          demoInput.type = 'text'
-          demo_img.src = 'invisible.png'
-        }
-        else {
-          demoInput.type = 'password'
-          demo_img.src = 'visible.png'
-        }
-      }
+      // function hideShowPsw() {
+      //   if (demoInput.type === 'password') {
+      //     demoInput.type = 'text'
+      //     demo_img.src = 'invisible.png'
+      //   }
+      //   else {
+      //     demoInput.type = 'password'
+      //     demo_img.src = 'visible.png'
+      //   }
+      // }
     },
   },
 }

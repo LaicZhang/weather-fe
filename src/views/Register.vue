@@ -1,5 +1,5 @@
 <script setup>
-import { defineComponent, onMounted, reactive, ref } from 'vue'
+import { reactive, ref } from 'vue'
 import PasswordMeter from 'vue-simple-password-meter'
 import { ElMessage } from 'element-plus'
 import useVuexWithRouter from '@/hooks/useVuexWithRoutert'
@@ -133,7 +133,7 @@ function userFromCommit() {
   })
 }
 async function sendCaptchaEmail() {
-  const data = await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
+  return await sendCaptchaEmailApi({ userEmail: userForm.userEmail })
 }
 function toLogin() {
   router.push('/login')

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { ElMessage } from 'element-plus'
+
 // import { Plus } from '@element-plus/icons-vue'
 // import { getDictApi } from '@/api/dict'
 import util from '@/util/utils'
@@ -9,6 +10,7 @@ import {
   // refreshApi,
 } from '@/api'
 import store from '@/store'
+
 const userForm = reactive({
   userId: 0,
   userName: '',
@@ -30,7 +32,7 @@ const uploadData = ref({
   userId: userInfo.userId,
 })
 
-const getUserInfo = async () => {
+async function getUserInfo() {
   const data = await getUserInfoApi({ userId: userInfo.userId })
   Object.assign(userForm, data)
   if (userForm.sex === 1)
@@ -43,7 +45,7 @@ const getUserInfo = async () => {
 }
 
 const imageUrl = ref(`${uploadCdnUrl}${userInfo.avatar}`)
-const handleAvatarSuccess = (res: any, file: any) => {
+function handleAvatarSuccess(res: any, file: any) {
   const filename = res.data.filename
   userInfo.avatar = filename
   store.commit('setUserInfo', userInfo)
@@ -52,7 +54,7 @@ const handleAvatarSuccess = (res: any, file: any) => {
   // console.log('handleAvatarSuccess', res, file)
   // imageUrl.value = res.data.path
 }
-const beforeAvatarUpload = (file: any) => {
+function beforeAvatarUpload(file: any) {
   const isImage = file.type === 'image/jpeg' || file.type === 'image/png'
   const isLt5M = file.size / 1024 / 1024 < 2
 

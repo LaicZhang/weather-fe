@@ -114,7 +114,7 @@ const changePasswordRules: any = {
 async function changePasswordSubmit(validForm: FormInstance | undefined) {
   if (!validForm)
     return
-  validForm.validate(async (valid: any) => {
+  validForm.validate(async () => {
     const data = await changePasswordApi(changePasswordForm)
     if (data)
       ElMessage.success('修改成功')

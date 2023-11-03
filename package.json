@@ -8,7 +8,8 @@
     "serve": "serve -s dist",
     "lint:script": "eslint . --fix",
     "lint:style": "stylelint --fix \"src/**/*.(vue|less|css)\" --customSyntax postcss-less",
-    "lint": "pnpm run lint:script && pnpm run lint:style",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "vitest",
     "coverage": "vitest run --coverage",
     "postinstall": "husky install"
@@ -76,8 +77,5 @@
       "pnpm run lint:style",
       "git add --force"
     ]
-  },
-  "eslintConfig": {
-    "extends": "@antfu"
   }
 }

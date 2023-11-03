@@ -1,23 +1,17 @@
 {
   "compilerOptions": {
+    "incremental": false,
+    "target": "ESNext",
+    "jsx": "preserve",
+    "lib": ["DOM", "ESNext"],
     "baseUrl": ".",
     "module": "ESNext",
-    "target": "ESNext",
-    "lib": ["DOM", "ESNext"],
-    "strict": true,
-    "esModuleInterop": true,
-    "incremental": false,
-    "skipLibCheck": true,
     "moduleResolution": "node",
-    "jsx": "preserve",
+    "paths": {
+      "@/*": ["src/*"],
+      "@components/*": ["src/components/*"]
+    },
     "resolveJsonModule": true,
-    "noUnusedLocals": true,
-    "strictNullChecks": true,
-    "allowJs": true,
-    "checkJs": false,
-    "noEmit": true,
-    "forceConsistentCasingInFileNames": true,
-    "allowSyntheticDefaultImports": true,
     "types": [
       "vite/client",
       "vue/ref-macros",
@@ -25,10 +19,16 @@
       "vite-plugin-svgr/client",
       "vitest/globals"
     ],
-    "paths": {
-      "@/*": ["src/*"],
-      "@components/*": ["src/components/*"]
-    }
+    "allowJs": true,
+    "checkJs": false,
+    "strict": true,
+    "strictNullChecks": true,
+    "noUnusedLocals": true,
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "exclude": ["dist", "node_modules", "cypress"]
 }

@@ -3,14 +3,13 @@ import { computed, reactive, ref } from 'vue'
 import { onClickOutside } from '@vueuse/core'
 import { getCityList } from '@/api'
 
-const emit = defineEmits(['changeCity'])
 const props = defineProps({
   fullLocation: {
     type: String,
     default: '',
   },
 })
-
+const emit = defineEmits(['changeCity'])
 const isShow = ref(false)
 const loading = ref(false)
 // 城市列表原始数据
@@ -28,7 +27,7 @@ const changeResult = reactive({
 })
 
 // 选择城市操作
-const changeCity = (city) => {
+function changeCity(city) {
   if (city.level === 0) {
     // 点击的省级单位
     changeResult.provinceCode = city.code
@@ -67,7 +66,7 @@ const cityList = computed(() => {
 })
 
 // 点击显示和隐藏弹层
-const toggle = () => {
+function toggle() {
   isShow.value = !isShow.value
   if (isShow.value) {
     loading.value = true

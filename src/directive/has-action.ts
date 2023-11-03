@@ -1,4 +1,5 @@
 import storage from '../util/storage'
+
 const directive = {
   beforeMount(el: any, { value }: any) {
     const actionList = storage.getItem('actionList')

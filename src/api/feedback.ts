@@ -1,21 +1,21 @@
 import request from '@/util/request'
 
-export const addFeedbackApi = (data = {}) => {
+export function addFeedbackApi(data = {}) {
   return request.post('/feedback/add', data, { mock: false })
 }
 
-export const getFeedbackListApi = (data = {}) => {
+export function getFeedbackListApi(data = {}) {
   return request.get('/feedback/list/all', data, { mock: false })
 }
 
-export const getQueryListApi = (data = {}) => {
+export function getQueryListApi(data = {}) {
   return request.get('/feedback/list', data, { mock: false })
 }
 
-export const replyApi = (data = {}) => {
+export function replyApi(data = {}) {
   return request.post('/feedback/reply', data, { mock: false })
 }
 
-export const deleteFeedbackApi = (data = {}) => {
+export function deleteFeedbackApi(data = {}) {
   return request.post('/feedback/delete', data, { mock: false })
 }

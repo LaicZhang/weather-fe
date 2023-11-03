@@ -1,6 +1,5 @@
 <script setup>
 import {
-  defineComponent,
   getCurrentInstance,
   nextTick,
   onMounted,
@@ -67,7 +66,7 @@ const deleteDialog = ref(false)
 const moreDialog = ref(false)
 const addNoticeFrom = reactive({})
 const roleList = ref([])
-const deptList = ref([])
+// const deptList = ref([])
 const selectedRow = reactive({})
 const userInfo = store.state.userInfo
 
@@ -85,9 +84,7 @@ const addNoticeFromRules = {
     required: true,
     message: '必须填写公告标题',
     trigger: 'blur',
-  },
-  { validator: checkRepeatNoticeTitle, trigger: 'blur' },
-  {
+  }, { validator: checkRepeatNoticeTitle, trigger: 'blur' }, {
     min: 5,
     max: 50,
     message: '公告标题最少5个，最多50个字符',

@@ -1,8 +1,8 @@
-const findEle = (parent: any, type: any) => {
+function findEle(parent: any, type: any) {
   return parent.tagName.toLowerCase() === type ? parent : parent.querySelector(type)
 }
 
-const trigger = (el: any, type: any) => {
+function trigger(el: any, type: any) {
   const e = document.createEvent('HTMLEvents')
   e.initEvent(type, true, true)
   el.dispatchEvent(e)

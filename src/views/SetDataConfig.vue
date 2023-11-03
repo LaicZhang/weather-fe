@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <script setup lang="ts">
 import { onMounted, reactive, ref } from 'vue'
 import { readConfigApi, requestDataApi, writeConfigApi } from '@/api'
@@ -43,7 +40,7 @@ const options = [
     value: 'http://www.weather.com.cn/textFC/gat.shtml',
   },
 ]
-const savedConfig: any = {}
+let savedConfig = {}
 const dataFormRef = ref(null)
 const dataConfig: any = reactive({})
 function onSubmit() {
@@ -68,14 +65,11 @@ async function readConfig() {
   dataConfig.targetUrl = res.targetUrl
   dataConfig.method = res.method
   dataConfig.time = res.time
-  if (savedConfig === {}) {
-    savedConfig.targetUrl = res.targetUrl
-    savedConfig.method = res.method
-    savedConfig.time = res.time
-  }
+  if (!savedConfig)
+    savedConfig = structuredClone(res)
 }
 async function writeConfig() {
-  if (dataConfig === {})
+  if (!dataConfig)
     return
   await writeConfigApi(dataConfig)
 }

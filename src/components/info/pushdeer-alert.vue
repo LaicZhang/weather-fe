@@ -8,7 +8,7 @@ const GE_URL = 'https://gitee.com'
 const releasesPath = '/easychen/pushdeer/releases'
 const baseCdnUrl: string = store.state.BASE_CDN_URL
 const SVG_CDN_URL: string = store.state.SVG_CDN_URL
-const toDownload = () => {
+function toDownload() {
   window.open('https://apps.apple.com/us/app/pushdeer/id1596771139', 'target')
 }
 </script>

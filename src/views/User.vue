@@ -147,9 +147,7 @@ const addUserFromRules = {
     max: 18,
     message: '长度在 3 到 18 个字符',
     trigger: 'blur',
-  }, { validator: checkRepeatUserName, trigger: 'blur' },
-  { pattern: /^[a-zA-Z]+$/, message: '只能输入字母', trigger: 'blur' },
-  ],
+  }, { validator: checkRepeatUserName, trigger: 'blur' }, { pattern: /^[a-zA-Z]+$/, message: '只能输入字母', trigger: 'blur' }],
   userEmail: [{
     required: true,
     message: '必须填写邮箱',
@@ -158,9 +156,7 @@ const addUserFromRules = {
     type: 'email',
     message: '邮箱格式不正确',
     trigger: 'blur',
-  },
-  { validator: checkRepeatUserEmail, trigger: 'blur' },
-  ],
+  }, { validator: checkRepeatUserEmail, trigger: 'blur' }],
   role: {
     required: true,
     message: '必须选择角色',

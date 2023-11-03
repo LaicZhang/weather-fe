@@ -2,14 +2,14 @@
 import { onMounted, reactive, ref } from 'vue'
 import { useClipboard } from '@vueuse/core'
 import { ElMessage } from 'element-plus'
-import { addShareApi, deleteShareApi, getShareListApi, getShareListWithParamsApi } from '../api/share'
+import { deleteShareApi, getShareListApi, getShareListWithParamsApi } from '../api/share'
 import store from '../store'
 import util from '../util/utils'
 
 const userId = store.state.userInfo.userId
 const role = store.state.userInfo.role
 const deleteDialog = ref(false)
-const replyDialog = ref(false)
+// const replyDialog = ref(false)
 const queryForm = reactive({
   userId,
 })
