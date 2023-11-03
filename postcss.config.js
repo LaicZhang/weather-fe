@@ -1,4 +1,4 @@
-const charsetRemoval = () => {
+function charsetRemoval() {
   return {
     postcssPlugin: 'internal:charset-removal',
     AtRule: {
