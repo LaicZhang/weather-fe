@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^1.2.0
     version: 1.2.0(rollup@3.29.4)(vite@4.5.0)
   '@antfu/eslint-config':
-    specifier: ^1.1.2
-    version: 1.1.2(eslint@8.53.0)(typescript@5.2.2)(vitest@0.34.6)
+    specifier: ^1.1.3
+    version: 1.1.3(eslint@8.53.0)(typescript@5.2.2)(vitest@0.34.6)
   '@commitlint/cli':
     specifier: ^18.4.1
     version: 18.4.1(typescript@5.2.2)
@@ -170,8 +170,8 @@ packages:
       - supports-color
     dev: true
 
-  /@antfu/eslint-config@1.1.2(eslint@8.53.0)(typescript@5.2.2)(vitest@0.34.6):
-    resolution: {integrity: sha512-5wOOd7hgPFvSeeJB5BcQxzuEdfI3L2/nvUxPhdkNGCuUUXKbmH9dC5jAi32psIhYwwzH5WHHi/rRumfyrGmh/w==}
+  /@antfu/eslint-config@1.1.3(eslint@8.53.0)(typescript@5.2.2)(vitest@0.34.6):
+    resolution: {integrity: sha512-jtwqENo/BJf041aPTx7rGVu6UWaO4Hw5qc1ZgSaxcIFiaWNNUyPcnfS3PPTn/DGbYfIZKMTM6jyp2fuNhaQHXQ==}
     hasBin: true
     peerDependencies:
       eslint: '>=8.0.0'
@@ -185,7 +185,7 @@ packages:
       '@typescript-eslint/parser': 6.10.0(eslint@8.53.0)(typescript@5.2.2)
       eslint: 8.53.0
       eslint-config-flat-gitignore: 0.1.1
-      eslint-plugin-antfu: 1.0.2(eslint@8.53.0)
+      eslint-plugin-antfu: 1.0.6(eslint@8.53.0)
       eslint-plugin-eslint-comments: 3.2.0(eslint@8.53.0)
       eslint-plugin-i: 2.29.0(@typescript-eslint/parser@6.10.0)(eslint@8.53.0)
       eslint-plugin-jsdoc: 46.9.0(eslint@8.53.0)
@@ -2418,8 +2418,8 @@ packages:
       - supports-color
     dev: true
 
-  /eslint-plugin-antfu@1.0.2(eslint@8.53.0):
-    resolution: {integrity: sha512-elv/LVq+4h9oi7xza9EK93akujmTAGnL3e7aMVVWELjvIJuHcKj0GT6HjdgPDtuBdMnyyKN7fVKIpSNSqZnaIA==}
+  /eslint-plugin-antfu@1.0.6(eslint@8.53.0):
+    resolution: {integrity: sha512-sWeIhm6Tu6IerSvwxQB9rQVHp4p70Y1zsNuFdV1iAyeh4DI1vCP0WMfWXhUJijFLIHxwis9GBMDJREba+KrBhw==}
     peerDependencies:
       eslint: '*'
     dependencies:
