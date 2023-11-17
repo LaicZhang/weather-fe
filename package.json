@@ -1,6 +1,7 @@
 {
   "name": "weather-fe",
   "version": "1.0.0",
+  "type":"module",
   "scripts": {
     "dev": "vite --host --open",
     "build": "vite build --mode production",
