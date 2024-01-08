@@ -22,7 +22,7 @@
     "axios": "^1.6.2",
     "echarts": "^5.4.3",
     "element-plus": "~2.4.3",
-    "rollup": "4.9.2",
+    "rollup": "4.9.4",
     "stylelint-prettier": "^4.1.0",
     "ts-node": "^10.9.1",
     "vite": "^5.0.4",
