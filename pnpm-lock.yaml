@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^19.0.0
     version: 19.1.0
   '@iconify/json':
-    specifier: ^2.2.149
-    version: 2.2.150
+    specifier: ^2.2.200
+    version: 2.2.200
   '@types/node':
     specifier: ^20.12.7
     version: 20.12.7
@@ -794,11 +794,11 @@ packages:
     resolution: {integrity: sha512-dvuCeX5fC9dXgJn9t+X5atfmgQAzUOWqS1254Gh0m6i8wKd10ebXkfNKiRK+1GWi/yTvvLDHpoxLr0xxxeslWw==}
     dev: true
 
-  /@iconify/json@2.2.150:
-    resolution: {integrity: sha512-SltvXzHpr919VfTXlxYaO9hWIOZnDl3DMnqdB+BVsh2nHs7QkKHEdimx3XhDmX5wJAKg7gup7sGDwwh9P3aTqQ==}
+  /@iconify/json@2.2.200:
+    resolution: {integrity: sha512-hnGvv2qeQD+DYhbCZSjnIlSi63dPFNmnMWCqLh0cL0kOqQBYsL61ViMjiusjVHKgBWf+fI4Sp6/bsoFuEWbhQg==}
     dependencies:
       '@iconify/types': 2.0.0
-      pathe: 1.1.1
+      pathe: 1.1.2
     dev: true
 
   /@iconify/types@2.0.0:
@@ -4072,6 +4072,10 @@ packages:
 
   /pathe@1.1.1:
     resolution: {integrity: sha512-d+RQGp0MAYTIaDBIMmOfMwz3E+LOZnxx1HZd5R18mmCZY0QBlK0LDZfPc8FW8Ed2DlvsuE6PRjroDY+wg4+j/Q==}
+    dev: true
+
+  /pathe@1.1.2:
+    resolution: {integrity: sha512-whLdWMYL2TwI08hn8/ZqAbrVemu0LNaNNJZX73O6qaIdCTfXutsLhMkjdENX0qhsQ9uIimo4/aQOmXkoon2nDQ==}
     dev: true
 
   /pathval@1.1.1:
