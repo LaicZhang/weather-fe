@@ -64,7 +64,7 @@
     "unplugin-auto-import": "^0.17.1",
     "unplugin-icons": "^0.18.0",
     "unplugin-vue-components": "^0.26.0",
-    "vitest": "^1.4.0"
+    "vitest": "^1.5.0"
   },
   "husky": {
     "pre-commit": "npm run lint"
