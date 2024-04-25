@@ -41,7 +41,7 @@
     "@types/node": "^20.12.7",
     "@vitejs/plugin-vue": "^5.0.0",
     "autoprefixer": "^10.4.19",
-    "commitlint": "^19.0.1",
+    "commitlint": "^19.3.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.3",
