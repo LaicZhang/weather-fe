@@ -48,7 +48,7 @@
     "husky": "^9.0.6",
     "jsdom": "^24.0.0",
     "less": "^4.2.0",
-    "lint-staged": "^15.1.0",
+    "lint-staged": "^15.2.2",
     "postcss": "^8.4.38",
     "postcss-html": "^1.6.0",
     "postcss-import": "16.1.0",
