@@ -65,8 +65,8 @@ devDependencies:
     specifier: ^19.2.2
     version: 19.2.2
   '@iconify/json':
-    specifier: ^2.2.211
-    version: 2.2.211
+    specifier: ^2.2.212
+    version: 2.2.212
   '@types/node':
     specifier: ^20.12.12
     version: 20.12.12
@@ -837,8 +837,8 @@ packages:
     resolution: {integrity: sha512-93zYdMES/c1D69yZiKDBj0V24vqNzB/koF26KPaagAfd3P/4gUlh3Dys5ogAK+Exi9QyzlD8x/08Zt7wIKcDcA==}
     dev: true
 
-  /@iconify/json@2.2.211:
-    resolution: {integrity: sha512-bg/rNpMYwjXJrOR8R56AuMuuNxcSgf/lw/EqtRUyPP1bbiXytF5VJModXohysnsN46M/gr+ydRUjIXRa/vuotA==}
+  /@iconify/json@2.2.212:
+    resolution: {integrity: sha512-d1IXjpbSwk8V3C9D+mruRTJRPqZZpCnOWh9zyG/Zc5zJmPDLBEHNTKz+ZmeiJQ6LdzgjwLJai1WgFvt1HWVIPw==}
     dependencies:
       '@iconify/types': 2.0.0
       pathe: 1.1.2
