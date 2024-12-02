@@ -21,7 +21,7 @@
     "@vueuse/core": "^11.2.0",
     "axios": "^1.7.7",
     "echarts": "^5.5.1",
-    "element-plus": "~2.8.8",
+    "element-plus": "~2.9.0",
     "rollup": "4.24.4",
     "stylelint-prettier": "^4.1.0",
     "ts-node": "^10.9.2",
