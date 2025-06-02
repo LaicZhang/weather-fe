@@ -43,7 +43,7 @@
     "autoprefixer": "^10.4.20",
     "commitlint": "^19.8.0",
     "eslint": "^8.57.0",
-    "eslint-config-prettier": "^10.0.1",
+    "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-prettier": "^5.2.3",
     "husky": "^9.1.7",
     "jsdom": "^26.0.0",
